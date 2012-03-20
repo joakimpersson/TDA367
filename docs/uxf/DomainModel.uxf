@@ -78,25 +78,26 @@ m2=1</panel_attributes>
     <type>com.umlet.element.Relation</type>
     <coordinates>
       <x>40</x>
-      <y>370</y>
+      <y>350</y>
       <w>140</w>
-      <h>120</h>
+      <h>140</h>
     </coordinates>
     <panel_attributes>has
+m1=1
 m2=n</panel_attributes>
-    <additional_attributes>120;30;30;100</additional_attributes>
+    <additional_attributes>120;30;30;120</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
       <x>320</x>
-      <y>370</y>
+      <y>350</y>
       <w>110</w>
-      <h>150</h>
+      <h>170</h>
     </coordinates>
     <panel_attributes>has
 m2=n</panel_attributes>
-    <additional_attributes>30;30;90;130</additional_attributes>
+    <additional_attributes>30;30;90;150</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
@@ -220,7 +221,7 @@ m2=1-4</panel_attributes>
       <x>110</x>
       <y>260</y>
       <w>290</w>
-      <h>140</h>
+      <h>120</h>
     </coordinates>
     <panel_attributes>Player
 --
@@ -228,7 +229,6 @@ m2=1-4</panel_attributes>
 --
 +placeBomb(): Bomb
 +move(direction: Direction): void
--generateNewBomb(duration: long): void
 -pickUpItem(item: PowerUpItem): void</panel_attributes>
     <additional_attributes/>
   </element>
@@ -250,13 +250,13 @@ m2=1-4</panel_attributes>
     <type>com.umlet.element.Relation</type>
     <coordinates>
       <x>180</x>
-      <y>370</y>
+      <y>350</y>
       <w>80</w>
-      <h>120</h>
+      <h>140</h>
     </coordinates>
     <panel_attributes>has
 m2=1</panel_attributes>
-    <additional_attributes>60;30;30;100</additional_attributes>
+    <additional_attributes>60;30;30;120</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
