@@ -1,7 +1,5 @@
 package com.github.joakimpersson.tda367.core;
 
-import java.util.ArrayList;
-import java.util.*;
 
 /**
  * 
