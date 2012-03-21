@@ -88,18 +88,6 @@ m2=n</panel_attributes>
     <additional_attributes>120;30;30;120</additional_attributes>
   </element>
   <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>320</x>
-      <y>350</y>
-      <w>110</w>
-      <h>170</h>
-    </coordinates>
-    <panel_attributes>has
-m2=n</panel_attributes>
-    <additional_attributes>30;30;90;150</additional_attributes>
-  </element>
-  <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
       <x>660</x>
@@ -230,84 +218,6 @@ m2=1-4</panel_attributes>
 +placeBomb(): Bomb
 +move(direction: Direction): void
 -pickUpItem(item: PowerUpItem): void</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>150</x>
-      <y>470</y>
-      <w>120</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>Position
---
--x: int
--y: int</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>180</x>
-      <y>350</y>
-      <w>80</w>
-      <h>140</h>
-    </coordinates>
-    <panel_attributes>has
-m2=1</panel_attributes>
-    <additional_attributes>60;30;30;120</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>660</x>
-      <y>500</y>
-      <w>120</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>Position
---
--x: int
--y: int</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>670</x>
-      <y>420</y>
-      <w>80</w>
-      <h>100</h>
-    </coordinates>
-    <panel_attributes>has
-m2=1</panel_attributes>
-    <additional_attributes>50;30;40;80</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>850</x>
-      <y>280</y>
-      <w>80</w>
-      <h>100</h>
-    </coordinates>
-    <panel_attributes>has
-m2=1</panel_attributes>
-    <additional_attributes>30;30;60;80</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>840</x>
-      <y>360</y>
-      <w>120</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>Position
---
--x: int
--y: int</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
