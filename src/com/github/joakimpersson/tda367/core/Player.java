@@ -10,6 +10,7 @@ import javax.swing.Timer;
  *
  */
 public class Player {
+	
 	private String name;
 	private Position pos;
 	private int health;
@@ -23,12 +24,14 @@ public class Player {
 
 		}
 	};
+	
 	private Timer timer = null;
 
 	public Player(String name) {
 		this.timer = new Timer((int) Parameters.INSTANCE.getBombDetonationTime(),
 				actionListener);
 		this.timer.setRepeats(false);
+		
 		this.name = name;
 		this.pos = new Position(0, 0);
 		this.resetPlayerHealth();
@@ -70,10 +73,10 @@ public class Player {
 	 * @throws IllegalArgumentException
 	 *             if canPlaceBomb() is false
 	 */
-	public Bomb placeBomb() throws IllegalArgumentException {
+	public Bomb placeBomb() throws IllegalStateException {
 		// TODO perhaps a better implementation
 		if (!canPlaceBomb()) {
-			throw new IllegalArgumentException("canPlaceBomb must be true");
+			throw new IllegalStateException("canPlaceBomb must be true");
 		}
 		availableBombs--;
 		timer.start();

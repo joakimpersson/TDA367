@@ -87,7 +87,7 @@ public class PlayerTest {
 		assertEquals(player.getNbrOfAvailableBombs(), nbrOfBombs);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = IllegalStateException.class)
 	public void testPlaceBombException() {
 		player.placeBomb();
 		player.placeBomb();
