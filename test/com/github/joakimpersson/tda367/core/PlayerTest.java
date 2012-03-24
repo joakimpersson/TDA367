@@ -64,7 +64,7 @@ public class PlayerTest {
 	public void testPlaceBomb() {
 		// TODO perhaps implement a better test!
 		long time = Parameters.INSTANCE.getBombDetonationTime();
-		int nbrOfBombs = Parameters.INSTANCE.getNbrOfStartingBombs();
+		int nbrOfBombs = Parameters.INSTANCE.getStartingBombs();
 
 		player.placeBomb();
 

@@ -37,7 +37,7 @@ public class Player {
 		this.resetPlayerHealth();
 
 		// TODO attributeobject
-		this.availableBombs = Parameters.INSTANCE.getNbrOfStartingBombs();
+		this.availableBombs = Parameters.INSTANCE.getStartingBombs();
 	}
 
 	public Player(String name, Position pos) {

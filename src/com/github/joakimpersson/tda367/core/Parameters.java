@@ -12,15 +12,29 @@ public enum Parameters {
 		return 3;
 	}
 
+	//Dublicate
 	public int getPlayerLifes() {
 		return 3;
 	}
 	
-	public int getNbrOfStartingBombs() {
+	public long getBombDetonationTime() {
+		return 1000;
+	}
+	
+	
+	public int getStartingBombs() {
 		return 1;
 	}
 	
-	public long getBombDetonationTime() {
-		return 1000;
+	public int getInitHealth() {
+		return 3;
+	}
+	
+	public int getInitSpeed() {
+		return 1;
+	}
+	
+	public int getInitBombRange() {
+		return 3;
 	}
 }
