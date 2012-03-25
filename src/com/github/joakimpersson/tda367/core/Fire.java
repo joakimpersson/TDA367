@@ -1,6 +1,6 @@
 package com.github.joakimpersson.tda367.core;
 
-public class Fire implements WalkableTile {
+public class Fire extends WalkableTile {
 
 	private int toughness;
 	
@@ -11,19 +11,13 @@ public class Fire implements WalkableTile {
 	}
 
 	@Override
-	public boolean isWalkable() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public Tile fireAction() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void playerEnter() {
+	public void playerEnter(Player player) {
 		// TODO Auto-generated method stub
 		
 	}
