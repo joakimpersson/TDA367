@@ -27,7 +27,11 @@ public enum Bomberman {
 	}
 	
 	public void updateGame(Player player, PlayerAction action) {
-		
+		if(action == PlayerAction.PlaceBomb) {
+			this.placeBomb(player);
+		} else {
+			this.move(player, action);
+		}
 	}
 	
 	private void upgradePlayer(Player player, Attribute attr) {
@@ -47,7 +51,8 @@ public enum Bomberman {
 	}
 	
 	private void placeBomb(Player player) {
-		
+		Bomb bomb = player.placeBomb();
+		bomb.explode();
 	}
 	
 	private void updatePlayerScore(Player plaayer, List<Tile>tiles) {
