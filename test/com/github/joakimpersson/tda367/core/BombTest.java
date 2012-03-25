@@ -17,8 +17,6 @@ public class BombTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		player = new Player("Joakim");
-		bomb = new Bomb(player, new Position(0, 0));
 	}
 
 	@Test
