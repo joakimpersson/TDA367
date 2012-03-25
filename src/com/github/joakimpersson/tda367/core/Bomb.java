@@ -1,26 +1,41 @@
 package com.github.joakimpersson.tda367.core;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Timer;
+
+
 /**
  * 
  * @author joakimpersson
  *
  */
-public class Bomb {
+public abstract class Bomb extends OpaqueTile{
 
-	private Position pos;
-	private Player player;
+	private ActionListener actionListener = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			
+		}
+	};
 	
-	public Bomb(Player player, Position pos) {
+	private Player player;
+	private Timer timer;
+	
+	public Bomb(Player player) {
 		this.player = player;
-		this.pos = pos;
-	}
-
-	public void explode() {
-		//TODO add implementation
-		//Depending on the players attr
 	}
 	
 	public Player getPlayer() {
 		return player;
 	}
+	
+	/**
+	 * Replaces the getBombRange function and is now 
+	 * only public
+	 */
+	public abstract void explode();
 }
