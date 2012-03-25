@@ -4,8 +4,8 @@
   <element>
     <type>com.umlet.element.Package</type>
     <coordinates>
-      <x>40</x>
-      <y>16</y>
+      <x>0</x>
+      <y>0</y>
       <w>1672</w>
       <h>848</h>
     </coordinates>
@@ -18,8 +18,8 @@ fg=black</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>96</x>
-      <y>72</y>
+      <x>56</x>
+      <y>56</y>
       <w>128</w>
       <h>32</h>
     </coordinates>
@@ -31,8 +31,8 @@ Main
   <element>
     <type>com.umlet.element.Package</type>
     <coordinates>
-      <x>96</x>
-      <y>112</y>
+      <x>56</x>
+      <y>96</y>
       <w>1552</w>
       <h>696</h>
     </coordinates>
@@ -45,8 +45,8 @@ fg=black
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>256</x>
-      <y>136</y>
+      <x>216</x>
+      <y>120</y>
       <w>232</w>
       <h>144</h>
     </coordinates>
@@ -67,8 +67,8 @@ fg=black
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>256</x>
-      <y>304</y>
+      <x>216</x>
+      <y>288</y>
       <w>232</w>
       <h>208</h>
     </coordinates>
@@ -93,8 +93,8 @@ fg=black
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>464</x>
-      <y>128</y>
+      <x>424</x>
+      <y>112</y>
       <w>368</w>
       <h>40</h>
     </coordinates>
@@ -104,8 +104,8 @@ fg=black
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>336</x>
-      <y>256</y>
+      <x>296</x>
+      <y>240</y>
       <w>40</w>
       <h>64</h>
     </coordinates>
@@ -116,8 +116,8 @@ m1=1..2</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>184</x>
-      <y>704</y>
+      <x>144</x>
+      <y>688</y>
       <w>88</w>
       <h>64</h>
     </coordinates>
@@ -130,8 +130,8 @@ Parameters
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>136</x>
-      <y>552</y>
+      <x>96</x>
+      <y>536</y>
       <w>224</w>
       <h>144</h>
     </coordinates>
@@ -153,8 +153,8 @@ Parameters
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>296</x>
-      <y>488</y>
+      <x>256</x>
+      <y>472</y>
       <w>40</w>
       <h>80</h>
     </coordinates>
@@ -164,8 +164,8 @@ Parameters
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>896</x>
-      <y>128</y>
+      <x>856</x>
+      <y>112</y>
       <w>136</w>
       <h>40</h>
     </coordinates>
@@ -176,24 +176,24 @@ m1=n</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1016</x>
-      <y>136</y>
+      <x>976</x>
+      <y>120</y>
       <w>128</w>
       <h>80</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 /Tile/
 --
-+getToughness
-+isWalkable()
-+fireAction()</panel_attributes>
++getToughness() : int
++isWalkable() : boolean
++fireAction() : Tile</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1048</x>
-      <y>192</y>
+      <x>1008</x>
+      <y>176</y>
       <w>40</w>
       <h>72</h>
     </coordinates>
@@ -204,106 +204,116 @@ m1=0..1</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1088</x>
-      <y>360</y>
-      <w>40</w>
-      <h>24</h>
+      <x>1072</x>
+      <y>344</y>
+      <w>80</w>
+      <h>40</h>
     </coordinates>
-    <panel_attributes>Box</panel_attributes>
+    <panel_attributes>Box
+--
+-toughness
+--</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1088</x>
-      <y>296</y>
-      <w>40</w>
-      <h>80</h>
+      <x>1048</x>
+      <y>256</y>
+      <w>72</w>
+      <h>104</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>24;24;24;64</additional_attributes>
+    <additional_attributes>24;24;56;88</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1136</x>
-      <y>360</y>
+      <x>1160</x>
+      <y>344</y>
+      <w>72</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Wall
+--
+-toughness
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1072</x>
+      <y>256</y>
+      <w>128</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>24;24;112;88</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>992</x>
+      <y>256</y>
       <w>48</w>
-      <h>24</h>
-    </coordinates>
-    <panel_attributes>Wall</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>1112</x>
-      <y>296</y>
-      <w>64</w>
-      <h>80</h>
+      <h>104</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>24;24;48;64</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>1040</x>
-      <y>296</y>
-      <w>40</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>24;24;24;64</additional_attributes>
+    <additional_attributes>32;24;24;88</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1040</x>
-      <y>360</y>
-      <w>40</w>
-      <h>24</h>
+      <x>984</x>
+      <y>344</y>
+      <w>80</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>Pillar
+--
+-toughness
+--
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>808</x>
-      <y>360</y>
+      <x>752</x>
+      <y>344</y>
       <w>224</w>
-      <h>104</h>
+      <h>112</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Abstract&gt;&gt;
-/IBomb/
+/Bomb/
 --
 -player: Player
 -timer: Timer
 -actionListener: ActionLisener
 --
 -notifyObserver(List&lt;Position) pos:void
-/-getBombRange(): List&lt;Position&gt;pos/</panel_attributes>
+/+explode(): void/
++getPlayer() : Player</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>896</x>
-      <y>296</y>
-      <w>128</w>
-      <h>80</h>
+      <x>840</x>
+      <y>256</y>
+      <w>144</w>
+      <h>104</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.
 </panel_attributes>
-    <additional_attributes>112;24;24;64</additional_attributes>
+    <additional_attributes>128;24;24;88</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1304</x>
-      <y>296</y>
+      <x>1280</x>
+      <y>272</y>
       <w>104</w>
       <h>56</h>
     </coordinates>
@@ -318,8 +328,8 @@ PowerupItem
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1288</x>
-      <y>440</y>
+      <x>1256</x>
+      <y>416</y>
       <w>128</w>
       <h>24</h>
     </coordinates>
@@ -330,19 +340,19 @@ PowerupItem
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1320</x>
-      <y>328</y>
-      <w>40</w>
+      <x>1288</x>
+      <y>304</y>
+      <w>48</w>
       <h>128</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>24;24;24;112</additional_attributes>
+    <additional_attributes>32;24;24;112</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1176</x>
-      <y>440</y>
+      <x>1144</x>
+      <y>416</y>
       <w>104</w>
       <h>24</h>
     </coordinates>
@@ -353,19 +363,19 @@ PowerupItem
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1200</x>
-      <y>328</y>
-      <w>128</w>
+      <x>1168</x>
+      <y>304</y>
+      <w>136</w>
       <h>128</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>112;24;24;112</additional_attributes>
+    <additional_attributes>120;24;24;112</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1424</x>
-      <y>440</y>
+      <x>1392</x>
+      <y>416</y>
       <w>104</w>
       <h>24</h>
     </coordinates>
@@ -376,34 +386,33 @@ PowerupItem
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1376</x>
-      <y>328</y>
-      <w>80</w>
+      <x>1352</x>
+      <y>304</y>
+      <w>72</w>
       <h>128</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>24;24;64;112</additional_attributes>
+    <additional_attributes>24;24;56;112</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1000</x>
-      <y>248</y>
+      <x>960</x>
+      <y>232</y>
       <w>144</w>
-      <h>72</h>
+      <h>48</h>
     </coordinates>
     <panel_attributes>&lt;&lt;abstract&gt;&gt;
 OpaqueTile
 --
--toughness
 --</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1320</x>
-      <y>144</y>
+      <x>1280</x>
+      <y>128</y>
       <w>128</w>
       <h>64</h>
     </coordinates>
@@ -420,8 +429,8 @@ WalkableTile
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1120</x>
-      <y>136</y>
+      <x>1080</x>
+      <y>120</y>
       <w>216</w>
       <h>40</h>
     </coordinates>
@@ -432,19 +441,19 @@ m1=0..1</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1336</x>
-      <y>184</y>
+      <x>1312</x>
+      <y>168</y>
       <w>40</w>
-      <h>128</h>
+      <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>24;24;24;112</additional_attributes>
+    <additional_attributes>24;24;24;104</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>816</x>
-      <y>136</y>
+      <x>776</x>
+      <y>120</y>
       <w>104</w>
       <h>96</h>
     </coordinates>
@@ -461,8 +470,8 @@ GameField
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1416</x>
-      <y>184</y>
+      <x>1376</x>
+      <y>168</y>
       <w>80</w>
       <h>88</h>
     </coordinates>
@@ -472,8 +481,8 @@ GameField
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1384</x>
-      <y>256</y>
+      <x>1344</x>
+      <y>240</y>
       <w>48</w>
       <h>24</h>
     </coordinates>
@@ -483,8 +492,8 @@ GameField
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1384</x>
-      <y>184</y>
+      <x>1344</x>
+      <y>168</y>
       <w>40</w>
       <h>88</h>
     </coordinates>
@@ -494,8 +503,8 @@ GameField
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1456</x>
-      <y>256</y>
+      <x>1416</x>
+      <y>240</y>
       <w>48</w>
       <h>24</h>
     </coordinates>
@@ -505,9 +514,9 @@ GameField
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>944</x>
-      <y>504</y>
-      <w>72</w>
+      <x>888</x>
+      <y>488</y>
+      <w>80</w>
       <h>24</h>
     </coordinates>
     <panel_attributes>NormalBomb
@@ -517,19 +526,19 @@ GameField
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>952</x>
-      <y>440</y>
+      <x>896</x>
+      <y>432</y>
       <w>40</w>
-      <h>80</h>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>24;24;24;64</additional_attributes>
+    <additional_attributes>24;24;24;56</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>848</x>
-      <y>504</y>
+      <x>792</x>
+      <y>488</y>
       <w>72</w>
       <h>24</h>
     </coordinates>
@@ -540,19 +549,19 @@ GameField
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>864</x>
-      <y>440</y>
+      <x>808</x>
+      <y>432</y>
       <w>40</w>
-      <h>80</h>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>24;24;24;64</additional_attributes>
+    <additional_attributes>24;24;24;56</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>384</x>
-      <y>552</y>
+      <x>344</x>
+      <y>536</y>
       <w>224</w>
       <h>152</h>
     </coordinates>
@@ -572,8 +581,8 @@ GameField
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>392</x>
-      <y>488</y>
+      <x>352</x>
+      <y>472</y>
       <w>40</w>
       <h>80</h>
     </coordinates>
