@@ -32,4 +32,16 @@ public enum Parameters {
 	public int getInitBombRange() {
 		return 3;
 	}
+
+	/*
+	 * For the game field and when someone destroys a block&pillar
+	 * I actually have no idea if this works like I want to ;)
+	 */
+	public double getPowerUpProbabilityBox() {
+		return 0.4;
+	}
+
+	public double getPowerUpProbabilityPillar() {
+		return 0.15;
+	}
 }

@@ -1,25 +1,31 @@
 package com.github.joakimpersson.tda367.core;
 
-public class Box extends OpaqueTile{
+public class Box extends OpaqueTile {
 
 	private int toughness;
-	
-	@Override
-	public int getToughness() {
-		// TODO Auto-generated method stub
-		return 0;
+
+	public Box() {
+		this.toughness = 1;
 	}
 
 	@Override
-	public boolean isWalkable() {
-		// TODO Auto-generated method stub
-		return false;
+	public int getToughness() {
+		return toughness;
 	}
 
 	@Override
 	public Tile fireAction() {
-		// TODO Auto-generated method stub
-		return null;
+		if (getRandomNbr()) {
+			return new SpeedUpdateItem();
+		} else {
+			return new Floor();
+		}
 	}
 
+	private boolean getRandomNbr() {
+		double a = Math.random();
+		double probability = Parameters.INSTANCE.getPowerUpProbabilityBox();
+
+		return Double.compare(probability, a) >= 0;
+	}
 }

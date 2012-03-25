@@ -1,9 +1,5 @@
 package com.github.joakimpersson.tda367.core;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.Timer;
 
 
 /**
@@ -12,30 +8,33 @@ import javax.swing.Timer;
  *
  */
 public abstract class Bomb extends OpaqueTile{
-
-	private ActionListener actionListener = new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			
-			
-		}
-	};
 	
+	private int toughness;
 	private Player player;
-	private Timer timer;
 	
 	public Bomb(Player player) {
 		this.player = player;
+		this.toughness = 3;//TODO what should happen here
 	}
 	
 	public Player getPlayer() {
 		return player;
 	}
 	
+	@Override
+	public int getToughness() {
+		return toughness;
+	}
+
+	@Override
+	public Tile fireAction() {
+		//TODO what should happen here
+		return null;
+	}
+	
 	/**
 	 * Replaces the getBombRange function and is now 
-	 * only public
+	 * only public TODO need a system for this shit!
 	 */
 	public abstract void explode();
 }

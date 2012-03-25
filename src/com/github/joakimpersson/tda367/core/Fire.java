@@ -4,22 +4,25 @@ public class Fire extends WalkableTile {
 
 	private int toughness;
 	
+	public Fire() {
+		//TODO what should happen here?
+		this.toughness = 3;
+	}
+	
 	@Override
 	public int getToughness() {
-		// TODO Auto-generated method stub
-		return 0;
+		return toughness;
 	}
 
 	@Override
 	public Tile fireAction() {
-		// TODO Auto-generated method stub
+		// TODO not sure about what should happen here?
 		return null;
 	}
 
 	@Override
 	public void playerEnter(Player player) {
-		// TODO Auto-generated method stub
-		
+		player.playerHit();
 	}
 
 }

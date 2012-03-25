@@ -1,25 +1,25 @@
 package com.github.joakimpersson.tda367.core;
 
-public class Wall extends OpaqueTile{
+public class Wall extends OpaqueTile {
 
 	private int toughness;
+
+	public Wall() {
+		//TODO Is not meant to be destroyable
+		this.toughness = 100;
+	}
 	
 	@Override
 	public int getToughness() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public boolean isWalkable() {
-		// TODO Auto-generated method stub
-		return false;
+		return toughness;
 	}
 
 	@Override
 	public Tile fireAction() {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO the question is if the all should be here?
+		//or should we redefine the fireaction method
+		//it has some flaws
+		return new Wall();
 	}
 
 }
