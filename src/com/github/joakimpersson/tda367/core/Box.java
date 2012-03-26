@@ -1,5 +1,7 @@
 package com.github.joakimpersson.tda367.core;
 
+import com.github.joakimpersson.tda367.factory.PowerUpFactory;
+
 public class Box extends OpaqueTile {
 
 	private int toughness;
@@ -16,7 +18,7 @@ public class Box extends OpaqueTile {
 	@Override
 	public Tile fireAction() {
 		if (getRandomNbr()) {
-			return new SpeedUpdateItem();
+			return PowerUpFactory.getInstance().createObject();
 		} else {
 			return new Floor();
 		}

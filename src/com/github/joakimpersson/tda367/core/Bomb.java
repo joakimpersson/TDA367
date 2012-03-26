@@ -1,26 +1,24 @@
 package com.github.joakimpersson.tda367.core;
 
-
-
 /**
  * 
  * @author joakimpersson
- *
+ * 
  */
-public abstract class Bomb extends OpaqueTile{
-	
+public abstract class Bomb extends OpaqueTile {
+
 	private int toughness;
 	private Player player;
-	
+
 	public Bomb(Player player) {
 		this.player = player;
-		this.toughness = 3;//TODO what should happen here
+		this.toughness = 3;// TODO what should happen here
 	}
-	
+
 	public Player getPlayer() {
 		return player;
 	}
-	
+
 	@Override
 	public int getToughness() {
 		return toughness;
@@ -28,13 +26,13 @@ public abstract class Bomb extends OpaqueTile{
 
 	@Override
 	public Tile fireAction() {
-		//TODO what should happen here
+		// TODO what should happen here
 		return null;
 	}
-	
+
 	/**
-	 * Replaces the getBombRange function and is now 
-	 * only public TODO need a system for this shit!
+	 * Replaces the getBombRange function and is now only public TODO need a
+	 * system for this shit!
 	 */
 	public abstract void explode();
 }
