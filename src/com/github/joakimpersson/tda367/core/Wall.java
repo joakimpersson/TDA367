@@ -5,7 +5,7 @@ public class Wall extends OpaqueTile {
 	private int toughness;
 
 	public Wall() {
-		//TODO Is not meant to be destroyable
+		//Is not meant to be destroyable
 		this.toughness = 100;
 	}
 	
@@ -19,7 +19,7 @@ public class Wall extends OpaqueTile {
 		// TODO the question is if the all should be here?
 		//or should we redefine the fireaction method
 		//it has some flaws
-		return new Wall();
+		return this;
 	}
 
 }

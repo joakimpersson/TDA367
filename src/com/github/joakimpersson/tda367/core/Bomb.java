@@ -12,7 +12,7 @@ public abstract class Bomb extends OpaqueTile {
 
 	public Bomb(Player player) {
 		this.player = player;
-		this.toughness = 3;// TODO what should happen here
+		this.toughness = 3;
 	}
 
 	public Player getPlayer() {
@@ -26,13 +26,8 @@ public abstract class Bomb extends OpaqueTile {
 
 	@Override
 	public Tile fireAction() {
-		// TODO what should happen here
 		return null;
 	}
 
-	/**
-	 * Replaces the getBombRange function and is now only public TODO need a
-	 * system for this shit!
-	 */
 	public abstract void explode();
 }

@@ -40,12 +40,14 @@ public class PlayerAttribute {
 		this.initDefaultMatchValues();
 		this.initDefaultRoundValues();
 	}
-	
-	
+
 	/**
 	 * Upgrade either an round or match attribute with one level
-	 * @param attr The attribute to be upgraded
-	 * @param type The type of the upgrade
+	 * 
+	 * @param attr
+	 *            The attribute to be upgraded
+	 * @param type
+	 *            The type of the upgrade
 	 */
 	public void upgradeAttr(Attribute attr, UpgradeType type) {
 		switch (type) {
@@ -60,19 +62,23 @@ public class PlayerAttribute {
 			break;
 		}
 	}
-	
+
 	/**
 	 * Upgraded an match attribute with one level
-	 * @param attr The attribute to be upgraded
+	 * 
+	 * @param attr
+	 *            The attribute to be upgraded
 	 */
 	private void updateMatchAttr(Attribute attr) {
 		int tmp = matchAttr.get(attr) + 1;
 		matchAttr.put(attr, tmp);
 	}
-	
+
 	/**
 	 * Upgraded an round attribute with one level
-	 * @param attr The attribute to be upgraded
+	 * 
+	 * @param attr
+	 *            The attribute to be upgraded
 	 */
 	private void updateRoundAttr(Attribute attr) {
 		int tmp = roundAttr.get(attr) + 1;

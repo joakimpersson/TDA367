@@ -55,7 +55,6 @@ public class PlayerAttributeTest {
 
 		pa.resetAttr(UpgradeType.Match);
 
-		// TODO is it enough to test if only the changed value is the same?
 		assertEquals(pa.getAttrValue(Attribute.BombRange), bombRangeDefault);
 	}
 
@@ -68,7 +67,6 @@ public class PlayerAttributeTest {
 
 		pa.resetAttr();
 
-		// TODO is it enough to test if only the changed value is the same?
 		assertEquals(pa.getAttrValue(Attribute.BombRange), bombRangeDefault);
 	}
 

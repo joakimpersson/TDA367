@@ -7,8 +7,6 @@ public class AreaBomb extends Bomb {
 	}
 
 	@Override
-	public void explode() {
-		// TODO Add implentation
-	}
+	public void explode() {}
 
 }

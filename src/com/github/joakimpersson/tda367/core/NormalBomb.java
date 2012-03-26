@@ -8,7 +8,7 @@ public class NormalBomb extends Bomb{
 	
 	@Override
 	public void explode() {
-		// TODO Not implemented
+		// 
 		
 	}
 

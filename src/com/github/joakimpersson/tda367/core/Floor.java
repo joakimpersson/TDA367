@@ -7,7 +7,7 @@ public class Floor extends WalkableTile {
 	// TODO rethink none of these methods are not needed
 
 	public Floor() {
-		this.toughness = 100;
+		this.toughness = 0;
 	}
 
 	@Override
