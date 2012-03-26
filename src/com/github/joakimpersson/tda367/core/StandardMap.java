@@ -1,5 +1,9 @@
 package com.github.joakimpersson.tda367.core;
 
+import com.github.joakimpersson.tda367.core.tiles.Box;
+import com.github.joakimpersson.tda367.core.tiles.Floor;
+import com.github.joakimpersson.tda367.core.tiles.Pillar;
+
 
 /**
  * @date 2012-03-26

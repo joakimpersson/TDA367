@@ -2,6 +2,8 @@ package com.github.joakimpersson.tda367.core;
 
 import java.awt.Dimension;
 
+import com.github.joakimpersson.tda367.core.tiles.Tile;
+
 
 
 /**
