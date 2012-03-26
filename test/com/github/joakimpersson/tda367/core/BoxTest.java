@@ -2,6 +2,10 @@ package com.github.joakimpersson.tda367.core;
 
 import org.junit.Test;
 
+import com.github.joakimpersson.tda367.core.powerupitems.SpeedUpdateItem;
+import com.github.joakimpersson.tda367.core.tiles.Box;
+import com.github.joakimpersson.tda367.core.tiles.Tile;
+
 public class BoxTest {
 
 	/**
@@ -15,7 +19,7 @@ public class BoxTest {
 			int k = 0;
 			for (int i = 0; i < 60; i++) {
 				Tile tile = new Box();
-				Tile t = tile.fireAction();
+				Tile t = tile.onFire(1);
 				if (t instanceof SpeedUpdateItem) {
 					k++;
 				}

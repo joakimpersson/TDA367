@@ -1,8 +1,13 @@
-package com.github.joakimpersson.tda367.core;
+package com.github.joakimpersson.tda367.core.powerupitems;
 
+import com.github.joakimpersson.tda367.core.Attribute;
+import com.github.joakimpersson.tda367.core.Player;
 import com.github.joakimpersson.tda367.core.PlayerAttribute.UpgradeType;
+import com.github.joakimpersson.tda367.core.tiles.Floor;
+import com.github.joakimpersson.tda367.core.tiles.Tile;
+import com.github.joakimpersson.tda367.core.tiles.WalkableTile;
 
-public abstract class PowerupItem extends WalkableTile {
+public abstract class PowerupItem implements WalkableTile {
 
 	private int toughness;
 
@@ -31,8 +36,17 @@ public abstract class PowerupItem extends WalkableTile {
 	 * @return A floor tile
 	 */
 	@Override
-	public Tile fireAction() {
-		return new Floor();
+	public Tile onFire(int damage) {
+		if (damage > getToughness()) {
+			return new Floor();
+		} else {
+			return this;
+		}
+	}
+
+	@Override
+	public boolean isWalkable() {
+		return true;
 	}
 
 	/**

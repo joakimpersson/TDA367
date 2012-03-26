@@ -3,6 +3,7 @@ package com.github.joakimpersson.tda367.core;
 import java.awt.Dimension;
 
 
+
 /**
  * @date 2012-03-26
  * @author Viktor Anderling

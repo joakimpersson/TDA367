@@ -1,11 +1,13 @@
 package com.github.joakimpersson.tda367.core;
 
+import com.github.joakimpersson.tda367.core.tiles.Tile;
+
 /**
  * 
  * @author joakimpersson
  * 
  */
-public abstract class Bomb extends OpaqueTile {
+public abstract class Bomb implements Tile {
 
 	private int toughness;
 	private Player player;
@@ -25,9 +27,14 @@ public abstract class Bomb extends OpaqueTile {
 	}
 
 	@Override
-	public Tile fireAction() {
+	public Tile onFire(int damage) {
 		return null;
 	}
 
+	@Override
+	public boolean isWalkable() {
+		return false;
+	}
+	
 	public abstract void explode();
 }

@@ -1,16 +1,15 @@
 package com.github.joakimpersson.tda367.factory;
 
-import com.github.joakimpersson.tda367.core.BombStackUpdateItem;
-import com.github.joakimpersson.tda367.core.PowerupItem;
-import com.github.joakimpersson.tda367.core.RangeUpdateItem;
-import com.github.joakimpersson.tda367.core.SpeedUpdateItem;
+import com.github.joakimpersson.tda367.core.powerupitems.BombStackUpdateItem;
+import com.github.joakimpersson.tda367.core.powerupitems.PowerupItem;
+import com.github.joakimpersson.tda367.core.powerupitems.RangeUpdateItem;
+import com.github.joakimpersson.tda367.core.powerupitems.SpeedUpdateItem;
 
 
-public enum PowerUpFactory {
-	INSTANCE;
+public class PowerUpFactory {
 	
-	public static PowerUpFactory getInstance() {
-		return INSTANCE;
+	public PowerUpFactory() {
+		
 	}
 	
 	public PowerupItem createObject() {
