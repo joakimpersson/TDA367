@@ -7,7 +7,7 @@ import com.github.joakimpersson.tda367.core.tiles.Tile;
 
 /**
  * 
- * @author joakimpersson
+ * @author Viktor Anderling & joakimpersson
  * 
  */
 public class BombermanModel implements IBombermanModel {
@@ -17,8 +17,13 @@ public class BombermanModel implements IBombermanModel {
 
 	public BombermanModel() {
 		this.players = new ArrayList<Player>();
+		this.gameField = new StandardMap();
 	}
-
+	
+	public BombermanModel getInstance() {
+		return this;
+	}
+	
 	public void startGame() {
 
 	}
@@ -66,5 +71,10 @@ public class BombermanModel implements IBombermanModel {
 
 	public List<Player> getPlayers() {
 		return players;
+	}
+
+	@Override
+	public int getTileToughness(int x, int y) {
+		return gameField.getTile(x, y).getToughness();
 	}
 }
