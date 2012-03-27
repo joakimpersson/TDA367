@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.joakimpersson.tda367.core.PlayerAttribute.UpgradeType;
+import com.github.joakimpersson.tda367.core.PlayerAttributes.UpgradeType;
 
 /**
  * 
@@ -15,11 +15,11 @@ import com.github.joakimpersson.tda367.core.PlayerAttribute.UpgradeType;
  */
 public class PlayerAttributeTest {
 	// Add testing for match only upgrades
-	private PlayerAttribute pa;
+	private PlayerAttributes pa;
 
 	@Before
 	public void setUp() throws Exception {
-		pa = new PlayerAttribute();
+		pa = new PlayerAttributes();
 	}
 
 	@Test

@@ -33,6 +33,14 @@ public enum Parameters {
 		return 3;
 	}
 
+	public int getInitBombPower() {
+		return 1;
+	}
+
+	public int getInitBombType() {
+		return 0;
+	}
+
 	/*
 	 * For the game field and when someone destroys a block&pillar
 	 * I actually have no idea if this works like I want to ;)

@@ -2,7 +2,7 @@ package com.github.joakimpersson.tda367.core.powerupitems;
 
 import com.github.joakimpersson.tda367.core.Attribute;
 import com.github.joakimpersson.tda367.core.Player;
-import com.github.joakimpersson.tda367.core.PlayerAttribute.UpgradeType;
+import com.github.joakimpersson.tda367.core.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.core.tiles.Floor;
 import com.github.joakimpersson.tda367.core.tiles.Tile;
 import com.github.joakimpersson.tda367.core.tiles.WalkableTile;

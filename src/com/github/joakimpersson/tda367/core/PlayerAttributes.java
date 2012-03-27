@@ -13,7 +13,7 @@ import java.util.Map;
  * @author joakimpersson
  * 
  */
-public class PlayerAttribute {
+public class PlayerAttributes {
 
 	/**
 	 * A simple Enum that is representing the two different types of available
@@ -32,7 +32,7 @@ public class PlayerAttribute {
 	 * Create a new player attribute object and instantiate the default values
 	 * for the match and round enummap
 	 */
-	public PlayerAttribute() {
+	public PlayerAttributes() {
 
 		matchAttr = new EnumMap<Attribute, Integer>(Attribute.class);
 		roundAttr = new EnumMap<Attribute, Integer>(Attribute.class);

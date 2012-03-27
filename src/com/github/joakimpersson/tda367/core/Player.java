@@ -1,6 +1,6 @@
 package com.github.joakimpersson.tda367.core;
 
-import com.github.joakimpersson.tda367.core.PlayerAttribute.UpgradeType;
+import com.github.joakimpersson.tda367.core.PlayerAttributes.UpgradeType;
 
 /**
  * 
@@ -10,19 +10,16 @@ import com.github.joakimpersson.tda367.core.PlayerAttribute.UpgradeType;
 public class Player {
 
 	private String name;
-	private Position initalPosition;
-	private Position pos;
-	private PlayerAttribute attr;
+	private Position initalPosition, pos;
+	private PlayerAttributes attr;
 	private PlayerPoints points;
-	private int lives;
-	private int bombStack;
-	private int health;
+	private int lives, bombStack, health;
 
 	public Player(String name, Position pos) {
 		this.name = name;
 		this.pos = pos;
 		this.initalPosition = pos;
-		this.attr = new PlayerAttribute();
+		this.attr = new PlayerAttributes();
 		this.points = new PlayerPoints();
 	}
 
@@ -59,7 +56,12 @@ public class Player {
 	}
 
 	public Bomb placeBomb() {
-		return null;
+		switch(attr.getAttrValue(Attribute.BombType)) {
+			default: 
+				return new NormalBomb(this, attr.getAttrValue(Attribute.BombRange), attr.getAttrValue(Attribute.BombPower), pos);
+			case 1: 
+				return new AreaBomb(this, attr.getAttrValue(Attribute.BombRange), attr.getAttrValue(Attribute.BombPower), pos);
+		}
 	}
 
 	public void roundReset() {
@@ -77,9 +79,13 @@ public class Player {
 	public boolean isAlive() {
 		return this.health > 0;
 	}
+	
+	public PlayerAttributes getAttr() {
+		return this.attr;
+	}
 
 	@Override
 	public String toString() {
-		return "P[" + this.name + "," + this.pos + "," + this.health + "]";
+		return "P[" + this.name + ", " + this.pos + ", " + this.health + " HP]";
 	}
 }

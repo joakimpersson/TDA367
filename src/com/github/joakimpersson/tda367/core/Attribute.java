@@ -6,5 +6,5 @@ package com.github.joakimpersson.tda367.core;
  *
  */
 public enum Attribute {
-	Speed, BombRange, Health, BombStack;
+	Speed, Health, BombRange, BombStack, BombPower, BombType;
 }
