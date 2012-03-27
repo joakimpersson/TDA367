@@ -10,18 +10,37 @@ import java.util.List;
  * 
  */
 public interface IBombermanModel {
-	// TODO add documentation
-	
+
+	/**
+	 * Responisble for updating the model with player movements and actions
+	 * 
+	 * @param player
+	 *            The player responsible for the action
+	 * @param action
+	 *            The action performed by the current player
+	 */
 	public void updateGame(Player player, PlayerAction action);
+
+	/**
+	 * After every match it is possible to upgrade a player's attribute
+	 * 
+	 * @param player
+	 *            The player to recceive an attribute upgrade
+	 * @param attr
+	 *            The attribute to be upgraded or added
+	 */
+	public void upgradePlayer(Player player, Attribute attr);
+
+	/**
+	 * Returns a list of the current active players in the game
+	 * @return A list of players
+	 */
+	public List<Player> getPlayers();
 
 	public void startGame();
 
 	public void endGame();
 
-	public void upgradePlayer(Player player, Attribute attr);
-
-	public List<Player> getPlayers();
-	
 	public int getTileToughness(Position pos);
-	
+
 }

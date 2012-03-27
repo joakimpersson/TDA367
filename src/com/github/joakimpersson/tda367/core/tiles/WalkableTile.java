@@ -2,6 +2,11 @@ package com.github.joakimpersson.tda367.core.tiles;
 
 import com.github.joakimpersson.tda367.core.Player;
 
+/**
+ * 
+ * @author joakimpersson
+ *
+ */
 public interface WalkableTile extends Tile {
 
 	/**

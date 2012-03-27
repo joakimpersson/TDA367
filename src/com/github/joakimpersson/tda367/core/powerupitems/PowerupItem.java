@@ -7,12 +7,18 @@ import com.github.joakimpersson.tda367.core.tiles.Floor;
 import com.github.joakimpersson.tda367.core.tiles.Tile;
 import com.github.joakimpersson.tda367.core.tiles.WalkableTile;
 
+/**
+ * 
+ * @author joakimpersson
+ * 
+ */
 public abstract class PowerupItem implements WalkableTile {
 
 	private int toughness;
 
 	public PowerupItem() {
-		this.toughness = 1;
+		// should not slow down the fire
+		this.toughness = 0;
 	}
 
 	@Override

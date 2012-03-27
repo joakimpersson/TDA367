@@ -2,6 +2,11 @@ package com.github.joakimpersson.tda367.core.tiles;
 
 import com.github.joakimpersson.tda367.core.Player;
 
+/**
+ * 
+ * @author joakimpersson
+ * 
+ */
 public class Floor implements WalkableTile {
 
 	private int toughness;
@@ -17,12 +22,26 @@ public class Floor implements WalkableTile {
 		return toughness;
 	}
 
+	/**
+	 * A floor is the simplest tile and is only meant to be walkable for the
+	 * player without any other actions. Therefore it returns itself (this) when
+	 * the method is called, since nothing has changed to the tile.
+	 * 
+	 * @return Itself
+	 */
 	@Override
 	public Tile onFire() {
 
 		return this;
 	}
 
+	/**
+	 * A floor is the simplest tile and is only meant to be walkable for the
+	 * player without any other actions. Therefore it returns itself (this) when
+	 * the method is called, since nothing has changed to the tile
+	 * 
+	 * @return Itself
+	 */
 	@Override
 	public Tile playerEnter(Player player) {
 		return this;

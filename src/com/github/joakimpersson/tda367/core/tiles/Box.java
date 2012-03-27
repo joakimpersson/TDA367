@@ -3,6 +3,11 @@ package com.github.joakimpersson.tda367.core.tiles;
 import com.github.joakimpersson.tda367.core.Parameters;
 import com.github.joakimpersson.tda367.factory.PowerUpFactory;
 
+/**
+ * 
+ * @author joakimpersson
+ * 
+ */
 public class Box implements Tile {
 
 	private int toughness;
@@ -16,6 +21,13 @@ public class Box implements Tile {
 		return toughness;
 	}
 
+	/**
+	 * When the box is destroyed either a floor or powerupitem is randomly
+	 * generated and returned. The probability for the PowerUpItem can be found
+	 * in the parameter class
+	 * 
+	 * @return Either a Floor or a PowerUpItem
+	 */
 	@Override
 	public Tile onFire() {
 		if (getRandomNbr()) {

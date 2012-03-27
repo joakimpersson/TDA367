@@ -2,6 +2,11 @@ package com.github.joakimpersson.tda367.core.tiles;
 
 import com.github.joakimpersson.tda367.core.Player;
 
+/**
+ * 
+ * @author joakimpersson
+ * 
+ */
 public class Fire implements WalkableTile {
 
 	private int toughness;
@@ -16,11 +21,25 @@ public class Fire implements WalkableTile {
 		return toughness;
 	}
 
+	/**
+	 * Fire can't cross other player's fire and therefore it returns itself when
+	 * the method is invoked
+	 * 
+	 * @return Itself
+	 */
 	@Override
 	public Tile onFire() {
 		return this;
 	}
 
+	/**
+	 * If a player enters a fire tile it should loose one hp. Since the tile's
+	 * state is not changed it returns itself when the method is invoked
+	 * 
+	 * @param The
+	 *            player who entered the tile
+	 * @return Itself
+	 */
 	@Override
 	public Tile playerEnter(Player player) {
 		player.playerHit();
