@@ -26,7 +26,7 @@ public class NormalBomb extends Bomb {
 		directedFire(fireList, x, y, Direction.Left, range, power);
 		directedFire(fireList, x, y, Direction.Right, range, power);
 		
-		bm.handleFire(fireList);
+		bm.handleFire(getPlayer(), fireList);
 	}
 
 	private void directedFire(List<Position> l, int x, int y, Direction dir, int r, int p) {

@@ -28,7 +28,7 @@ public class AreaBomb extends Bomb {
 			}
 		}
 		
-		bm.handleFire(fireList);
+		bm.handleFire(getPlayer(), fireList);
 	}
 	
 }
