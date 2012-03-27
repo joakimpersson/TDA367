@@ -7,6 +7,7 @@ public class Fire implements WalkableTile {
 	private int toughness;
 
 	public Fire() {
+		// different players fire should not be able to cross each other
 		this.toughness = 100;
 	}
 
@@ -17,14 +18,13 @@ public class Fire implements WalkableTile {
 
 	@Override
 	public Tile onFire() {
-		// TODO not sure about what should happen here?
-		// do nothing?
-		return null;
+		return this;
 	}
 
 	@Override
-	public void playerEnter(Player player) {
+	public Tile playerEnter(Player player) {
 		player.playerHit();
+		return this;
 	}
 
 	@Override

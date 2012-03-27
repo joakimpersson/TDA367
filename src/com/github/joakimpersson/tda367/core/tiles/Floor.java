@@ -6,9 +6,8 @@ public class Floor implements WalkableTile {
 
 	private int toughness;
 
-	// TODO rethink none of these methods are not needed
-
 	public Floor() {
+		// should be ignored by the fire and skipped
 		this.toughness = 0;
 	}
 
@@ -25,8 +24,8 @@ public class Floor implements WalkableTile {
 	}
 
 	@Override
-	public void playerEnter(Player player) {
-
+	public Tile playerEnter(Player player) {
+		return this;
 	}
 
 	@Override

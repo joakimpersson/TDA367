@@ -16,12 +16,9 @@ public abstract class PowerupItem implements WalkableTile {
 	}
 
 	@Override
-	public void playerEnter(Player player) {
+	public Tile playerEnter(Player player) {
 		player.upgradeAttr(this.getAttr(), UpgradeType.Round);
-		// TODO somehow we must notify BM that it need to replace the current
-		// tile with a floor tile
-		// perhaps simply returning a tile?
-		// solved
+		return new Floor();
 	}
 
 	@Override

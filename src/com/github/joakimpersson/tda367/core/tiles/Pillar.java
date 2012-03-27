@@ -26,6 +26,13 @@ public class Pillar implements Tile {
 		}
 	}
 
+	/**
+	 * 
+	 * Gets a pillar's probability from the parameters class. Based on its
+	 * probability a boolean is generated randomly
+	 * 
+	 * @return Randomly chooses between true or false
+	 */
 	private boolean getRandomNbr() {
 		double a = Math.random();
 		double probability = Parameters.INSTANCE.getPowerUpProbabilityPillar();
