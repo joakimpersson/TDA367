@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 
-import com.github.joakimpersson.tda367.core.PlayerAttribute.UpgradeType;
+import com.github.joakimpersson.tda367.core.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.core.PlayerPoints.PointGiver;
+import com.github.joakimpersson.tda367.core.bombs.Bomb;
 import com.github.joakimpersson.tda367.core.powerupitems.PowerupItem;
 import com.github.joakimpersson.tda367.core.tiles.*;
 
@@ -19,7 +20,7 @@ public class BombermanModel implements IBombermanModel {
 	private List<Player> players;
 	private GameField gameField;
 	private boolean roundIsPlaying;
-	private BombermanModel instance = null;
+	private static BombermanModel instance = null;
 	private List<PowerupItem> waitingPowerups;
 	private List<List<Position>> waitingFirePositions;
 	private Timer fireTimer;
@@ -32,11 +33,11 @@ public class BombermanModel implements IBombermanModel {
 		this.waitingFirePositions = new ArrayList();
 	}
 	
-	public BombermanModel getInstance() {
+	public static BombermanModel getInstance() {
 		if(instance == null) {
 			instance = new BombermanModel();
 		}
-		return this;
+		return instance;
 	}
 	
 	public void startGame() {
