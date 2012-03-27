@@ -1,4 +1,4 @@
-package com.github.joakimpersson.tda367.core;
+package com.github.joakimpersson.tda367.core.bombs;
 
 import java.util.TimerTask;
 

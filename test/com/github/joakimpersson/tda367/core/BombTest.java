@@ -5,6 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.github.joakimpersson.tda367.core.bombs.Bomb;
+
 /**
  * 
  * @author joakimpersson

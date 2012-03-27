@@ -1,6 +1,9 @@
 package com.github.joakimpersson.tda367.core;
 
 import com.github.joakimpersson.tda367.core.PlayerAttributes.UpgradeType;
+import com.github.joakimpersson.tda367.core.bombs.AreaBomb;
+import com.github.joakimpersson.tda367.core.bombs.Bomb;
+import com.github.joakimpersson.tda367.core.bombs.NormalBomb;
 
 /**
  * 
@@ -58,9 +61,9 @@ public class Player {
 	public Bomb placeBomb() {
 		switch(attr.getAttrValue(Attribute.BombType)) {
 			default: 
-				return new NormalBomb(this, attr.getAttrValue(Attribute.BombRange), attr.getAttrValue(Attribute.BombPower), pos);
+				return new NormalBomb(this, pos, attr.getAttrValue(Attribute.BombRange), attr.getAttrValue(Attribute.BombPower));
 			case 1: 
-				return new AreaBomb(this, attr.getAttrValue(Attribute.BombRange), attr.getAttrValue(Attribute.BombPower), pos);
+				return new AreaBomb(this, pos, attr.getAttrValue(Attribute.BombRange), attr.getAttrValue(Attribute.BombPower));
 		}
 	}
 
