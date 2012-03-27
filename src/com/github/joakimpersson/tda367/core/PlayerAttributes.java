@@ -6,6 +6,7 @@ import static com.github.joakimpersson.tda367.core.Attribute.Health;
 import static com.github.joakimpersson.tda367.core.Attribute.Speed;
 
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -70,8 +71,13 @@ public class PlayerAttributes {
 	 *            The attribute to be upgraded
 	 */
 	private void updateMatchAttr(Attribute attr) {
-		int tmp = matchAttr.get(attr) + 1;
-		matchAttr.put(attr, tmp);
+		if (matchAttr.containsKey(attr)) {
+			int tmp = matchAttr.get(attr) + 1;
+			matchAttr.put(attr, tmp);
+
+		} else {
+			matchAttr.put(attr, 1);
+		}
 	}
 
 	/**
@@ -93,7 +99,11 @@ public class PlayerAttributes {
 	 * @return The attributes level
 	 */
 	public int getAttrValue(Attribute attr) {
-		return matchAttr.get(attr) + roundAttr.get(attr);
+
+		int rAttr = roundAttr.get(attr) == null ? 0 : roundAttr.get(attr);
+		int mAttr = matchAttr.get(attr) == null ? 0 : matchAttr.get(attr);
+
+		return mAttr + rAttr;
 	}
 
 	/**
@@ -159,7 +169,6 @@ public class PlayerAttributes {
 
 		roundAttr.put(Speed, 0);
 		roundAttr.put(BombStack, 0);
-		roundAttr.put(Health, 0);
 		roundAttr.put(BombRange, 0);
 
 	}

@@ -40,18 +40,30 @@ public class PlayerAttributeTest {
 	public void testUpdateMatchRoundAttr() {
 		int bombRangeDefault = Parameters.INSTANCE.getInitBombRange();
 
-		pa.upgradeAttr(Attribute.BombRange,UpgradeType.Match);
-		pa.upgradeAttr(Attribute.BombRange,UpgradeType.Round);
+		pa.upgradeAttr(Attribute.BombRange, UpgradeType.Match);
+		pa.upgradeAttr(Attribute.BombRange, UpgradeType.Round);
 
 		assertEquals(pa.getAttrValue(Attribute.BombRange), bombRangeDefault + 2);
+	}
+
+	@Test
+	public void testAddUpgradeAttribute() {
+		Attribute attr = Attribute.BombPower;
+
+		assertEquals(0, pa.getAttrValue(attr));
+
+		pa.upgradeAttr(attr, UpgradeType.Match);
+
+		assertEquals(1, pa.getAttrValue(attr));
+
 	}
 
 	@Test
 	public void testResetMatchAttr() {
 		int bombRangeDefault = Parameters.INSTANCE.getInitBombRange();
 
-		pa.upgradeAttr(Attribute.BombRange,UpgradeType.Match);
-		pa.upgradeAttr(Attribute.BombRange,UpgradeType.Match);
+		pa.upgradeAttr(Attribute.BombRange, UpgradeType.Match);
+		pa.upgradeAttr(Attribute.BombRange, UpgradeType.Match);
 
 		pa.resetAttr(UpgradeType.Match);
 
@@ -62,8 +74,8 @@ public class PlayerAttributeTest {
 	public void testResetTurnAttr() {
 		int bombRangeDefault = Parameters.INSTANCE.getInitBombRange();
 
-		pa.upgradeAttr(Attribute.BombRange,UpgradeType.Round);
-		pa.upgradeAttr(Attribute.BombRange,UpgradeType.Round);
+		pa.upgradeAttr(Attribute.BombRange, UpgradeType.Round);
+		pa.upgradeAttr(Attribute.BombRange, UpgradeType.Round);
 
 		pa.resetAttr();
 
