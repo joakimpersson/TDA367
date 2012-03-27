@@ -52,4 +52,8 @@ public enum Parameters {
 	public double getPowerUpProbabilityPillar() {
 		return 0.15;
 	}
+	
+	public int getFireDuration() {
+		return 1500;
+	}
 }

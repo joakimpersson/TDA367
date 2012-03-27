@@ -22,6 +22,6 @@ public interface IBombermanModel {
 
 	public List<Player> getPlayers();
 	
-	public int getTileToughness(int x, int y);
+	public int getTileToughness(Position pos);
 	
 }
