@@ -14,7 +14,6 @@ import com.github.joakimpersson.tda367.core.PlayerAttributes.UpgradeType;
  * 
  */
 public class PlayerAttributeTest {
-	// Add testing for match only upgrades
 	private PlayerAttributes pa;
 
 	@Before
