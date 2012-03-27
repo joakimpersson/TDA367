@@ -12,5 +12,5 @@ public interface Tile {
 
 	public boolean isWalkable();
 
-	public Tile onFire(int damage);
+	public Tile onFire();
 }

@@ -20,7 +20,7 @@ public class PillarTest {
 			int k = 0;
 			for (int i = 0; i < 1000; i++) {
 				Tile tile = new Pillar();
-				Tile t = tile.onFire(1);
+				Tile t = tile.onFire();
 				if (t instanceof SpeedUpdateItem) {
 					k++;
 				}

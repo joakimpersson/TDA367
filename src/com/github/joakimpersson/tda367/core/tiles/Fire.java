@@ -16,7 +16,7 @@ public class Fire implements WalkableTile {
 	}
 
 	@Override
-	public Tile onFire(int damage) {
+	public Tile onFire() {
 		// TODO not sure about what should happen here?
 		// do nothing?
 		return null;

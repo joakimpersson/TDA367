@@ -16,7 +16,7 @@ public class Wall implements Tile {
 	}
 
 	@Override
-	public Tile onFire(int damage) {
+	public Tile onFire() {
 		// TODO the question is if the all should be here?
 		//or should we redefine the fireaction method
 		//it has some flaws

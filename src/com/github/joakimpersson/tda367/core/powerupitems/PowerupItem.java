@@ -36,12 +36,8 @@ public abstract class PowerupItem implements WalkableTile {
 	 * @return A floor tile
 	 */
 	@Override
-	public Tile onFire(int damage) {
-		if (damage > getToughness()) {
-			return new Floor();
-		} else {
-			return this;
-		}
+	public Tile onFire() {
+		return new Floor();
 	}
 
 	@Override

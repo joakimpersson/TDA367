@@ -19,7 +19,7 @@ public class Floor implements WalkableTile {
 	}
 
 	@Override
-	public Tile onFire(int damage) {
+	public Tile onFire() {
 
 		return null;
 	}

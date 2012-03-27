@@ -19,7 +19,7 @@ public class BoxTest {
 			int k = 0;
 			for (int i = 0; i < 60; i++) {
 				Tile tile = new Box();
-				Tile t = tile.onFire(1);
+				Tile t = tile.onFire();
 				if (t instanceof SpeedUpdateItem) {
 					k++;
 				}

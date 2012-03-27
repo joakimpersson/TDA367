@@ -17,7 +17,7 @@ public class Box implements Tile {
 	}
 
 	@Override
-	public Tile onFire(int damage) {
+	public Tile onFire() {
 		if (getRandomNbr()) {
 			PowerUpFactory facctory = new PowerUpFactory();
 			return facctory.createObject();

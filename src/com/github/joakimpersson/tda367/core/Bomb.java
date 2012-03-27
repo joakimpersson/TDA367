@@ -1,5 +1,6 @@
 package com.github.joakimpersson.tda367.core;
 
+import com.github.joakimpersson.tda367.core.tiles.Floor;
 import com.github.joakimpersson.tda367.core.tiles.Tile;
 
 /**
@@ -27,14 +28,14 @@ public abstract class Bomb implements Tile {
 	}
 
 	@Override
-	public Tile onFire(int damage) {
-		return null;
+	public Tile onFire() {
+		return new Floor();
 	}
 
 	@Override
 	public boolean isWalkable() {
 		return false;
 	}
-	
+
 	public abstract void explode();
 }
