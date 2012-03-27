@@ -20,7 +20,7 @@ public class Floor implements WalkableTile {
 	@Override
 	public Tile onFire() {
 
-		return null;
+		return this;
 	}
 
 	@Override
