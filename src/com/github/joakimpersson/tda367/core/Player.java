@@ -91,4 +91,16 @@ public class Player {
 	public String toString() {
 		return "P[" + this.name + ", " + this.pos + ", " + this.health + " HP]";
 	}
+	
+	public Position getTilePosition() {
+		return pos;
+	}
+	
+	public int getScore() {
+		return points.getScore();
+	}
+	
+	public int getCredits() {
+		return points.getCredits();
+	}
 }
