@@ -29,7 +29,7 @@ public abstract class Bomb implements Tile {
 
 	private void doTimer() {
 		this.timer = new Timer();
-		this.timer.schedule(new BombTask(this), 0, Parameters.INSTANCE.getBombDetonationTime());
+		this.timer.schedule(new BombTask(this), Parameters.INSTANCE.getBombDetonationTime());
 	}
 
 	public Player getPlayer() {

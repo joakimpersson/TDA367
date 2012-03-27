@@ -59,11 +59,15 @@ public class Player {
 	}
 
 	public Bomb placeBomb() {
-		switch(attr.getAttrValue(Attribute.BombType)) {
-			default: 
-				return new NormalBomb(this, pos, attr.getAttrValue(Attribute.BombRange), attr.getAttrValue(Attribute.BombPower));
-			case 1: 
-				return new AreaBomb(this, pos, attr.getAttrValue(Attribute.BombRange), attr.getAttrValue(Attribute.BombPower));
+		switch (attr.getAttrValue(Attribute.BombType)) {
+		default:
+			return new NormalBomb(this, pos,
+					attr.getAttrValue(Attribute.BombRange),
+					attr.getAttrValue(Attribute.BombPower));
+		case 1:
+			return new AreaBomb(this, pos,
+					attr.getAttrValue(Attribute.BombRange),
+					attr.getAttrValue(Attribute.BombPower));
 		}
 	}
 
@@ -82,7 +86,7 @@ public class Player {
 	public boolean isAlive() {
 		return this.health > 0;
 	}
-	
+
 	public PlayerAttributes getAttr() {
 		return this.attr;
 	}
@@ -91,16 +95,20 @@ public class Player {
 	public String toString() {
 		return "P[" + this.name + ", " + this.pos + ", " + this.health + " HP]";
 	}
-	
+
 	public Position getTilePosition() {
 		return pos;
 	}
-	
+
 	public int getScore() {
 		return points.getScore();
 	}
-	
+
 	public int getCredits() {
 		return points.getCredits();
+	}
+
+	public PlayerPoints getPlayerPoints() {
+		return points;
 	}
 }
