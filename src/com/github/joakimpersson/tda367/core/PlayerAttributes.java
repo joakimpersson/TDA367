@@ -96,7 +96,8 @@ public class PlayerAttributes {
 	 * 
 	 * @param attr
 	 *            The attribute which value you want
-	 * @return The attributes level
+	 * @return The attributes level or 0 if the specified attribute is not
+	 *         activated
 	 */
 	public int getAttrValue(Attribute attr) {
 
