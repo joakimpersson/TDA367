@@ -1,5 +1,7 @@
 package com.github.joakimpersson.tda367.core;
 
+import java.util.Timer;
+
 import com.github.joakimpersson.tda367.core.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.core.bombs.AreaBomb;
 import com.github.joakimpersson.tda367.core.bombs.Bomb;
@@ -27,8 +29,11 @@ public class Player {
 	}
 
 	public void move(PlayerAction action) {
+		// TODO send the change to Bomberman
+		Position nextPos;
 		switch (action) {
 		case MoveDown:
+			nextPos = new Position(pos.getX(), pos.getY()+1);
 			System.out.println("down");
 			break;
 		case MoveUp:
@@ -58,16 +63,12 @@ public class Player {
 		this.attr.upgradeAttr(attr, type);
 	}
 
-	public Bomb placeBomb() {
+	public Bomb createBomb(Timer timer) {
 		switch (attr.getAttrValue(Attribute.BombType)) {
-		default:
-			return new NormalBomb(this, pos,
-					attr.getAttrValue(Attribute.BombRange),
-					attr.getAttrValue(Attribute.BombPower));
 		case 1:
-			return new AreaBomb(this, pos,
-					attr.getAttrValue(Attribute.BombRange),
-					attr.getAttrValue(Attribute.BombPower));
+			return new AreaBomb(this, timer);
+		default:
+			return new NormalBomb(this, timer);
 		}
 	}
 
@@ -90,6 +91,10 @@ public class Player {
 	public PlayerAttributes getAttr() {
 		return this.attr;
 	}
+	
+	public int getAttribute(Attribute a) {
+		return getAttr().getAttrValue(a);
+	}
 
 	@Override
 	public String toString() {
@@ -110,5 +115,9 @@ public class Player {
 
 	public PlayerPoints getPlayerPoints() {
 		return points;
+	}
+
+	public String getName() {
+		return name;
 	}
 }

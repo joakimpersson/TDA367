@@ -1,42 +1,44 @@
 package com.github.joakimpersson.tda367.core.bombs;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 
 import com.github.joakimpersson.tda367.core.Direction;
 import com.github.joakimpersson.tda367.core.Player;
 import com.github.joakimpersson.tda367.core.Position;
+import com.github.joakimpersson.tda367.core.tiles.Tile;
 
 
 public class NormalBomb extends Bomb {
-	private int power, range;
+	Tile[][] map;
 
-	public NormalBomb(Player player, Position pos, int range, int power) {
-		super(player, pos, range, power);
+	public NormalBomb(Player p, Timer t) {
+		super(p, t);
 	}
 	
 	@Override
-	public void explode() {
-		int x = pos.getX();
-		int y = pos.getY();
-		List<Position> fireList = new ArrayList<Position>();
-
-		directedFire(fireList, x, y, Direction.Up, range, power);
-		directedFire(fireList, x, y, Direction.Down, range, power);
-		directedFire(fireList, x, y, Direction.Left, range, power);
-		directedFire(fireList, x, y, Direction.Right, range, power);
+	public List<Position> explode(Tile[][] m) {
+		map = m;
 		
-		bm.handleFire(getPlayer(), fireList);
+		directedFire(Direction.Up);
+		directedFire(Direction.Down);
+		directedFire(Direction.Left);
+		directedFire(Direction.Right);
+		
+		return fireList;
 	}
 
-	private void directedFire(List<Position> l, int x, int y, Direction dir, int r, int p) {
-		for (int i = 1; i <= r; i++) {
-			int firePower = p;
-			Position pos = new Position(x+(dir.getX()*i),y+(dir.getY()*i));
+	private void directedFire(Direction dir) {
+		int x = pos.getX();
+		int y = pos.getY();
+		
+		for (int i = 1; i <= range; i++) {
+			int firePower = power;
+			Position firePos = new Position(x+(dir.getX()*i), y+(dir.getY()*i));
 			
-			int toughness = tryBreak(pos, firePower);
+			int toughness = tryBreak(firePos, firePower, map[x][y]);
 			if (toughness >= 0) {
-				l.add(pos);
+				fireList.add(firePos);
 				firePower = firePower-toughness;
 			}
 		}

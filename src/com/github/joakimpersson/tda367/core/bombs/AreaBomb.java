@@ -1,34 +1,34 @@
 package com.github.joakimpersson.tda367.core.bombs;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 
 import com.github.joakimpersson.tda367.core.Player;
 import com.github.joakimpersson.tda367.core.Position;
+import com.github.joakimpersson.tda367.core.tiles.Tile;
 
 
 public class AreaBomb extends Bomb {
 
-	public AreaBomb(Player player, Position pos, int range, int power) {
-		super(player, pos, range, power);
+	public AreaBomb(Player p, Timer t) {
+		super(p, t);
 	}
 
 	@Override
-	public void explode() {
+	public List<Position> explode(Tile[][] map) {
 		int xPos = pos.getX();
 		int yPos = pos.getY();
-		List<Position> fireList = new ArrayList<Position>();
 		
 		for (int x = xPos-range; x < xPos+range; x++) {
 			for (int y = yPos-range; y < yPos+range; y++) {
-				Position pos = new Position(x, y);
-				if (tryBreak(pos, power) > 0) {
-					fireList.add(pos);
+				Position firePos = new Position(x, y);
+				if (tryBreak(firePos, power, map[x][y]) >= 0) {
+					fireList.add(firePos);
 				}
 			}
 		}
 		
-		bm.handleFire(getPlayer(), fireList);
+		return fireList;
 	}
 	
 }
