@@ -56,5 +56,9 @@ public class Box implements Tile {
 	public boolean isWalkable() {
 		return false;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Box";
+	}
 }

@@ -50,5 +50,9 @@ public class Fire implements WalkableTile {
 	public boolean isWalkable() {
 		return true;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Fire";
+	}
 }

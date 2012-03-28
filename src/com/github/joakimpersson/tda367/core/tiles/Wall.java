@@ -32,5 +32,10 @@ public class Wall implements Tile {
 	public boolean isWalkable() {
 		return false;
 	}
+	
+	@Override
+	public String toString() {
+		return "Wall";
+	}
 
 }
