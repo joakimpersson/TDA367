@@ -2,22 +2,22 @@ package com.github.joakimpersson.tda367.core;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
-public class StandardMapTest {
+import com.github.joakimpersson.tda367.core.tiles.*;
 
+public class StandardMapTest {
+	private GameField map;
+	
+	@Before
+	public void setUp() throws Exception {
+		map = new StandardMap();
+	}
+	
 	@Test
 	public void testResetField() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testStandardMap() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGameField() {
 		fail("Not yet implemented");
 	}
 
@@ -32,13 +32,11 @@ public class StandardMapTest {
 	}
 
 	@Test
-	public void testGetTilePosition() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetTileIntInt() {
-		fail("Not yet implemented");
+	public void testGetTile() {
+		Tile wall = map.getTile(0, 0);
+		Tile floor = map.getTile(1, 1);
+		Tile pillar = map.getTile(2, 2);
+		assertTrue(wall instanceof Wall && floor instanceof Floor && pillar instanceof Pillar);
 	}
 
 	@Test
@@ -50,5 +48,9 @@ public class StandardMapTest {
 	public void testGetSize() {
 		fail("Not yet implemented");
 	}
-
+	
+	@After
+	public void tearDown() throws Exception {
+		map = null;
+	}
 }
