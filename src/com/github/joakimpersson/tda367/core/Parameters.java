@@ -30,7 +30,7 @@ public enum Parameters {
 	}
 
 	public int getInitBombRange() {
-		return 3;
+		return 2;
 	}
 
 	public int getInitBombPower() {
