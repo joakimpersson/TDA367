@@ -31,7 +31,7 @@ public class BombermanModel implements IBombermanModel {
 			removeFirstFire();
 		}
 	}
-	public class BombTask extends TimerTask {
+	private class BombTask extends TimerTask {
 		private Bomb bomb;
 		
 		public BombTask(Bomb b) {
