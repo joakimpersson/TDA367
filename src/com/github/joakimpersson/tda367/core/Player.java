@@ -7,25 +7,24 @@ import com.github.joakimpersson.tda367.core.bombs.AreaBomb;
 import com.github.joakimpersson.tda367.core.bombs.Bomb;
 import com.github.joakimpersson.tda367.core.bombs.NormalBomb;
 
-/**
- * 
- * @author joakimpersson
- * 
- */
 public class Player {
 
 	private String name;
-	private Position initalPosition, pos;
+	private Position initialPosition, pos;
 	private PlayerAttributes attr;
 	private PlayerPoints points;
-	private int lives, bombStack, health;
+	private int bombStack, health;
 
 	public Player(String name, Position pos) {
 		this.name = name;
-		this.pos = pos;
-		this.initalPosition = pos;
+		this.initialPosition = pos;
+		initPlayer();
+	}
+
+	private void initPlayer() {
 		this.attr = new PlayerAttributes();
 		this.points = new PlayerPoints();
+		roundReset();
 	}
 
 	public void move(PlayerAction action) {
@@ -73,15 +72,18 @@ public class Player {
 	}
 
 	public void roundReset() {
-
+		this.attr.resetAttr(UpgradeType.Round);
+		this.health = getAttribute(Attribute.Health);
+		this.pos = initialPosition;
 	}
 
 	public void matchReset() {
-
+		this.attr.resetAttr(UpgradeType.Match);
+		roundReset();
 	}
 
 	public void playerHit() {
-
+		this.health--;
 	}
 
 	public boolean isAlive() {

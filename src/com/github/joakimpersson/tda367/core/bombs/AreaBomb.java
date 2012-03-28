@@ -7,7 +7,6 @@ import com.github.joakimpersson.tda367.core.Player;
 import com.github.joakimpersson.tda367.core.Position;
 import com.github.joakimpersson.tda367.core.tiles.Tile;
 
-
 public class AreaBomb extends Bomb {
 
 	public AreaBomb(Player p, Timer t) {
