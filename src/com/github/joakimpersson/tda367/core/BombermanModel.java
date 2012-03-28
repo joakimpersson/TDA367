@@ -24,11 +24,23 @@ import com.github.joakimpersson.tda367.core.tiles.*;
  */
 public class BombermanModel implements IBombermanModel {
 
-	public class FireTimerTask extends TimerTask {
-
+	private class FireTimerTask extends TimerTask {
+		
 		@Override
 		public void run() {
 			removeFirstFire();
+		}
+	}
+	public class BombTask extends TimerTask {
+		private Bomb bomb;
+		
+		public BombTask(Bomb b) {
+			this.bomb = b;
+		}
+		
+		@Override
+		public void run() {
+			handleFire(bomb.getPlayer(), bomb.explode(gameField.getMap()));
 		}
 	}
 	
@@ -83,8 +95,9 @@ public class BombermanModel implements IBombermanModel {
 	}
 
 	private void placeBomb(Player player) {
-		Bomb bomb = player.createBomb();
-		bomb.explode();
+		Timer bombTimer= new Timer();		
+		Bomb bomb = player.createBomb(bombTimer);
+		bombTimer.schedule(new BombTask(bomb), Parameters.INSTANCE.getBombDetonationTime());
 	}
 	
 	private void setFire(List<Position> positions) {
@@ -115,7 +128,7 @@ public class BombermanModel implements IBombermanModel {
 	 * @param positions	The list that contains the positions of where the fire is to be placed.
 	 */
 	public void handleFire(Player bombOwner, List<Position> positions) {
-		List<PointGiver> pg = new ArrayList();
+		List<PointGiver> pg = new ArrayList<PointGiver>();
 		Tile tempTile;
 		
 		for(Position pos : positions) {

@@ -60,6 +60,10 @@ public abstract class GameField {
 		return this.getTile(new Position(x, y));
 	}
 	
+	public Tile[][] getMap() {
+		return this.map;
+	}
+	
 	/**
 	 * @return The dimension of the game-field matrix.
 	 */
