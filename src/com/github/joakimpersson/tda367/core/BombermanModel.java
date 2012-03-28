@@ -1,15 +1,15 @@
 package com.github.joakimpersson.tda367.core;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import javax.swing.Timer;
 
 import com.github.joakimpersson.tda367.core.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.core.PlayerPoints.PointGiver;
@@ -22,21 +22,25 @@ import com.github.joakimpersson.tda367.core.tiles.*;
  * @author Viktor Anderling
  * 
  */
-public class BombermanModel implements IBombermanModel, ActionListener {
+public class BombermanModel implements IBombermanModel {
 
+	public class FireTimerTask extends TimerTask {
+
+		@Override
+		public void run() {
+			removeFirstFire();
+		}
+	}
+	
 	private List<Player> players;
 	private GameField gameField;
-	private boolean roundIsPlaying;
 	private static BombermanModel instance = null;
 	private LinkedList<Map<Position, Tile>> waitingFirePositions;
-	private LinkedList<Timer> fireTimers;
 
 	private BombermanModel() {
 		this.players = new ArrayList<Player>();
 		this.gameField = new StandardMap();
-		this.roundIsPlaying = false;
 		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
-		this.fireTimers = new LinkedList<Timer>();
 	}
 	
 	public static BombermanModel getInstance() {
@@ -63,11 +67,7 @@ public class BombermanModel implements IBombermanModel, ActionListener {
 	}
 
 	public void upgradePlayer(Player player, Attribute attr) {
-		if(roundIsPlaying) {
-			player.upgradeAttr(attr, UpgradeType.Round);
-		} else {
-			player.upgradeAttr(attr, UpgradeType.Match);
-		}
+		player.upgradeAttr(attr, UpgradeType.Match);
 	}
 
 	private void matchEnd() {
@@ -79,11 +79,11 @@ public class BombermanModel implements IBombermanModel, ActionListener {
 	}
 
 	private void move(Player player, PlayerAction action) {
-
+		
 	}
 
 	private void placeBomb(Player player) {
-		Bomb bomb = player.placeBomb();
+		Bomb bomb = player.createBomb();
 		bomb.explode();
 	}
 	
@@ -94,9 +94,8 @@ public class BombermanModel implements IBombermanModel, ActionListener {
 			gameField.setTile(new Fire(), firePos);
 		}
 		waitingFirePositions.addLast(waitingTiles);
-		Timer timer = new Timer(Parameters.INSTANCE.getFireDuration(), this);
-		timer.start();
-		fireTimers.addLast(timer);
+		Timer timer = new Timer();
+		timer.schedule(new FireTimerTask(), Parameters.INSTANCE.getFireDuration());
 	}
 	
 	private void removeFirstFire() {
@@ -119,7 +118,6 @@ public class BombermanModel implements IBombermanModel, ActionListener {
 		List<PointGiver> pg = new ArrayList();
 		Tile tempTile;
 		
-				
 		for(Position pos : positions) {
 			for(Player player : players) {
 				if(isPlayerAtPosition(player, pos)) {
@@ -157,16 +155,5 @@ public class BombermanModel implements IBombermanModel, ActionListener {
 	
 	private boolean isPlayerAtPosition(Player player, Position pos) {
 		return player.getTilePosition().equals(pos);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		if(arg0.getSource() instanceof Timer) {
-			Timer timer = (Timer)(arg0.getSource());
-			timer.stop();
-			fireTimers.removeFirst();
-			removeFirstFire();
-		}
-		
 	}
 }
