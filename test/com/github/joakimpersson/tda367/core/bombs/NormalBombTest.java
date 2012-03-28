@@ -1,4 +1,4 @@
-package com.github.joakimpersson.tda367.core;
+package com.github.joakimpersson.tda367.core.bombs;
 
 import static org.junit.Assert.*;
 
@@ -6,23 +6,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.joakimpersson.tda367.core.bombs.Bomb;
+public class NormalBombTest {
 
-/**
- * 
- * @author joakimpersson
- *
- */
-public class BombTest {
-
-	private Bomb bomb;
-	private Player player;
-	
 	@Before
 	public void setUp() throws Exception {
 	}
 
-	
 	@After
 	public void tearDown() throws Exception {
 	}
