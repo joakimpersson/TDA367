@@ -17,7 +17,7 @@ public abstract class GameField {
 	private Tile[][] map;
 	
 	public GameField(int xSize, int ySize) {
-		this.map = new Tile[xSize][ySize];
+		this.map = new Tile[ySize][xSize];
 	}
 	
 	/**
@@ -37,7 +37,7 @@ public abstract class GameField {
 		int x = pos.getX();
 		int y = pos.getY();
 		checkPos(x, y);
-		map[x][y] = tile;
+		map[y][x] = tile;
 	}
 	
 	public void setTile(Tile tile, int x, int y) {
@@ -53,7 +53,7 @@ public abstract class GameField {
 		int x = pos.getX();
 		int y = pos.getY();
 		checkPos(x, y);
-		return map[x][y];
+		return map[y][x];
 	}
 	
 	public Tile getTile(int x, int y) {
@@ -80,7 +80,7 @@ public abstract class GameField {
 	 * bigger than the size of the matrix.
 	 */
 	private void checkPos(int x, int y) {
-		if(x < 0 || y < 0 || x > map.length || y < map[0].length) {
+		if(x < 0 || y < 0 || y > map.length || x < map[0].length) {
 			throw new IndexOutOfBoundsException();
 		}
 	}

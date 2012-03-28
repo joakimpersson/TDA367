@@ -3,6 +3,7 @@ package com.github.joakimpersson.tda367.core;
 import com.github.joakimpersson.tda367.core.tiles.Box;
 import com.github.joakimpersson.tda367.core.tiles.Floor;
 import com.github.joakimpersson.tda367.core.tiles.Pillar;
+import com.github.joakimpersson.tda367.core.tiles.Wall;
 
 
 /**
@@ -46,17 +47,23 @@ public class StandardMap extends GameField {
 	public void resetField() {
 		for(int i = 0; i < 13; i++) {
 			for(int j = 0; j < 15; j++) {
-				switch(initMatrix[j][i]) {
+				switch(initMatrix[i][j]) {
+					
+					case 1: this.setTile(new Wall(), j, i);
+							break;
+					
 					case 3:	if(Math.random() >= boxProbability) {
-						setTile(new Box(), j, i);
-					} else {
-						setTile(new Floor(), j, i);
-					}
-					break;
+								setTile(new Box(), j, i);
+							} else {
+								setTile(new Floor(), j, i);
+							}
+							break;
+					
 					case 7:	setTile(new Pillar(), j, i);
-					break;
-					case 0:	setTile(new Floor(), j, i);
-					break;
+							break;
+					
+					default:setTile(new Floor(), j, i);
+							break;
 				}
 			}
 		}

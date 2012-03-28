@@ -18,17 +18,16 @@ public class StandardMapTest {
 	
 	@Test
 	public void testResetField() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
 	public void testSetTileTilePosition() {
-		fail("Not yet implemented");
+
 	}
 
 	@Test
 	public void testSetTileTileIntInt() {
-		fail("Not yet implemented");
 	}
 
 	@Test
