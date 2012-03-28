@@ -11,13 +11,12 @@ public class MockBomb extends Bomb {
 
 	public MockBomb(Player p, Timer t) {
 		super(p, t);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public List<Position> explode(Tile[][] map) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO jocke no need to implement since its coverd in AreaBomb and NormalBomb
+		throw new UnsupportedOperationException();
 	}
 
 }
