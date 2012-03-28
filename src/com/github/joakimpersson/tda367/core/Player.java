@@ -29,10 +29,9 @@ public class Player {
 
 	public void move(PlayerAction action) {
 		// TODO send the change to Bomberman
-		Position nextPos;
 		switch (action) {
 		case MoveDown:
-			nextPos = new Position(pos.getX(), pos.getY()+1);
+			pos = new Position(pos.getX(), pos.getY()+1);
 			System.out.println("down");
 			break;
 		case MoveUp:
