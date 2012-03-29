@@ -33,8 +33,8 @@ public class NormalBombTest {
 			{ new Wall(), new Floor(), new Box(), new Floor(), new Wall() },
 			{ new Wall(), new Floor(), new Pillar(), new Floor(), new Wall() },
 			{ new Wall(), new Box(), new Floor(), new Box(), new Wall() },
-			{ new Wall(), new Floor(), new Floor(), new Floor(), new Wall() },
 			{ new Wall(), new Floor(), new Box(), new Floor(), new Wall() },
+			{ new Wall(), new Floor(), new Floor(), new Floor(), new Wall() },
 			{ new Wall(), new Wall(), new Wall(), new Wall(), new Wall() } };
 
 	@BeforeClass
@@ -44,13 +44,14 @@ public class NormalBombTest {
 
 	@Before
 	public void setUp() throws Exception {
-		Position pos = new Position(2, 3);
+		Position pos = new Position(3, 2);
 		timer = new Timer();
 		player = new Player("Kalle", pos);
 		bomb = new NormalBomb(player, timer);
 	}
 
-	// TODO jocke about a test need with increased power or if it is coverd when testing tryBreak!
+	// TODO jocke about a test need with increased power or if it is coverd when
+	// testing tryBreak!
 	@Test
 	public void testExplode() {
 		for (int i = 0; i < map.length; i++) {
@@ -59,12 +60,24 @@ public class NormalBombTest {
 			}
 			System.out.println("\n");
 		}
+
 		List<Position> expectedDestroyedPositions = new ArrayList<Position>();
 		expectedDestroyedPositions.add(new Position(3, 3));
 		expectedDestroyedPositions.add(new Position(3, 1));
 		expectedDestroyedPositions.add(new Position(4, 2));
 		expectedDestroyedPositions.add(new Position(5, 2));
-		// spacing
+		expectedDestroyedPositions.add(new Position(3, 2));
+		List<Position> actualDestroyedPositions = bomb.explode(map);
+
+		assertEquals(expectedDestroyedPositions.size(),
+				actualDestroyedPositions.size());
+		int index = 0;
+		for (Position pos : expectedDestroyedPositions) {
+			System.out.println(actualDestroyedPositions.get(index));
+			index++;
+			assertTrue(actualDestroyedPositions.contains(pos));
+		}
+
 		map[expectedDestroyedPositions.get(0).getX()][expectedDestroyedPositions
 				.get(0).getY()] = new Fire();
 		map[expectedDestroyedPositions.get(1).getX()][expectedDestroyedPositions
@@ -73,6 +86,8 @@ public class NormalBombTest {
 				.get(2).getY()] = new Fire();
 		map[expectedDestroyedPositions.get(3).getX()][expectedDestroyedPositions
 				.get(3).getY()] = new Fire();
+		map[expectedDestroyedPositions.get(4).getX()][expectedDestroyedPositions
+				.get(4).getY()] = new Fire();
 		System.out.println();
 		System.out.println();
 		for (int i = 0; i < map.length; i++) {
@@ -80,13 +95,6 @@ public class NormalBombTest {
 				System.out.print(map[i][j].toString() + "\t");
 			}
 			System.out.println("\n");
-		}
-		List<Position> actualDestroyedPositions = bomb.explode(map);
-		assertEquals(expectedDestroyedPositions.size(),
-				actualDestroyedPositions.size());
-		for (int i = 0; i < expectedDestroyedPositions.size(); i++) {
-			assertEquals(expectedDestroyedPositions.get(i),
-					actualDestroyedPositions.get(i));
 		}
 
 	}

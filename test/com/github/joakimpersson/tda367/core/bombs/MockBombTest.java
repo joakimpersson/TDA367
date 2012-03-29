@@ -2,6 +2,7 @@ package com.github.joakimpersson.tda367.core.bombs;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
@@ -58,21 +59,17 @@ public class MockBombTest {
 	public void testTryBreak() {
 		// TODO jocke should this be tested and if so how?
 		// TODO jocke remember adrian why it shouldn't be package private
-		Position pos = new Position(-1, -1);
 		Tile pillar = new Pillar();
 		Tile box = new Box();
-		int power = 1;
-		
-		
+		int power = bomb.power;
 
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testTryBreakException() {
-		Position pos = new Position(-1, -1);
-		Tile tile = new Floor();
-		int power = 1;
-		bomb.tryBreak(pos, power, tile);
+		assertFalse(bomb.tryBreak(pillar, power));
+		assertTrue(bomb.tryBreak(box, power));
+		
+		//TODO jocke ask simulating a power powerup
+		power += 1;
+		assertTrue(bomb.tryBreak(pillar, power));
+		
 	}
 
 	@After
