@@ -80,6 +80,42 @@ public class PlayerTest {
 		assertTrue(player.isAlive());
 	}
 
+	@Test
+	public void testGetScore() {
+		fail("Not implementd");
+	}
+
+	@Test
+	public void testGetCredits() {
+		fail("Not implementd");
+	}
+
+	@Test
+	public void testGetName() {
+		String expected = "Hobbe";
+		String actual = player.getName();
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testGetHealth() {
+		int expected = Parameters.INSTANCE.getInitHealth();
+		int actual = player.getHealth();
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void getTilePosition() {
+		Position expected = new Position(0, 0);
+		Position actual = player.getTilePosition();
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void getPlayerPoints() {
+		fail("Not implemented");
+	}
+	
 	@After
 	public void tearDown() throws Exception {
 		player = null;
