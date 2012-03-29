@@ -1,7 +1,7 @@
 package com.github.joakimpersson.tda367.core.tiles;
 
 import com.github.joakimpersson.tda367.core.Parameters;
-import com.github.joakimpersson.tda367.core.powerupitems.PowerUpFactory;
+import com.github.joakimpersson.tda367.core.tiles.powerupitems.PowerUpFactory;
 
 /**
  * 

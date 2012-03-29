@@ -1,6 +1,7 @@
 package com.github.joakimpersson.tda367.core.powerupitems;
 
 import com.github.joakimpersson.tda367.core.Attribute;
+import com.github.joakimpersson.tda367.core.tiles.powerupitems.PowerupItem;
 
 /**
  * 

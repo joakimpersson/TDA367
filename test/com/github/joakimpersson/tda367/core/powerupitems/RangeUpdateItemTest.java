@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.joakimpersson.tda367.core.Attribute;
+import com.github.joakimpersson.tda367.core.tiles.powerupitems.RangeUpdateItem;
 
 /**
  * 

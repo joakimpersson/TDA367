@@ -20,6 +20,8 @@ import com.github.joakimpersson.tda367.core.tiles.Floor;
 import com.github.joakimpersson.tda367.core.tiles.Pillar;
 import com.github.joakimpersson.tda367.core.tiles.Tile;
 import com.github.joakimpersson.tda367.core.tiles.Wall;
+import com.github.joakimpersson.tda367.core.tiles.bombs.Bomb;
+import com.github.joakimpersson.tda367.core.tiles.bombs.NormalBomb;
 
 /**
  * 

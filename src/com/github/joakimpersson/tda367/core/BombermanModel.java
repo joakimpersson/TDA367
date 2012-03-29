@@ -13,8 +13,8 @@ import java.util.TimerTask;
 
 import com.github.joakimpersson.tda367.core.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.core.PlayerPoints.PointGiver;
-import com.github.joakimpersson.tda367.core.bombs.Bomb;
 import com.github.joakimpersson.tda367.core.tiles.*;
+import com.github.joakimpersson.tda367.core.tiles.bombs.Bomb;
 
 /**
  * 

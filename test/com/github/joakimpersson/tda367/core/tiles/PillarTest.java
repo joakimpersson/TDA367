@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.joakimpersson.tda367.core.Parameters;
-import com.github.joakimpersson.tda367.core.powerupitems.PowerupItem;
+import com.github.joakimpersson.tda367.core.tiles.powerupitems.PowerupItem;
 
 /**
  * 

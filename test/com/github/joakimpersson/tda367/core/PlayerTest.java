@@ -14,9 +14,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.joakimpersson.tda367.core.PlayerAttributes.UpgradeType;
-import com.github.joakimpersson.tda367.core.bombs.AreaBomb;
-import com.github.joakimpersson.tda367.core.bombs.Bomb;
-import com.github.joakimpersson.tda367.core.bombs.NormalBomb;
+import com.github.joakimpersson.tda367.core.tiles.bombs.AreaBomb;
+import com.github.joakimpersson.tda367.core.tiles.bombs.Bomb;
+import com.github.joakimpersson.tda367.core.tiles.bombs.NormalBomb;
 
 /**
  * 
