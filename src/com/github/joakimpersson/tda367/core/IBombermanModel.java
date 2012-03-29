@@ -33,14 +33,13 @@ public interface IBombermanModel {
 
 	/**
 	 * Returns a list of the current active players in the game
+	 * 
 	 * @return A list of players
 	 */
 	public List<Player> getPlayers();
-
+	
 	public void startGame();
 
 	public void endGame();
-
-	public int getTileToughness(Position pos);
 
 }

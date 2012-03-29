@@ -126,7 +126,7 @@ public class BombermanModel implements IBombermanModel {
 	 * @param positions	The list that contains the positions of where the fire is to be placed.
 	 * @param bombOwner The player that placed the bomb.
 	 */
-	public void handleFire(Player bombOwner, List<Position> positions) {
+	private void handleFire(Player bombOwner, List<Position> positions) {
 		distributePoints(bombOwner, positions);
 		setFire(positions);
 	}
@@ -195,15 +195,6 @@ public class BombermanModel implements IBombermanModel {
 
 	public List<Player> getPlayers() {
 		return players;
-	}
-
-	@Override
-	public int getTileToughness(Position pos) {
-		return gameField.getTile(pos).getToughness();
-	}
-	
-	public int getTileToughness(int x, int y) {
-		return getTileToughness(new Position(x, y));
 	}
 	
 	private boolean isPlayerAtPosition(Player player, Position pos) {
