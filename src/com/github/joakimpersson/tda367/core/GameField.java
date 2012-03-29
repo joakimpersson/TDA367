@@ -36,12 +36,12 @@ public abstract class GameField {
 	public void setTile(Tile tile, Position pos) {
 		int x = pos.getX();
 		int y = pos.getY();
-		checkPos(x, y);
-		map[y][x] = tile;
+		this.setTile(tile, x, y);
 	}
 	
 	public void setTile(Tile tile, int x, int y) {
-		this.setTile(tile, new Position(x, y));
+		checkPos(x, y);
+		map[y][x] = tile;
 	}
 	
 	/**
