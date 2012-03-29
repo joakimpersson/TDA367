@@ -1,6 +1,7 @@
 package com.github.joakimpersson.tda367.core.bombs;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,6 @@ import org.junit.Test;
 import com.github.joakimpersson.tda367.core.Player;
 import com.github.joakimpersson.tda367.core.Position;
 import com.github.joakimpersson.tda367.core.tiles.Box;
-import com.github.joakimpersson.tda367.core.tiles.Fire;
 import com.github.joakimpersson.tda367.core.tiles.Floor;
 import com.github.joakimpersson.tda367.core.tiles.Pillar;
 import com.github.joakimpersson.tda367.core.tiles.Tile;
@@ -24,7 +24,7 @@ import com.github.joakimpersson.tda367.core.tiles.Wall;
 /**
  * 
  * @author joakimpersson
- *
+ * 
  */
 public class AreaBombTest {
 
@@ -53,11 +53,8 @@ public class AreaBombTest {
 		bomb = new AreaBomb(player, timer);
 	}
 
-	// TODO jocke about a test need with increased power or if it is covered
-	// when testing tryBreak!
 	@Test
 	public void testExplode() {
-		consoleMapView(map);
 
 		List<Position> expectedPositions = new ArrayList<Position>();
 		expectedPositions.add(new Position(2, 1));
@@ -65,30 +62,17 @@ public class AreaBombTest {
 		expectedPositions.add(new Position(3, 1));
 		expectedPositions.add(new Position(3, 2));
 		expectedPositions.add(new Position(3, 3));
-		expectedPositions.add(new Position(4, 1));
 		expectedPositions.add(new Position(4, 2));
+		expectedPositions.add(new Position(4, 1));
 		expectedPositions.add(new Position(4, 3));
 		List<Position> actualPositions = bomb.explode(map);
-		
-		assertTrue(expectedPositions.equals(actualPositions));
-		
-		//just for debugging
+
+		// can not use the lists equal method since it does not regard that the
+		// two lists have the positions at different index
+		assertEquals(expectedPositions.size(), actualPositions.size());
+
 		for (Position pos : expectedPositions) {
-			map[pos.getX()][pos.getY()] = new Fire();
-		}
-
-		System.out.println();
-		System.out.println();
-		consoleMapView(map);
-
-	}
-
-	private void consoleMapView(Tile[][] map) {
-		for (int i = 0; i < map.length; i++) {
-			for (int j = 0; j < map[i].length; j++) {
-				System.out.print(map[i][j].toString() + "\t");
-			}
-			System.out.println("\n");
+			assertTrue(actualPositions.contains(pos));
 		}
 	}
 

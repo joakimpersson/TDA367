@@ -43,9 +43,6 @@ public class MockPowerupItemTest {
 	@Test
 	public void testOnFire() {
 		Tile tile = item.onFire();
-		// TODO jocke perhaps a better test:ex
-		// assertTrue(new Floor().getClass() == tile.getClass());
-		// remember that this line is in every tile test
 		assertThat(tile, is(instanceOf(Floor.class)));
 	}
 
@@ -56,7 +53,6 @@ public class MockPowerupItemTest {
 
 	@Test
 	public void testPlayerEnter() {
-		//TODO jocke fråga handledaren
 		Tile tile = item.playerEnter(player);
 		assertThat(tile, is(instanceOf(Floor.class)));
 

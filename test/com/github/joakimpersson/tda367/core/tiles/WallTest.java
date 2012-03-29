@@ -24,7 +24,7 @@ public class WallTest {
 
 	@Test
 	public void testGetToughness() {
-		// TODO jocke redo or explain
+		// a wall should not be able to be destroyed
 		assertEquals(100, wall.getToughness());
 	}
 

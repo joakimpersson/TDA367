@@ -51,10 +51,6 @@ public class PillarTest {
 		pillar = null;
 	}
 
-	/**
-	 * I know that this is not a real test just playing! TODO implement a real
-	 * test test
-	 */
 	@Test
 	public void test() {
 		int sum = 0;
@@ -70,7 +66,7 @@ public class PillarTest {
 			}
 			sum += k;
 		}
-		// TODO perhaps another way to go?
+		
 		int ratio = sum / max;
 		int probability = (int) (Parameters.INSTANCE
 				.getPowerUpProbabilityPillar() * 100);

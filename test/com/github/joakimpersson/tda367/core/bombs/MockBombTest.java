@@ -5,7 +5,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import java.util.Timer;
 
@@ -15,9 +14,7 @@ import org.junit.Test;
 
 import com.github.joakimpersson.tda367.core.Player;
 import com.github.joakimpersson.tda367.core.Position;
-import com.github.joakimpersson.tda367.core.tiles.Box;
 import com.github.joakimpersson.tda367.core.tiles.Floor;
-import com.github.joakimpersson.tda367.core.tiles.Pillar;
 import com.github.joakimpersson.tda367.core.tiles.Tile;
 
 /**
@@ -53,23 +50,6 @@ public class MockBombTest {
 	@Test
 	public void testIsWalkable() {
 		assertFalse(bomb.isWalkable());
-	}
-
-	@Test
-	public void testTryBreak() {
-		// TODO jocke should this be tested and if so how?
-		// TODO jocke remember adrian why it shouldn't be package private
-		Tile pillar = new Pillar();
-		Tile box = new Box();
-		int power = bomb.power;
-
-		assertFalse(bomb.tryBreak(pillar, power));
-		assertTrue(bomb.tryBreak(box, power));
-		
-		//TODO jocke ask simulating a power powerup
-		power += 1;
-		assertTrue(bomb.tryBreak(pillar, power));
-		
 	}
 
 	@After

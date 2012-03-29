@@ -8,7 +8,7 @@ import com.github.joakimpersson.tda367.core.Attribute;
  * 
  */
 public class MockPowerupItem extends PowerupItem {
-	//TODO where to place?
+	//TODO remove!
 	@Override
 	public Attribute getAttr() {
 		return Attribute.BombRange;

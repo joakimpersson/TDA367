@@ -64,7 +64,6 @@ public class BoxTest {
 			}
 			sum += k;
 		}
-		// TODO perhaps another way to go?
 		int ratio = sum / max;
 		int probability = (int) (Parameters.INSTANCE.getPowerUpProbabilityBox() * 100);
 		int diff = 2;

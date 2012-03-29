@@ -20,7 +20,6 @@ public class MockBomb extends Bomb {
 
 	@Override
 	public List<Position> explode(Tile[][] map) {
-		// TODO jocke no need to implement since its coverd in AreaBomb and NormalBomb
 		throw new UnsupportedOperationException();
 	}
 

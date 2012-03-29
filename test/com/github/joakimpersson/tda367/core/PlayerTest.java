@@ -2,7 +2,10 @@ package com.github.joakimpersson.tda367.core;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Timer;
 
@@ -14,7 +17,6 @@ import com.github.joakimpersson.tda367.core.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.core.bombs.AreaBomb;
 import com.github.joakimpersson.tda367.core.bombs.Bomb;
 import com.github.joakimpersson.tda367.core.bombs.NormalBomb;
-import com.github.joakimpersson.tda367.core.tiles.Floor;
 
 /**
  * 
@@ -33,7 +35,7 @@ public class PlayerTest {
 
 	@Test
 	public void testMove() {
-
+		fail("Not yet implemented");
 	}
 
 	@Test
@@ -44,7 +46,7 @@ public class PlayerTest {
 		// creating normal bomb
 		bomb = player.createBomb(timer);
 		assertThat(bomb, is(instanceOf(NormalBomb.class)));
-		
+
 		// creating area bomb
 		player.upgradeAttr(Attribute.BombType, UpgradeType.Match);
 		bomb = player.createBomb(timer);
@@ -53,17 +55,17 @@ public class PlayerTest {
 
 	@Test
 	public void testResetRound() {
-
+		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testMatchReset() {
-
+		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testPlayerHit() {
-		int expected = player.getHealth()-1;
+		int expected = player.getHealth() - 1;
 		player.playerHit();
 		int actual = player.getHealth();
 		assertEquals(expected, actual);
@@ -71,7 +73,11 @@ public class PlayerTest {
 
 	@Test
 	public void testKillPlayer() {
-		int live = player.getHealth();
+		int lifes = player.getHealth();
+		for (int i = 0; i < lifes; i++) {
+			player.playerHit();
+		}
+		assertTrue(player.isAlive());
 	}
 
 	@After

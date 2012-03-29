@@ -5,7 +5,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
@@ -33,7 +32,7 @@ public class FireTest {
 
 	@Test
 	public void testGetToughness() {
-		// TODO jocke either change or comment why
+		// fire should not be able to destroy other fires
 		assertEquals(100, fire.getToughness());
 	}
 
@@ -50,8 +49,10 @@ public class FireTest {
 
 	@Test
 	public void testPlayerEnter() {
-		fail("Not implemented because player is not implemented");
-		// TODO adrian implement player complete
+		int expected = player.getHealth() - 1;
+		fire.playerEnter(player);
+		int actual = player.getHealth();
+		assertEquals(expected, actual);
 	}
 
 	@After

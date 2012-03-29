@@ -49,11 +49,11 @@ public class PlayerAttributeTest {
 	public void testAddUpgradeAttribute() {
 		Attribute attr = Attribute.BombPower;
 
-		assertEquals(0, pa.getAttrValue(attr));
+		assertEquals(1, pa.getAttrValue(attr));
 
 		pa.upgradeAttr(attr, UpgradeType.Match);
 
-		assertEquals(1, pa.getAttrValue(attr));
+		assertEquals(2, pa.getAttrValue(attr));
 
 	}
 
