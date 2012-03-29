@@ -160,7 +160,8 @@ public class PlayerAttributes {
 		matchAttr.put(BombStack, Parameters.INSTANCE.getStartingBombs());
 		matchAttr.put(Health, Parameters.INSTANCE.getInitHealth());
 		matchAttr.put(BombRange, Parameters.INSTANCE.getInitBombRange());
-
+		matchAttr.put(Attribute.BombPower, Parameters.INSTANCE.getInitBombPower());
+		
 	}
 
 	/**
