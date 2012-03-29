@@ -1,5 +1,6 @@
 package com.github.joakimpersson.tda367.core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -124,5 +125,15 @@ public class PlayerPoints {
 	 */
 	public int getDestroyedBoxes() {
 		return this.destroyedTiles.get("Box");
+	}
+	
+	public ArrayList<Integer> getPointList() {
+		ArrayList<Integer> tmp = new ArrayList<Integer>();
+		tmp.add(this.totalScore);
+		tmp.add(this.killedPlayers);
+		tmp.add(this.hitPlayers);
+		tmp.add(this.destroyedTiles.get("Box"));
+		tmp.add(this.destroyedTiles.get("Pillar"));
+		return tmp;
 	}
 }

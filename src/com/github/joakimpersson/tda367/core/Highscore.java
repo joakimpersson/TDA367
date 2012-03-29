@@ -1,15 +1,22 @@
 package com.github.joakimpersson.tda367.core;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.CharArrayReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 
 public class Highscore {
 
 	private ArrayList<Player> players;
 	private File file = new File("HighScore.txt");
+	private HashMap<String, ArrayList<Integer>> playerList;
 
 	public void update(ArrayList<Player> otherPlayers) {
 
@@ -17,6 +24,7 @@ public class Highscore {
 			this.players.add(otherPlayers.get(0));
 		}
 
+		// Sorting all players
 		for (int i = 0; i < otherPlayers.size(); i++) {
 			for (int j = 0; j < this.players.size(); j++) {
 				if (otherPlayers.get(i).getScore() > this.players.get(j)
@@ -27,34 +35,81 @@ public class Highscore {
 				}
 			}
 		}
+
+		// Adding to the list
+		for (int i = 0; i < this.players.size(); i++) {
+			this.playerList.put(this.players.get(i).getName(), this.players
+					.get(i).getPlayerPoints().getPointList());
+		}
+		
+		this.saveList();
 	}
 
 	public void saveList() {
-		// TODO Save list with player name, score, players killed, players hit
-		// and date in a .txt file.
 		Writer output = null;
 		StringBuilder scoreText;
 		String tmpPlayerScore = "";
-		
-		for(int i = 0; i < this.players.size(); i++) {
-			tmpPlayerScore = this.players.get(i).getName() + "_" + this.players.get(i).getScore() + "_" + this.players.get(i).??.getKilledPlayers() + "_" + this.players.get(i).??.getHitPlayers() + "_" + this.players.get(i).??.getDestroyedBoxes() + "_" + this.players.get(i).??.getDestroyedPillars();
-			scoreText.append((i+1) + "_" + tmpPlayerScore + "\n");
+		// Creating a list were each row represent a players score and details
+		for (int i = 0; i < this.players.size(); i++) {
+			// TODO Better to use the getPointList() method?
+			tmpPlayerScore = this.players.get(i).getName()
+					+ "_"
+					+ this.players.get(i).getScore()
+					+ "_"
+					+ this.players.get(i).getPlayerPoints().getKilledPlayers()
+					+ "_"
+					+ this.players.get(i).getPlayerPoints().getHitPlayers()
+					+ "_"
+					+ this.players.get(i).getPlayerPoints().getDestroyedBoxes()
+					+ "_"
+					+ this.players.get(i).getPlayerPoints()
+							.getDestroyedPillars();
+			scoreText.append(tmpPlayerScore + "\n");
 		}
 		output = new BufferedWriter(new FileWriter(file));
-		//Clearing out the textfile
+		// Clearing out the textfile
 		output.write("");
-		
-		//Writing updated list
+
+		// Writing updated list
 		output.write(scoreText.toString());
 		output.close();
 	}
 
 	public void loadList() {
-		// TODO Load the .txt list into the player list.
+		String tmpPlayerPointsLine;
+		String tmpPlayerName = null;
+		ArrayList<Integer> tmpPlayerPointsList = new ArrayList<Integer>();
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			while ((tmpPlayerPointsLine = br.readLine()) != null) {
+				char[] tmpChar = tmpPlayerPointsLine.toCharArray();
+				// Saving playername
+				for (int i = 0; i < tmpChar.length; i++) {
+					if (!Character.isLetter(tmpChar[i])) {
+						tmpPlayerName = tmpPlayerPointsLine.substring(0, i);
+						tmpPlayerPointsLine = tmpPlayerPointsLine.substring(i);
+					}
+				}
+				// Saving the score of the player
+				for (int i = (tmpChar.length - 1); i > 0; i--) {
+					if (!Character.isDigit(tmpChar[i])) {
+						tmpPlayerPointsList.add(Integer
+								.parseInt(tmpPlayerPointsLine.substring(i)));
+						tmpPlayerPointsLine = tmpPlayerPointsLine.substring(0,
+								i);
+					}
+				}
+			}
+
+		} catch (IOException e) {
+			System.out.println("Error: " + e);
+		}
+
+		this.playerList.put(tmpPlayerName, tmpPlayerPointsList);
 	}
 
-	public ArrayList<Player> getList() {
-		return (ArrayList<Player>) this.players.clone();
+	public HashMap<String, ArrayList<Integer>> getList() {
+		return this.playerList;
 	}
 
 	public Player getPlayer(int position) {
