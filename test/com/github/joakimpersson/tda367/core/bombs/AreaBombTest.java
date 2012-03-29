@@ -29,7 +29,7 @@ import com.github.joakimpersson.tda367.core.tiles.Wall;
 public class AreaBombTest {
 
 	private Timer timer;
-	private AreaBomb bomb;
+	private Bomb bomb;
 	private Player player;
 	private static Tile[][] map = {
 			{ new Wall(), new Wall(), new Wall(), new Wall(), new Wall() },
@@ -70,11 +70,7 @@ public class AreaBombTest {
 		expectedPositions.add(new Position(4, 3));
 		List<Position> actualPositions = bomb.explode(map);
 		
-		assertEquals(expectedPositions.size(), actualPositions.size());
-		
-		for (Position pos : expectedPositions) {
-			assertTrue(actualPositions.contains(pos));
-		}
+		assertTrue(expectedPositions.equals(actualPositions));
 		
 		//just for debugging
 		for (Position pos : expectedPositions) {

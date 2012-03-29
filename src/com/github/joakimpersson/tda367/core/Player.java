@@ -127,10 +127,6 @@ public class Player {
 		return "P[" + this.name + ", " + this.pos + ", " + this.health + " HP]";
 	}
 
-	public Position getTilePosition() {
-		return pos;
-	}
-
 	public int getScore() {
 		return points.getScore();
 	}
@@ -139,15 +135,19 @@ public class Player {
 		return points.getCredits();
 	}
 
-	public PlayerPoints getPlayerPoints() {
-		return points;
-	}
-
 	public String getName() {
 		return name;
 	}
 	
 	public int getHealth() {
 		return health;
+	}
+
+	public Position getTilePosition() {
+		return pos;
+	}
+
+	public PlayerPoints getPlayerPoints() {
+		return points;
 	}
 }

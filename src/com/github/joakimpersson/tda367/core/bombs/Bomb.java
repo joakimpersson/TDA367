@@ -14,16 +14,16 @@ import com.github.joakimpersson.tda367.core.tiles.Tile;
 
 public abstract class Bomb implements Tile {
 
-	int toughness, range, power;
-	Timer timer;
-	Player player;
-	Position pos;
-	List<Position> fireList = new ArrayList<Position>();
+	protected int toughness, range, power;
+	protected Timer timer;
+	protected Player player;
+	protected Position pos;
+	protected List<Position> fireList = new ArrayList<Position>();
 
 	public Bomb(Player p, Timer t) {
 		this.pos = p.getTilePosition();
 		this.player = p;
-		this.toughness = 1; // TODO adrian: kanske Šndras senare eller nŒtt sŒnt
+		this.toughness = 1; // TODO adrian kanske Šndras senare eller nŒtt sŒnt
 		this.range = p.getAttribute(BombRange);
 		this.power = p.getAttribute(BombPower);
 		this.timer = t;
@@ -62,11 +62,11 @@ public abstract class Bomb implements Tile {
 	// return -1;
 	// }
 	
-	boolean tryBreak(Tile tile, int power) {
+	protected boolean tryBreak(Tile tile, int power) {
 		return power >= tile.getToughness();
 	}
 
-	boolean validPos(Position firePos) {
+	protected boolean validPos(Position firePos) {
 		Dimension d = Parameters.INSTANCE.getDimensions();
 		return firePos.getX() >= 0 
 				&& firePos.getX() <= d.width

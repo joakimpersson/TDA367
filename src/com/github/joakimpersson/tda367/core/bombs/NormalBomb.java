@@ -9,7 +9,7 @@ import com.github.joakimpersson.tda367.core.Position;
 import com.github.joakimpersson.tda367.core.tiles.Tile;
 
 public class NormalBomb extends Bomb {
-	Tile[][] map;
+	private Tile[][] map;
 
 	public NormalBomb(Player p, Timer t) {
 		super(p, t);
@@ -47,7 +47,7 @@ public class NormalBomb extends Bomb {
 			// firePower = firePower-toughness;
 			// }
 			if (validPos(firePos)) {
-				Tile tile = map[firePos.getX()][firePos.getY()]; // TODO jocke: rätt?
+				Tile tile = map[firePos.getX()][firePos.getY()]; // TODO jocke rätt?
 				boolean breakable = tryBreak(tile, firePower);
 				if (breakable) {
 					fireList.add(firePos);
