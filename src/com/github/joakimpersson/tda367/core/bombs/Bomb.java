@@ -26,6 +26,7 @@ public abstract class Bomb implements Tile {
 		this.range = p.getAttribute(Attribute.BombRange);
 		this.power = p.getAttribute(Attribute.BombPower);
 		this.timer = t;
+		this.pos = p.getTilePosition();
 	}
 
 	public Player getPlayer() {
@@ -48,16 +49,21 @@ public abstract class Bomb implements Tile {
 		return false;
 	}
 
-	int tryBreak(Position pos, int power, Tile tile) {
-		if (pos.getX()<0 || pos.getY()<0) {
-			return -1;
-		}
-		int toughness = tile.getToughness();
-		if (power >= toughness)
-			return toughness;
-		else
-			return -1;
+	//
+	// int tryBreak(Position pos, int power, Tile tile) {
+	// if (pos.getX()<0 || pos.getY()<0) {
+	// return -1;
+	// }
+	// int toughness = tile.getToughness();
+	// if (power >= toughness)
+	// return toughness;
+	// else
+	// return -1;
+	// }
+	
+	boolean tryBreak(Tile tile, int power) {
+		return power >= tile.getToughness();
 	}
-
+	
 	public abstract List<Position> explode(Tile[][] map);
 }
