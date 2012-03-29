@@ -1,6 +1,7 @@
 package com.github.joakimpersson.tda367.core.bombs;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +13,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.github.joakimpersson.tda367.core.Attribute;
 import com.github.joakimpersson.tda367.core.Player;
 import com.github.joakimpersson.tda367.core.Position;
-import com.github.joakimpersson.tda367.core.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.core.tiles.Box;
 import com.github.joakimpersson.tda367.core.tiles.Fire;
 import com.github.joakimpersson.tda367.core.tiles.Floor;
@@ -23,6 +22,11 @@ import com.github.joakimpersson.tda367.core.tiles.Pillar;
 import com.github.joakimpersson.tda367.core.tiles.Tile;
 import com.github.joakimpersson.tda367.core.tiles.Wall;
 
+/**
+ * 
+ * @author joakimpersson
+ *
+ */
 public class NormalBombTest {
 
 	private Timer timer;

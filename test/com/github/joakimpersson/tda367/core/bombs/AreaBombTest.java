@@ -21,6 +21,11 @@ import com.github.joakimpersson.tda367.core.tiles.Pillar;
 import com.github.joakimpersson.tda367.core.tiles.Tile;
 import com.github.joakimpersson.tda367.core.tiles.Wall;
 
+/**
+ * 
+ * @author joakimpersson
+ *
+ */
 public class AreaBombTest {
 
 	private Timer timer;
