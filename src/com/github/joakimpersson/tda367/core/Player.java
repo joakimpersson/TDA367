@@ -27,27 +27,40 @@ public class Player {
 		roundReset();
 	}
 
+	public void roundReset() {
+		this.attr.resetAttr(UpgradeType.Round);
+		this.health = getAttribute(Attribute.Health);
+		this.pos = initialPosition;
+		this.bombsPlaced = 0;
+	}
+
+	public void matchReset() {
+		this.attr.resetAttr(UpgradeType.Match);
+		roundReset();
+	}
+
 	public void move(PlayerAction action) {
-		// TODO send the change to Bomberman
+		// TODO send the change to BombermanModel
 		switch (action) {
 		case MoveDown:
-			pos = new Position(pos.getX(), pos.getY()+1);
+			pos = new Position(pos.getX(), pos.getY() + 1);
 			System.out.println("Down");
 			break;
 		case MoveUp:
-			pos = new Position(pos.getX(), pos.getY()-1);
+			pos = new Position(pos.getX(), pos.getY() - 1);
 			System.out.println("Up");
 			break;
 		case MoveLeft:
-			pos = new Position(pos.getX()-1, pos.getY());
+			pos = new Position(pos.getX() - 1, pos.getY());
 			System.out.println("Left");
 			break;
 		case MoveRight:
-			pos = new Position(pos.getX()+1, pos.getY());
+			pos = new Position(pos.getX() + 1, pos.getY());
 			System.out.println("Right");
 			break;
 		case PlaceBomb:
-			if (canPlaceBomb()) {
+			if (tryPlaceBomb()) {
+				// TODO implement in BombermanModel
 				System.out.println("Bomb");
 			}
 			break;
@@ -57,8 +70,25 @@ public class Player {
 		}
 	}
 
-	private boolean canPlaceBomb() {
-		return getAttribute(Attribute.BombStack) > this.bombsPlaced;
+	private boolean tryPlaceBomb() {
+		if (getAttribute(Attribute.BombStack) > this.bombsPlaced) {
+			this.bombsPlaced++;
+			return true;
+		}
+		return false;
+	}
+
+	public Bomb createBomb(Timer timer) {
+		switch (attr.getAttrValue(Attribute.BombType)) {
+		case 1:
+			return new AreaBomb(this, timer);
+		default:
+			return new NormalBomb(this, timer);
+		}
+	}
+
+	public void decreaseBombsPlaced() {
+		this.bombsPlaced--;
 	}
 
 	/**
@@ -73,25 +103,12 @@ public class Player {
 		this.attr.upgradeAttr(attr, type);
 	}
 
-	public Bomb createBomb(Timer timer) {
-		switch (attr.getAttrValue(Attribute.BombType)) {
-		case 1:
-			return new AreaBomb(this, timer);
-		default:
-			return new NormalBomb(this, timer);
-		}
+	public PlayerAttributes getAttr() {
+		return this.attr;
 	}
 
-	public void roundReset() {
-		this.attr.resetAttr(UpgradeType.Round);
-		this.health = getAttribute(Attribute.Health);
-		this.pos = initialPosition;
-		this.bombsPlaced = 0;
-	}
-
-	public void matchReset() {
-		this.attr.resetAttr(UpgradeType.Match);
-		roundReset();
+	public int getAttribute(Attribute a) {
+		return getAttr().getAttrValue(a);
 	}
 
 	public void playerHit() {
@@ -100,14 +117,6 @@ public class Player {
 
 	public boolean isAlive() {
 		return this.health > 0;
-	}
-
-	public PlayerAttributes getAttr() {
-		return this.attr;
-	}
-	
-	public int getAttribute(Attribute a) {
-		return getAttr().getAttrValue(a);
 	}
 
 	@Override
@@ -133,9 +142,5 @@ public class Player {
 
 	public String getName() {
 		return name;
-	}
-
-	public void decreaseBombsPlaced() {
-		this.bombsPlaced--;
 	}
 }
