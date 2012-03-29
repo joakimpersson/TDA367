@@ -2,87 +2,71 @@ package com.github.joakimpersson.tda367.core;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.CharArrayReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Highscore {
 
-	private ArrayList<Player> players;
 	private File file = new File("HighScore.txt");
-	private HashMap<String, ArrayList<Integer>> playerList;
+	private TreeMap<String, Integer> playerList = new TreeMap<String, Integer>();
 
 	public void update(ArrayList<Player> otherPlayers) {
 
-		if (this.players.isEmpty()) {
-			this.players.add(otherPlayers.get(0));
-		}
+		HashMap<String, Integer> tmpList = new HashMap<String, Integer>();
 
-		// Sorting all players
 		for (int i = 0; i < otherPlayers.size(); i++) {
-			for (int j = 0; j < this.players.size(); j++) {
-				if (otherPlayers.get(i).getScore() > this.players.get(j)
-						.getScore()) {
-					this.players.add(j, otherPlayers.get(i));
-				} else if (j == this.players.size() - 1) {
-					this.players.add(j, otherPlayers.get(i));
-				}
-			}
+			tmpList.put(otherPlayers.get(i).getName(), otherPlayers.get(i)
+					.getScore());
 		}
 
-		// Adding to the list
-		for (int i = 0; i < this.players.size(); i++) {
-			this.playerList.put(this.players.get(i).getName(), this.players
-					.get(i).getPlayerPoints().getPointList());
-		}
-		
+		playerList.putAll(tmpList);
+
 		this.saveList();
 	}
 
 	public void saveList() {
 		Writer output = null;
-		StringBuilder scoreText;
-		String tmpPlayerScore = "";
+		StringBuilder scoreText = null;
 		// Creating a list were each row represent a players score and details
-		for (int i = 0; i < this.players.size(); i++) {
-			// TODO Better to use the getPointList() method?
-			tmpPlayerScore = this.players.get(i).getName()
-					+ "_"
-					+ this.players.get(i).getScore()
-					+ "_"
-					+ this.players.get(i).getPlayerPoints().getKilledPlayers()
-					+ "_"
-					+ this.players.get(i).getPlayerPoints().getHitPlayers()
-					+ "_"
-					+ this.players.get(i).getPlayerPoints().getDestroyedBoxes()
-					+ "_"
-					+ this.players.get(i).getPlayerPoints()
-							.getDestroyedPillars();
-			scoreText.append(tmpPlayerScore + "\n");
+		for (int i = 0; i < this.playerList.size(); i++) {
+			scoreText.append(this.playerList.pollLastEntry().getKey() + "_"
+					+ this.playerList.pollLastEntry().getValue() + "\n");
 		}
-		output = new BufferedWriter(new FileWriter(file));
-		// Clearing out the textfile
-		output.write("");
+	
+		try {
+			output = new BufferedWriter(new FileWriter(file));
+			// Clearing out the textfile
+			output.write("");
 
-		// Writing updated list
-		output.write(scoreText.toString());
-		output.close();
+			// Writing updated list
+			output.write(scoreText.toString());
+			output.close();
+		} catch (IOException e) {
+			System.out.println("Error: " + e);
+		}
 	}
 
 	public void loadList() {
 		String tmpPlayerPointsLine;
 		String tmpPlayerName = null;
-		ArrayList<Integer> tmpPlayerPointsList = new ArrayList<Integer>();
+		Integer tmpPlayerScore = null;
+		BufferedReader br = null;
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(file));
+			br = new BufferedReader(new FileReader(file));
+		} catch (FileNotFoundException e1) {
+			System.out.println("File not found!");
+		}
+		try {
 			while ((tmpPlayerPointsLine = br.readLine()) != null) {
-				char[] tmpChar = tmpPlayerPointsLine.toCharArray();
+				char[] tmpChar = tmpPlayerPointsLine.toCharArray();				
 				// Saving playername
 				for (int i = 0; i < tmpChar.length; i++) {
 					if (!Character.isLetter(tmpChar[i])) {
@@ -93,35 +77,35 @@ public class Highscore {
 				// Saving the score of the player
 				for (int i = (tmpChar.length - 1); i > 0; i--) {
 					if (!Character.isDigit(tmpChar[i])) {
-						tmpPlayerPointsList.add(Integer
-								.parseInt(tmpPlayerPointsLine.substring(i)));
+						tmpPlayerScore = Integer
+								.parseInt(tmpPlayerPointsLine.substring(i));
 						tmpPlayerPointsLine = tmpPlayerPointsLine.substring(0,
 								i);
 					}
 				}
+				
+				this.playerList.put(tmpPlayerName, tmpPlayerScore);
 			}
-
+		} catch (NumberFormatException e) {
+			System.out.println("Error: " + e);
 		} catch (IOException e) {
 			System.out.println("Error: " + e);
-		}
+			e.printStackTrace();
+		} 
 
-		this.playerList.put(tmpPlayerName, tmpPlayerPointsList);
+		
 	}
 
-	public HashMap<String, ArrayList<Integer>> getList() {
+	public Map<String, Integer> getList() {
 		return this.playerList;
 	}
 
-	public Player getPlayer(int position) {
-		return this.players.get(position);
-	}
-
 	public int getSize() {
-		return this.players.size();
+		return this.playerList.size();
 	}
 
 	public void clear() {
-		this.players.clear();
+		this.playerList.clear();
 	}
 
 }
