@@ -40,14 +40,8 @@ public class NormalBomb extends Bomb {
 		for (int i = 1; i <= range; i++) {
 			Position firePos = new Position(x + (dir.getX() * i), y + (dir.getY() * i));
 
-			// int toughness = tryBreak(firePos, firePower, map[x][y]);
-
-			// if (toughness >= 0) {
-			// fireList.add(firePos);
-			// firePower = firePower-toughness;
-			// }
 			if (validPos(firePos)) {
-				Tile tile = map[firePos.getX()][firePos.getY()]; // TODO jocke rätt?
+				Tile tile = map[firePos.getX()][firePos.getY()];
 				boolean breakable = tryBreak(tile, firePower);
 				if (breakable) {
 					fireList.add(firePos);

@@ -49,14 +49,15 @@ public class Box implements Tile {
 		double a = Math.random();
 		double probability = Parameters.INSTANCE.getPowerUpProbabilityBox();
 
-		return Double.compare(probability, a) >= 0;//TODO use
+		return probability >= a;
+
 	}
 
 	@Override
 	public boolean isWalkable() {
 		return false;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Box";
