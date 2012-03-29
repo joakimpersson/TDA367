@@ -2,6 +2,7 @@ package com.github.joakimpersson.tda367.core;
 
 import java.util.Timer;
 
+import static com.github.joakimpersson.tda367.core.Attribute.Health;
 import com.github.joakimpersson.tda367.core.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.core.bombs.AreaBomb;
 import com.github.joakimpersson.tda367.core.bombs.Bomb;
@@ -29,7 +30,7 @@ public class Player {
 
 	public void roundReset() {
 		this.attr.resetAttr(UpgradeType.Round);
-		this.health = getAttribute(Attribute.Health);
+		this.health = getAttribute(Health);
 		this.pos = initialPosition;
 		this.bombsPlaced = 0;
 	}
@@ -142,5 +143,9 @@ public class Player {
 
 	public String getName() {
 		return name;
+	}
+	
+	public int getHealth() {
+		return health;
 	}
 }
