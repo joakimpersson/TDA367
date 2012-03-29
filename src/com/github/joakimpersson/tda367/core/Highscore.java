@@ -33,13 +33,20 @@ public class Highscore {
 	}
 
 	public void saveList() {
-		Writer output = null;
-		StringBuilder scoreText = null;
+		Writer output;
+		StringBuilder scoreText = new StringBuilder();
+		int tmpSize = this.playerList.size();
+		TreeMap<String, Integer> tmpList = new TreeMap<String, Integer>();
+		tmpList.putAll(playerList);
+		
 		// Creating a list were each row represent a players score and details
-		for (int i = 0; i < this.playerList.size(); i++) {
-			scoreText.append(this.playerList.pollLastEntry().getKey() + "_"
-					+ this.playerList.pollLastEntry().getValue() + "\n");
+		for (int i = 0; i < tmpSize; i++) {
+			scoreText.append(this.playerList.lastKey() + "_"
+					+ this.playerList.get(this.playerList.lastKey()) + "\n");
+			playerList.pollLastEntry();
 		}
+		
+		playerList.putAll(tmpList);
 	
 		try {
 			output = new BufferedWriter(new FileWriter(file));
@@ -57,7 +64,6 @@ public class Highscore {
 	public void loadList() {
 		String tmpPlayerPointsLine;
 		String tmpPlayerName = null;
-		Integer tmpPlayerScore = null;
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(file));
@@ -69,22 +75,16 @@ public class Highscore {
 				char[] tmpChar = tmpPlayerPointsLine.toCharArray();				
 				// Saving playername
 				for (int i = 0; i < tmpChar.length; i++) {
-					if (!Character.isLetter(tmpChar[i])) {
+					if (!Character.isLetter(tmpChar[i]) && !Character.isDigit(tmpChar[i])) {
 						tmpPlayerName = tmpPlayerPointsLine.substring(0, i);
 						tmpPlayerPointsLine = tmpPlayerPointsLine.substring(i);
-					}
-				}
-				// Saving the score of the player
-				for (int i = (tmpChar.length - 1); i > 0; i--) {
-					if (!Character.isDigit(tmpChar[i])) {
-						tmpPlayerScore = Integer
-								.parseInt(tmpPlayerPointsLine.substring(i));
-						tmpPlayerPointsLine = tmpPlayerPointsLine.substring(0,
-								i);
+						break;
 					}
 				}
 				
-				this.playerList.put(tmpPlayerName, tmpPlayerScore);
+				tmpPlayerPointsLine = tmpPlayerPointsLine.substring(1);
+				
+				this.playerList.put(tmpPlayerName, Integer.parseInt(tmpPlayerPointsLine));
 			}
 		} catch (NumberFormatException e) {
 			System.out.println("Error: " + e);

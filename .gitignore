@@ -11,6 +11,7 @@ bin
 *.exe
 *.o
 *.so
+*.txt
 
 # Packages #
 ############
