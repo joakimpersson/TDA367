@@ -29,6 +29,7 @@ public class AreaBomb extends Bomb {
 			}
 		}
 		
+		this.player.decreaseBombsPlaced();
 		return fireList;
 	}
 	

@@ -27,6 +27,7 @@ public class NormalBomb extends Bomb {
 		// dont forget to add itself
 		fireList.add(pos);
 
+		this.player.decreaseBombsPlaced();
 		return fireList;
 	}
 
