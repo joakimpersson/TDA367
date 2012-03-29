@@ -50,53 +50,43 @@ public class NormalBombTest {
 		bomb = new NormalBomb(player, timer);
 	}
 
-	// TODO jocke about a test need with increased power or if it is coverd when
-	// testing tryBreak!
+	// TODO jocke about a test need with increased power or if it is covered
+	// when testing tryBreak!
 	@Test
 	public void testExplode() {
+		consoleMapView(map);
+
+		List<Position> expectedPositions = new ArrayList<Position>();
+		expectedPositions.add(new Position(3, 3));
+		expectedPositions.add(new Position(3, 1));
+		expectedPositions.add(new Position(4, 2));
+		expectedPositions.add(new Position(5, 2));
+		expectedPositions.add(new Position(3, 2));
+		List<Position> actualPositions = bomb.explode(map);
+
+		assertEquals(expectedPositions.size(), actualPositions.size());
+
+		for (Position pos : expectedPositions) {
+			assertTrue(actualPositions.contains(pos));
+		}
+
+		for (Position pos : expectedPositions) {
+			map[pos.getX()][pos.getY()] = new Fire();
+		}
+
+		System.out.println();
+		System.out.println();
+		consoleMapView(map);
+
+	}
+
+	private void consoleMapView(Tile[][] map) {
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
 				System.out.print(map[i][j].toString() + "\t");
 			}
 			System.out.println("\n");
 		}
-
-		List<Position> expectedDestroyedPositions = new ArrayList<Position>();
-		expectedDestroyedPositions.add(new Position(3, 3));
-		expectedDestroyedPositions.add(new Position(3, 1));
-		expectedDestroyedPositions.add(new Position(4, 2));
-		expectedDestroyedPositions.add(new Position(5, 2));
-		expectedDestroyedPositions.add(new Position(3, 2));
-		List<Position> actualDestroyedPositions = bomb.explode(map);
-
-		assertEquals(expectedDestroyedPositions.size(),
-				actualDestroyedPositions.size());
-		int index = 0;
-		for (Position pos : expectedDestroyedPositions) {
-			System.out.println(actualDestroyedPositions.get(index));
-			index++;
-			assertTrue(actualDestroyedPositions.contains(pos));
-		}
-
-		map[expectedDestroyedPositions.get(0).getX()][expectedDestroyedPositions
-				.get(0).getY()] = new Fire();
-		map[expectedDestroyedPositions.get(1).getX()][expectedDestroyedPositions
-				.get(1).getY()] = new Fire();
-		map[expectedDestroyedPositions.get(2).getX()][expectedDestroyedPositions
-				.get(2).getY()] = new Fire();
-		map[expectedDestroyedPositions.get(3).getX()][expectedDestroyedPositions
-				.get(3).getY()] = new Fire();
-		map[expectedDestroyedPositions.get(4).getX()][expectedDestroyedPositions
-				.get(4).getY()] = new Fire();
-		System.out.println();
-		System.out.println();
-		for (int i = 0; i < map.length; i++) {
-			for (int j = 0; j < map[i].length; j++) {
-				System.out.print(map[i][j].toString() + "\t");
-			}
-			System.out.println("\n");
-		}
-
 	}
 
 	@After
