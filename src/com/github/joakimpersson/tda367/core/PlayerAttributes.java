@@ -1,9 +1,6 @@
 package com.github.joakimpersson.tda367.core;
 
-import static com.github.joakimpersson.tda367.core.Attribute.BombRange;
-import static com.github.joakimpersson.tda367.core.Attribute.BombStack;
-import static com.github.joakimpersson.tda367.core.Attribute.Health;
-import static com.github.joakimpersson.tda367.core.Attribute.Speed;
+import static com.github.joakimpersson.tda367.core.Attribute.*;
 
 import java.util.EnumMap;
 import java.util.List;
@@ -160,7 +157,7 @@ public class PlayerAttributes {
 		matchAttr.put(BombStack, Parameters.INSTANCE.getStartingBombs());
 		matchAttr.put(Health, Parameters.INSTANCE.getInitHealth());
 		matchAttr.put(BombRange, Parameters.INSTANCE.getInitBombRange());
-		matchAttr.put(Attribute.BombPower, Parameters.INSTANCE.getInitBombPower());
+		matchAttr.put(BombPower, Parameters.INSTANCE.getInitBombPower());
 		
 	}
 

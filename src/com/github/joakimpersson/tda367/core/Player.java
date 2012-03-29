@@ -2,7 +2,9 @@ package com.github.joakimpersson.tda367.core;
 
 import java.util.Timer;
 
-import static com.github.joakimpersson.tda367.core.Attribute.Health;
+import static com.github.joakimpersson.tda367.core.Attribute.*;
+import static com.github.joakimpersson.tda367.core.PlayerAttributes.UpgradeType.*;
+
 import com.github.joakimpersson.tda367.core.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.core.bombs.AreaBomb;
 import com.github.joakimpersson.tda367.core.bombs.Bomb;
@@ -29,14 +31,14 @@ public class Player {
 	}
 
 	public void roundReset() {
-		this.attr.resetAttr(UpgradeType.Round);
+		this.attr.resetAttr(Round);
 		this.health = getAttribute(Health);
 		this.pos = initialPosition;
 		this.bombsPlaced = 0;
 	}
 
 	public void matchReset() {
-		this.attr.resetAttr(UpgradeType.Match);
+		this.attr.resetAttr(Match);
 		roundReset();
 	}
 
@@ -72,7 +74,7 @@ public class Player {
 	}
 
 	private boolean tryPlaceBomb() {
-		if (getAttribute(Attribute.BombStack) > this.bombsPlaced) {
+		if (getAttribute(BombStack) > this.bombsPlaced) {
 			this.bombsPlaced++;
 			return true;
 		}
@@ -80,7 +82,7 @@ public class Player {
 	}
 
 	public Bomb createBomb(Timer timer) {
-		switch (attr.getAttrValue(Attribute.BombType)) {
+		switch (getAttribute(BombType)) {
 		case 1:
 			return new AreaBomb(this, timer);
 		default:
@@ -109,7 +111,7 @@ public class Player {
 	}
 
 	public int getAttribute(Attribute a) {
-		return getAttr().getAttrValue(a);
+		return this.attr.getAttrValue(a);
 	}
 
 	public void playerHit() {

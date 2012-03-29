@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 
-import com.github.joakimpersson.tda367.core.Attribute;
+import static com.github.joakimpersson.tda367.core.Attribute.*;
 import com.github.joakimpersson.tda367.core.Parameters;
 import com.github.joakimpersson.tda367.core.Player;
 import com.github.joakimpersson.tda367.core.Position;
@@ -24,8 +24,8 @@ public abstract class Bomb implements Tile {
 		this.pos = p.getTilePosition();
 		this.player = p;
 		this.toughness = 1; // TODO adrian: kanske ändras senare eller nått sånt
-		this.range = p.getAttribute(Attribute.BombRange);
-		this.power = p.getAttribute(Attribute.BombPower);
+		this.range = p.getAttribute(BombRange);
+		this.power = p.getAttribute(BombPower);
 		this.timer = t;
 	}
 
