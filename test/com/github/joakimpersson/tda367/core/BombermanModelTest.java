@@ -8,8 +8,11 @@ import org.junit.Test;
 
 public class BombermanModelTest {
 
+	private IBombermanModel model;
+	
 	@Before
 	public void setUp() throws Exception {
+		model = BombermanModel.getInstance();
 	}
 
 	@After
@@ -17,7 +20,12 @@ public class BombermanModelTest {
 	}
 
 	@Test
-	public void testGetInstance() {
+	public void testStartGame() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testEndGame() {
 		fail("Not yet implemented");
 	}
 
@@ -32,22 +40,7 @@ public class BombermanModelTest {
 	}
 
 	@Test
-	public void testHandleFire() {
-		fail("Not yet implemented");
-	}
-
-	@Test
 	public void testGetPlayers() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetTileToughnessPosition() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetTileToughnessIntInt() {
 		fail("Not yet implemented");
 	}
 
