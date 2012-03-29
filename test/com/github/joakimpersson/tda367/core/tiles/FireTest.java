@@ -27,6 +27,7 @@ public class FireTest {
 	@Before
 	public void setUp() throws Exception {
 		Position pos = new Position(0, 0);
+		player = new Player("Kalle", pos);
 		fire = new Fire();
 	}
 

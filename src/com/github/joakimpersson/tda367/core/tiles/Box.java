@@ -1,7 +1,7 @@
 package com.github.joakimpersson.tda367.core.tiles;
 
 import com.github.joakimpersson.tda367.core.Parameters;
-import com.github.joakimpersson.tda367.factory.PowerUpFactory;
+import com.github.joakimpersson.tda367.core.powerupitems.PowerUpFactory;
 
 /**
  * 
@@ -49,7 +49,7 @@ public class Box implements Tile {
 		double a = Math.random();
 		double probability = Parameters.INSTANCE.getPowerUpProbabilityBox();
 
-		return Double.compare(probability, a) >= 0;
+		return Double.compare(probability, a) >= 0;//TODO use
 	}
 
 	@Override

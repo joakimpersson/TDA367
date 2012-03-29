@@ -1,9 +1,5 @@
-package com.github.joakimpersson.tda367.factory;
+package com.github.joakimpersson.tda367.core.powerupitems;
 
-import com.github.joakimpersson.tda367.core.powerupitems.BombStackUpdateItem;
-import com.github.joakimpersson.tda367.core.powerupitems.PowerupItem;
-import com.github.joakimpersson.tda367.core.powerupitems.RangeUpdateItem;
-import com.github.joakimpersson.tda367.core.powerupitems.SpeedUpdateItem;
 
 /**
  * A factory for creating a PowerUpItem. It chooses randomly one of the three
