@@ -1,5 +1,7 @@
 package com.github.joakimpersson.tda367.core;
 
+import java.awt.Dimension;
+
 /**
  * 
  * @author joakimpersson
@@ -55,5 +57,10 @@ public enum Parameters {
 	
 	public int getFireDuration() {
 		return 1500;
+	}
+	
+	public Dimension getDimensions() {
+		// TODO implement this in GameField
+		return new Dimension(15,13);
 	}
 }
