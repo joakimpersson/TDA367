@@ -1,4 +1,4 @@
-package com.github.joakimpersson.tda367.core.powerupitems;
+package com.github.joakimpersson.tda367.core.tiles.powerupitems;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;

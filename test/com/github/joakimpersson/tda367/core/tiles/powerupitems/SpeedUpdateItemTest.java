@@ -1,4 +1,4 @@
-package com.github.joakimpersson.tda367.core.powerupitems;
+package com.github.joakimpersson.tda367.core.tiles.powerupitems;
 
 import static org.junit.Assert.assertEquals;
 

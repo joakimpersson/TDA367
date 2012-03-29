@@ -1,4 +1,4 @@
-package com.github.joakimpersson.tda367.core.bombs;
+package com.github.joakimpersson.tda367.core.tiles.bombs;
 
 import java.util.List;
 import java.util.Timer;

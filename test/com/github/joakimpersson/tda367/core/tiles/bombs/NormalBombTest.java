@@ -1,4 +1,4 @@
-package com.github.joakimpersson.tda367.core.bombs;
+package com.github.joakimpersson.tda367.core.tiles.bombs;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -20,15 +20,15 @@ import com.github.joakimpersson.tda367.core.tiles.Floor;
 import com.github.joakimpersson.tda367.core.tiles.Pillar;
 import com.github.joakimpersson.tda367.core.tiles.Tile;
 import com.github.joakimpersson.tda367.core.tiles.Wall;
-import com.github.joakimpersson.tda367.core.tiles.bombs.AreaBomb;
 import com.github.joakimpersson.tda367.core.tiles.bombs.Bomb;
+import com.github.joakimpersson.tda367.core.tiles.bombs.NormalBomb;
 
 /**
  * 
  * @author joakimpersson
  * 
  */
-public class AreaBombTest {
+public class NormalBombTest {
 
 	private Timer timer;
 	private Bomb bomb;
@@ -52,21 +52,18 @@ public class AreaBombTest {
 		Position pos = new Position(3, 2);
 		timer = new Timer();
 		player = new Player("Kalle", pos);
-		bomb = new AreaBomb(player, timer);
+		bomb = new NormalBomb(player, timer);
 	}
 
 	@Test
 	public void testExplode() {
 
 		List<Position> expectedPositions = new ArrayList<Position>();
-		expectedPositions.add(new Position(2, 1));
-		expectedPositions.add(new Position(2, 3));
-		expectedPositions.add(new Position(3, 1));
-		expectedPositions.add(new Position(3, 2));
 		expectedPositions.add(new Position(3, 3));
+		expectedPositions.add(new Position(3, 1));
 		expectedPositions.add(new Position(4, 2));
-		expectedPositions.add(new Position(4, 1));
-		expectedPositions.add(new Position(4, 3));
+		expectedPositions.add(new Position(5, 2));
+		expectedPositions.add(new Position(3, 2));
 		List<Position> actualPositions = bomb.explode(map);
 
 		// can not use the lists equal method since it does not regard that the
@@ -76,6 +73,7 @@ public class AreaBombTest {
 		for (Position pos : expectedPositions) {
 			assertTrue(actualPositions.contains(pos));
 		}
+
 	}
 
 	@After
@@ -89,5 +87,4 @@ public class AreaBombTest {
 	public static void destroyMap() {
 		map = null;
 	}
-
 }
