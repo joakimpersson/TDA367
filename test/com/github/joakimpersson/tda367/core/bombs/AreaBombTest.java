@@ -24,7 +24,7 @@ import com.github.joakimpersson.tda367.core.tiles.Wall;
 public class AreaBombTest {
 
 	private Timer timer;
-	private NormalBomb bomb;
+	private AreaBomb bomb;
 	private Player player;
 	private static Tile[][] map = {
 			{ new Wall(), new Wall(), new Wall(), new Wall(), new Wall() },
@@ -45,7 +45,7 @@ public class AreaBombTest {
 		Position pos = new Position(3, 2);
 		timer = new Timer();
 		player = new Player("Kalle", pos);
-		bomb = new NormalBomb(player, timer);
+		bomb = new AreaBomb(player, timer);
 	}
 
 	// TODO jocke about a test need with increased power or if it is covered
@@ -55,25 +55,21 @@ public class AreaBombTest {
 		consoleMapView(map);
 
 		List<Position> expectedPositions = new ArrayList<Position>();
-		expectedPositions.add(new Position(3, 3));
-		expectedPositions.add(new Position(3, 1));
-		expectedPositions.add(new Position(4, 2));
 		expectedPositions.add(new Position(2, 1));
 		expectedPositions.add(new Position(2, 3));
+		expectedPositions.add(new Position(3, 1));
 		expectedPositions.add(new Position(3, 2));
+		expectedPositions.add(new Position(3, 3));
 		expectedPositions.add(new Position(4, 1));
+		expectedPositions.add(new Position(4, 2));
 		expectedPositions.add(new Position(4, 3));
 		List<Position> actualPositions = bomb.explode(map);
-
-		for (Position pos : actualPositions) {
-			System.out.println(pos);
+		
+		assertEquals(expectedPositions.size(), actualPositions.size());
+		
+		for (Position pos : expectedPositions) {
+			assertTrue(actualPositions.contains(pos));
 		}
-		
-		//assertEquals(expectedPositions.size(), actualPositions.size());
-		
-		//for (Position pos : expectedPositions) {
-			//assertTrue(actualPositions.contains(pos));
-		//}
 		
 		//just for debugging
 		for (Position pos : expectedPositions) {

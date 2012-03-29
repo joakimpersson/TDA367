@@ -19,10 +19,11 @@ public class AreaBomb extends Bomb {
 		int xPos = pos.getX();
 		int yPos = pos.getY();
 		
-		for (int x = xPos-range; x < xPos+range; x++) {
-			for (int y = yPos-range; y < yPos+range; y++) {
+		for (int x = xPos-range; x <= xPos+range; x++) {
+			for (int y = yPos-range; y <= yPos+range; y++) {
 				Position firePos = new Position(x, y);
 				if (validPos(firePos) && tryBreak(map[x][y], power)) {
+					System.out.println(firePos);
 					fireList.add(firePos);
 				}
 			}
