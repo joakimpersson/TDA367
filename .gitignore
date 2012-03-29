@@ -37,3 +37,5 @@ bin
 ehthumbs.db
 Icon?
 Thumbs.db
+
+*.txt
