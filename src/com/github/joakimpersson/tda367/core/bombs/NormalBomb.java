@@ -37,9 +37,7 @@ public class NormalBomb extends Bomb {
 		int firePower = power;
 
 		for (int i = 1; i <= range; i++) {
-
-			Position firePos = new Position(x + (dir.getX() * i), y
-					+ (dir.getY() * i));
+			Position firePos = new Position(x + (dir.getX() * i), y + (dir.getY() * i));
 
 			// int toughness = tryBreak(firePos, firePower, map[x][y]);
 
@@ -47,14 +45,15 @@ public class NormalBomb extends Bomb {
 			// fireList.add(firePos);
 			// firePower = firePower-toughness;
 			// }
-			Tile tile = map[firePos.getX()][firePos.getY()];
-
-			boolean toughness = tryBreak(tile, firePower);
-			if (toughness) {
-				fireList.add(firePos);
-				firePower -= tile.getToughness();
-			} else {
-				break;// fire stops directly
+			if (validPos(firePos)) {
+				Tile tile = map[firePos.getX()][firePos.getY()]; // TODO jocke: rŠtt?
+				boolean breakable = tryBreak(tile, firePower);
+				if (breakable) {
+					fireList.add(firePos);
+					firePower -= tile.getToughness();
+				} else {
+					break; // fire stops directly
+				}
 			}
 		}
 	}

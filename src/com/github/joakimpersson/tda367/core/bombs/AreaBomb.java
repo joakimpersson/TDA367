@@ -11,6 +11,7 @@ public class AreaBomb extends Bomb {
 
 	public AreaBomb(Player p, Timer t) {
 		super(p, t);
+		this.range--; // sets range one lower than usual due to the destructive nature of area bombs!
 	}
 
 	@Override
@@ -21,7 +22,7 @@ public class AreaBomb extends Bomb {
 		for (int x = xPos-range; x < xPos+range; x++) {
 			for (int y = yPos-range; y < yPos+range; y++) {
 				Position firePos = new Position(x, y);
-				if (tryBreak(firePos, power, map[x][y]) >= 0) {
+				if (validPos(firePos) && tryBreak(map[x][y], power)) {
 					fireList.add(firePos);
 				}
 			}
