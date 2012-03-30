@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.github.joakimpersson.tda367.core.tiles.Tile;
-
 /**
  * 
  * @author joakimpersson
@@ -52,8 +50,7 @@ public class PlayerPoints {
 			if (list.get(i).getScore() == 30) {
 				this.killedPlayers = this.killedPlayers + 1;
 			} else if (list.get(i).getScore() == 20) {
-				this.destroyedTiles.put("Pillar",
-						this.destroyedTiles.get("Pillar") + 1);
+				this.destroyedTiles.put("Pillar", this.destroyedTiles.get("Pillar") + 1);
 			} else if (list.get(i).getScore() == 5) {
 				this.destroyedTiles.put("Box",
 						this.destroyedTiles.get("Box") + 1);
@@ -127,6 +124,7 @@ public class PlayerPoints {
 		return this.destroyedTiles.get("Box");
 	}
 	
+	//Not sure if this is needed...
 	public ArrayList<Integer> getPointList() {
 		ArrayList<Integer> tmp = new ArrayList<Integer>();
 		tmp.add(this.totalScore);
@@ -135,5 +133,9 @@ public class PlayerPoints {
 		tmp.add(this.destroyedTiles.get("Box"));
 		tmp.add(this.destroyedTiles.get("Pillar"));
 		return tmp;
+	}
+	
+	public void resetScore() {
+		this.totalScore = 0;
 	}
 }

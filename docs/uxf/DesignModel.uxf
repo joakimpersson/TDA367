@@ -32,9 +32,9 @@ Main
     <type>com.umlet.element.Package</type>
     <coordinates>
       <x>27</x>
-      <y>90</y>
+      <y>81</y>
       <w>1746</w>
-      <h>1017</h>
+      <h>1071</h>
     </coordinates>
     <panel_attributes>model
 bg=white
@@ -111,8 +111,8 @@ fg=black
     <coordinates>
       <x>297</x>
       <y>540</y>
-      <w>45</w>
-      <h>81</h>
+      <w>44</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=1..2</panel_attributes>
@@ -160,8 +160,8 @@ Parameters
     <coordinates>
       <x>252</x>
       <y>837</y>
-      <w>45</w>
-      <h>90</h>
+      <w>44</w>
+      <h>89</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>27;72;27;27</additional_attributes>
@@ -346,8 +346,8 @@ PowerupItem
     <coordinates>
       <x>1350</x>
       <y>567</y>
-      <w>143</w>
-      <h>134</h>
+      <w>144</w>
+      <h>135</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>126;27;27;117</additional_attributes>
@@ -532,22 +532,28 @@ GameField
     <type>com.umlet.element.Class</type>
     <coordinates>
       <x>396</x>
-      <y>909</y>
+      <y>891</y>
       <w>252</w>
-      <h>189</h>
+      <h>252</h>
     </coordinates>
     <panel_attributes>PlayerPoints
 --
 -totalScore: int
 -credits: int
--destroyedObj: List&lt;Tiles&gt;
+-destroyedObj: Map&lt;String, Integer&gt;
 -killedPlayers: int
+-hitPlayers
 --
-+update(List&lt;PointGivers:Enum&gt;
++update(List&lt;PointGivers:Enum&gt;)
++reduceCredits(cost:int)
 +getScore(): int
 +getCredits() :int
-+reduceCredits(cost:int)
-+reset():void</panel_attributes>
++getHitPlayers(): int
++getKilledPlayers(): int
++getDestroyedPillars(): int
++getDestroyedBoxes(): int
++getPointList(): List&lt;Object&gt;
++reset(): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -556,10 +562,10 @@ GameField
       <x>441</x>
       <y>837</y>
       <w>44</w>
-      <h>89</h>
+      <h>71</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>27;72;27;27</additional_attributes>
+    <additional_attributes>27;54;27;27</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
@@ -601,10 +607,46 @@ IBombermanModel
     <coordinates>
       <x>297</x>
       <y>225</y>
-      <w>45</w>
-      <h>144</h>
+      <w>44</w>
+      <h>143</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>27;27;27;126</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>27</x>
+      <y>81</y>
+      <w>1746</w>
+      <h>1071</h>
+    </coordinates>
+    <panel_attributes>model
+bg=white
+fg=black
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>621</x>
+      <y>126</y>
+      <w>261</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>Highscore
+--
+-players: List&lt;Player&gt; 
+-file: File
+-playerList: Map&lt;String, Integer&gt;
+--
++update(otherPlayers: List&lt;Player&gt;): void
++saveList(): void
++loadList(): void
++getList(): Map&lt;String, Integer&gt;
++getSize(): int
++clear(): void </panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
