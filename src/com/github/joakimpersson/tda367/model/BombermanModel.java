@@ -28,6 +28,7 @@ import com.github.joakimpersson.tda367.model.utils.Position;
  * 
  * @Date 2012-03-27
  * @author Viktor Anderling
+ * @modified Joakim Persson
  * 
  */
 public class BombermanModel implements IBombermanModel {
@@ -129,14 +130,17 @@ public class BombermanModel implements IBombermanModel {
 	 *            The player that places the bomb.
 	 */
 	private void placeBomb(Player player) {
-		Timer bombTimer = new Timer();
-		Bomb bomb = createBomb(player, bombTimer);// player.createBomb(bombTimer);
-		bombTimer.schedule(new BombTask(bomb),
-				Parameters.INSTANCE.getBombDetonationTime());
+		if (player.canPlaceBomb()) {
+			Timer bombTimer = new Timer();
+			Bomb bomb = createBomb(player, bombTimer);// player.createBomb(bombTimer);
+			bombTimer.schedule(new BombTask(bomb),
+					Parameters.INSTANCE.getBombDetonationTime());
+		}
 	}
 
 	// TODO changed location of createing the bomb from player to bombermodel
 	private Bomb createBomb(Player player, Timer bombTimer) {
+
 		switch (player.getAttribute(Attribute.BombType)) {
 		case 1:
 			return new AreaBomb(player, bombTimer);

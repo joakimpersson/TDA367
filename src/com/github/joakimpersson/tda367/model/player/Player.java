@@ -61,19 +61,13 @@ public class Player {
 			pos = new Position(pos.getX() + 1, pos.getY());
 			System.out.println("Right");
 			break;
-		case PlaceBomb:
-			if (tryPlaceBomb()) {
-				// TODO implement in BombermanModel
-				System.out.println("Bomb");
-			}
-			break;
 		default:
 			// The player stands still
 			break;
 		}
 	}
 
-	private boolean tryPlaceBomb() {
+	public boolean canPlaceBomb() {
 		if (getAttribute(BombStack) > this.bombsPlaced) {
 			this.bombsPlaced++;
 			return true;
