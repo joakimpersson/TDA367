@@ -103,7 +103,7 @@ public class BombermanModel implements IBombermanModel {
 	}
 
 	private void move(Player player, PlayerAction action) {
-		// TODO send on to player.
+		// TODO write algorithms for players 
 	}
 	
 	/**
