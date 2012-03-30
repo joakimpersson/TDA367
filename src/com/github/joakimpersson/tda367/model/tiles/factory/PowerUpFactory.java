@@ -1,4 +1,9 @@
-package com.github.joakimpersson.tda367.model.tiles.walkable;
+package com.github.joakimpersson.tda367.model.tiles.factory;
+
+import com.github.joakimpersson.tda367.model.tiles.walkable.BombStackUpdateItem;
+import com.github.joakimpersson.tda367.model.tiles.walkable.PowerupItem;
+import com.github.joakimpersson.tda367.model.tiles.walkable.RangeUpdateItem;
+import com.github.joakimpersson.tda367.model.tiles.walkable.SpeedUpdateItem;
 
 
 /**

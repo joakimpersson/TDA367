@@ -2,8 +2,8 @@ package com.github.joakimpersson.tda367.model.tiles.nonwalkable;
 
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
+import com.github.joakimpersson.tda367.model.tiles.factory.PowerUpFactory;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
-import com.github.joakimpersson.tda367.model.tiles.walkable.PowerUpFactory;
 
 /**
  * 
