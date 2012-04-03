@@ -5,7 +5,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -66,9 +65,8 @@ public class BoxTest {
 		}
 		int ratio = sum / max;
 		int probability = (int) (Parameters.INSTANCE.getPowerUpProbabilityBox() * 100);
-		int diff = 2;
-		assertTrue((ratio >= (probability - diff))
-				&& (ratio <= (probability + diff)));
+		int delta = 2;
+		assertEquals(probability, ratio,delta);
 	}
 
 }
