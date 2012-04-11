@@ -5,12 +5,14 @@ import java.util.List;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.player.Player;
+import com.github.joakimpersson.tda367.model.tiles.Tile;
 
 /**
  * An interface modeling the bomberman model that the main controller will use
  * to communicate with the rest of the model
  * 
- * @author joakimpersson & Viktor Anderling
+ * @author joakimpersson
+ * @modified Viktor Anderling
  * 
  */
 public interface IBombermanModel {
@@ -41,7 +43,14 @@ public interface IBombermanModel {
 	 * @return A list of players
 	 */
 	public List<Player> getPlayers();
-	
+
+	/**
+	 * Returns a copy of the matrix representing the game map
+	 * 
+	 * @return The game map matrix
+	 */
+	public Tile[][] getMap();
+
 	public void startGame();
 
 	public void endGame();
