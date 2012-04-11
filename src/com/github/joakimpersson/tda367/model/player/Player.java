@@ -1,22 +1,31 @@
 package com.github.joakimpersson.tda367.model.player;
 
-import static com.github.joakimpersson.tda367.model.constants.Attribute.BombStack;
-import static com.github.joakimpersson.tda367.model.constants.Attribute.Health;
-import static com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType.Match;
-import static com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType.Round;
+import static com.github.joakimpersson.tda367.model.constants.Attribute.*;
+import static com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType.*;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
+import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.model.utils.Position;
 
 public class Player {
+	private class HitTask extends TimerTask {
+		@Override
+		public void run() {
+			invulnerable = false;
+		}
+	}
 
 	private String name;
 	private Position initialPosition, pos;
 	private PlayerAttributes attr;
 	private PlayerPoints points;
 	private int bombsPlaced, health;
+	private boolean invulnerable = false;
 
 	public Player(String name, Position pos) {
 		this.name = name;
@@ -103,7 +112,12 @@ public class Player {
 	}
 
 	public void playerHit() {
-		this.health--;
+		if (this.invulnerable == false) {
+			this.health--;
+			this.invulnerable = true;
+			Timer invulnerableTimer = new Timer();
+			invulnerableTimer.schedule(new HitTask(), Parameters.INSTANCE.getFireDuration());
+		}
 	}
 
 	public boolean isAlive() {
