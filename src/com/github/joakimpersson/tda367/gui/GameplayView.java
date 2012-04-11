@@ -57,7 +57,7 @@ public class GameplayView implements IView {
 							blockHeight, Color.orange, g);
 				} else if (tile instanceof Box) {
 					drawRect(blockWidth * j, blockHeight * i, blockWidth,
-							blockHeight, Color.yellow, g);
+							blockHeight, Color.red, g);
 				}
 			}
 		}

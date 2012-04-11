@@ -14,6 +14,8 @@ import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
+import com.github.joakimpersson.tda367.model.map.GameMap;
+import com.github.joakimpersson.tda367.model.map.IGameMap;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
@@ -59,12 +61,12 @@ public class BombermanModel implements IBombermanModel {
 
 		@Override
 		public void run() {
-			handleFire(bomb.getPlayer(), bomb.explode(gameField.getMap()));
+			handleFire(bomb.getPlayer(), bomb.explode(map.getMap()));
 		}
 	}
 
 	private List<Player> players;
-	private GameField gameField;
+	private IGameMap map;
 	private static BombermanModel instance = null;
 	private LinkedList<Map<Position, Tile>> waitingFirePositions;
 
@@ -75,7 +77,7 @@ public class BombermanModel implements IBombermanModel {
 
 	private BombermanModel() {
 		this.players = new ArrayList<Player>();
-		this.gameField = new StandardMap();
+		this.map = new GameMap();
 		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
 	}
 
@@ -149,8 +151,8 @@ public class BombermanModel implements IBombermanModel {
 
 		// Handles what happens if the player walks into a new tile.
 		if (!prevPos.equals(newPos)) {
-			WalkableTile enteredTile = (WalkableTile) gameField.getTile(newPos);
-			gameField.setTile(enteredTile.playerEnter(player), newPos);
+			WalkableTile enteredTile = (WalkableTile) map.getTile(newPos);
+			map.setTile(enteredTile.playerEnter(player), newPos);
 		}
 	}
 
@@ -221,7 +223,7 @@ public class BombermanModel implements IBombermanModel {
 					}
 				}
 			}
-			tempTile = gameField.getTile(pos);
+			tempTile = map.getTile(pos);
 			if (tempTile instanceof Box) {
 				pg.add(PointGiver.Box);
 			} else if (tempTile instanceof Pillar) {
@@ -242,8 +244,8 @@ public class BombermanModel implements IBombermanModel {
 	private void setFire(List<Position> positions) {
 		Map<Position, Tile> waitingTiles = new HashMap<Position, Tile>();
 		for (Position firePos : positions) {
-			waitingTiles.put(firePos, gameField.getTile(firePos).onFire());
-			gameField.setTile(new Fire(), firePos);
+			waitingTiles.put(firePos, map.getTile(firePos).onFire());
+			map.setTile(new Fire(), firePos);
 		}
 		waitingFirePositions.addLast(waitingTiles);
 		Timer timer = new Timer();
@@ -261,7 +263,7 @@ public class BombermanModel implements IBombermanModel {
 		Position temp;
 		while (iterator.hasNext()) {
 			temp = (Position) iterator.next();
-			gameField.setTile(fireReplacers.get(temp), temp);
+			map.setTile(fireReplacers.get(temp), temp);
 		}
 		waitingFirePositions.removeFirst();
 	}
@@ -273,7 +275,7 @@ public class BombermanModel implements IBombermanModel {
 
 	@Override
 	public Tile[][] getMap() {
-		return gameField.getMap();
+		return map.getMap();
 	}
 
 	private boolean isPlayerAtPosition(Player player, Position pos) {
