@@ -15,11 +15,10 @@ import org.junit.Test;
 
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
-import com.github.joakimpersson.tda367.model.tiles.bombs.Bomb;
-import com.github.joakimpersson.tda367.model.tiles.bombs.NormalBomb;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Box;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Pillar;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Wall;
+import com.github.joakimpersson.tda367.model.tiles.walkable.Fire;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
 import com.github.joakimpersson.tda367.model.utils.Position;
 
@@ -66,7 +65,7 @@ public class NormalBombTest {
 		expectedPositions.add(new Position(3, 2));
 		List<Position> actualPositions = bomb.explode(map);
 
-		// can not use the lists equal method since it does not regard that the
+		// cannot use the lists equal method since it does not regard that the
 		// two lists have the positions at different index
 		assertEquals(expectedPositions.size(), actualPositions.size());
 

@@ -20,7 +20,7 @@ import com.github.joakimpersson.tda367.model.utils.Position;
 /**
  * 
  * @author joakimpersson
- *
+ * 
  */
 public class GameMapTest {
 	private GameMap map;
@@ -59,16 +59,18 @@ public class GameMapTest {
 		Tile floor = map.getTile(new Position(1, 1));
 		Tile pillar = map.getTile(new Position(2, 2));
 		Tile tile = map.getTile(new Position(6, 9));
-
+		Tile wallTwo = map.getTile(new Position(11, 14));
+		
 		assertThat(wall, is(instanceOf(Wall.class)));
 		assertThat(floor, is(instanceOf(Floor.class)));
-		assertThat(pillar, is(instanceOf(Pillar.class)));
-		assertThat(tile, is(instanceOf(Tile.class)));
+		assertThat(pillar, is(instanceOf(Floor.class)));
+		assertThat(tile, is(instanceOf(Floor.class)));
+		assertThat(wallTwo, is(instanceOf(Wall.class)));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetTileException() {
-		Position pos = new Position(1, -11);
+		Position pos = new Position(1, 15);
 		map.getTile(pos);
 	}
 
