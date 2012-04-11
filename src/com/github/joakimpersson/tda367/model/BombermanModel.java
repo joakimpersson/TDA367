@@ -26,6 +26,7 @@ import com.github.joakimpersson.tda367.model.tiles.bombs.NormalBomb;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Box;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Pillar;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Fire;
+import com.github.joakimpersson.tda367.model.utils.FPosition;
 import com.github.joakimpersson.tda367.model.utils.Position;
 
 /**
@@ -77,7 +78,7 @@ public class BombermanModel implements IBombermanModel {
 
 	private BombermanModel() {
 		this.players = new ArrayList<Player>();
-		// TODO natan perhaps instansiating the players somewhere else
+		// TODO natan perhaps instantiating the players somewhere else
 		players.add(new Player("Joakim", new Position(2, 2)));
 		players.add(new Player("kalle", new Position(10, 8)));
 		this.map = new GameMap();
@@ -136,27 +137,45 @@ public class BombermanModel implements IBombermanModel {
 				direction = Direction.Right;
 				break;
 			default:
-				//nothing 
+				direction = Direction.None;
 			}
 			this.move(player, direction);
 		}
 	}
 
 	/**
-	 * This method moves the player in 
+	 * This method moves the player in a double grid.
+	 * If the tile at the chosen direction is walkable or the player will end up
+	 * at least at the length of 0.2 from it, the player will move in that direction
+	 * and action is taken if a new tile is entered. Else, nothing happens.
 	 * 
 	 * @param player
 	 * @param action
 	 */
 	private void move(Player player, Direction direction) {
-		Double stepSize = Parameters.INSTANCE.getPlayerStepSize();
 		Position prevPos = player.getTilePosition();
-
-		// TODO write algorithms for players
+		Tile tileAtDirection = map.getTile(new Position(
+				prevPos.getX() + direction.getX(), prevPos.getY() + direction.getY()));
+		// The tile that the player may walk into.
 		
-		// adrian: till exempel sŒhŠr :),
-		// natan: nej for player.move ska ta in en double
-		//player.move(direction);
+		if(tileAtDirection.isWalkable()) {
+			player.move(direction);
+		} else {
+			FPosition decimalPos = player.getFPosition();
+			decimalPos = new FPosition(
+				decimalPos.getX() - (int)decimalPos.getX(), decimalPos.getY() - (int)decimalPos.getY());
+			// Removes the integer part of the players position, leaving only the decimal part.
+			
+			double xStep = Parameters.INSTANCE.getPlayerStepSize() * direction.getX();
+			double yStep = Parameters.INSTANCE.getPlayerStepSize() * direction.getY();
+			decimalPos = new FPosition((float)(decimalPos.getX() + xStep), (float)(decimalPos.getY() + yStep));
+			// Adding the steps to the player's new position.
+		
+			if(!(decimalPos.getX() > 0.81 || decimalPos.getX() < 0.19 || 
+					decimalPos.getY() > 0.81 || decimalPos.getY() < 0.19)) {
+				player.move(direction);
+			}
+		}
 
 		Position newPos = player.getTilePosition();
 
