@@ -2,7 +2,9 @@ package com.github.joakimpersson.tda367.core.tiles;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -14,12 +16,9 @@ import com.github.joakimpersson.tda367.core.Position;
 public class FloorTest {
 
 	private Floor floor;
-	private Player player;
 
 	@Before
 	public void setUp() throws Exception {
-		Position pos = new Position(1, 1);
-		player = new Player("Kalle", pos);
 		floor = new Floor();
 	}
 
@@ -36,6 +35,8 @@ public class FloorTest {
 
 	@Test
 	public void testPlayerEnter() {
+		Position pos = new Position(1, 1);
+		Player player = new Player("Kalle", pos);
 		Tile tile = floor.playerEnter(player);
 		assertThat(tile, is(instanceOf(Floor.class)));
 	}
@@ -48,7 +49,6 @@ public class FloorTest {
 	@After
 	public void tearDown() throws Exception {
 		floor = null;
-		player = null;
 	}
 
 }

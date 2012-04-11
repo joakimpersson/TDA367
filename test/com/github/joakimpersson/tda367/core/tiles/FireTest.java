@@ -21,12 +21,9 @@ import com.github.joakimpersson.tda367.core.Position;
 public class FireTest {
 
 	private Fire fire;
-	private Player player;
 
 	@Before
 	public void setUp() throws Exception {
-		Position pos = new Position(0, 0);
-		player = new Player("Kalle", pos);
 		fire = new Fire();
 	}
 
@@ -49,6 +46,8 @@ public class FireTest {
 
 	@Test
 	public void testPlayerEnter() {
+		Position pos = new Position(0, 0);
+		Player player = new Player("Kalle", pos);
 		int expected = player.getHealth() - 1;
 		fire.playerEnter(player);
 		int actual = player.getHealth();
@@ -57,7 +56,6 @@ public class FireTest {
 
 	@After
 	public void tearDown() throws Exception {
-		player = null;
 		fire = null;
 	}
 }
