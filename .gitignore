@@ -7,10 +7,10 @@ bin
 ###################
 *.com
 *.class
-*.dll
+#*.dll # in order to use the lwjgl native files for windows
 *.exe
 *.o
-*.so
+#*.so # in order to use the lwjggl native files for linux/solaris
 *.txt
 
 # Packages #
