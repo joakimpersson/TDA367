@@ -154,7 +154,8 @@ public class BombermanModel implements IBombermanModel {
 
 		// TODO write algorithms for players
 		
-		// adrian: till exempel såhär :)
+		// adrian: till exempel såhär :),
+		// natan: nej for player.move ska ta in en double
 		//player.move(direction);
 
 		Position newPos = player.getTilePosition();

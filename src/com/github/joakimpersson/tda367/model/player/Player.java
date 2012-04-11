@@ -55,8 +55,9 @@ public class Player {
 	}
 
 	public void move(Direction dir) {
-		gamePos = new FPosition(gamePos.getX() + dir.getX(), gamePos.getY() + dir.getY());
-		tilePos = new Position((int) gamePos.getX(), (int) gamePos.getY());
+		// TODO write new move method
+		//gamePos = new FPosition(gamePos.getX() + dir.getX(), gamePos.getY() + dir.getY());
+		//tilePos = new Position((int) gamePos.getX(), (int) gamePos.getY());
 	}
 
 	public boolean canPlaceBomb() {
@@ -130,6 +131,10 @@ public class Player {
 
 	public Position getTilePosition() {
 		return tilePos;
+	}
+	
+	public FPosition getFPosition() {
+		return gamePos;
 	}
 
 	public PlayerPoints getPlayerPoints() {
