@@ -1,13 +1,13 @@
-package com.github.joakimpersson.tda367.core;
+package com.github.joakimpersson.tda367.model.player;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
-import com.github.joakimpersson.tda367.core.PlayerPoints.PointGiver;
+import com.github.joakimpersson.tda367.model.constants.PointGiver;
 
 public class PlayerPointsTest {
 
