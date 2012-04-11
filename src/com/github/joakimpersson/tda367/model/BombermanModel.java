@@ -10,12 +10,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.github.joakimpersson.tda367.model.constants.Attribute;
+import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
+import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
 import com.github.joakimpersson.tda367.model.tiles.bombs.AreaBomb;
 import com.github.joakimpersson.tda367.model.tiles.bombs.Bomb;
 import com.github.joakimpersson.tda367.model.tiles.bombs.NormalBomb;
@@ -65,9 +67,7 @@ public class BombermanModel implements IBombermanModel {
 	private GameField gameField;
 	private static BombermanModel instance = null;
 	private LinkedList<Map<Position, Tile>> waitingFirePositions;
-
-	/*
-	 * This list contains, in the order of each explosion, what is supposed to
+	/* This list contains, in the order of each explosion, what is supposed to
 	 * be at the positions when the fire of that explosion is to be removed.
 	 */
 
@@ -95,14 +95,6 @@ public class BombermanModel implements IBombermanModel {
 		// TODO what exactly does this do?
 	}
 
-	public void updateGame(Player player, PlayerAction action) {
-		if (action == PlayerAction.PlaceBomb) {
-			this.placeBomb(player);
-		} else {
-			this.move(player, action);
-		}
-	}
-
 	/**
 	 * This method upgrades the player for one match,
 	 */
@@ -118,8 +110,41 @@ public class BombermanModel implements IBombermanModel {
 		// TODO what exactly does this do?
 	}
 
-	private void move(Player player, PlayerAction action) {
+	public void updateGame(Player player, PlayerAction action) {
+		if (action == PlayerAction.PlaceBomb) {
+			this.placeBomb(player);
+		} else {
+			Direction direction;
+			switch(action) {
+				case MoveUp: 	direction = Direction.Up;
+				case MoveDown: 	direction = Direction.Down;
+				case MoveLeft: 	direction = Direction.Left;
+				default:		direction = Direction.Right;
+			}
+			this.move(player, direction);
+		}
+	}
+	
+	/**
+	 * This method moves the player in 
+	 * 
+	 * @param player
+	 * @param action
+	 */
+	private void move(Player player, Direction direction) {
+		Double stepSize = Parameters.INSTANCE.getPlayerStepSize();
+		Position prevPos = player.getTilePosition();
+		
+		
 		// TODO write algorithms for players 
+		
+		Position newPos = player.getTilePosition();
+		
+		// Handles what happens if the player walks into a new tile.
+		if(!prevPos.equals(newPos)) {
+			WalkableTile enteredTile = (WalkableTile) gameField.getTile(newPos);
+			gameField.setTile(enteredTile.playerEnter(player), newPos);
+		}
 	}
 
 	/**

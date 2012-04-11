@@ -59,6 +59,14 @@ public enum Parameters {
 		return 1500;
 	}
 	
+	/**
+	 * This method returns the size of one step inside a tile, preferably smaller than 0.2.
+	 * The step size affects how fast the game must be updated.
+	 */
+	public double getPlayerStepSize() {
+		return 0.1;
+	}
+	
 	public Dimension getDimensions() {
 		// TODO implement this in GameField
 		return new Dimension(15,13);
