@@ -10,6 +10,7 @@ import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
+import com.github.joakimpersson.tda367.model.utils.FPosition;
 import com.github.joakimpersson.tda367.model.utils.Position;
 
 public class Player {
@@ -21,7 +22,8 @@ public class Player {
 	}
 
 	private String name;
-	private Position initialPosition, pos;
+	private Position initialPosition, tilePos;
+	private FPosition gamePos;
 	private PlayerAttributes attr;
 	private PlayerPoints points;
 	private int bombsPlaced, health;
@@ -42,7 +44,8 @@ public class Player {
 	public void roundReset() {
 		this.attr.resetAttr(Round);
 		this.health = getAttribute(Health);
-		this.pos = initialPosition;
+		this.tilePos = initialPosition;
+		this.gamePos = new FPosition(initialPosition.getX()+0.5F, initialPosition.getY()+0.5F);
 		this.bombsPlaced = 0;
 	}
 
@@ -52,28 +55,8 @@ public class Player {
 	}
 
 	public void move(Direction dir) {
-		// TODO send the change to BombermanModel
-		switch (dir) {
-		case Down:
-			pos = new Position(pos.getX(), pos.getY() + 1);
-			System.out.println("Down");
-			break;
-		case Up:
-			pos = new Position(pos.getX(), pos.getY() - 1);
-			System.out.println("Up");
-			break;
-		case Left:
-			pos = new Position(pos.getX() - 1, pos.getY());
-			System.out.println("Left");
-			break;
-		case Right:
-			pos = new Position(pos.getX() + 1, pos.getY());
-			System.out.println("Right");
-			break;
-		default:
-			// The player stands still
-			break;
-		}
+		gamePos = new FPosition(gamePos.getX() + dir.getX(), gamePos.getY() + dir.getY());
+		tilePos = new Position((int) gamePos.getX(), (int) gamePos.getY());
 	}
 
 	public boolean canPlaceBomb() {
@@ -126,7 +109,7 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "P[" + this.name + ", " + this.pos + ", " + this.health + " HP]";
+		return "P[" + this.name + ", " + this.tilePos + ", " + this.health + " HP]";
 	}
 
 	public int getScore() {
@@ -146,7 +129,7 @@ public class Player {
 	}
 
 	public Position getTilePosition() {
-		return pos;
+		return tilePos;
 	}
 
 	public PlayerPoints getPlayerPoints() {
