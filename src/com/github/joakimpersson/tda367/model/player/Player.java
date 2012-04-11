@@ -7,7 +7,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.github.joakimpersson.tda367.model.constants.Attribute;
-import com.github.joakimpersson.tda367.model.constants.PlayerAction;
+import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.model.utils.Position;
@@ -51,22 +51,22 @@ public class Player {
 		roundReset();
 	}
 
-	public void move(PlayerAction action) {
+	public void move(Direction dir) {
 		// TODO send the change to BombermanModel
-		switch (action) {
-		case MoveDown:
+		switch (dir) {
+		case Down:
 			pos = new Position(pos.getX(), pos.getY() + 1);
 			System.out.println("Down");
 			break;
-		case MoveUp:
+		case Up:
 			pos = new Position(pos.getX(), pos.getY() - 1);
 			System.out.println("Up");
 			break;
-		case MoveLeft:
+		case Left:
 			pos = new Position(pos.getX() - 1, pos.getY());
 			System.out.println("Left");
 			break;
-		case MoveRight:
+		case Right:
 			pos = new Position(pos.getX() + 1, pos.getY());
 			System.out.println("Right");
 			break;

@@ -142,6 +142,9 @@ public class BombermanModel implements IBombermanModel {
 		Position prevPos = player.getTilePosition();
 
 		// TODO write algorithms for players
+		// [adrian is on the job!]
+		player.move(direction);
+		// [/adrian is on the job]
 
 		Position newPos = player.getTilePosition();
 
