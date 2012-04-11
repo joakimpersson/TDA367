@@ -61,6 +61,8 @@ public class GameplayState extends BasicGameState {
 			model.updateGame(players.get(1), PlayerAction.PlaceBomb);
 		}
 
+		//TODO there must be a better way!
+		
 		// moving player1
 		if (input.isKeyPressed(Input.KEY_UP)) {
 			model.updateGame(players.get(0), PlayerAction.MoveUp);

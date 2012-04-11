@@ -7,8 +7,8 @@ public class GameMap implements IGameMap {
 
 	private Tile[][] map;
 	// TODO all perhaps refactor/move
-	private static final int width = 12;
-	private static final int height = 15;
+	private static final int width = 15;
+	private static final int height = 13;
 
 	public GameMap() {
 
