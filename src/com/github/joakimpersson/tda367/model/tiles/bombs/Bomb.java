@@ -28,6 +28,7 @@ public abstract class Bomb implements Tile {
 		this.range = p.getAttribute(BombRange);
 		this.power = p.getAttribute(BombPower);
 		this.timer = t;
+		this.player.increaseBombsPlaced();
 	}
 
 	public Player getPlayer() {

@@ -69,7 +69,6 @@ public class Player {
 
 	public boolean canPlaceBomb() {
 		if (getAttribute(BombStack) > this.bombsPlaced) {
-			this.bombsPlaced++;
 			return true;
 		}
 		return false;
@@ -77,6 +76,10 @@ public class Player {
 
 	public void decreaseBombsPlaced() {
 		this.bombsPlaced--;
+	}
+
+	public void increaseBombsPlaced() {
+		this.bombsPlaced++;
 	}
 
 	/**
