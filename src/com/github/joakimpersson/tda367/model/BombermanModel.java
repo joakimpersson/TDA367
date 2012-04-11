@@ -143,7 +143,7 @@ public class BombermanModel implements IBombermanModel {
 	}
 
 	/**
-	 * This method moves the player in
+	 * This method moves the player in 
 	 * 
 	 * @param player
 	 * @param action
@@ -153,8 +153,9 @@ public class BombermanModel implements IBombermanModel {
 		Position prevPos = player.getTilePosition();
 
 		// TODO write algorithms for players
+		
 		// adrian: till exempel såhär :)
-		player.move(direction);
+		//player.move(direction);
 
 		Position newPos = player.getTilePosition();
 
@@ -178,10 +179,12 @@ public class BombermanModel implements IBombermanModel {
 			Bomb bomb = createBomb(player, bombTimer);// player.createBomb(bombTimer);
 			bombTimer.schedule(new BombTask(bomb),
 					Parameters.INSTANCE.getBombDetonationTime());
+			
+			map.setTile(bomb, player.getTilePosition());
 		}
 	}
 
-	// TODO changed location of createing the bomb from player to bombermodel
+	// TODO changed location of creating the bomb from player to bombermanModel
 	private Bomb createBomb(Player player, Timer bombTimer) {
 
 		switch (player.getAttribute(Attribute.BombType)) {
