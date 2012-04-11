@@ -17,14 +17,15 @@ bin
 ############
 # it's better to unpack these files and commit the raw source
 # git has its own built in compression methods
+
 *.7z
 *.dmg
 *.gz
 *.iso
-*.jar
+#*.jar # the project uses slick and lwjgl frameworks
 *.rar
 *.tar
-*.zip
+#*.zip # the javadoc file for the slick libary
 
 # Logs and databases #
 ######################
