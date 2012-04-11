@@ -79,7 +79,7 @@ public class BombermanModel implements IBombermanModel {
 	private BombermanModel() {
 		this.players = new ArrayList<Player>();
 		// TODO natan perhaps instantiating the players somewhere else
-		players.add(new Player("Joakim", new Position(2, 2)));
+		players.add(new Player("Joakim", new Position(1, 1)));
 		players.add(new Player("kalle", new Position(10, 8)));
 		this.map = new GameMap();
 		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
