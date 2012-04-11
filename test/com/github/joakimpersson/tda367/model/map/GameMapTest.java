@@ -1,16 +1,16 @@
-package com.github.joakimpersson.tda367.model;
+package com.github.joakimpersson.tda367.model.map;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.joakimpersson.tda367.model.GameField;
-import com.github.joakimpersson.tda367.model.StandardMap;
-import com.github.joakimpersson.tda367.model.tiles.*;
+import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Box;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Pillar;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Wall;
@@ -22,12 +22,12 @@ import com.github.joakimpersson.tda367.model.utils.Position;
  * @author joakimpersson
  *
  */
-public class StandardMapTest {
-	private GameField map;
+public class GameMapTest {
+	private GameMap map;
 
 	@Before
 	public void setUp() throws Exception {
-		map = new StandardMap();
+		map = new GameMap();
 
 	}
 
