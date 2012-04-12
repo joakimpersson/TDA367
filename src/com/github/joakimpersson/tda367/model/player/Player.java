@@ -13,6 +13,12 @@ import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType
 import com.github.joakimpersson.tda367.model.utils.FPosition;
 import com.github.joakimpersson.tda367.model.utils.Position;
 
+
+/**
+ * 
+ * @Modified Viktor Anderling
+ *
+ */
 public class Player {
 	private class HitTask extends TimerTask {
 		@Override
@@ -55,9 +61,11 @@ public class Player {
 	}
 
 	public void move(Direction dir) {
-		// TODO write new move method
-		//gamePos = new FPosition(gamePos.getX() + dir.getX(), gamePos.getY() + dir.getY());
-		//tilePos = new Position((int) gamePos.getX(), (int) gamePos.getY());
+		double stepSize = Parameters.INSTANCE.getPlayerStepSize();
+		double newFX = gamePos.getX() + stepSize * dir.getX();
+		double newFY = gamePos.getY() + stepSize * dir.getY();
+		gamePos = new FPosition((float)newFX, (float)newFY);
+		tilePos = new Position((int)newFX, (int)newFY);
 	}
 
 	public boolean canPlaceBomb() {

@@ -171,6 +171,7 @@ public class BombermanModel implements IBombermanModel {
 			decimalPos = new FPosition((float)(decimalPos.getX() + xStep), (float)(decimalPos.getY() + yStep));
 			// Adding the steps to the player's new position.
 		
+			// Can't move closer than 0.2 to a non-walkable tile.
 			if(!(decimalPos.getX() > 0.81 || decimalPos.getX() < 0.19 || 
 					decimalPos.getY() > 0.81 || decimalPos.getY() < 0.19)) {
 				player.move(direction);
