@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Box;
-import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Pillar;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Wall;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
 import com.github.joakimpersson.tda367.model.utils.Position;
@@ -60,7 +59,7 @@ public class GameMapTest {
 		Tile pillar = map.getTile(new Position(2, 2));
 		Tile tile = map.getTile(new Position(6, 9));
 		Tile wallTwo = map.getTile(new Position(11, 14));
-		
+
 		assertThat(wall, is(instanceOf(Wall.class)));
 		assertThat(floor, is(instanceOf(Floor.class)));
 		assertThat(pillar, is(instanceOf(Floor.class)));
@@ -82,17 +81,7 @@ public class GameMapTest {
 
 	@Test
 	public void testGetMap() {
-		fail("Don't know how to implement");
-	}
-
-	@Test
-	public void testGetSize() {
-		fail("Don't know how to implement");
-	}
-
-	@Test
-	public void testResetField() {
-		fail("Don't know how to implement");
+		fail("Not yet implemented!");
 	}
 
 	@After
