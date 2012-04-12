@@ -1,7 +1,5 @@
 package com.github.joakimpersson.tda367.gui;
 
-import java.util.List;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -10,7 +8,6 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
-import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.bombs.Bomb;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Box;
@@ -28,7 +25,6 @@ public class GameplayView implements IView {
 
 	// TODO jocke ask if this is okay!
 	private IBombermanModel model = null;
-	private List<Player> players = null;
 
 	// private Map<Player,Image> players = null;
 
@@ -50,31 +46,12 @@ public class GameplayView implements IView {
 		// }
 		// this.players.put(p, img);
 		// }
-		this.players = model.getPlayers();
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 		drawMap(container, g);
-		drawPlayers(container, g);
-	}
-
-	private void drawPlayers(GameContainer container, Graphics g) {
-		Tile[][] map = model.getMap();
-		int mapHeight = map.length;
-		int mapWidth = map[0].length;
-
-		int blockWidth = container.getWidth() / mapWidth;
-		int blockHeight = container.getHeight() / mapHeight;
-
-		for (Player p : players) {
-			g.setColor(Color.white);
-			g.fillOval(p.getTilePosition().getX() * blockWidth, p
-					.getTilePosition().getY() * blockHeight, blockWidth,
-					blockHeight);
-		}
-
 	}
 
 	private void drawMap(GameContainer container, Graphics g) {
