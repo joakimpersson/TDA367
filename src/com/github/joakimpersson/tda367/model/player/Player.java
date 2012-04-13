@@ -1,23 +1,26 @@
 package com.github.joakimpersson.tda367.model.player;
 
-import static com.github.joakimpersson.tda367.model.constants.Attribute.*;
-import static com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType.*;
+import static com.github.joakimpersson.tda367.model.constants.Attribute.BombStack;
+import static com.github.joakimpersson.tda367.model.constants.Attribute.Health;
+import static com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType.Match;
+import static com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType.Round;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
+import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.model.utils.FPosition;
 import com.github.joakimpersson.tda367.model.utils.Position;
 
-
 /**
  * 
- * @Modified Viktor Anderling
- *
+ * @Modified Viktor Anderling, Joakim Persson
+ * 
  */
 public class Player {
 	private class HitTask extends TimerTask {
@@ -51,7 +54,8 @@ public class Player {
 		this.attr.resetAttr(Round);
 		this.health = getAttribute(Health);
 		this.tilePos = initialPosition;
-		this.gamePos = new FPosition(initialPosition.getX()+0.5F, initialPosition.getY()+0.5F);
+		this.gamePos = new FPosition(initialPosition.getX() + 0.5F,
+				initialPosition.getY() + 0.5F);
 		this.bombsPlaced = 0;
 	}
 
@@ -64,8 +68,8 @@ public class Player {
 		double stepSize = Parameters.INSTANCE.getPlayerStepSize();
 		double newFX = gamePos.getX() + stepSize * dir.getX();
 		double newFY = gamePos.getY() + stepSize * dir.getY();
-		gamePos = new FPosition((float)newFX, (float)newFY);
-		tilePos = new Position((int)newFX, (int)newFY);
+		gamePos = new FPosition((float) newFX, (float) newFY);
+		tilePos = new Position((int) newFX, (int) newFY);
 	}
 
 	public boolean canPlaceBomb() {
@@ -95,8 +99,8 @@ public class Player {
 		this.attr.upgradeAttr(attr, type);
 	}
 
-	public PlayerAttributes getAttr() {
-		return this.attr;
+	public List<Attribute> getPermantAttributes() {
+		return this.attr.getAttributes();
 	}
 
 	public int getAttribute(Attribute a) {
@@ -108,7 +112,8 @@ public class Player {
 			this.health--;
 			this.invulnerable = true;
 			Timer invulnerableTimer = new Timer();
-			invulnerableTimer.schedule(new HitTask(), Parameters.INSTANCE.getFireDuration());
+			invulnerableTimer.schedule(new HitTask(),
+					Parameters.INSTANCE.getFireDuration());
 		}
 	}
 
@@ -118,7 +123,8 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "P[" + this.name + ", " + this.tilePos + ", " + this.health + " HP]";
+		return "P[" + this.name + ", " + this.tilePos + ", " + this.health
+				+ " HP]";
 	}
 
 	public int getScore() {
@@ -127,6 +133,14 @@ public class Player {
 
 	public int getCredits() {
 		return points.getCredits();
+	}
+
+	public void reduceCredits(int cost) {
+		this.points.reduceCredits(cost);
+	}
+
+	public void updatePlayerPoints(List<PointGiver> pg) {
+		this.points.update(pg);
 	}
 
 	public String getName() {
@@ -140,12 +154,9 @@ public class Player {
 	public Position getTilePosition() {
 		return tilePos;
 	}
-	
+
 	public FPosition getFPosition() {
 		return gamePos;
 	}
 
-	public PlayerPoints getPlayerPoints() {
-		return points;
-	}
 }

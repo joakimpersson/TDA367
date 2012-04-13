@@ -110,7 +110,7 @@ public class BombermanModel implements IBombermanModel {
 		if (player.getCredits() > attr.getCost()) {
 			player.upgradeAttr(attr, UpgradeType.Match);
 			// TODO perhaps map via the player object
-			player.getPlayerPoints().reduceCredits(attr.getCost());
+			player.reduceCredits(attr.getCost());
 		}
 		// TODO perhaps do something or notify someone when it fails!
 
@@ -275,7 +275,7 @@ public class BombermanModel implements IBombermanModel {
 				pg.add(PointGiver.Pillar);
 			}
 		}
-		bombOwner.getPlayerPoints().update(pg);
+		bombOwner.updatePlayerPoints(pg);
 	}
 
 	/**

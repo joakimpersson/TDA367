@@ -32,7 +32,8 @@ public class MainMenuView implements IView {
 		g.drawString("Highscore View (H)", posX, posY);
 		posY += 40;
 		g.drawString("Upgrade Player View (U)", posX, posY);
-
+		posY += 40;
+		g.drawString("Exit Game - yeah right... (Q)", posX, posY);
 	}
 
 }

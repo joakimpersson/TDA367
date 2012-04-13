@@ -40,8 +40,8 @@ public class UpgradePlayerState extends BasicGameState {
 			throws SlickException {
 		view = new UpgradePlayerView();
 		model = BombermanModel.getInstance();
-		// TODO jocke perhaps map it via the player object
-		attributes = model.getPlayers().get(0).getAttr().getAttributes();
+		
+		attributes = model.getPlayers().get(0).getPermantAttributes();
 		playersIndex = new HashMap<Player, Integer>();
 		for (Player p : model.getPlayers()) {
 			playersIndex.put(p, 0);

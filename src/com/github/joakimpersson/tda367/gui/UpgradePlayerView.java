@@ -1,9 +1,7 @@
 package com.github.joakimpersson.tda367.gui;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -13,7 +11,6 @@ import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.player.Player;
-import com.github.joakimpersson.tda367.model.player.PlayerAttributes;
 
 /**
  * 
@@ -52,7 +49,6 @@ public class UpgradePlayerView implements IUpgradePlayerView {
 	// TODO jocke yeah i know that it is a mess
 	private void drawPlayerStats(Player p, int attrIndex, int posX, int posY,
 			int yDelta, Graphics g) {
-		PlayerAttributes attr = p.getAttr();
 
 		g.drawString(p.getName() + " (" + p.getCredits() + "$)", posX, posY);
 
@@ -60,21 +56,16 @@ public class UpgradePlayerView implements IUpgradePlayerView {
 
 		g.drawString("name(lvl), cost", posX, posY);
 
-		Set<Map.Entry<Attribute, Integer>> entries = attr.getMatchAttrs()
-				.entrySet();
-		Iterator<Map.Entry<Attribute, Integer>> iter = entries.iterator();
 		int index = 0;
-		while (iter.hasNext()) {
-
+		for (Attribute a : p.getPermantAttributes()) {
 			posY += yDelta;
-			Map.Entry<Attribute, Integer> entry = iter.next();
-			Attribute a = entry.getKey();
-			Integer value = entry.getValue();
+
 			if (index == attrIndex) {
 				g.setColor(Color.cyan);
 			}
-			g.drawString(a.name() + "(" + value + ") \t" + a.getCost() + "$",
-					posX, posY);
+			g.drawString(
+					a.name() + "(" + p.getAttribute(a) + ") \t" + a.getCost()
+							+ "$", posX, posY);
 			// make sure that is is always white
 			g.setColor(Color.white);
 			index++;
