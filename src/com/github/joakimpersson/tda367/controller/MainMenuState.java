@@ -2,6 +2,7 @@ package com.github.joakimpersson.tda367.controller;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -41,7 +42,24 @@ public class MainMenuState extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
+		Input input = container.getInput();
 
+		// TODO jocke only used during development
+		if (input.isKeyDown(Input.KEY_ESCAPE)) {
+			container.exit();
+		}
+
+		if (input.isKeyDown(Input.KEY_G)) {
+			game.enterState(BombermanGame.GAMEPLAY_STATE);
+		}
+
+		if (input.isKeyDown(Input.KEY_U)) {
+			game.enterState(BombermanGame.UPGRADE_PLAYER_STATE);
+		}
+
+		if (input.isKeyDown(Input.KEY_H)) {
+			game.enterState(BombermanGame.HIGHSCORE_STATE);
+		}
 	}
 
 	@Override

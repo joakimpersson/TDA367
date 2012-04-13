@@ -23,7 +23,16 @@ public class MainMenuView implements IView {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		// TODO Auto-generated method stub
+		// TODO only used during developing
+		int posY = 160;
+		int posX = container.getWidth() / 2 - 120;
+		g.drawString("Bomberman", posX, posY);
+		posY += 40;
+		g.drawString("Gameplay View (G)", posX, posY);
+		posY += 40;
+		g.drawString("Highscore View (H)", posX, posY);
+		posY += 40;
+		g.drawString("Upgrade Player View (U)", posX, posY);
 
 	}
 
