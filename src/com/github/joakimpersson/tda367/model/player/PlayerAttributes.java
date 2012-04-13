@@ -164,7 +164,7 @@ public class PlayerAttributes {
 		matchAttr.put(Health, Parameters.INSTANCE.getInitHealth());
 		matchAttr.put(BombRange, Parameters.INSTANCE.getInitBombRange());
 		matchAttr.put(BombPower, Parameters.INSTANCE.getInitBombPower());
-		
+
 	}
 
 	/**
@@ -176,5 +176,9 @@ public class PlayerAttributes {
 		roundAttr.put(BombStack, 0);
 		roundAttr.put(BombRange, 0);
 
+	}
+
+	public Map<Attribute, Integer> getMatchAttrs() {
+		return matchAttr;
 	}
 }
