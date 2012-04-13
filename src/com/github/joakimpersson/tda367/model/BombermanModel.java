@@ -95,19 +95,25 @@ public class BombermanModel implements IBombermanModel {
 		return instance;
 	}
 
+	@Override
 	public void startGame() {
 		// TODO what exactly does this do?
 	}
 
+	@Override
 	public void endGame() {
 		// TODO what exactly does this do?
 	}
 
-	/**
-	 * This method upgrades the player for one match,
-	 */
+	@Override
 	public void upgradePlayer(Player player, Attribute attr) {
-		player.upgradeAttr(attr, UpgradeType.Match);
+		if (player.getCredits() > attr.getCost()) {
+			player.upgradeAttr(attr, UpgradeType.Match);
+			// TODO perhaps map via the player object
+			player.getPlayerPoints().reduceCredits(attr.getCost());
+		}
+		// TODO perhaps do something or notify someone when it fails!
+
 	}
 
 	private void matchEnd() {
@@ -118,6 +124,7 @@ public class BombermanModel implements IBombermanModel {
 		// TODO what exactly does this do?
 	}
 
+	@Override
 	public void updateGame(Player player, PlayerAction action) {
 		if (action == PlayerAction.PlaceBomb) {
 			this.placeBomb(player);
@@ -144,36 +151,41 @@ public class BombermanModel implements IBombermanModel {
 	}
 
 	/**
-	 * This method moves the player in a double grid.
-	 * If the tile at the chosen direction is walkable or the player will end up
-	 * at least at the length of 0.2 from it, the player will move in that direction
-	 * and action is taken if a new tile is entered. Else, nothing happens.
+	 * This method moves the player in a double grid. If the tile at the chosen
+	 * direction is walkable or the player will end up at least at the length of
+	 * 0.2 from it, the player will move in that direction and action is taken
+	 * if a new tile is entered. Else, nothing happens.
 	 * 
 	 * @param player
 	 * @param action
 	 */
 	private void move(Player player, Direction direction) {
 		Position prevPos = player.getTilePosition();
-		Tile tileAtDirection = map.getTile(new Position(
-				prevPos.getX() + direction.getX(), prevPos.getY() + direction.getY()));
+		Tile tileAtDirection = map.getTile(new Position(prevPos.getX()
+				+ direction.getX(), prevPos.getY() + direction.getY()));
 		// The tile that the player may walk into.
-		
-		if(tileAtDirection.isWalkable()) {
+
+		if (tileAtDirection.isWalkable()) {
 			player.move(direction);
 		} else {
 			FPosition decimalPos = player.getFPosition();
-			decimalPos = new FPosition(
-				decimalPos.getX() - (int)decimalPos.getX(), decimalPos.getY() - (int)decimalPos.getY());
-			// Removes the integer part of the players position, leaving only the decimal part.
-			
-			double xStep = Parameters.INSTANCE.getPlayerStepSize() * direction.getX();
-			double yStep = Parameters.INSTANCE.getPlayerStepSize() * direction.getY();
-			decimalPos = new FPosition((float)(decimalPos.getX() + xStep), (float)(decimalPos.getY() + yStep));
+			decimalPos = new FPosition(decimalPos.getX()
+					- (int) decimalPos.getX(), decimalPos.getY()
+					- (int) decimalPos.getY());
+			// Removes the integer part of the players position, leaving only
+			// the decimal part.
+
+			double xStep = Parameters.INSTANCE.getPlayerStepSize()
+					* direction.getX();
+			double yStep = Parameters.INSTANCE.getPlayerStepSize()
+					* direction.getY();
+			decimalPos = new FPosition((float) (decimalPos.getX() + xStep),
+					(float) (decimalPos.getY() + yStep));
 			// Adding the steps to the player's new position.
-		
+
 			// Can't move closer than 0.2 to a non-walkable tile.
-			if(!(decimalPos.getX() > 0.81 || decimalPos.getX() < 0.19 || 
-					decimalPos.getY() > 0.81 || decimalPos.getY() < 0.19)) {
+			if (!(decimalPos.getX() > 0.81 || decimalPos.getX() < 0.19
+					|| decimalPos.getY() > 0.81 || decimalPos.getY() < 0.19)) {
 				player.move(direction);
 			}
 		}
@@ -200,7 +212,7 @@ public class BombermanModel implements IBombermanModel {
 			Bomb bomb = createBomb(player, bombTimer);// player.createBomb(bombTimer);
 			bombTimer.schedule(new BombTask(bomb),
 					Parameters.INSTANCE.getBombDetonationTime());
-			
+
 			map.setTile(bomb, player.getTilePosition());
 		}
 	}

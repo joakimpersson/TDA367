@@ -28,7 +28,8 @@ public interface IBombermanModel {
 	public void updateGame(Player player, PlayerAction action);
 
 	/**
-	 * After every match it is possible to upgrade a player's attribute
+	 * 
+	 * Upgrades a players attribute
 	 * 
 	 * @param player
 	 *            The player to recceive an attribute upgrade
