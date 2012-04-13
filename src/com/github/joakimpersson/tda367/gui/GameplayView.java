@@ -4,7 +4,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.geom.Rectangle;
 
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
@@ -15,6 +15,8 @@ import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Pillar;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Wall;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Fire;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
+import com.github.joakimpersson.tda367.model.tiles.walkable.PowerupItem;
+import com.github.joakimpersson.tda367.model.utils.FPosition;
 
 /**
  * 
@@ -49,9 +51,28 @@ public class GameplayView implements IView {
 	}
 
 	@Override
-	public void render(GameContainer container, StateBasedGame game, Graphics g)
+	public void render(GameContainer container,  Graphics g)
 			throws SlickException {
 		drawMap(container, g);
+		drawPlayer(container, g);
+	}
+
+	private void drawPlayer(GameContainer container, Graphics g) {
+		// TODO jocke remove dummy implementation
+		Tile[][] map = model.getMap();
+		int mapHeight = map.length;
+		int mapWidth = map[0].length;
+
+		int blockWidth = container.getWidth() / mapWidth;
+		int blockHeight = container.getHeight() / mapHeight;
+
+		Rectangle rect = new Rectangle(0, 0, 20, 20);
+		FPosition p = model.getPlayers().get(0).getFPosition();
+		rect.setCenterX(p.getX() * blockWidth);
+		rect.setCenterY(p.getY() * blockHeight);
+		g.setColor(Color.white);
+		g.draw(rect);
+
 	}
 
 	private void drawMap(GameContainer container, Graphics g) {
@@ -83,7 +104,9 @@ public class GameplayView implements IView {
 				} else if (tile instanceof Bomb) {
 					drawRect(blockWidth * j, blockHeight * i, blockWidth,
 							blockHeight, Color.green, g);
-
+				} else if (tile instanceof PowerupItem) {
+					drawRect(blockWidth * j, blockHeight * i, blockWidth,
+							blockHeight, Color.yellow, g);
 				}
 			}
 		}
