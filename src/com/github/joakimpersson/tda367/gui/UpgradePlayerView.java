@@ -5,10 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.StateBasedGame;
 
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
@@ -21,7 +20,7 @@ import com.github.joakimpersson.tda367.model.player.PlayerAttributes;
  * @author joakimpersson
  * 
  */
-public class UpgradePlayerView implements IView {
+public class UpgradePlayerView implements IUpgradePlayerView {
 
 	private IBombermanModel model = null;
 	private List<Player> players = null;
@@ -36,24 +35,26 @@ public class UpgradePlayerView implements IView {
 	}
 
 	@Override
-	public void render(GameContainer container, StateBasedGame game, Graphics g)
-			throws SlickException {
+	public void render(GameContainer container, Graphics g,
+			Map<Player, Integer> playerAttrIndex) {
 		int posY = 50;
 		int posX = 125;
 		int yDelta = 50;
 		int playerXDelta = container.getWidth() / players.size();
-
+		g.setColor(Color.white);
 		for (Player p : players) {
-			drawPlayerStats(p, posX, posY, yDelta, g);
+			int attrIndex = playerAttrIndex.get(p);
+			drawPlayerStats(p, attrIndex, posX, posY, yDelta, g);
 			posX += playerXDelta;
 		}
 	}
 
-	private void drawPlayerStats(Player p, int posX, int posY, int yDelta,
-			Graphics g) {
+	// TODO jocke yeah i know that it is a mess
+	private void drawPlayerStats(Player p, int attrIndex, int posX, int posY,
+			int yDelta, Graphics g) {
 		PlayerAttributes attr = p.getAttr();
 
-		g.drawString(p.getName(), posX, posY);
+		g.drawString(p.getName() + " (" + p.getCredits() + "$)", posX, posY);
 
 		posY += 25;
 
@@ -62,15 +63,21 @@ public class UpgradePlayerView implements IView {
 		Set<Map.Entry<Attribute, Integer>> entries = attr.getMatchAttrs()
 				.entrySet();
 		Iterator<Map.Entry<Attribute, Integer>> iter = entries.iterator();
+		int index = 0;
 		while (iter.hasNext()) {
+
 			posY += yDelta;
 			Map.Entry<Attribute, Integer> entry = iter.next();
 			Attribute a = entry.getKey();
 			Integer value = entry.getValue();
-			g.drawString(a.name() + "(" + value + ") \t" + a.getCost() + "p",
+			if (index == attrIndex) {
+				g.setColor(Color.cyan);
+			}
+			g.drawString(a.name() + "(" + value + ") \t" + a.getCost() + "$",
 					posX, posY);
-
+			// make sure that is is always white
+			g.setColor(Color.white);
+			index++;
 		}
 	}
-
 }

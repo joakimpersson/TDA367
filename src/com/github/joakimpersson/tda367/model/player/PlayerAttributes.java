@@ -6,7 +6,9 @@ import static com.github.joakimpersson.tda367.model.constants.Attribute.BombStac
 import static com.github.joakimpersson.tda367.model.constants.Attribute.Health;
 import static com.github.joakimpersson.tda367.model.constants.Attribute.Speed;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 import com.github.joakimpersson.tda367.model.constants.Attribute;
@@ -180,5 +182,13 @@ public class PlayerAttributes {
 
 	public Map<Attribute, Integer> getMatchAttrs() {
 		return matchAttr;
+	}
+
+	public List<Attribute> getAttributes() {
+		ArrayList<Attribute> tmp = new ArrayList<Attribute>();
+		for (Attribute a : matchAttr.keySet()) {
+			tmp.add(a);
+		}
+		return tmp;
 	}
 }
