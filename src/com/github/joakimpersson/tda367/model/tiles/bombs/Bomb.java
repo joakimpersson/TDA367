@@ -68,7 +68,7 @@ public abstract class Bomb implements Tile {
 	 * @return Whether a Position is able to contain fire or not.
 	 */
 	protected boolean validPos(Position firePos) {
-		Dimension d = Parameters.INSTANCE.getDimensions();
+		Dimension d = Parameters.INSTANCE.getMapSize();
 		return firePos.getX() >= 0 
 				&& firePos.getX() < d.width 
 				&& firePos.getY() >= 0

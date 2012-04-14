@@ -2,6 +2,7 @@ package com.github.joakimpersson.tda367.model.constants;
 
 import java.awt.Dimension;
 
+
 /**
  * 
  * @author joakimpersson
@@ -45,7 +46,6 @@ public enum Parameters {
 
 	/*
 	 * For the game field and when someone destroys a block&pillar
-	 * I actually have no idea if this works like I want to ;)
 	 */
 	public double getPowerUpProbabilityBox() {
 		return 0.4;
@@ -54,21 +54,21 @@ public enum Parameters {
 	public double getPowerUpProbabilityPillar() {
 		return 0.15;
 	}
-	
+
 	public int getFireDuration() {
 		return 1500;
 	}
-	
+
 	/**
-	 * This method returns the size of one step inside a tile, preferably smaller than 0.2.
-	 * The step size affects how fast the game must be updated.
+	 * This method returns the size of one step inside a tile, preferably
+	 * smaller than 0.2. The step size affects how fast the game must be
+	 * updated.
 	 */
 	public double getPlayerStepSize() {
-		return 0.1;
+		return 0.2;
 	}
 	
-	public Dimension getDimensions() {
-		// TODO implement this in GameField
-		return new Dimension(15,13);
+	public Dimension getMapSize() {
+		return new Dimension(15, 13);
 	}
 }
