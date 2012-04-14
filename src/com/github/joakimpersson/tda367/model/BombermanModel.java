@@ -33,7 +33,7 @@ import com.github.joakimpersson.tda367.model.utils.Position;
  * 
  * @Date 2012-03-27
  * @author Viktor Anderling
- * @modified Joakim Persson
+ * @modified Joakim Persson, Adrian BjugŒrd
  * 
  */
 public class BombermanModel implements IBombermanModel {
@@ -126,26 +126,27 @@ public class BombermanModel implements IBombermanModel {
 
 	@Override
 	public void updateGame(Player player, PlayerAction action) {
-		if (action == PlayerAction.PlaceBomb) {
+		Direction direction = null;
+		switch (action) {
+		case MoveUp:
+			direction = Direction.Up;
+			break;
+		case MoveDown:
+			direction = Direction.Down;
+			break;
+		case MoveLeft:
+			direction = Direction.Left;
+			break;
+		case MoveRight:
+			direction = Direction.Right;
+			break;
+		case PlaceBomb:
 			this.placeBomb(player);
-		} else {
-			Direction direction = null;
-			switch (action) {
-			case MoveUp:
-				direction = Direction.Up;
-				break;
-			case MoveDown:
-				direction = Direction.Down;
-				break;
-			case MoveLeft:
-				direction = Direction.Left;
-				break;
-			case MoveRight:
-				direction = Direction.Right;
-				break;
-			default:
-				direction = Direction.None;
-			}
+			break;
+		default:
+			break;
+		}
+		if (direction != null) {
 			this.move(player, direction);
 		}
 	}
@@ -163,8 +164,7 @@ public class BombermanModel implements IBombermanModel {
 	 */
 	private void move(Player player, Direction direction) {
 		Position prevPos = player.getTilePosition();
-		Tile tileAtDirection = map.getTile(new Position(prevPos.getX() + direction.getX(), prevPos
-				.getY() + direction.getY()));
+		Tile tileAtDirection = map.getTile(new Position(prevPos.getX() + direction.getX(), prevPos.getY() + direction.getY()));
 		// The tile that the player may walk into.
 
 		if (tileAtDirection.isWalkable()) {
@@ -183,8 +183,11 @@ public class BombermanModel implements IBombermanModel {
 			// Adding the steps to the player's new position.
 
 			// Can't move closer than 0.2 to a non-walkable tile.
-			if (!(decimalPos.getX() > 0.81 || decimalPos.getX() < 0.19 || decimalPos.getY() > 0.81 || decimalPos
-					.getY() < 0.19)) {
+			double pD = 0.1;
+			if (!(decimalPos.getX() >= 1 - pD 
+					|| decimalPos.getX() <= pD
+					|| decimalPos.getY() >= 1 - pD 
+					|| decimalPos.getY() <= pD)) {
 				player.move(direction);
 			}
 		}
