@@ -59,13 +59,13 @@ public class GameplayState extends BasicGameState {
 		}
 
 		// player 1 movement/bomb
-		
+
 		Player p1 = players.get(0);
-		
-		if(input.isKeyDown(Input.KEY_SPACE)) {
+
+		if (input.isKeyPressed(Input.KEY_SPACE)) {
 			model.updateGame(p1, PlayerAction.PlaceBomb);
 		}
-		
+
 		if (input.isKeyDown(Input.KEY_UP)) {
 			model.updateGame(p1, PlayerAction.MoveUp);
 		} else if (input.isKeyDown(Input.KEY_DOWN)) {
@@ -74,7 +74,25 @@ public class GameplayState extends BasicGameState {
 			model.updateGame(p1, PlayerAction.MoveLeft);
 		} else if (input.isKeyDown(Input.KEY_RIGHT)) {
 			model.updateGame(p1, PlayerAction.MoveRight);
-		} 
+		}
+
+		// player 2 movement/bomb
+		
+		Player p2 = players.get(1);
+		
+		if (input.isKeyPressed(Input.KEY_2)) {
+			model.updateGame(p2, PlayerAction.PlaceBomb);
+		}
+		
+		if (input.isKeyDown(Input.KEY_W)) {
+			model.updateGame(p2, PlayerAction.MoveUp);
+		} else if (input.isKeyDown(Input.KEY_S)) {
+			model.updateGame(p2, PlayerAction.MoveDown);
+		} else if (input.isKeyDown(Input.KEY_A)) {
+			model.updateGame(p2, PlayerAction.MoveLeft);
+		} else if (input.isKeyDown(Input.KEY_D)) {
+			model.updateGame(p2, PlayerAction.MoveRight);
+		}
 
 	}
 
