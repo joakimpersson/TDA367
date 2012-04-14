@@ -6,7 +6,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.*;
 
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
@@ -61,6 +61,13 @@ public class GameplayView implements IView {
 			rect.setCenterY(pos.getY() * blockSide);
 			g.setColor(Color.white);
 			g.fill(rect);
+			
+			// TODO remove, just for test, added to determine orientation of final picture
+			Circle circle = new Circle(0, 0, 2);
+			circle.setCenterX(pos.getX() * blockSide +(p.getDirection().getX()*20));
+			circle.setCenterY(pos.getY() * blockSide +(p.getDirection().getY()*20));
+			g.setColor(Color.black);
+			g.fill(circle);
 		}
 
 	}
