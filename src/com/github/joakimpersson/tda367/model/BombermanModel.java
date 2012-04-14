@@ -173,21 +173,23 @@ public class BombermanModel implements IBombermanModel {
 			FPosition decimalPos = player.getGamePosition();
 			decimalPos = new FPosition(decimalPos.getX() - (int) decimalPos.getX(),
 					decimalPos.getY() - (int) decimalPos.getY());
+
 			// Removes the integer part of the players position, leaving only
 			// the decimal part.
 
-			double xStep = Parameters.INSTANCE.getPlayerStepSize() * direction.getX();
-			double yStep = Parameters.INSTANCE.getPlayerStepSize() * direction.getY();
+			double stepSize = Parameters.INSTANCE.getPlayerStepSize();
+			double xStep = stepSize * direction.getX();
+			double yStep = stepSize * direction.getY();
 			decimalPos = new FPosition((float) (decimalPos.getX() + xStep),
 					(float) (decimalPos.getY() + yStep));
 			// Adding the steps to the player's new position.
 
 			// Can't move closer than 0.2 to a non-walkable tile.
-			double pD = 0.1;
-			if (!(decimalPos.getX() >= 1 - pD 
-					|| decimalPos.getX() <= pD
-					|| decimalPos.getY() >= 1 - pD 
-					|| decimalPos.getY() <= pD)) {
+			float pD = 0.2F;
+			if ((direction == Direction.Up && decimalPos.getY() >= pD)
+					|| (direction == Direction.Down && decimalPos.getY() <= 1-pD)
+					|| (direction == Direction.Left && decimalPos.getX() >= pD)
+					|| (direction == Direction.Right && decimalPos.getX() <= 1-pD)) {
 				player.move(direction);
 			}
 		}
