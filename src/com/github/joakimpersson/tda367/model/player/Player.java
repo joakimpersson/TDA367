@@ -18,9 +18,10 @@ import com.github.joakimpersson.tda367.model.utils.FPosition;
 import com.github.joakimpersson.tda367.model.utils.Position;
 
 /**
+ * This class defines a Player in the bomberman-like game.
  * 
- * @modified Viktor Anderling, Joakim Persson, Adrian Bjugård
- * 
+ * @author Adrian Bjugård
+ * @modified Viktor Anderling, Joakim Persson
  */
 public class Player {
 	/**
@@ -28,6 +29,9 @@ public class Player {
 	 * hit by fire.
 	 */
 	private class HitTask extends TimerTask {
+		/**
+		 * Initiated when player is hit.
+		 */
 		public HitTask() {
 			health--;
 			justHit = true;
