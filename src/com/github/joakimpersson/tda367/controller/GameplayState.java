@@ -50,7 +50,7 @@ public class GameplayState extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-
+		
 		Input input = container.getInput();
 
 		// TODO jocke only used during development
@@ -75,6 +75,22 @@ public class GameplayState extends BasicGameState {
 		} else if (input.isKeyDown(Input.KEY_RIGHT)) {
 			model.updateGame(p1, PlayerAction.MoveRight);
 		}
+		
+//		// TODO adrian 360 controller input tests
+//
+//		if (input.isButtonPressed(11, 0)) {
+//			model.updateGame(p1, PlayerAction.PlaceBomb);
+//		}
+//
+//		if (input.isControllerUp(0)) {
+//			model.updateGame(p1, PlayerAction.MoveUp);
+//		} else if (input.isControllerDown(0)) {
+//			model.updateGame(p1, PlayerAction.MoveDown);
+//		} else if (input.isControllerLeft(0)) {
+//			model.updateGame(p1, PlayerAction.MoveLeft);
+//		} else if (input.isControllerRight(0)) {
+//			model.updateGame(p1, PlayerAction.MoveRight);
+//		}
 
 		// player 2 movement/bomb
 		
