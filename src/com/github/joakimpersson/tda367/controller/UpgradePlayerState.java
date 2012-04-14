@@ -67,35 +67,27 @@ public class UpgradePlayerState extends BasicGameState {
 		Player p1 = model.getPlayers().get(0);
 		if (input.isKeyPressed(Input.KEY_UP)) {
 			moveIndex(p1, -1);
-			System.out.println("Player1 " + playersIndex.get(p1));
 		}
 
 		if (input.isKeyPressed(Input.KEY_DOWN)) {
 			moveIndex(p1, 1);
-			System.out.println("Player1 " + playersIndex.get(p1));
 		}
 
 		if (input.isKeyPressed(Input.KEY_SPACE)) {
 			model.upgradePlayer(p1, attributes.get(playersIndex.get(p1)));
-			System.out.println("Player1 trying to buy "
-					+ attributes.get(playersIndex.get(p1)));
 		}
 
 		Player p2 = model.getPlayers().get(1);
 		if (input.isKeyPressed(Input.KEY_W)) {
 			moveIndex(p2, -1);
-			System.out.println("Player2 " + playersIndex.get(p2));
 		}
 
 		if (input.isKeyPressed(Input.KEY_S)) {
 			moveIndex(p2, 1);
-			System.out.println("Player2 " + playersIndex.get(p2));
 		}
 
 		if (input.isKeyPressed(Input.KEY_2)) {
 			model.upgradePlayer(p2, attributes.get(playersIndex.get(p2)));
-			System.out.println("Player2 trying to buy "
-					+ attributes.get(playersIndex.get(p2)));
 		}
 	}
 
