@@ -8,6 +8,11 @@ import org.newdawn.slick.SlickException;
 
 import com.github.joakimpersson.tda367.controller.BombermanGame;
 
+/**
+ * 
+ * @author joakimpersson
+ *
+ */
 public class Main {
 	public static void main(String[] args) {
 		/*
@@ -23,7 +28,7 @@ public class Main {
 			AppGameContainer app = new AppGameContainer(new BombermanGame(
 					"Joakim e kung"));
 
-			app.setDisplayMode(800, 600, false);
+			app.setDisplayMode(750, 650, false);
 			// make sure that we are using the players screen
 			app.setVSync(true);
 
