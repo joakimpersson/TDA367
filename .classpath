@@ -10,5 +10,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/TDA367/lib/javadoc.zip!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/jinput.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
