@@ -37,7 +37,6 @@ public class AreaBomb extends Bomb {
 			for (int y = yPos - range; y <= yPos + range; y++) {
 				Position firePos = new Position(x, y);
 				if (validPos(firePos) && tryBreak(map[x][y], power)) {
-					System.out.println(firePos);
 					fireList.add(firePos);
 				}
 			}

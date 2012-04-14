@@ -6,6 +6,7 @@ import java.util.Timer;
 import static com.github.joakimpersson.tda367.model.constants.Direction.*;
 
 import com.github.joakimpersson.tda367.model.constants.Direction;
+import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.utils.Position;
@@ -66,11 +67,10 @@ public class NormalBomb extends Bomb {
 			Position firePos = new Position(x + (dir.getX() * i), y + (dir.getY() * i));
 
 			if (validPos(firePos)) {
-				Tile tile = map[firePos.getX()][firePos.getY()];
-				boolean breakable = tryBreak(tile, firePower);
-				if (breakable) {
-					fireList.add(firePos);
+				Tile tile = map[firePos.getY()][firePos.getX()]; // inverted >.<
+				if (tryBreak(tile, firePower)) {
 					firePower -= tile.getToughness();
+					fireList.add(firePos);
 				} else {
 					break; // fire stops directly
 				}
