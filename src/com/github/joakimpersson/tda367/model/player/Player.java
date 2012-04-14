@@ -49,6 +49,7 @@ public class Player {
 	private FPosition gamePos;
 	private PlayerAttributes attr;
 	private PlayerPoints points;
+	private Direction facingDirection;
 	private int bombsPlaced, health;
 	private boolean justHit;
 
@@ -79,12 +80,13 @@ public class Player {
 	 * Method used to reset a players state for a new round.
 	 */
 	public void roundReset() {
-		this.justHit = false;
 		this.attr.resetAttr(Round);
 		this.health = getAttribute(Health);
 		this.tilePos = initialPosition;
+		this.facingDirection = Direction.Down;
 		this.gamePos = new FPosition(initialPosition.getX() + 0.5F, initialPosition.getY() + 0.5F);
 		this.bombsPlaced = 0;
+		this.justHit = false;
 	}
 
 	/**
@@ -107,6 +109,7 @@ public class Player {
 		double newFY = gamePos.getY() + stepSize * dir.getY();
 		gamePos = new FPosition((float) newFX, (float) newFY);
 		tilePos = new Position((int) newFX, (int) newFY);
+		this.facingDirection = dir;
 	}
 
 	/**
@@ -166,7 +169,7 @@ public class Player {
 	}
 
 	/**
-	 * Method called when player is hit by a bomb.
+	 * Method called when player is hurt by fire.
 	 */
 	public void playerHit() {
 		if (this.justHit == false) {
@@ -256,6 +259,10 @@ public class Player {
 	 */
 	public FPosition getGamePosition() {
 		return gamePos;
+	}
+
+	public Direction getDirection() {
+		return facingDirection;
 	}
 
 	@Override
