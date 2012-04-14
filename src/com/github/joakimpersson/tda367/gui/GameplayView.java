@@ -67,7 +67,7 @@ public class GameplayView implements IView {
 		int blockHeight = container.getHeight() / mapHeight;
 
 		Rectangle rect = new Rectangle(0, 0, 20, 20);
-		FPosition p = model.getPlayers().get(0).getFPosition();
+		FPosition p = model.getPlayers().get(0).getGamePosition();
 		rect.setCenterX(p.getX() * blockWidth);
 		rect.setCenterY(p.getY() * blockHeight);
 		g.setColor(Color.white);

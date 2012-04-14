@@ -74,7 +74,7 @@ public class PlayerPointsTest {
 		
 		int tmpCredits = pp.getCredits();
 		
-		pp.reduceCredits(50);
+		pp.useCredits(50);
 		
 		assertEquals(pp.getCredits(), (tmpCredits - 50));
 		

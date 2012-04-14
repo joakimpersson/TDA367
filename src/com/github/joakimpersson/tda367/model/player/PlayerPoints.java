@@ -55,7 +55,7 @@ public class PlayerPoints {
 	 * @param cost
 	 *            The cost for the item that is bought.
 	 */
-	public void reduceCredits(int cost) {
+	public void useCredits(int cost) {
 		this.credits = this.credits - cost;
 	}
 

@@ -57,7 +57,7 @@ public class UpgradePlayerView implements IUpgradePlayerView {
 		g.drawString("name(lvl), cost", posX, posY);
 
 		int index = 0;
-		for (Attribute a : p.getPermantAttributes()) {
+		for (Attribute a : p.getPermanentAttributes()) {
 			posY += yDelta;
 
 			if (index == attrIndex) {

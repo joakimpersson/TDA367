@@ -41,7 +41,7 @@ public class UpgradePlayerState extends BasicGameState {
 		view = new UpgradePlayerView();
 		model = BombermanModel.getInstance();
 		
-		attributes = model.getPlayers().get(0).getPermantAttributes();
+		attributes = model.getPlayers().get(0).getPermanentAttributes();
 		playersIndex = new HashMap<Player, Integer>();
 		for (Player p : model.getPlayers()) {
 			playersIndex.put(p, 0);
