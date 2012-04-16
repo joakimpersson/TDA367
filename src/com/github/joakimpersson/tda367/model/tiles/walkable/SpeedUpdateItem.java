@@ -9,13 +9,21 @@ import com.github.joakimpersson.tda367.model.constants.Attribute;
  */
 public class SpeedUpdateItem extends PowerupItem{
 	
+	private String image;
+	
 	public SpeedUpdateItem() {
 		super();
+		this.image = "speedUpItem";
 	}
 
 	@Override
 	public Attribute getAttr() {
 		return Attribute.Speed;
+	}
+
+	@Override
+	public String getImage() {
+		return this.image;
 	}
 	
 }

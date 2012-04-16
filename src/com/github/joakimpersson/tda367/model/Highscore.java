@@ -66,13 +66,10 @@ public class Highscore {
 	public void loadList() {
 		String tmpPlayerPointsLine;
 		String tmpPlayerName = null;
-		BufferedReader br = null;
+		BufferedReader br;
+
 		try {
 			br = new BufferedReader(new FileReader(file));
-		} catch (FileNotFoundException e1) {
-			System.out.println("File not found!");
-		}
-		try {
 			while ((tmpPlayerPointsLine = br.readLine()) != null) {
 				char[] tmpChar = tmpPlayerPointsLine.toCharArray();				
 				// Saving playername
@@ -88,6 +85,8 @@ public class Highscore {
 				
 				this.playerList.put(tmpPlayerName, Integer.parseInt(tmpPlayerPointsLine));
 			}
+		} catch (FileNotFoundException e1) {
+			System.out.println("File not found!");
 		} catch (NumberFormatException e) {
 			System.out.println("Error: " + e);
 		} catch (IOException e) {

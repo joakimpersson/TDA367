@@ -12,7 +12,7 @@ import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
  * 
  */
 public class Fire implements WalkableTile {
-
+	private String image;
 	private int toughness;
 	private Direction direction;
 	
@@ -20,6 +20,7 @@ public class Fire implements WalkableTile {
 		// different players fire should not be able to cross each other
 		this.toughness = 100;
 		this.direction = direction;
+		this.image = "fire";
 	}
 
 	@Override
@@ -60,5 +61,10 @@ public class Fire implements WalkableTile {
 	@Override
 	public String toString() {
 		return "Fire";
+	}
+
+	@Override
+	public String getImage() {
+		return this.image;
 	}
 }

@@ -9,13 +9,21 @@ import com.github.joakimpersson.tda367.model.constants.Attribute;
  */
 public class BombStackUpdateItem extends PowerupItem{
 
+	private String image;
+
 	public BombStackUpdateItem() {
 		super();
+		this.image = "bombUpItem";
 	}
 	
 	@Override
 	public Attribute getAttr() {
 		return Attribute.BombStack;
+	}
+
+	@Override
+	public String getImage() {
+		return this.image;
 	}
 
 }

@@ -76,40 +76,21 @@ public class GameplayView implements IView {
 		Tile[][] map = model.getMap();
 		int mapHeight = map.length;
 		int mapWidth = map[0].length;
-		Color color = null;
+
 		for (int i = 0; i < mapHeight; i++) {
 			for (int j = 0; j < mapWidth; j++) {
 				Tile tile = map[i][j];
-				if (tile instanceof Wall) {
-					color = new Color(162, 152, 105);
-					drawRect(j, i, color, g);
-				} else if (tile instanceof Floor) {
-					color = new Color(33, 29, 25);
-					drawRect(j, i, color, g);
-				} else if (tile instanceof Pillar) {
-					color = new Color(162, 152, 105);
-					drawRect(j, i, color, g);
-				} else if (tile instanceof Box) {
-					color = new Color(180, 117, 119);
-					drawRect(j, i, color, g);
-				} else if (tile instanceof Fire) {
-					drawRect(j, i, Color.red, g);
-				} else if (tile instanceof Bomb) {
-					drawRect(j, i, Color.cyan, g);
-				} else if (tile instanceof PowerupItem) {
-					color = new Color(22, 100, 151);
-					drawRect(j, i, color, g);
-				}
+				drawRect(j, i, tile.getImage(), g);
 			}
 		}
 
 	}
 
-	private void drawRect(int x, int y, Color color, Graphics g) {
+	private void drawRect(int x, int y, String s, Graphics g) {
 		// the players position is related to matrix so compensated is needed
 		x *= blockSide;
 		y *= blockSide;
-		g.setColor(color);
+//		g.setColor(color);
 		g.fillRect(x, y, blockSide, blockSide);
 	}
 }

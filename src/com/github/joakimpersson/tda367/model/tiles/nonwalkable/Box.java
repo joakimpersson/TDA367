@@ -1,5 +1,7 @@
 package com.github.joakimpersson.tda367.model.tiles.nonwalkable;
 
+import java.util.Random;
+
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.factory.PowerUpFactory;
@@ -13,9 +15,14 @@ import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
 public class Box implements Tile {
 
 	private int toughness;
+	private String image;
+	private int boxImageNumber;
 
 	public Box() {
 		this.toughness = 1;
+		Random rand = new Random();
+		this.boxImageNumber = rand.nextInt(5) + 1;
+		this.image = "box" + this.boxImageNumber;
 	}
 
 	@Override
@@ -63,5 +70,10 @@ public class Box implements Tile {
 	@Override
 	public String toString() {
 		return "Box";
+	}
+
+	@Override
+	public String getImage() {
+		return this.image;
 	}
 }

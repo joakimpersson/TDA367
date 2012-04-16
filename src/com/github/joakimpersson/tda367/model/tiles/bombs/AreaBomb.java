@@ -15,6 +15,8 @@ import com.github.joakimpersson.tda367.model.utils.Position;
  * @author rekoil
  */
 public class AreaBomb extends Bomb {
+	
+	private String image;
 
 	/**
 	 * Creates an area-bomb, these have shorter range than regular bombs.
@@ -26,6 +28,7 @@ public class AreaBomb extends Bomb {
 	 */
 	public AreaBomb(Player player, Timer timer) {
 		super(player, timer);
+		this.image = "areaBomb";
 		this.range--; // sets range one lower than usual due to the destructive
 						// nature of area bombs!
 	}
@@ -46,6 +49,11 @@ public class AreaBomb extends Bomb {
 
 		this.player.decreaseBombsPlaced();
 		return directedFireList;
+	}
+
+	@Override
+	public String getImage() {
+		return this.image;
 	}
 
 }
