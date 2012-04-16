@@ -62,33 +62,17 @@ public class GameplayState extends BasicGameState {
 
 		Player p1 = players.get(0);
 
-		if (input.isKeyPressed(Input.KEY_SPACE)) {
-			model.updateGame(p1, PlayerAction.PlaceBomb);
-		}
-
-		if (input.isKeyDown(Input.KEY_UP)) {
-			model.updateGame(p1, PlayerAction.MoveUp);
-		} else if (input.isKeyDown(Input.KEY_DOWN)) {
-			model.updateGame(p1, PlayerAction.MoveDown);
-		} else if (input.isKeyDown(Input.KEY_LEFT)) {
-			model.updateGame(p1, PlayerAction.MoveLeft);
-		} else if (input.isKeyDown(Input.KEY_RIGHT)) {
-			model.updateGame(p1, PlayerAction.MoveRight);
-		}
-		
-//		// TODO adrian 360 controller input tests
-//
-//		if (input.isButtonPressed(11, 0)) {
+//		if (input.isKeyPressed(Input.KEY_SPACE)) {
 //			model.updateGame(p1, PlayerAction.PlaceBomb);
 //		}
 //
-//		if (input.isControllerUp(0)) {
+//		if (input.isKeyDown(Input.KEY_UP)) {
 //			model.updateGame(p1, PlayerAction.MoveUp);
-//		} else if (input.isControllerDown(0)) {
+//		} else if (input.isKeyDown(Input.KEY_DOWN)) {
 //			model.updateGame(p1, PlayerAction.MoveDown);
-//		} else if (input.isControllerLeft(0)) {
+//		} else if (input.isKeyDown(Input.KEY_LEFT)) {
 //			model.updateGame(p1, PlayerAction.MoveLeft);
-//		} else if (input.isControllerRight(0)) {
+//		} else if (input.isKeyDown(Input.KEY_RIGHT)) {
 //			model.updateGame(p1, PlayerAction.MoveRight);
 //		}
 
@@ -96,20 +80,41 @@ public class GameplayState extends BasicGameState {
 		
 		Player p2 = players.get(1);
 		
-		if (input.isKeyPressed(Input.KEY_2)) {
-			model.updateGame(p2, PlayerAction.PlaceBomb);
+//		if (input.isKeyPressed(Input.KEY_2)) {
+//			model.updateGame(p2, PlayerAction.PlaceBomb);
+//		}
+//		
+//		if (input.isKeyDown(Input.KEY_W)) {
+//			model.updateGame(p2, PlayerAction.MoveUp);
+//		} else if (input.isKeyDown(Input.KEY_S)) {
+//			model.updateGame(p2, PlayerAction.MoveDown);
+//		} else if (input.isKeyDown(Input.KEY_A)) {
+//			model.updateGame(p2, PlayerAction.MoveLeft);
+//		} else if (input.isKeyDown(Input.KEY_D)) {
+//			model.updateGame(p2, PlayerAction.MoveRight);
+//		}
+		
+		// TODO adrian 360 controller input tests
+
+		X360Input(input, p1, 0);
+		X360Input(input, p2, 1);
+
+	}
+
+	private void X360Input(Input input, Player player, int controller) {
+		if (input.isButtonPressed(11, controller)) {
+			model.updateGame(player, PlayerAction.PlaceBomb);
 		}
 		
-		if (input.isKeyDown(Input.KEY_W)) {
-			model.updateGame(p2, PlayerAction.MoveUp);
-		} else if (input.isKeyDown(Input.KEY_S)) {
-			model.updateGame(p2, PlayerAction.MoveDown);
-		} else if (input.isKeyDown(Input.KEY_A)) {
-			model.updateGame(p2, PlayerAction.MoveLeft);
-		} else if (input.isKeyDown(Input.KEY_D)) {
-			model.updateGame(p2, PlayerAction.MoveRight);
+		if (input.isControllerUp(controller)) {
+			model.updateGame(player, PlayerAction.MoveUp);
+		} else if (input.isControllerDown(controller)) {
+			model.updateGame(player, PlayerAction.MoveDown);
+		} else if (input.isControllerLeft(controller)) {
+			model.updateGame(player, PlayerAction.MoveLeft);
+		} else if (input.isControllerRight(controller)) {
+			model.updateGame(player, PlayerAction.MoveRight);
 		}
-
 	}
 
 	@Override
