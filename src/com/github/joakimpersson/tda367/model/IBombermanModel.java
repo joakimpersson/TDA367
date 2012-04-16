@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
+import com.github.joakimpersson.tda367.model.constants.ResetType;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 
@@ -51,6 +52,29 @@ public interface IBombermanModel {
 	 * @return The game map matrix
 	 */
 	public Tile[][] getMap();
+
+	/**
+	 * Returns true or false depending if one of the players are dead or not
+	 * 
+	 * @return True if one player is dead false otherwise
+	 */
+	// TODO jocke only to test the game
+	public boolean isPlayersAlive();
+
+	/**
+	 * Reset the models state with different kind of level to represent or three
+	 * main game states
+	 * 
+	 * Game - Means that the game is over
+	 * 
+	 * Match - Enables players to buy upgrades
+	 * 
+	 * Round - Starts another round
+	 * 
+	 * @param type
+	 *            What type of model reset
+	 */
+	public void reset(ResetType type);
 
 	public void startGame();
 

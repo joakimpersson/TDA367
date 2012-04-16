@@ -13,6 +13,7 @@ import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
+import com.github.joakimpersson.tda367.model.constants.ResetType;
 import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.model.utils.FPosition;
 import com.github.joakimpersson.tda367.model.utils.Position;
@@ -79,12 +80,13 @@ public class Player {
 	/**
 	 * Method used to reset a players state for a new round.
 	 */
-	public void roundReset() {
+	private void roundReset() {
 		this.attr.resetAttr(Round);
 		this.health = getAttribute(Health);
 		this.tilePos = initialPosition;
 		this.facingDirection = Direction.Down;
-		this.gamePos = new FPosition(initialPosition.getX() + 0.5F, initialPosition.getY() + 0.5F);
+		this.gamePos = new FPosition(initialPosition.getX() + 0.5F,
+				initialPosition.getY() + 0.5F);
 		this.bombsPlaced = 0;
 		this.justHit = false;
 	}
@@ -92,9 +94,24 @@ public class Player {
 	/**
 	 * Method used to reset a players state for a new match (3 rounds).
 	 */
-	public void matchReset() {
+	private void matchReset() {
 		this.attr.resetAttr(Match);
 		roundReset();
+	}
+
+	public void reset(ResetType type) {
+		switch (type) {
+		case Match:
+			matchReset();
+			break;
+		case Round:
+			roundReset();
+			break;
+		default:
+			// TODO nothing should happen here
+			// it is possible that the game type falls through
+			break;
+		}
 	}
 
 	/**
@@ -174,7 +191,8 @@ public class Player {
 	public void playerHit() {
 		if (this.justHit == false) {
 			Timer justHitTimer = new Timer();
-			justHitTimer.schedule(new HitTask(), Parameters.INSTANCE.getFireDuration());
+			justHitTimer.schedule(new HitTask(),
+					Parameters.INSTANCE.getFireDuration());
 		}
 	}
 
@@ -267,7 +285,8 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "P[" + this.name + ", " + this.tilePos + ", " + this.health + " HP]";
+		return "P[" + this.name + ", " + this.tilePos + ", " + this.health
+				+ " HP]";
 	}
 
 }

@@ -9,13 +9,12 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.github.joakimpersson.tda367.audio.SoundHandler;
-import com.github.joakimpersson.tda367.audio.SoundType;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
+import com.github.joakimpersson.tda367.model.constants.ResetType;
 import com.github.joakimpersson.tda367.model.map.GameMap;
 import com.github.joakimpersson.tda367.model.map.IGameMap;
 import com.github.joakimpersson.tda367.model.player.Player;
@@ -33,7 +32,6 @@ import com.github.joakimpersson.tda367.model.utils.Position;
 
 /**
  * 
- * @Date 2012-03-27
  * @author Viktor Anderling
  * @modified Joakim Persson, Adrian BjugŒrd
  * 
@@ -166,15 +164,17 @@ public class BombermanModel implements IBombermanModel {
 	 */
 	private void move(Player player, Direction direction) {
 		Position prevPos = player.getTilePosition();
-		Tile tileAtDirection = map.getTile(new Position(prevPos.getX() + direction.getX(), prevPos.getY() + direction.getY()));
+		Tile tileAtDirection = map.getTile(new Position(prevPos.getX()
+				+ direction.getX(), prevPos.getY() + direction.getY()));
 		// The tile that the player may walk into.
 
 		if (tileAtDirection.isWalkable()) {
 			player.move(direction);
 		} else {
 			FPosition decimalPos = player.getGamePosition();
-			decimalPos = new FPosition(decimalPos.getX() - (int) decimalPos.getX(),
-					decimalPos.getY() - (int) decimalPos.getY());
+			decimalPos = new FPosition(decimalPos.getX()
+					- (int) decimalPos.getX(), decimalPos.getY()
+					- (int) decimalPos.getY());
 
 			// Removes the integer part of the players position, leaving only
 			// the decimal part.
@@ -189,9 +189,9 @@ public class BombermanModel implements IBombermanModel {
 			// Can't move closer than 0.2 to a non-walkable tile.
 			float pD = 0.2F;
 			if ((direction == Direction.Up && decimalPos.getY() >= pD)
-					|| (direction == Direction.Down && decimalPos.getY() <= 1-pD)
+					|| (direction == Direction.Down && decimalPos.getY() <= 1 - pD)
 					|| (direction == Direction.Left && decimalPos.getX() >= pD)
-					|| (direction == Direction.Right && decimalPos.getX() <= 1-pD)) {
+					|| (direction == Direction.Right && decimalPos.getX() <= 1 - pD)) {
 				player.move(direction);
 			}
 		}
@@ -213,10 +213,12 @@ public class BombermanModel implements IBombermanModel {
 	 *            The player that places the bomb.
 	 */
 	private void placeBomb(Player player) {
-		if (player.canPlaceBomb() && map.getTile(player.getTilePosition()) instanceof WalkableTile) {
+		if (player.canPlaceBomb()
+				&& map.getTile(player.getTilePosition()) instanceof WalkableTile) {
 			Timer bombTimer = new Timer();
 			Bomb bomb = createBomb(player, bombTimer);// player.createBomb(bombTimer);
-			bombTimer.schedule(new BombTask(bomb), Parameters.INSTANCE.getBombDetonationTime());
+			bombTimer.schedule(new BombTask(bomb),
+					Parameters.INSTANCE.getBombDetonationTime());
 
 			map.setTile(bomb, player.getTilePosition());
 		}
@@ -243,8 +245,10 @@ public class BombermanModel implements IBombermanModel {
 	 * @param bombOwner
 	 *            The player that placed the bomb.
 	 */
-	private void handleFire(Player bombOwner, Map<Position, Direction> directedFirePositions) {
-		List<Position> list = new ArrayList<Position>(directedFirePositions.keySet());
+	private void handleFire(Player bombOwner,
+			Map<Position, Direction> directedFirePositions) {
+		List<Position> list = new ArrayList<Position>(
+				directedFirePositions.keySet());
 		distributePoints(bombOwner, list);
 		setFire(directedFirePositions);
 	}
@@ -296,18 +300,19 @@ public class BombermanModel implements IBombermanModel {
 		Map<Position, Tile> waitingTiles = new HashMap<Position, Tile>();
 		Iterator<Position> iterator = directedFirePositions.keySet().iterator();
 		Position firePos;
-		while(iterator.hasNext()) {
-			firePos = (Position)iterator.next();
+		while (iterator.hasNext()) {
+			firePos = (Position) iterator.next();
 			waitingTiles.put(firePos, map.getTile(firePos).onFire());
 			map.setTile(new Fire(directedFirePositions.get(firePos)), firePos);
 		}
-		/*for (Position firePos : positions) {
-			waitingTiles.put(firePos, map.getTile(firePos).onFire());
-			map.setTile(new Fire(), firePos);
-		}*/
+		/*
+		 * for (Position firePos : positions) { waitingTiles.put(firePos,
+		 * map.getTile(firePos).onFire()); map.setTile(new Fire(), firePos); }
+		 */
 		waitingFirePositions.addLast(waitingTiles);
 		Timer timer = new Timer();
-		timer.schedule(new FireTimerTask(), Parameters.INSTANCE.getFireDuration());
+		timer.schedule(new FireTimerTask(),
+				Parameters.INSTANCE.getFireDuration());
 	}
 
 	/**
@@ -333,6 +338,52 @@ public class BombermanModel implements IBombermanModel {
 	@Override
 	public Tile[][] getMap() {
 		return map.getMap();
+	}
+
+	@Override
+	public boolean isPlayersAlive() {
+		for (Player p : players) {
+			if (!p.isAlive()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public void reset(ResetType type) {
+		switch (type) {
+		case Match:
+			matchReset();
+			break;
+		case Round:
+			roundReset();
+			break;
+		case Game:
+			endGame();
+			break;
+		default:
+			// Should not happen and therefore we do nothing TODO perhaps
+			break;
+		}
+
+	}
+    
+    private void resetPlayer(ResetType type) {
+        for (Player p : players) {
+			p.reset(type);
+		}
+    }
+    
+	private void matchReset() {
+		resetPlayer(ResetType.Match);
+		//TODO perhaps a reset method on the map
+		this.map = new GameMap();
+	}
+
+	private void roundReset() {
+		resetPlayer(ResetType.Round);
+		this.map = new GameMap();
 	}
 
 	private boolean isPlayerAtPosition(Player player, Position pos) {
