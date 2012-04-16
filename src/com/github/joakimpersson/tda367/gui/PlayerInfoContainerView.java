@@ -13,6 +13,11 @@ import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.player.Player;
 
+/**
+ * 
+ * @author joakimpersson
+ *
+ */
 public class PlayerInfoContainerView implements IView {
 	private int startX;
 	private int startY;

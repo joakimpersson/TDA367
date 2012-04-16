@@ -10,6 +10,11 @@ import org.newdawn.slick.SlickException;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.player.Player;
 
+/**
+ * 
+ * @author joakimpersson
+ *
+ */
 public class PlayerInfoView implements IView {
 
 	private Player player;

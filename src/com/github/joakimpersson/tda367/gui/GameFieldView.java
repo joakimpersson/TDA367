@@ -22,6 +22,11 @@ import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
 import com.github.joakimpersson.tda367.model.tiles.walkable.PowerupItem;
 import com.github.joakimpersson.tda367.model.utils.FPosition;
 
+/**
+ * 
+ * @author joakimpersson
+ *
+ */
 public class GameFieldView implements IView {
 
 	// TODO jocke ask if this is okay!
