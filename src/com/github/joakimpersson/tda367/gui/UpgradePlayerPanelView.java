@@ -25,7 +25,6 @@ public class UpgradePlayerPanelView implements IUpgradePlayerView {
 		this.player = p;
 		this.X = x;
 		this.Y = y;
-		System.out.println(x + " " + y);
 		init();
 	}
 

@@ -16,12 +16,12 @@ import com.github.joakimpersson.tda367.model.player.Player;
 /**
  * 
  * @author joakimpersson
- *
+ * 
  */
 public class PlayerInfoContainerView implements IView {
 	private int startX;
 	private int startY;
-	private final int panelWidth = 200;
+	private static final int panelWidth = 200;
 	private IBombermanModel model = null;
 	private List<PlayerInfoView> playersInfo = null;
 

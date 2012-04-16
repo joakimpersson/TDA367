@@ -22,8 +22,8 @@ public class UpgradePlayerView implements IUpgradePlayerView {
 	private IBombermanModel model = null;
 	private List<Player> players = null;
 	private List<UpgradePlayerPanelView> playerViews = null;
-	private final int POS_Y = 50;
-	private final int POS_X = 125;
+	private static final int POS_Y = 50;
+	private static final int POS_X = 125;
 
 	public UpgradePlayerView() {
 		init();

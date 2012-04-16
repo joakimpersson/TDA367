@@ -25,14 +25,14 @@ import com.github.joakimpersson.tda367.model.utils.FPosition;
 /**
  * 
  * @author joakimpersson
- *
+ * 
  */
 public class GameFieldView implements IView {
 
 	// TODO jocke ask if this is okay!
 	private IBombermanModel model = null;
 
-	private final int blockSide = 50;
+	private static final int blockSide = 50;
 	private int startY;
 	private int startX;
 	private List<Player> players = null;

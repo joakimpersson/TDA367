@@ -13,7 +13,7 @@ import com.github.joakimpersson.tda367.model.player.Player;
 /**
  * 
  * @author joakimpersson
- *
+ * 
  */
 public class PlayerInfoView implements IView {
 
@@ -23,7 +23,7 @@ public class PlayerInfoView implements IView {
 	private int width;
 	private int height;
 	private int yDelta = -1;
-	private final int X = 40;
+	private static final int X = 40;
 
 	public PlayerInfoView(Player player, int startX, int startY, int width,
 			int height) {
@@ -59,16 +59,16 @@ public class PlayerInfoView implements IView {
 		g.drawString("Score: " + score + "p", X, y);
 
 		y += yDelta;
-		
+
 		int hp = player.getHealth();
-		
+
 		g.drawString("Life: " + hp, X, y);
-		
+
 		y += yDelta;
-		
+
 		// TODO jocke only during dev
 		List<Attribute> playerAttrs = player.getPermanentAttributes();
-		
+
 		for (Attribute a : playerAttrs) {
 			StringBuffer str = new StringBuffer();
 			str.append(a.name());
