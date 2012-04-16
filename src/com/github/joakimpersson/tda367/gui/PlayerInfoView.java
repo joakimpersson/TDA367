@@ -1,10 +1,13 @@
 package com.github.joakimpersson.tda367.gui;
 
+import java.util.List;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.player.Player;
 
 public class PlayerInfoView implements IView {
@@ -14,6 +17,8 @@ public class PlayerInfoView implements IView {
 	private int startY;
 	private int width;
 	private int height;
+	private int yDelta = -1;
+	private final int X = 40;
 
 	public PlayerInfoView(Player player, int startX, int startY, int width,
 			int height) {
@@ -26,15 +31,47 @@ public class PlayerInfoView implements IView {
 	}
 
 	private void init() {
-
+		yDelta = height / 10;
 	}
 
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
+		int y = startY;
+
 		g.setColor(Color.black);
-		g.drawRect(startX, startY, width, height);
+		g.drawRect(startX, y, width, height);
+
+		y += yDelta;
+
 		g.setColor(Color.white);
-		g.drawString(player.getName(), startX + 20, startY + 20);
+		g.drawString(player.getName(), X, y);
+
+		int score = player.getScore();
+
+		y += yDelta;
+
+		g.drawString("Score: " + score + "p", X, y);
+
+		y += yDelta;
+		
+		int hp = player.getHealth();
+		
+		g.drawString("Life: " + hp, X, y);
+		
+		y += yDelta;
+		
+		// TODO jocke only during dev
+		List<Attribute> playerAttrs = player.getPermanentAttributes();
+		
+		for (Attribute a : playerAttrs) {
+			StringBuffer str = new StringBuffer();
+			str.append(a.name());
+			str.append(": ");
+			str.append(player.getAttribute(a));
+			g.drawString(str.toString(), X, y);
+			y += yDelta;
+		}
+
 	}
 }
