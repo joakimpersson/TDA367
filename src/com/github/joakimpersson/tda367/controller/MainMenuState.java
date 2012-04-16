@@ -53,10 +53,6 @@ public class MainMenuState extends BasicGameState {
 			game.enterState(BombermanGame.GAMEPLAY_STATE);
 		}
 
-		if (input.isKeyDown(Input.KEY_U)) {
-			game.enterState(BombermanGame.UPGRADE_PLAYER_STATE);
-		}
-
 		if (input.isKeyDown(Input.KEY_H)) {
 			game.enterState(BombermanGame.HIGHSCORE_STATE);
 		}

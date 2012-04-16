@@ -40,7 +40,7 @@ public class UpgradePlayerState extends BasicGameState {
 			throws SlickException {
 		view = new UpgradePlayerView();
 		model = BombermanModel.getInstance();
-		
+
 		attributes = model.getPlayers().get(0).getPermanentAttributes();
 		playersIndex = new HashMap<Player, Integer>();
 		for (Player p : model.getPlayers()) {
@@ -62,6 +62,10 @@ public class UpgradePlayerState extends BasicGameState {
 		// TODO jocke only used during development
 		if (input.isKeyDown(Input.KEY_ESCAPE)) {
 			container.exit();
+		}
+
+		if (input.isKeyPressed(Input.KEY_ENTER)) {
+			game.enterState(BombermanGame.GAMEPLAY_STATE);
 		}
 
 		Player p1 = model.getPlayers().get(0);
