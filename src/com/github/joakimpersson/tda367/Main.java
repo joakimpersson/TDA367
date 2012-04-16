@@ -37,6 +37,9 @@ public class Main {
 			// make sure that we are using the players screen
 			app.setVSync(true);
 
+			// remove the fps meter
+			app.setShowFPS(false);
+
 			// launch the game
 			app.start();
 		} catch (SlickException e) {
