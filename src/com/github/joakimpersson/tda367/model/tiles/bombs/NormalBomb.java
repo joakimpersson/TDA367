@@ -64,15 +64,18 @@ public class NormalBomb extends Bomb {
 											// bomb? i.e. range of 2 means
 											// player can hit only directly
 											// adjacent tiles
-			Position firePos = new Position(x + (dir.getX() * i), y + (dir.getY() * i));
+			if (firePower > 0) {
+				Position firePos = new Position(x + (dir.getX() * i), y + (dir.getY() * i));
 
-			if (validPos(firePos)) {
-				Tile tile = map[firePos.getY()][firePos.getX()]; // inverted >.<
-				if (tryBreak(tile, firePower)) {
-					firePower -= tile.getToughness();
-					fireList.add(firePos);
-				} else {
-					break; // fire stops directly
+				if (validPos(firePos)) {
+					Tile tile = map[firePos.getY()][firePos.getX()]; // inverted
+																		// >.<
+					if (tryBreak(tile, firePower)) {
+						firePower -= tile.getToughness();
+						fireList.add(firePos);
+					} else {
+						break; // fire stops directly
+					}
 				}
 			}
 		}
