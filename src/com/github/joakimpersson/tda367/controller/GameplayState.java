@@ -14,6 +14,7 @@ import com.github.joakimpersson.tda367.gui.IView;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
+import com.github.joakimpersson.tda367.model.constants.ResetType;
 import com.github.joakimpersson.tda367.model.player.Player;
 
 /**
@@ -50,7 +51,13 @@ public class GameplayState extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-		
+
+		// simple check to see whether the turn is over or not
+		if (model.isPlayersAlive()) {
+			// TODO some ending i believe
+			roundOver(game);
+		}
+
 		Input input = container.getInput();
 
 		// TODO jocke only used during development
@@ -77,13 +84,13 @@ public class GameplayState extends BasicGameState {
 		}
 
 		// player 2 movement/bomb
-		
+
 		Player p2 = players.get(1);
-		
+
 		if (input.isKeyPressed(Input.KEY_2)) {
 			model.updateGame(p2, PlayerAction.PlaceBomb);
 		}
-		
+
 		if (input.isKeyDown(Input.KEY_W)) {
 			model.updateGame(p2, PlayerAction.MoveUp);
 		} else if (input.isKeyDown(Input.KEY_S)) {
@@ -93,7 +100,7 @@ public class GameplayState extends BasicGameState {
 		} else if (input.isKeyDown(Input.KEY_D)) {
 			model.updateGame(p2, PlayerAction.MoveRight);
 		}
-		
+
 		// TODO adrian 360 controller input tests
 
 		X360Input(input, p1, 0);
@@ -101,11 +108,25 @@ public class GameplayState extends BasicGameState {
 
 	}
 
+	private void roundOver(StateBasedGame game) {
+		// TODO some check to see if it is game,match,turn and direct the
+		// responsibility
+		// assuming that it is match end
+		handleMatchEnd(game);
+	}
+
+	private void handleMatchEnd(StateBasedGame game) {
+		// TODO tell the model to restart and so on... like
+		model.reset(ResetType.Match);
+		// TODO or perhaps the upgradeplayerstate should do that
+		game.enterState(BombermanGame.UPGRADE_PLAYER_STATE);
+	}
+
 	private void X360Input(Input input, Player player, int controller) {
 		if (input.isButtonPressed(1, controller)) {
 			model.updateGame(player, PlayerAction.PlaceBomb);
 		}
-		
+
 		if (input.isControllerUp(controller)) {
 			model.updateGame(player, PlayerAction.MoveUp);
 		} else if (input.isControllerDown(controller)) {
