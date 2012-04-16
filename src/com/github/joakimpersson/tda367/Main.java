@@ -11,9 +11,14 @@ import com.github.joakimpersson.tda367.controller.BombermanGame;
 /**
  * 
  * @author joakimpersson
- *
+ * 
  */
 public class Main {
+
+	// TODO thesse should really not be here
+	public static int gameWidth = 950;
+	public static int gameHeight = 650;
+
 	public static void main(String[] args) {
 		/*
 		 * Dynamically uses the correct native files for lwjgl
@@ -28,7 +33,7 @@ public class Main {
 			AppGameContainer app = new AppGameContainer(new BombermanGame(
 					"Joakim e pung"));
 
-			app.setDisplayMode(750, 650, false);
+			app.setDisplayMode(gameWidth, gameHeight, false);
 			// make sure that we are using the players screen
 			app.setVSync(true);
 
