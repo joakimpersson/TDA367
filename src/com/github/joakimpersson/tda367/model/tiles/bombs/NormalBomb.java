@@ -16,6 +16,8 @@ import com.github.joakimpersson.tda367.model.utils.Position;
  * Definition of a regular bomb.
  * 
  * @author rekoil
+ * @modified Viktor Anderling
+ * 
  */
 public class NormalBomb extends Bomb {
 	private Tile[][] map;
@@ -44,7 +46,6 @@ public class NormalBomb extends Bomb {
 		// dont forget to add itself
 		directedFireList.put(pos, None);
 
-		this.player.decreaseBombsPlaced();
 		return directedFireList;
 	}
 

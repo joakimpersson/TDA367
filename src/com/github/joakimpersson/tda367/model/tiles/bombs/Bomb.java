@@ -21,6 +21,7 @@ import com.github.joakimpersson.tda367.model.utils.Position;
  * This class defines a Bomb in the bomberman-like game.
  * 
  * @author rekoil
+ * @modified Viktor Anderling
  */
 public abstract class Bomb implements Tile {
 
