@@ -13,9 +13,12 @@ import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
 public class Pillar implements Tile {
 
 	private int toughness;
+	private String image;
+
 
 	public Pillar() {
 		this.toughness = 2;
+		this.image = "pillar";
 	}
 
 	@Override
@@ -62,6 +65,11 @@ public class Pillar implements Tile {
 	@Override
 	public String toString() {
 		return "Pillar";
+	}
+
+	@Override
+	public String getImage() {
+		return this.image;
 	}
 	
 }

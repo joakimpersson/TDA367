@@ -1,5 +1,7 @@
 package com.github.joakimpersson.tda367.model.tiles.walkable;
 
+import java.util.Random;
+
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
@@ -12,10 +14,16 @@ import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
 public class Floor implements WalkableTile {
 
 	private int toughness;
+	private String image;
+	private int floorNumber;
+
 
 	public Floor() {
 		// should be ignored by the fire and skipped
 		this.toughness = 0;
+		Random rand = new Random();
+		this.floorNumber = rand.nextInt(5) + 1;
+		this.image = "floor" + this.floorNumber;
 	}
 
 	@Override
@@ -57,5 +65,10 @@ public class Floor implements WalkableTile {
 	@Override
 	public String toString() {
 		return "Floor";
+	}
+
+	@Override
+	public String getImage() {
+		return this.image;
 	}
 }

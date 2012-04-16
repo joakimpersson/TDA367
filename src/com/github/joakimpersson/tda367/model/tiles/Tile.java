@@ -31,4 +31,11 @@ public interface Tile {
 	 * @return The tile that will replace the current tile.
 	 */
 	public Tile onFire();
+	
+	/**
+	 * Sets the type of the image to the Tile.
+	 * 
+	 * @return A representring string for the image.
+	 */
+	public String getImage();
 }
