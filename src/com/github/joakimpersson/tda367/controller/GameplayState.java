@@ -102,7 +102,7 @@ public class GameplayState extends BasicGameState {
 	}
 
 	private void X360Input(Input input, Player player, int controller) {
-		if (input.isButtonPressed(11, controller)) {
+		if (input.isButtonPressed(1, controller)) {
 			model.updateGame(player, PlayerAction.PlaceBomb);
 		}
 		

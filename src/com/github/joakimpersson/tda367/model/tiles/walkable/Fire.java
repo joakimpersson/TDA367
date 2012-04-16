@@ -8,6 +8,7 @@ import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
 /**
  * 
  * @author joakimpersson
+ * @modified Viktor Anderling
  * 
  */
 public class Fire implements WalkableTile {

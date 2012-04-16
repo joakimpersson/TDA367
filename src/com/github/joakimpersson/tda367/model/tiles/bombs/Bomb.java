@@ -22,6 +22,7 @@ import com.github.joakimpersson.tda367.model.utils.Position;
  * 
  * @author rekoil
  * @modified Viktor Anderling
+ * 
  */
 public abstract class Bomb implements Tile {
 

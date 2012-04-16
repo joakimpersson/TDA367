@@ -211,7 +211,7 @@ public class BombermanModel implements IBombermanModel {
 	 *            The player that places the bomb.
 	 */
 	private void placeBomb(Player player) {
-		if (player.canPlaceBomb()) {
+		if (player.canPlaceBomb() && map.getTile(player.getTilePosition()) instanceof WalkableTile) {
 			Timer bombTimer = new Timer();
 			Bomb bomb = createBomb(player, bombTimer);// player.createBomb(bombTimer);
 			bombTimer.schedule(new BombTask(bomb), Parameters.INSTANCE.getBombDetonationTime());
