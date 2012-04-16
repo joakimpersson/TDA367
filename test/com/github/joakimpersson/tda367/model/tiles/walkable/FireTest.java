@@ -15,6 +15,8 @@ import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Fire;
 import com.github.joakimpersson.tda367.model.utils.Position;
 
+//TODO Fix the test for the new returntype: Map<Position, Direction>.
+
 /**
  * 
  * @author joakimpersson
@@ -26,7 +28,7 @@ public class FireTest {
 
 	@Before
 	public void setUp() throws Exception {
-		fire = new Fire();
+		fire = new Fire(null);
 	}
 
 	@Test
