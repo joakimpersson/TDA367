@@ -31,7 +31,7 @@ public class Fire implements WalkableTile {
 	 */
 	@Override
 	public Tile onFire() {
-		return this;
+		return new Floor();
 	}
 
 	/**
