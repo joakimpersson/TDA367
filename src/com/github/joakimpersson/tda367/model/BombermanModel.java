@@ -241,9 +241,10 @@ public class BombermanModel implements IBombermanModel {
 	 * @param bombOwner
 	 *            The player that placed the bomb.
 	 */
-	private void handleFire(Player bombOwner, List<Position> positions) {
-		distributePoints(bombOwner, positions);
-		setFire(positions);
+	private void handleFire(Player bombOwner, Map<Position, Direction> directedFirePositions) {
+		List<Position> list = new ArrayList<Position>(directedFirePositions.keySet());
+		distributePoints(bombOwner, list);
+		setFire(directedFirePositions);
 	}
 
 	/**
@@ -289,12 +290,19 @@ public class BombermanModel implements IBombermanModel {
 	 *            The list that contains the positions of where the fire is to
 	 *            be placed.
 	 */
-	private void setFire(List<Position> positions) {
+	private void setFire(Map<Position, Direction> directedFirePositions) {
 		Map<Position, Tile> waitingTiles = new HashMap<Position, Tile>();
-		for (Position firePos : positions) {
+		Iterator<Position> iterator = directedFirePositions.keySet().iterator();
+		Position firePos;
+		while(iterator.hasNext()) {
+			firePos = (Position)iterator.next();
+			waitingTiles.put(firePos, map.getTile(firePos).onFire());
+			map.setTile(new Fire(directedFirePositions.get(firePos)), firePos);
+		}
+		/*for (Position firePos : positions) {
 			waitingTiles.put(firePos, map.getTile(firePos).onFire());
 			map.setTile(new Fire(), firePos);
-		}
+		}*/
 		waitingFirePositions.addLast(waitingTiles);
 		Timer timer = new Timer();
 		timer.schedule(new FireTimerTask(), Parameters.INSTANCE.getFireDuration());

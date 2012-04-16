@@ -1,6 +1,7 @@
 package com.github.joakimpersson.tda367.model.tiles.bombs;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 
 import static com.github.joakimpersson.tda367.model.constants.Direction.*;
@@ -32,7 +33,7 @@ public class NormalBomb extends Bomb {
 	}
 
 	@Override
-	public List<Position> explode(Tile[][] m) {
+	public Map<Position, Direction> explode(Tile[][] m) {
 		map = m;
 
 		directedFire(Up);
@@ -41,10 +42,10 @@ public class NormalBomb extends Bomb {
 		directedFire(Right);
 
 		// dont forget to add itself
-		fireList.add(pos);
+		directedFireList.put(pos, None);
 
 		this.player.decreaseBombsPlaced();
-		return fireList;
+		return directedFireList;
 	}
 
 	/**
@@ -72,7 +73,7 @@ public class NormalBomb extends Bomb {
 																		// >.<
 					if (tryBreak(tile, firePower)) {
 						firePower -= tile.getToughness();
-						fireList.add(firePos);
+						directedFireList.put(firePos, dir);
 					} else {
 						break; // fire stops directly
 					}

@@ -1,8 +1,10 @@
 package com.github.joakimpersson.tda367.model.tiles.bombs;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 
+import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.utils.Position;
@@ -29,7 +31,7 @@ public class AreaBomb extends Bomb {
 	}
 
 	@Override
-	public List<Position> explode(Tile[][] map) {
+	public Map<Position, Direction> explode(Tile[][] map) {
 		int xPos = pos.getX();
 		int yPos = pos.getY();
 
@@ -37,13 +39,13 @@ public class AreaBomb extends Bomb {
 			for (int y = yPos - range; y <= yPos + range; y++) {
 				Position firePos = new Position(x, y);
 				if (validPos(firePos) && tryBreak(map[x][y], power)) {
-					fireList.add(firePos);
+					directedFireList.put(firePos, Direction.None);
 				}
 			}
 		}
 
 		this.player.decreaseBombsPlaced();
-		return fireList;
+		return directedFireList;
 	}
 
 }

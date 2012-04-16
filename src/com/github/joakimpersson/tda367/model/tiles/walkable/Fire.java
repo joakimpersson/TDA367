@@ -1,5 +1,6 @@
 package com.github.joakimpersson.tda367.model.tiles.walkable;
 
+import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
@@ -12,10 +13,12 @@ import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
 public class Fire implements WalkableTile {
 
 	private int toughness;
-
-	public Fire() {
+	private Direction direction;
+	
+	public Fire(Direction direction) {
 		// different players fire should not be able to cross each other
 		this.toughness = 100;
+		this.direction = direction;
 	}
 
 	@Override

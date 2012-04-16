@@ -2,12 +2,15 @@ package com.github.joakimpersson.tda367.model.tiles.bombs;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 
 import static com.github.joakimpersson.tda367.model.constants.Attribute.BombPower;
 import static com.github.joakimpersson.tda367.model.constants.Attribute.BombRange;
 
+import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
@@ -27,7 +30,7 @@ public abstract class Bomb implements Tile {
 	protected final Timer timer;
 	protected final Player player;
 	protected final Position pos;
-	protected List<Position> fireList = new ArrayList<Position>();
+	protected Map<Position, Direction> directedFireList = new HashMap<Position, Direction>();
 
 	/**
 	 * Creates an abstract Bomb.
@@ -91,7 +94,7 @@ public abstract class Bomb implements Tile {
 	 *            The map which the fires will be placed on.
 	 * @return A list of fires.
 	 */
-	public abstract List<Position> explode(Tile[][] map);
+	public abstract Map<Position, Direction> explode(Tile[][] map);
 
 	@Override
 	public int getToughness() {
