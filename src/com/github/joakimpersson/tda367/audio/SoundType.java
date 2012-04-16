@@ -1,5 +1,11 @@
 package com.github.joakimpersson.tda367.audio;
 
+
+/**
+ * 
+ * @author Viktor Anderling
+ *
+ */
 public enum SoundType {
-	UpgradeTheme, TitleTheme, BattleMusic, BombExplodeSFX, BombPlacedSFX, PlayerHitSFX, PowerUpSFX, MenuClickSFX;
+	UpgradeBGM, TitleBGM, BattleBGM, BombExplodeSFX, BombPlacedSFX, PlayerHitSFX, PowerUpSFX, MenuClickSFX;
 }
