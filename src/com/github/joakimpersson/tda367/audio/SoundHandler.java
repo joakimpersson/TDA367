@@ -7,13 +7,20 @@ import org.newdawn.slick.Sound;
  * 
  * @author Viktor Anderling
  *
- * A Class for handling all the sounds in the game, witch includes
- * storing them and the volume options. It is important to 
+ * A Singelton class for handling all the sounds in the game, witch includes
+ * storing them and the volume options.
  *
  */
 public class SoundHandler {
 	
+	/**
+	 * The volume of the background music in the game, witch is a value from 0 to 1;
+	 */
 	private float bgmVolume;
+	
+	/**
+	 * The volume of the sound effects in the game, witch is a value from 0 to 1;
+	 */
 	private float sfxVolume;
 	
 	private SoundEffect bombExplode;
@@ -47,17 +54,35 @@ public class SoundHandler {
 		
 	
 	public void playSound(SoundType soundType) {
+		IGameSound sound = chooseSound(soundType);
+		if(sound instanceof SoundEffect) {
+			sound.play(sfxVolume);
+		} else {
+			sound.play(bgmVolume);
+		}	
+	}
+	
+	public void stopSound(SoundType soundType) {
+		
+	}
+	
+	/**
+	 * This method is used to choose between different IGameSounds.
+	 * 
+	 * @param soundType
+	 * @return the IGameSound that corresponds to the given SoundType.
+	 */
+	private IGameSound chooseSound(SoundType soundType) {
 		switch(soundType) {
-			case BombExplodeSFX:
-				bombExplode.play(sfxVolume);
-				break;
-			case TitleBGM:
-				titleTheme.play(bgmVolume);
-				break;				
-			default:
-				break;
+		case BombExplodeSFX:
+			return bombExplode;
+		case TitleBGM:
+			return titleTheme;		
+		default:
+			return null;
 		}
 	}
+	
 	
 	/**
 	 * This method sets the volume for the background-music.
@@ -77,15 +102,7 @@ public class SoundHandler {
 	}
 	
 	public boolean isSoundPlaying(SoundType soundType) {
-		switch(soundType) {
-		case BombExplodeSFX:
-			return bombExplode.isPlaying();
-		case TitleBGM:
-			return titleTheme.isPlaying();		
-		default:
-			return false;
-		}
-	
+		return chooseSound(soundType).isPlaying();	
 	}
 	
 }
