@@ -96,16 +96,6 @@ public class BombermanModel implements IBombermanModel {
 	}
 
 	@Override
-	public void startGame() {
-		// TODO what exactly does this do?
-	}
-
-	@Override
-	public void endGame() {
-		// TODO what exactly does this do?
-	}
-
-	@Override
 	public void upgradePlayer(Player player, Attribute attr) {
 		if (player.getCredits() > attr.getCost()) {
 			player.upgradeAttr(attr, UpgradeType.Match);
@@ -114,14 +104,6 @@ public class BombermanModel implements IBombermanModel {
 		}
 		// TODO perhaps do something or notify someone when it fails!
 
-	}
-
-	private void matchEnd() {
-		// TODO what exactly does this do?
-	}
-
-	private void turnEnd() {
-		// TODO what exactly does this do?
 	}
 
 	@Override
@@ -341,13 +323,26 @@ public class BombermanModel implements IBombermanModel {
 	}
 
 	@Override
-	public boolean isPlayersAlive() {
+	public boolean isRoundOver() {
 		for (Player p : players) {
 			if (!p.isAlive()) {
+				// TODO add implementation for reducing player life
 				return true;
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public boolean isGameOver() {
+		// TODO add implementation/support
+		return false;
+	}
+
+	@Override
+	public boolean isMatchOver() {
+		// TODO add implementation/support
+		return true;
 	}
 
 	@Override
@@ -359,25 +354,22 @@ public class BombermanModel implements IBombermanModel {
 		case Round:
 			roundReset();
 			break;
-		case Game:
-			endGame();
-			break;
 		default:
 			// Should not happen and therefore we do nothing TODO perhaps
 			break;
 		}
 
 	}
-    
-    private void resetPlayer(ResetType type) {
-        for (Player p : players) {
+
+	private void resetPlayer(ResetType type) {
+		for (Player p : players) {
 			p.reset(type);
 		}
-    }
-    
+	}
+
 	private void matchReset() {
 		resetPlayer(ResetType.Match);
-		//TODO perhaps a reset method on the map
+		// TODO perhaps a reset method on the map
 		this.map = new GameMap();
 	}
 

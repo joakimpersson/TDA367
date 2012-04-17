@@ -27,11 +27,25 @@ public class GameplayState extends BasicGameState {
 	private int stateID = -1;
 	private IBombermanModel model = null;
 	private IView view = null;
+	private STATE currentState = null;
 
 	private List<Player> players = null;
 
+	private enum STATE {
+		GAME_RUNNING, ROUND_OVER, MATCH_OVER, GAME_OVER;
+	}
+
 	public GameplayState(int stateID) {
 		this.stateID = stateID;
+	}
+
+	@Override
+	public void enter(GameContainer container, StateBasedGame game)
+			throws SlickException {
+		super.enter(container, game);
+
+		currentState = STATE.GAME_RUNNING;
+
 	}
 
 	@Override
@@ -51,18 +65,47 @@ public class GameplayState extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
+		switch (currentState) {
+		case GAME_RUNNING:
 
-		// simple check to see whether the turn is over or not
-		if (model.isPlayersAlive()) {
-			// TODO some ending i believe
-			roundOver(game);
+			// simple check to see whether the turn is over or not
+			if (model.isRoundOver()) {
+				currentState = STATE.ROUND_OVER;
+			} else {
+				gameRunning(container);
+			}
+
+			break;
+		case MATCH_OVER:
+
+			model.reset(ResetType.Match);
+			if (model.isGameOver()) {
+				currentState = STATE.GAME_OVER;
+			} else {
+				currentState = STATE.GAME_RUNNING;
+				game.enterState(BombermanGame.UPGRADE_PLAYER_STATE);
+			}
+			break;
+		case ROUND_OVER:
+			if (model.isMatchOver()) {
+				model.reset(ResetType.Round);
+				currentState = STATE.MATCH_OVER;
+			} else {
+				currentState = STATE.GAME_RUNNING;
+			}
+			break;
+		default:
+			break;
 		}
 
-		Input input = container.getInput();
+	}
+
+	private void gameRunning(GameContainer gc) {
+		Input input = gc.getInput();
 
 		// TODO jocke only used during development
 		if (input.isKeyDown(Input.KEY_ESCAPE)) {
-			container.exit();
+			gc.exit();
 		}
 
 		// player 1 movement/bomb
@@ -105,21 +148,6 @@ public class GameplayState extends BasicGameState {
 
 		X360Input(input, p1, 0);
 		X360Input(input, p2, 1);
-
-	}
-
-	private void roundOver(StateBasedGame game) {
-		// TODO some check to see if it is game,match,turn and direct the
-		// responsibility
-		// assuming that it is match end
-		handleMatchEnd(game);
-	}
-
-	private void handleMatchEnd(StateBasedGame game) {
-		// TODO tell the model to restart and so on... like
-		model.reset(ResetType.Match);
-		// TODO or perhaps the upgradeplayerstate should do that
-		game.enterState(BombermanGame.UPGRADE_PLAYER_STATE);
 	}
 
 	private void X360Input(Input input, Player player, int controller) {

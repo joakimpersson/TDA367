@@ -54,14 +54,6 @@ public interface IBombermanModel {
 	public Tile[][] getMap();
 
 	/**
-	 * Returns true or false depending if one of the players are dead or not
-	 * 
-	 * @return True if one player is dead false otherwise
-	 */
-	// TODO jocke only to test the game
-	public boolean isPlayersAlive();
-
-	/**
 	 * Reset the models state with different kind of level to represent or three
 	 * main game states
 	 * 
@@ -76,8 +68,27 @@ public interface IBombermanModel {
 	 */
 	public void reset(ResetType type);
 
-	public void startGame();
+	/**
+	 * 
+	 * Returns true or false depending if the game is over or not
+	 * 
+	 * @return True if the game is over and false otherwise
+	 */
+	public boolean isGameOver();
 
-	public void endGame();
+	/**
+	 * 
+	 * Returns true or false depending if the match is over or not
+	 * 
+	 * @return True if the match is over and false otherwise
+	 */
+	public boolean isMatchOver();
 
+	/**
+	 * 
+	 * Returns true or false depending if the round is over or not
+	 * 
+	 * @return True if the round is over and false otherwise
+	 */
+	public boolean isRoundOver();
 }
