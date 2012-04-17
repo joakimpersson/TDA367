@@ -73,7 +73,7 @@ public class Box implements Tile {
 	}
 
 	@Override
-	public String getImage() {
+	public String getTileType() {
 		return this.image;
 	}
 }

@@ -86,7 +86,7 @@ public class NormalBomb extends Bomb {
 	}
 
 	@Override
-	public String getImage() {
+	public String getTileType() {
 		return this.image;
 	}
 }

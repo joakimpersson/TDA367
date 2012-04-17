@@ -1,11 +1,11 @@
 package com.github.joakimpersson.tda367.model.constants;
 
 public enum Direction {
-	Up (0, -1, "Up"), 
-	Down (0, 1, "Down"), 
-	Left (-1, 0, "Left"), 
-	Right (1, 0, "Right"), 
-	None (0, 0, "None");
+	Up (0, -1, "up"), 
+	Down (0, 1, "down"), 
+	Left (-1, 0, "left"), 
+	Right (1, 0, "right"), 
+	None (0, 0, "none");
 	
 	private final int x, y;
 	private final String s;

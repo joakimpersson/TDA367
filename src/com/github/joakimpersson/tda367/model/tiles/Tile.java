@@ -37,5 +37,5 @@ public interface Tile {
 	 * 
 	 * @return A representring string for the image.
 	 */
-	public String getImage();
+	public String getTileType();
 }

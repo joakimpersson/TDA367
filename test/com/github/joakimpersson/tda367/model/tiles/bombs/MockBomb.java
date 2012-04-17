@@ -28,7 +28,7 @@ public class MockBomb extends Bomb {
 	}
 
 	@Override
-	public String getImage() {
+	public String getTileType() {
 		// TODO Auto-generated method stub
 		return null;
 	}

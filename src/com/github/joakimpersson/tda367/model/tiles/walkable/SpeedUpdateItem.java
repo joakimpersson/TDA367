@@ -22,7 +22,7 @@ public class SpeedUpdateItem extends PowerupItem{
 	}
 
 	@Override
-	public String getImage() {
+	public String getTileType() {
 		return this.image;
 	}
 	

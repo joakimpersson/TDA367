@@ -22,7 +22,7 @@ public class BombStackUpdateItem extends PowerupItem{
 	}
 
 	@Override
-	public String getImage() {
+	public String getTileType() {
 		return this.image;
 	}
 

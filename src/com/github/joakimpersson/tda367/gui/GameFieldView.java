@@ -5,6 +5,7 @@ import java.util.List;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Rectangle;
@@ -36,11 +37,13 @@ public class GameFieldView implements IView {
 	private int startY;
 	private int startX;
 	private List<Player> players = null;
+	private ImageLoader imgs;
 
 	public GameFieldView(int startX, int startY) {
 		this.startX = startX;
 		this.startY = startY;
 		init();
+		this.imgs = ImageLoader.getInstance();
 	}
 
 	private void init() {
@@ -88,26 +91,27 @@ public class GameFieldView implements IView {
 		for (int i = 0; i < mapHeight; i++) {
 			for (int j = 0; j < mapWidth; j++) {
 				Tile tile = map[i][j];
-				if (tile instanceof Wall) {
-					color = new Color(162, 152, 105);
-					drawRect(j, i, color, g);
-				} else if (tile instanceof Floor) {
-					color = new Color(33, 29, 25);
-					drawRect(j, i, color, g);
-				} else if (tile instanceof Pillar) {
-					color = new Color(162, 152, 105);
-					drawRect(j, i, color, g);
-				} else if (tile instanceof Box) {
-					color = new Color(180, 117, 119);
-					drawRect(j, i, color, g);
-				} else if (tile instanceof Fire) {
-					drawRect(j, i, Color.red, g);
-				} else if (tile instanceof Bomb) {
-					drawRect(j, i, Color.cyan, g);
-				} else if (tile instanceof PowerupItem) {
-					color = new Color(22, 100, 151);
-					drawRect(j, i, color, g);
-				}
+				drawTile(j, i, tile.getTileType(), g);
+//				if (tile instanceof Wall) {
+//					color = new Color(162, 152, 105);
+//					drawRect(j, i, color, g);
+//				} else if (tile instanceof Floor) {
+//					color = new Color(33, 29, 25);
+//					drawRect(j, i, color, g);
+//				} else if (tile instanceof Pillar) {
+//					color = new Color(162, 152, 105);
+//					drawRect(j, i, color, g);
+//				} else if (tile instanceof Box) {
+//					color = new Color(180, 117, 119);
+//					drawRect(j, i, color, g);
+//				} else if (tile instanceof Fire) {
+//					drawRect(j, i, Color.red, g);
+//				} else if (tile instanceof Bomb) {
+//					drawRect(j, i, Color.cyan, g);
+//				} else if (tile instanceof PowerupItem) {
+//					color = new Color(22, 100, 151);
+//					drawRect(j, i, color, g);
+//				}
 			}
 		}
 
@@ -135,12 +139,12 @@ public class GameFieldView implements IView {
 	//
 	// }
 
-	// private void drawRect(int x, int y, String s, Graphics g) {
-	// // the players position is related to matrix so compensated is needed
-	// x *= blockSide;
-	// y *= blockSide;
-	// // g.setColor(color);
-	// g.fillRect(x + startX, y + startY, blockSide, blockSide);
-	// }
+	private void drawTile(int x, int y, String s, Graphics g) {
+		// the players position is related to matrix so compensated is needed
+		x *= blockSide;
+		y *= blockSide;
+		Image i = imgs.getImage(s, blockSide, blockSide);
+		g.drawImage(i, x + startX, y + startY);
+	}
 
 }

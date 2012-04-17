@@ -20,7 +20,12 @@ public class Fire implements WalkableTile {
 		// different players fire should not be able to cross each other
 		this.toughness = 100;
 		this.direction = direction;
-		this.image = "fire";
+		if(this.direction == null) {
+			this.image = "fire-area";
+		}
+		else {
+			this.image = "fire-column-" + direction;
+		}
 	}
 
 	@Override
@@ -64,7 +69,7 @@ public class Fire implements WalkableTile {
 	}
 
 	@Override
-	public String getImage() {
+	public String getTileType() {
 		return this.image;
 	}
 }
