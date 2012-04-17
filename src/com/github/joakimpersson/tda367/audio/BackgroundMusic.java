@@ -21,7 +21,7 @@ public class BackgroundMusic implements IGameSound {
 		
 		@Override
 		public void play(float volume) {
-			sound.loop(0, volume);			
+			sound.loop(1, volume);			
 		}
 
 		@Override
@@ -38,5 +38,10 @@ public class BackgroundMusic implements IGameSound {
 				s = s + "not playing.";
 			}
 			return s;
+		}
+		
+		@Override
+		public boolean isPlaying() {
+			return sound.playing();
 		}
 }

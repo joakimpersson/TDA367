@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.github.joakimpersson.tda367.audio.SoundHandler;
+import com.github.joakimpersson.tda367.audio.SoundType;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
@@ -37,7 +39,8 @@ import com.github.joakimpersson.tda367.model.utils.Position;
  * 
  */
 public class BombermanModel implements IBombermanModel {
-
+	
+	SoundHandler sh = SoundHandler.getInstance();
 	/**
 	 * Timer-task that is used for scheduling what happens when the fire is
 	 * removed.
@@ -63,6 +66,8 @@ public class BombermanModel implements IBombermanModel {
 		@Override
 		public void run() {
 			handleFire(bomb.getPlayer(), bomb.explode(map.getMap()));
+			sh.playSound(SoundType.BombExplodeSFX);
+			System.out.println(sh.isSoundPlaying(SoundType.BombExplodeSFX));
 		}
 	}
 

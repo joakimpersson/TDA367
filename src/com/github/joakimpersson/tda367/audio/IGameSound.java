@@ -11,5 +11,8 @@ public interface IGameSound {
 	public void play(float volume);
 	
 	public void stop();
+	
+	public boolean isPlaying();
+	
 
 }

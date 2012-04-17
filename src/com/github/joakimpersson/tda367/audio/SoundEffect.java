@@ -22,7 +22,7 @@ public class SoundEffect implements IGameSound {
 	
 	@Override
 	public void play(float volume) {
-		sound.play(0, volume);
+		sound.play(1, volume);
 	}
 	
 	@Override
@@ -39,6 +39,11 @@ public class SoundEffect implements IGameSound {
 			s = s + "not playing.";
 		}
 		return s;
+	}
+
+	@Override
+	public boolean isPlaying() {
+		return sound.playing();
 	}
 
 }

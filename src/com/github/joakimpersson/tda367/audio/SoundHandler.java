@@ -1,10 +1,14 @@
 package com.github.joakimpersson.tda367.audio;
 
+import org.lwjgl.openal.AL;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 /**
  * 
- * @author Viktor
+ * @author Viktor Anderling
+ *
+ * A Class for handling all the sounds in the game, witch includes
+ * storing them and the volume options. It is important to 
  *
  */
 public class SoundHandler {
@@ -24,10 +28,10 @@ public class SoundHandler {
 		return instance;
 	}
 	
-	private void initiateSounds() {
+	public void initiateSounds() {
 		try {
 			bombExplode = new SoundEffect("res/sounds/Bomb1.ogg");
-			titleTheme = new BackgroundMusic("res/sounds/titleTheme1.ogg");
+			titleTheme = new BackgroundMusic("res/sounds/bg1.ogg");
 			
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
@@ -37,7 +41,7 @@ public class SoundHandler {
 	
 	private SoundHandler() {
 		initiateSounds();
-		setBGMVolume(1);
+		setSFXVolume(1);
 		setBGMVolume(1);
 	}
 		
@@ -55,12 +59,33 @@ public class SoundHandler {
 		}
 	}
 	
+	/**
+	 * This method sets the volume for the background-music.
+	 * 
+	 * @param volume A float number between 0 and 1.
+	 */
 	public void setBGMVolume(float volume) {
 		this.bgmVolume = volume;
 	}
 	
 	public void setSFXVolume(float volume) {
 		this.sfxVolume = volume;
+	}
+	
+	public void destroy() {
+		AL.destroy();
+	}
+	
+	public boolean isSoundPlaying(SoundType soundType) {
+		switch(soundType) {
+		case BombExplodeSFX:
+			return bombExplode.isPlaying();
+		case TitleBGM:
+			return titleTheme.isPlaying();		
+		default:
+			return false;
+		}
+	
 	}
 	
 }
