@@ -27,4 +27,10 @@ public class MockBomb extends Bomb {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public String getImage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
