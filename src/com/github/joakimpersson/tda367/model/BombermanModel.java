@@ -40,6 +40,7 @@ import com.github.joakimpersson.tda367.model.utils.Position;
  */
 public class BombermanModel implements IBombermanModel {
 	
+	// TODO This is not supposed to be here later.
 	SoundHandler sh = SoundHandler.getInstance();
 	
 	/**
@@ -67,8 +68,9 @@ public class BombermanModel implements IBombermanModel {
 		@Override
 		public void run() {
 			handleFire(bomb.getPlayer(), bomb.explode(map.getMap()));
+			
+			// TODO This is not supposed to be here later.
 			sh.playSound(SoundType.BombExplodeSFX);
-			System.out.println(sh.isSoundPlaying(SoundType.BombExplodeSFX));
 		}
 	}
 
@@ -90,6 +92,7 @@ public class BombermanModel implements IBombermanModel {
 		this.map = new GameMap();
 		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
 		
+		// TODO this is not supposed to be here later.
 		sh.playSound(SoundType.TitleBGM);
 		
 	}

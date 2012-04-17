@@ -5,6 +5,7 @@ import org.newdawn.slick.Sound;
 
 
 /**
+ * This class represents a looping background-track.
  * 
  * @author Viktor Anderling
  *

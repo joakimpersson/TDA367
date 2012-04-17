@@ -71,4 +71,13 @@ public enum Parameters {
 	public Dimension getMapSize() {
 		return new Dimension(15, 13);
 	}
+	
+	public float getInitSFXVolume() {
+		return 1;
+	}
+	
+	public float getInitBGMVolume() {
+		return 1;
+	}
+	
 }

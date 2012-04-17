@@ -3,12 +3,15 @@ package com.github.joakimpersson.tda367.audio;
 import org.lwjgl.openal.AL;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
+
+import com.github.joakimpersson.tda367.model.constants.Parameters;
+
 /**
  * 
  * @author Viktor Anderling
  *
  * A Singelton class for handling all the sounds in the game, witch includes
- * storing them and the volume options.
+ * storing them and the volume-options.
  *
  */
 public class SoundHandler {
@@ -26,8 +29,16 @@ public class SoundHandler {
 	private SoundEffect bombExplode;
 	private BackgroundMusic titleTheme;
 	
+	/**
+	 * The instance of this class.
+	 */
 	private static SoundHandler instance = null;
 	
+	/**
+	 * This method returns the instance of this class.
+	 * 
+	 * @return This instance.
+	 */
 	public static SoundHandler getInstance() {
 		if(instance == null) {
 			instance = new SoundHandler();
@@ -35,24 +46,35 @@ public class SoundHandler {
 		return instance;
 	}
 	
+	/**
+	 * This constructor initiates the sounds and sets 
+	 * the SFX and BGM to the initial volume.
+	 */
+	private SoundHandler() {
+		initiateSounds();
+		Parameters par = Parameters.INSTANCE;
+		setSFXVolume(par.getInitSFXVolume());
+		setBGMVolume(par.getInitBGMVolume());
+	}
+	
+	/**
+	 * This class initiate and saves all the sound from the resources folder.
+	 */
 	public void initiateSounds() {
 		try {
 			bombExplode = new SoundEffect("res/sounds/Bomb1.ogg");
 			titleTheme = new BackgroundMusic("res/sounds/bg1.ogg");
 			
 		} catch (SlickException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	private SoundHandler() {
-		initiateSounds();
-		setSFXVolume(1);
-		setBGMVolume(1);
-	}
-		
-	
+	/**
+	 * This method plays the sound that corresponds to the given SoundType.
+	 * 
+	 * @param soundType The given SoundType.
+	 */
 	public void playSound(SoundType soundType) {
 		IGameSound sound = chooseSound(soundType);
 		if(sound instanceof SoundEffect) {
@@ -62,15 +84,31 @@ public class SoundHandler {
 		}	
 	}
 	
+	/**
+	 * This method plays the sound that corresponds to the given SoundType.
+	 * 
+	 * @param soundType The given SoundType.
+	 */
 	public void stopSound(SoundType soundType) {
 		chooseSound(soundType).stop();
+	}
+	
+	/**
+	 * This method checks if the sound that corresponds to the given SoundType
+	 * is playing.
+	 * 
+	 * @param soundType The given SoundType.
+	 * @return True if the sound is playing, else false.
+	 */
+	public boolean isSoundPlaying(SoundType soundType) {
+		return chooseSound(soundType).isPlaying();	
 	}
 	
 	/**
 	 * This method is used to choose between different IGameSounds.
 	 * 
 	 * @param soundType
-	 * @return the IGameSound that corresponds to the given SoundType.
+	 * @return The IGameSound that corresponds to the given SoundType.
 	 */
 	private IGameSound chooseSound(SoundType soundType) {
 		switch(soundType) {
@@ -85,7 +123,7 @@ public class SoundHandler {
 	
 	
 	/**
-	 * This method sets the volume for the background-music.
+	 * This method sets the volume for all the background music.
 	 * 
 	 * @param volume A float number between 0 and 1.
 	 */
@@ -93,16 +131,21 @@ public class SoundHandler {
 		this.bgmVolume = volume;
 	}
 	
+	/**
+	 * This method sets the volume for all the sound-effect music.
+	 * 
+	 * @param volume A float number between 0 and 1.
+	 */
 	public void setSFXVolume(float volume) {
 		this.sfxVolume = volume;
 	}
 	
+	
+	/**
+	 * This method destroys the openAL. Use before closing the application.
+	 */
 	public void destroy() {
 		AL.destroy();
-	}
-	
-	public boolean isSoundPlaying(SoundType soundType) {
-		return chooseSound(soundType).isPlaying();	
 	}
 	
 }

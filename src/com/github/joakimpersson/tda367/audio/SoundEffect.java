@@ -5,6 +5,7 @@ import org.newdawn.slick.Sound;
 
 
 /**
+ * This class represents a one-time play sound effect track.
  * 
  * @author Viktor Anderling
  *
