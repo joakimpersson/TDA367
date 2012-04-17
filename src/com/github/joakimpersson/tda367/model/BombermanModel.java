@@ -41,6 +41,7 @@ import com.github.joakimpersson.tda367.model.utils.Position;
 public class BombermanModel implements IBombermanModel {
 	
 	SoundHandler sh = SoundHandler.getInstance();
+	
 	/**
 	 * Timer-task that is used for scheduling what happens when the fire is
 	 * removed.
@@ -88,6 +89,9 @@ public class BombermanModel implements IBombermanModel {
 		players.add(new Player("kalle", new Position(13, 11)));
 		this.map = new GameMap();
 		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
+		
+		sh.playSound(SoundType.TitleBGM);
+		
 	}
 
 	/**

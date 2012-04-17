@@ -63,7 +63,7 @@ public class SoundHandler {
 	}
 	
 	public void stopSound(SoundType soundType) {
-		
+		chooseSound(soundType).stop();
 	}
 	
 	/**
