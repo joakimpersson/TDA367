@@ -14,13 +14,6 @@ import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
-import com.github.joakimpersson.tda367.model.tiles.bombs.Bomb;
-import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Box;
-import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Pillar;
-import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Wall;
-import com.github.joakimpersson.tda367.model.tiles.walkable.Fire;
-import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
-import com.github.joakimpersson.tda367.model.tiles.walkable.PowerupItem;
 import com.github.joakimpersson.tda367.model.utils.FPosition;
 
 /**
@@ -117,13 +110,13 @@ public class GameFieldView implements IView {
 
 	}
 
-	private void drawRect(int x, int y, Color color, Graphics g) {
-		// the players position is related to matrix so compensated is needed
-		x *= blockSide;
-		y *= blockSide;
-		g.setColor(color);
-		g.fillRect(x + startX, y + startY, blockSide, blockSide);
-	}
+//	private void drawRect(int x, int y, Color color, Graphics g) {
+//		// the players position is related to matrix so compensated is needed
+//		x *= blockSide;
+//		y *= blockSide;
+//		g.setColor(color);
+//		g.fillRect(x + startX, y + startY, blockSide, blockSide);
+//	}
 
 	// private void drawMap(GameContainer container, Graphics g) {
 	// Tile[][] map = model.getMap();
@@ -143,7 +136,8 @@ public class GameFieldView implements IView {
 		// the players position is related to matrix so compensated is needed
 		x *= blockSide;
 		y *= blockSide;
-		Image i = imgs.getImage(s, blockSide, blockSide);
+		Image i = imgs.getImage(s);
+		System.out.println(i.toString());
 		g.drawImage(i, x + startX, y + startY);
 	}
 

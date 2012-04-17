@@ -50,7 +50,7 @@ public class ImageLoader {
 		loadImage("fire-column-down", "fire-column");
 		loadImage("fire-column-left", "fire-row");
 		loadImage("fire-column-right", "fire-row");
-		loadImage("fire-colum-none", "fire-mid");
+		loadImage("fire-column-none", "fire-mid");
 //		loadImage("areaBomb");
 		loadImage("bomb");
 		loadImage("rangeUpItem", "bomb");
@@ -66,7 +66,7 @@ public class ImageLoader {
 		return instance;
 	}
 
-	public Image getImage(String image, int width, int height) {
+	public Image getImage(String image) {
 		return imageMap.get(image);
 	}
 
