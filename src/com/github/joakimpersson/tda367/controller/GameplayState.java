@@ -130,7 +130,7 @@ public class GameplayState extends BasicGameState {
 
 		Player p2 = players.get(1);
 
-		if (input.isKeyPressed(Input.KEY_2)) {
+		if (input.isKeyPressed(Input.KEY_F)) {
 			model.updateGame(p2, PlayerAction.PlaceBomb);
 		}
 

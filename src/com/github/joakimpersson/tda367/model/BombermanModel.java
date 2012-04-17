@@ -97,7 +97,7 @@ public class BombermanModel implements IBombermanModel {
 
 	@Override
 	public void upgradePlayer(Player player, Attribute attr) {
-		if (player.getCredits() > attr.getCost()) {
+		if (player.getCredits() >= attr.getCost()) {
 			player.upgradeAttr(attr, UpgradeType.Match);
 			// TODO perhaps map via the player object
 			player.useCredits(attr.getCost());

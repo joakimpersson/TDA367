@@ -1,21 +1,21 @@
 package com.github.joakimpersson.tda367.gui;
 
-
 import java.util.HashMap;
+import java.util.Map;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public class ImageLoader {
-	
+
 	private static ImageLoader instance = null;
-	
-	private HashMap<String, Image> imageMap = new HashMap();
-	
+
+	private Map<String, Image> imageMap = new HashMap<String, Image>();
+
 	private ImageLoader() {
 		initHashMap();
 	}
-	
+
 	private void loadImage(String s) {
 		try {
 			imageMap.put(s, new Image("res/images/" + s + ".png"));
@@ -23,7 +23,7 @@ public class ImageLoader {
 			System.out.println("File not found: " + s + ".png");
 		}
 	}
-	
+
 	private void loadImage(String s, String f) {
 		try {
 			imageMap.put(s, new Image("res/images/" + f + ".png"));
@@ -31,7 +31,7 @@ public class ImageLoader {
 			System.out.println("File not found: " + f + ".png");
 		}
 	}
-	
+
 	private void initHashMap() {
 		loadImage("floor1");
 		loadImage("floor2");
@@ -51,18 +51,18 @@ public class ImageLoader {
 		loadImage("fire-column-left", "fire-row");
 		loadImage("fire-column-right", "fire-row");
 		loadImage("fire-column-none", "fire-mid");
-//		loadImage("areaBomb");
+		// loadImage("areaBomb");
 		loadImage("bomb");
 		loadImage("rangeUpItem", "bomb");
 		loadImage("speedUpItem", "bomb");
-		loadImage("bombUpItem", "bomb");		
+		loadImage("bombUpItem", "bomb");
 	}
-	
+
 	public static ImageLoader getInstance() {
 		if (instance == null) {
 			instance = new ImageLoader();
 		}
-		
+
 		return instance;
 	}
 
