@@ -1,0 +1,24 @@
+buttons:
+0 - dpad up
+1 - dpad down
+2 - dpad left
+3 - dpad right
+4 - start
+5 - back
+6 - left thumb click
+7 - right thumb click
+8 - L bumper
+9 - R bumper
+10 - xbox button
+11 - A but
+12 - B but
+13 - X but
+14 - Y but
+
+axis:
+0 - left thumbstick X
+1 - left thumbstick Y
+2 - right thumbstick X
+3 - right thumbstick Y
+4 - left trigger
+5 - right trigger
