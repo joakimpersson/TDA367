@@ -2,25 +2,24 @@ w   w   w   w   w   w   w   w   w   w   w   w   w   w   w
 
 w   f   f   f   f   f   f   f   f   f   f   f   f   f   w
 
-w   f   f   f   f   f   f   f   f   f   f   f   f   f   w
+w   f   f   b   f   f   f   f   w   w   f   f   f   f   w
 
-w   f   f   f   f   f   f   f   f   f   f   f   f   f   w
+w   p   p   b   f   f   f   f   f   w   f   f   f   f   w
 
-w   f   f   f   f   f   f   f   f   f   f   f   f   f   w
+w   f   f   f   f   f   f   f   f   w   f   f   f   f   w
 
-w   f   f   f   f   f   f   f   f   f   f   f   f   f   w
+w   f   p   b   f   f   f   f   f   w   f   f   f   f   w
 
-w   f   f   f   f   f   b   b   b   f   f   f   f   f   w
+w   f   f   b   f   f   f   f   f   w   f   f   f   f   w
 
-w   f   f   f   f   f   f   f   f   f   f   f   f   f   w
+w   f   p   f   w   w   f   f   f   w   f   f   f   f   w
 
-w   f   f   f   f   f   f   f   f   f   f   f   f   f   w
+w   f   f   b   w   f   f   f   f   w   f   f   f   f   w
 
-w   f   f   f   f   f   f   f   f   f   f   f   f   f   w
+w   p   p   b   w   f   f   f   f   w   f   f   f   f   w
 
-w   f   f   f   f   f   f   f   f   f   f   f   f   f   w
+w   f   f   f   w   w   w   w   w   w   f   f   f   f   w
 
-w   f   f   f   f   f   f   f   f   f   f   f   f   f   w
+w   f   f   b   f   f   f   f   f   f   f   f   f   f   w
 
 w   w   w   w   w   w   w   w   w   w   w   w   w   w   w
-
