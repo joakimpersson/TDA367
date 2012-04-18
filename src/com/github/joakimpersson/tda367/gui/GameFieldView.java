@@ -60,7 +60,11 @@ public class GameFieldView implements IView {
 			FPosition pos = p.getGamePosition();
 			rect.setCenterX(pos.getX() * blockSide + startX);
 			rect.setCenterY(pos.getY() * blockSide + startY);
-			g.setColor(Color.white);
+			if (players.get(1) == p) {
+				g.setColor(Color.white);
+			} else {
+				g.setColor(Color.cyan);
+			}
 			g.fill(rect);
 
 			// TODO remove, just for test, added to determine orientation of
@@ -80,7 +84,7 @@ public class GameFieldView implements IView {
 		Tile[][] map = model.getMap();
 		int mapHeight = map.length;
 		int mapWidth = map[0].length;
-		
+
 		for (int i = 0; i < mapHeight; i++) {
 			for (int j = 0; j < mapWidth; j++) {
 				Tile tile = map[i][j];
