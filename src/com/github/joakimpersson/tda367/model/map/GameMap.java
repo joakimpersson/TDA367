@@ -9,10 +9,11 @@ public class GameMap implements IGameMap {
 	// TODO all perhaps refactor/move
 	private static final int width = 15;
 	private static final int height = 13;
-
+	private MapLoader mapLoader;
+	
 	public GameMap() {
 
-		MapLoader mapLoader = new MapLoader(width, height);
+		mapLoader = new MapLoader(width, height);
 		map = mapLoader.readFile();
 	}
 
@@ -46,4 +47,10 @@ public class GameMap implements IGameMap {
 		return map[pos.getY()][pos.getX()];
 	}
 
+	@Override
+	public void reset() {
+		map = mapLoader.readFile();
+		
+	}
+	
 }

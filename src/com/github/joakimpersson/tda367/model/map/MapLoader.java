@@ -42,7 +42,7 @@ public class MapLoader {
 		List<String> lines = new ArrayList<String>();
 
 		try {
-			Scanner scanner = new Scanner(files[0]);
+			Scanner scanner = new Scanner(files[1]);
 
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine().replaceAll(" ", "");

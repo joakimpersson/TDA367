@@ -45,19 +45,22 @@ public class MainMenuState extends BasicGameState {
 		Input input = container.getInput();
 
 		// TODO jocke only used during development
-		if (input.isKeyDown(Input.KEY_ESCAPE) || input.isKeyPressed(Input.KEY_Q)) {
+		if (input.isKeyDown(Input.KEY_ESCAPE)
+				|| input.isKeyPressed(Input.KEY_Q)) {
 			container.exit();
 		}
 
 		if (input.isKeyDown(Input.KEY_G)) {
 			game.enterState(BombermanGame.SETUP_GAME_STATE);
-//			game.enterState(BombermanGame.GAMEPLAY_STATE);
+			// game.enterState(BombermanGame.GAMEPLAY_STATE);
 		}
 
 		if (input.isKeyDown(Input.KEY_H)) {
 			game.enterState(BombermanGame.HIGHSCORE_STATE);
 		}
-		
+		if (input.isKeyDown(Input.KEY_D)) {
+			game.enterState(BombermanGame.GAMEPLAY_STATE);
+		}
 	}
 
 	@Override

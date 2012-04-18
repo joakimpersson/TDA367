@@ -39,10 +39,10 @@ import com.github.joakimpersson.tda367.model.utils.Position;
  * 
  */
 public class BombermanModel implements IBombermanModel {
-	
+
 	// TODO This is not supposed to be here later.
 	SoundHandler sh = SoundHandler.getInstance();
-	
+
 	/**
 	 * Timer-task that is used for scheduling what happens when the fire is
 	 * removed.
@@ -68,7 +68,7 @@ public class BombermanModel implements IBombermanModel {
 		@Override
 		public void run() {
 			handleFire(bomb.getPlayer(), bomb.explode(map.getMap()));
-			
+
 			// TODO This is not supposed to be here later.
 			sh.playSound(SoundType.BombExplodeSFX);
 		}
@@ -91,10 +91,10 @@ public class BombermanModel implements IBombermanModel {
 		players.add(new Player("kalle", new Position(13, 11)));
 		this.map = new GameMap();
 		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
-		
+
 		// TODO this is not supposed to be here later.
 		sh.playSound(SoundType.TitleBGM);
-		
+
 	}
 
 	/**
@@ -359,6 +359,7 @@ public class BombermanModel implements IBombermanModel {
 
 	@Override
 	public void reset(ResetType type) {
+
 		switch (type) {
 		case Match:
 			matchReset();
@@ -381,13 +382,16 @@ public class BombermanModel implements IBombermanModel {
 
 	private void matchReset() {
 		resetPlayer(ResetType.Match);
-		// TODO perhaps a reset method on the map
-		this.map = new GameMap();
+		resetMap();
 	}
 
 	private void roundReset() {
 		resetPlayer(ResetType.Round);
-		this.map = new GameMap();
+		map.reset();
+	}
+
+	private void resetMap() {
+		map.reset();
 	}
 
 	private boolean isPlayerAtPosition(Player player, Position pos) {

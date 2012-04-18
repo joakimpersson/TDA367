@@ -10,4 +10,6 @@ public interface IGameMap {
 
 	Tile getTile(Position pos);
 
+	void reset();
+
 }
