@@ -1,8 +1,11 @@
 package com.github.joakimpersson.tda367.audio;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.lwjgl.openal.AL;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
 
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 
@@ -28,6 +31,9 @@ public class SoundHandler {
 	
 	private SoundEffect bombExplode;
 	private BackgroundMusic titleTheme;
+	
+	
+	private BackgroundMusic playingMusic;
 	
 	/**
 	 * The instance of this class.
@@ -72,6 +78,8 @@ public class SoundHandler {
 	
 	/**
 	 * This method plays the sound that corresponds to the given SoundType.
+	 * If a BackgroundMusic is previously playing, it will stop playing
+	 * before the next will start.
 	 * 
 	 * @param soundType The given SoundType.
 	 */
@@ -80,7 +88,11 @@ public class SoundHandler {
 		if(sound instanceof SoundEffect) {
 			sound.play(sfxVolume);
 		} else {
+			if(playingMusic != null) {
+				playingMusic.stop();
+			}
 			sound.play(bgmVolume);
+			playingMusic = (BackgroundMusic) sound;
 		}	
 	}
 	
@@ -91,6 +103,16 @@ public class SoundHandler {
 	 */
 	public void stopSound(SoundType soundType) {
 		chooseSound(soundType).stop();
+	}
+	
+	/**
+	 * This method stops all currently playing backgroundmusic.
+	 */
+	public void stopCurrentlyPlayingMusic() {
+		if(playingMusic != null) {
+			playingMusic.stop();
+			playingMusic = null;
+		}
 	}
 	
 	/**
@@ -105,7 +127,7 @@ public class SoundHandler {
 	}
 	
 	/**
-	 * This method is used to choose between different IGameSounds.
+	 * This method is used internally to choose between different IGameSounds.
 	 * 
 	 * @param soundType
 	 * @return The IGameSound that corresponds to the given SoundType.
