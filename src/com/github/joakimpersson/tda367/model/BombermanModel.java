@@ -1,5 +1,6 @@
 package com.github.joakimpersson.tda367.model;
 
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,6 +10,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.github.joakimpersson.tda367.audio.AudioEventBus;
 import com.github.joakimpersson.tda367.audio.SoundHandler;
 import com.github.joakimpersson.tda367.audio.SoundType;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
@@ -41,7 +43,7 @@ import com.github.joakimpersson.tda367.model.utils.Position;
 public class BombermanModel implements IBombermanModel {
 
 	// TODO This is not supposed to be here later.
-	SoundHandler sh = SoundHandler.getInstance();
+	// SoundHandler sh = SoundHandler.getInstance();
 
 	/**
 	 * Timer-task that is used for scheduling what happens when the fire is
@@ -68,9 +70,8 @@ public class BombermanModel implements IBombermanModel {
 		@Override
 		public void run() {
 			handleFire(bomb.getPlayer(), bomb.explode(map.getMap()));
-
-			// TODO This is not supposed to be here later.
-			sh.playSound(SoundType.BombExplodeSFX);
+			
+			pcs.firePropertyChange("play", null, SoundType.BombExplodeSFX);
 		}
 	}
 
@@ -78,6 +79,7 @@ public class BombermanModel implements IBombermanModel {
 	private IGameMap map;
 	private static BombermanModel instance = null;
 	private LinkedList<Map<Position, Tile>> waitingFirePositions;
+	private PropertyChangeSupport pcs;
 
 	/*
 	 * This list contains, in the order of each explosion, what is supposed to
@@ -85,15 +87,18 @@ public class BombermanModel implements IBombermanModel {
 	 */
 
 	private BombermanModel() {
+		this.pcs = new PropertyChangeSupport(this);
+		pcs.addPropertyChangeListener(AudioEventBus.getInstance());
 		this.players = new ArrayList<Player>();
 		// TODO natan perhaps instantiating the players somewhere else
 		players.add(new Player("Joakim", new Position(1, 1)));
 		players.add(new Player("kalle", new Position(13, 11)));
 		this.map = new GameMap();
 		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
-
+		
 		// TODO this is not supposed to be here later.
-		sh.playSound(SoundType.TitleBGM);
+		pcs.firePropertyChange("play", null, SoundType.TitleBGM);
+		
 
 	}
 
