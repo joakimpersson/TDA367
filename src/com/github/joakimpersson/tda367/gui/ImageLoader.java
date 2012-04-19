@@ -56,6 +56,16 @@ public class ImageLoader {
 		loadImage("rangeUpItem", "bomb");
 		loadImage("speedUpItem", "bomb");
 		loadImage("bombUpItem", "bomb");
+		
+		//TODO Rolén set the right name to the pics
+//		loadImage("player-moving-up");
+//		loadImage("player-moving-down");
+//		loadImage("player-moving-left");
+//		loadImage("player-moving-right");
+//		loadImage("player-still-up");
+//		loadImage("player-still-down");
+//		loadImage("player-still-left");
+//		loadImage("player-still-right");
 	}
 
 	public static ImageLoader getInstance() {
