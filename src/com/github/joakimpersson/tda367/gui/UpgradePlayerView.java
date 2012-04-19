@@ -33,7 +33,7 @@ public class UpgradePlayerView implements IUpgradePlayerView {
 		players = model.getPlayers();
 		playerViews = new ArrayList<UpgradePlayerPanelView>();
 
-		int xDelta = Parameters.INSTANCE.getGameWidth() / players.size();
+		int xDelta = GUIParameters.INSTANCE.getGameWidth() / players.size();
 		int x = POS_X;
 
 		for (Player p : players) {

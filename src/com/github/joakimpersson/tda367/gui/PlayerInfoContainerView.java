@@ -34,7 +34,8 @@ public class PlayerInfoContainerView implements IView {
 		model = BombermanModel.getInstance();
 		playersInfo = new ArrayList<PlayerInfoView>();
 		List<Player> players = model.getPlayers();
-		int panelHeight = Parameters.INSTANCE.getGameHeight() / model.getPlayers().size();
+		int panelHeight = GUIParameters.INSTANCE.getGameHeight()
+				/ model.getPlayers().size();
 		int x = 0;
 		int y = 0;
 		for (Player p : players) {

@@ -1,6 +1,6 @@
 package com.github.joakimpersson.tda367.gui;
 
-public enum Parameters {
+public enum GUIParameters {
 	INSTANCE;
 	public int getGameWidth() {
 		return 950;

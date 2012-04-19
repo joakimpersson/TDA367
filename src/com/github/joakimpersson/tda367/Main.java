@@ -7,7 +7,7 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 
 import com.github.joakimpersson.tda367.controller.BombermanGame;
-import com.github.joakimpersson.tda367.gui.Parameters;
+import com.github.joakimpersson.tda367.gui.GUIParameters;
 
 /**
  * 
@@ -18,8 +18,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		// Get the game size
-		int gameWidth = Parameters.INSTANCE.getGameWidth();
-		int gameHeight = Parameters.INSTANCE.getGameHeight();
+		int gameWidth = GUIParameters.INSTANCE.getGameWidth();
+		int gameHeight = GUIParameters.INSTANCE.getGameHeight();
 
 		/*
 		 * Dynamically uses the correct native files for lwjgl
