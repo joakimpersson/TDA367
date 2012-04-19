@@ -14,7 +14,7 @@ public class AudioEventBus implements PropertyChangeListener {
 	/**
 	 * This instance.
 	 */
-	private AudioEventBus INSTANCE = null;
+	private static AudioEventBus INSTANCE = null;
 	
 	/**
 	 * The instance for the SoundHandler.
@@ -26,7 +26,7 @@ public class AudioEventBus implements PropertyChangeListener {
 	 * 
 	 * @return This instance.
 	 */
-	public AudioEventBus getInstance() {
+	public static AudioEventBus getInstance() {
 		if(INSTANCE == null) {
 			INSTANCE = new AudioEventBus();
 		}
