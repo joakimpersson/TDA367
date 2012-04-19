@@ -367,7 +367,7 @@ public class BombermanModel implements IBombermanModel {
 
 	@Override
 	public void reset(ResetType type) {
-		resetMap();
+		
 		switch (type) {
 		case Match:
 			matchReset();
@@ -379,7 +379,7 @@ public class BombermanModel implements IBombermanModel {
 			// Should not happen and therefore we do nothing TODO perhaps
 			break;
 		}
-
+		resetMap();
 	}
 
 	private void resetPlayer(ResetType type) {
