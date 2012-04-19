@@ -3,10 +3,36 @@ package com.github.joakimpersson.tda367.audio;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * This singleton class handles events that controls the audio.
+ * 
+ * @author Viktor Anderling
+ *
+ */
 public class AudioEventBus implements PropertyChangeListener {
-
+	
+	/**
+	 * This instance.
+	 */
+	private AudioEventBus INSTANCE = null;
+	
+	/**
+	 * The instance for the SoundHandler.
+	 */
 	private SoundHandler sh = SoundHandler.getInstance();
-
+	
+	/**
+	 * This method returns the instance of this class.
+	 * 
+	 * @return This instance.
+	 */
+	public AudioEventBus getInstance() {
+		if(INSTANCE == null) {
+			INSTANCE = new AudioEventBus();
+		}
+		return INSTANCE;
+	}
+	
 	/**
 	 * The property name must be either play, stop, setSFXVolume, setBGMVolume.
 	 * If play or stop, it will play or stop the audio of the SoundType, witch
