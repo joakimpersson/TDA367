@@ -27,9 +27,9 @@ public class GameplayView implements IView {
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
-		
 		gameFieldView.render(container, g);
-		infoContainer.render(container,g);
+		infoContainer.render(container, g);
+
 	}
 
 }

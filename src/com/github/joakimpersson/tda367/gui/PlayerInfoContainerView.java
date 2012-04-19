@@ -8,7 +8,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import com.github.joakimpersson.tda367.Main;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.player.Player;
@@ -35,7 +34,7 @@ public class PlayerInfoContainerView implements IView {
 		model = BombermanModel.getInstance();
 		playersInfo = new ArrayList<PlayerInfoView>();
 		List<Player> players = model.getPlayers();
-		int panelHeight = Main.gameHeight / model.getPlayers().size();
+		int panelHeight = Parameters.INSTANCE.getGameHeight() / model.getPlayers().size();
 		int x = 0;
 		int y = 0;
 		for (Player p : players) {
