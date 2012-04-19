@@ -111,7 +111,7 @@ public class BombermanModel implements IBombermanModel {
 	public void upgradePlayer(Player player, Attribute attr) {
 		if (player.getCredits() >= attr.getCost()) {
 			player.upgradeAttr(attr, UpgradeType.Match);
-			// TODO perhaps map via the player object
+
 			player.useCredits(attr.getCost());
 		}
 		// TODO perhaps do something or notify someone when it fails!
@@ -314,14 +314,17 @@ public class BombermanModel implements IBombermanModel {
 	 * replaced by the appropriate new tile.
 	 */
 	private void removeFirstFire() {
-		Map<Position, Tile> fireReplacers = waitingFirePositions.get(0);
-		Iterator<Position> iterator = fireReplacers.keySet().iterator();
-		Position temp;
-		while (iterator.hasNext()) {
-			temp = (Position) iterator.next();
-			map.setTile(fireReplacers.get(temp), temp);
+		//
+		if (waitingFirePositions.size() > 0 && waitingFirePositions != null) {
+			Map<Position, Tile> fireReplacers = waitingFirePositions.get(0);
+			Iterator<Position> iterator = fireReplacers.keySet().iterator();
+			Position temp;
+			while (iterator.hasNext()) {
+				temp = (Position) iterator.next();
+				map.setTile(fireReplacers.get(temp), temp);
+			}
+			waitingFirePositions.removeFirst();
 		}
-		waitingFirePositions.removeFirst();
 	}
 
 	@Override
@@ -359,7 +362,7 @@ public class BombermanModel implements IBombermanModel {
 
 	@Override
 	public void reset(ResetType type) {
-
+		resetMap();
 		switch (type) {
 		case Match:
 			matchReset();
@@ -382,15 +385,15 @@ public class BombermanModel implements IBombermanModel {
 
 	private void matchReset() {
 		resetPlayer(ResetType.Match);
-		resetMap();
 	}
 
 	private void roundReset() {
 		resetPlayer(ResetType.Round);
-		map.reset();
 	}
 
 	private void resetMap() {
+		// In order to avoid that tiles are cleared on the new map
+		waitingFirePositions.clear();
 		map.reset();
 	}
 
