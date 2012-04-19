@@ -4,40 +4,31 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class AudioEventBus implements PropertyChangeListener {
-	
-	public enum AudioCommand {
-		Play, Stop, SetSFXVolume, SetBGMVolume;
-	}
-	
+
 	private SoundHandler sh = SoundHandler.getInstance();
-	
-	
+
 	/**
-	 * new value?
-	 * old value?
-	 * 
+	 * The property name must be either play, stop, setSFXVolume, setBGMVolume.
+	 * If play or stop, it will play or stop the audio of the SoundType, witch
+	 * is corresponds to newValue.
+	 * If setSFX/BGMVolume, it will set the volume, and newValue must be a Float.
 	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
-		Object o = arg0.getNewValue();
-		if(o instanceof AudioCommand) {
-			AudioCommand ac = (AudioCommand) o;
-			switch(ac) {
-				case Play:
-					break;
-				case Stop:
-					break;
-				case SetSFXVolume:
-					
-					sh.setSFXVolume(1);
-					break;
-				case SetBGMVolume:
-					break;
-				default:
-					break;
-			}
-			
-			// TODO what happens here;
-		}	
+		Object newValue = arg0.getNewValue();
+		String propertyName = arg0.getPropertyName();
+		try {
+			if(propertyName.equals("play")) {
+				sh.playSound((SoundType)newValue);
+			} else if (propertyName.equals("stop")) {
+				sh.stopSound((SoundType)newValue);
+			} else if (propertyName.equals("setSFXVolume")) {
+				sh.setSFXVolume((Float)newValue);
+			} else if (propertyName.equals("setBGMVolume")) {
+				sh.setBGMVolume((Float)newValue);
+			}	
+		} catch (Exception e) {
+			throw new IllegalArgumentException();
+		}
 	}
 }
