@@ -15,7 +15,6 @@ public class GameplayView implements IView {
 	private PlayerInfoContainerView infoContainer = null;
 
 	public GameplayView() {
-
 		init();
 	}
 
