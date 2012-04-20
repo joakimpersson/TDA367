@@ -155,6 +155,10 @@ public class Player {
 	public void decreaseBombsPlaced() {
 		this.bombsPlaced--;
 	}
+	
+	public int getBombsAvailable() {
+		return getAttribute(BombStack)-this.bombsPlaced;
+	}
 
 	/**
 	 * Upgrade either a round or match attribute with one level.
