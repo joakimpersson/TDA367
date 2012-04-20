@@ -1,5 +1,6 @@
 package com.github.joakimpersson.tda367.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,11 +12,14 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.github.joakimpersson.tda367.controller.input.InputData;
+import com.github.joakimpersson.tda367.controller.input.InputManager;
 import com.github.joakimpersson.tda367.gui.IUpgradePlayerView;
 import com.github.joakimpersson.tda367.gui.UpgradePlayerView;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
+import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.player.Player;
 
 /**
@@ -30,6 +34,7 @@ public class UpgradePlayerState extends BasicGameState {
 	private IBombermanModel model = null;
 	private Map<Player, Integer> playersIndex = null;
 	private List<Attribute> attributes = null;
+	private InputManager inputManager = null;
 
 	public UpgradePlayerState(int stateID) {
 		this.stateID = stateID;
@@ -40,6 +45,7 @@ public class UpgradePlayerState extends BasicGameState {
 			throws SlickException {
 		view = new UpgradePlayerView();
 		model = BombermanModel.getInstance();
+		inputManager = InputManager.getInstance();
 
 		attributes = model.getPlayers().get(0).getPermanentAttributes();
 		playersIndex = new HashMap<Player, Integer>();
@@ -64,34 +70,35 @@ public class UpgradePlayerState extends BasicGameState {
 			container.exit();
 		}
 
-		if (input.isKeyPressed(Input.KEY_ENTER)) {
-			game.enterState(BombermanGame.GAMEPLAY_STATE);
-		}
+		// TODO change location
+		List<PlayerAction> actions = new ArrayList<PlayerAction>();
+		actions.add(PlayerAction.MoveUp);
+		actions.add(PlayerAction.MoveDown);
+		// should be rename to action perhaps
+		actions.add(PlayerAction.PlaceBomb);
+		List<InputData> data = inputManager.getData(input, actions);
 
-		Player p1 = model.getPlayers().get(0);
-		if (input.isKeyPressed(Input.KEY_UP)) {
-			moveIndex(p1, -1);
+		for (InputData d : data) {
+			PlayerAction action = d.getAction();
+			Player p = d.getPlayer();
+			switch (action) {
+			case MoveUp:
+				moveIndex(p, -1);
+				break;
+			case MoveDown:
+				moveIndex(p, 1);
+			case PlaceBomb:
+				model.upgradePlayer(p, attributes.get(playersIndex.get(p)));
+			default:
+				break;
+			}
 		}
-
-		if (input.isKeyPressed(Input.KEY_DOWN)) {
-			moveIndex(p1, 1);
-		}
-
-		if (input.isKeyPressed(Input.KEY_SPACE)) {
-			model.upgradePlayer(p1, attributes.get(playersIndex.get(p1)));
-		}
-
-		Player p2 = model.getPlayers().get(1);
-		if (input.isKeyPressed(Input.KEY_W)) {
-			moveIndex(p2, -1);
-		}
-
-		if (input.isKeyPressed(Input.KEY_S)) {
-			moveIndex(p2, 1);
-		}
-
-		if (input.isKeyPressed(Input.KEY_2)) {
-			model.upgradePlayer(p2, attributes.get(playersIndex.get(p2)));
+		
+		//TODO really bad solution
+		try {
+			Thread.sleep(75);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 

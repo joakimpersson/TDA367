@@ -23,7 +23,7 @@ public interface InputHandler {
 	 * @return True if the handler contains the key and false otherwise
 	 */
 	boolean hasKey(Input input);
-
+	
 	/**
 	 * Returns an inputdata object corresponding the lates input call. It is
 	 * strongly recommended to call the haskey() first

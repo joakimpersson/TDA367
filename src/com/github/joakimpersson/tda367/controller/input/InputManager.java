@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.newdawn.slick.Input;
 
+import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.player.Player;
 
 /**
@@ -108,6 +109,20 @@ public class InputManager {
 				InputData data = handler.getData(input);
 
 				dataList.add(data);
+			}
+		}
+		return dataList;
+	}
+
+	public List<InputData> getData(Input input, List<PlayerAction> playerActions) {
+		List<InputData> dataList = new ArrayList<InputData>();
+		for (InputHandler handler : inputHandlers) {
+			if (handler.hasKey(input)) {
+				InputData data = handler.getData(input);
+				PlayerAction action = data.getAction();
+				if (playerActions.contains(action)) {
+					dataList.add(data);
+				}
 			}
 		}
 		return dataList;

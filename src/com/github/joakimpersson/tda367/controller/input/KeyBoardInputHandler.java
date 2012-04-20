@@ -59,6 +59,7 @@ public class KeyBoardInputHandler implements InputHandler {
 		return false;
 	}
 
+	
 	@Override
 	public InputData getData(Input input) {
 		if (hasKey(input)) {
