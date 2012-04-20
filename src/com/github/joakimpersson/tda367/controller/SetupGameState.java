@@ -94,10 +94,8 @@ public class SetupGameState extends BasicGameState {
 
 	private void createPlayer(String name) {
 		// TODO add player in correct position
-		System.out.println(playerList.size());
 		Player player = new Player(name, new Position(1,1));
 		playerList.add(player);
-		System.out.println(allPlayersCreated());
 		//globalInput.bindPlayer(player, controllerUsed);
 	}
 

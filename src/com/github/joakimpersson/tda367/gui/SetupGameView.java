@@ -28,6 +28,7 @@ public class SetupGameView {
 		}
 		this.possiblePlayers = possiblePlayers;
 		field = new TextField(container, font, container.getWidth() / 2 - 180, 270, 200, 35);
+		field.setBorderColor(red);
 		init();
 	}
 
