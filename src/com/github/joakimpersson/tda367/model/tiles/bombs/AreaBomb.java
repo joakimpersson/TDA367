@@ -42,13 +42,13 @@ public class AreaBomb extends Bomb {
 			for (int y = yPos - range; y <= yPos + range; y++) {
 				Position firePos = new Position(x, y);
 				if (validPos(firePos) && tryBreak(map[x][y], power)) {
-					directedFireList.put(firePos, null);
+					fireList.put(firePos, null);
 				}
 			}
 		}
 
-		this.player.decreaseBombsPlaced();
-		return directedFireList;
+		removeFromPlayer();
+		return fireList;
 	}
 
 	@Override

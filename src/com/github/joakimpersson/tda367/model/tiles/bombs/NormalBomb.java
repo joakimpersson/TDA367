@@ -46,9 +46,10 @@ public class NormalBomb extends Bomb {
 		directedFire(Right);
 
 		// dont forget to add itself
-		directedFireList.put(pos, None);
+		fireList.put(pos, None);
 
-		return directedFireList;
+		removeFromPlayer();
+		return fireList;
 	}
 
 	/**
@@ -76,7 +77,7 @@ public class NormalBomb extends Bomb {
 																		// >.<
 					if (tryBreak(tile, firePower)) {
 						firePower -= tile.getToughness();
-						directedFireList.put(firePos, dir);
+						fireList.put(firePos, dir);
 					} else {
 						break; // fire stops directly
 					}

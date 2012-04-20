@@ -32,7 +32,8 @@ public abstract class Bomb implements Tile {
 	protected final Timer timer;
 	protected final Player player;
 	protected final Position pos;
-	protected Map<Position, Direction> directedFireList = new HashMap<Position, Direction>();
+	protected Map<Position, Direction> fireList = new HashMap<Position, Direction>();
+	protected boolean removedFromPlayer = false;
 
 	/**
 	 * Creates an abstract Bomb.
@@ -105,9 +106,16 @@ public abstract class Bomb implements Tile {
 
 	@Override
 	public Tile onFire() {
+		removeFromPlayer();
 		this.timer.cancel();
-		this.player.decreaseBombsPlaced();
 		return new Floor();
+	}
+
+	protected void removeFromPlayer() {
+		if (!removedFromPlayer) {
+			this.player.decreaseBombsPlaced();
+			removedFromPlayer = true;
+		}
 	}
 
 	@Override
