@@ -70,6 +70,10 @@ public class UpgradePlayerState extends BasicGameState {
 			container.exit();
 		}
 
+		if (input.isKeyPressed(Input.KEY_ENTER)) {
+			game.enterState(BombermanGame.GAMEPLAY_STATE);
+		}
+
 		// TODO change location
 		List<PlayerAction> actions = new ArrayList<PlayerAction>();
 		actions.add(PlayerAction.MoveUp);
@@ -87,16 +91,18 @@ public class UpgradePlayerState extends BasicGameState {
 				break;
 			case MoveDown:
 				moveIndex(p, 1);
+				break;
 			case PlaceBomb:
 				model.upgradePlayer(p, attributes.get(playersIndex.get(p)));
+				break;
 			default:
 				break;
 			}
 		}
-		
-		//TODO really bad solution
+
+		// TODO really bad solution
 		try {
-			Thread.sleep(75);
+			Thread.sleep(80);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

@@ -48,7 +48,6 @@ public class GameplayState extends BasicGameState {
 			throws SlickException {
 		super.enter(container, game);
 
-		resetState();
 		currentState = STATE.GAME_RUNNING;
 
 	}
@@ -92,18 +91,20 @@ public class GameplayState extends BasicGameState {
 
 			break;
 		case MATCH_OVER:
-
+			resetState();
 			if (model.isGameOver()) {
 				currentState = STATE.GAME_OVER;
 			} else {
 				game.enterState(BombermanGame.UPGRADE_PLAYER_STATE);
 			}
+			resetState();
 			break;
 		case ROUND_OVER:
 
 			if (model.isMatchOver()) {
 				currentState = STATE.MATCH_OVER;
 			}
+			resetState();
 			break;
 		default:
 			break;
@@ -119,6 +120,7 @@ public class GameplayState extends BasicGameState {
 			break;
 		case MATCH_OVER:
 			model.reset(ResetType.Match);
+			break;
 		default:
 			break;
 		}
