@@ -7,11 +7,11 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import com.github.joakimpersson.tda367.audio.AudioEventBus;
-import com.github.joakimpersson.tda367.audio.SoundHandler;
 import com.github.joakimpersson.tda367.audio.SoundType;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.Direction;
@@ -70,7 +70,7 @@ public class BombermanModel implements IBombermanModel {
 		@Override
 		public void run() {
 			handleFire(bomb.getPlayer(), bomb.explode(map.getMap()));
-			
+
 			pcs.firePropertyChange("play", null, SoundType.BombExplodeSFX);
 		}
 	}
@@ -95,10 +95,9 @@ public class BombermanModel implements IBombermanModel {
 		players.add(new Player("kalle", new Position(13, 11)));
 		this.map = new GameMap();
 		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
-		
+
 		// TODO this is not supposed to be here later.
 		pcs.firePropertyChange("play", null, SoundType.TitleBGM);
-		
 
 	}
 
@@ -319,14 +318,17 @@ public class BombermanModel implements IBombermanModel {
 	 * replaced by the appropriate new tile.
 	 */
 	private void removeFirstFire() {
-		//
-		if (waitingFirePositions.size() > 0 && waitingFirePositions != null) {
+
+		if (waitingFirePositions != null && waitingFirePositions.size() > 0) {
 			Map<Position, Tile> fireReplacers = waitingFirePositions.get(0);
-			Iterator<Position> iterator = fireReplacers.keySet().iterator();
-			Position temp;
-			while (iterator.hasNext()) {
-				temp = (Position) iterator.next();
-				map.setTile(fireReplacers.get(temp), temp);
+
+			Set<Map.Entry<Position, Tile>> entries = fireReplacers.entrySet();
+			Iterator<Map.Entry<Position, Tile>> iter = entries.iterator();
+			while (iter.hasNext()) {
+				Map.Entry<Position, Tile> entry = iter.next();
+				Position pos = entry.getKey();
+				Tile tile = entry.getValue();
+				map.setTile(tile, pos);
 			}
 			waitingFirePositions.removeFirst();
 		}
@@ -367,7 +369,7 @@ public class BombermanModel implements IBombermanModel {
 
 	@Override
 	public void reset(ResetType type) {
-		
+
 		switch (type) {
 		case Match:
 			matchReset();
