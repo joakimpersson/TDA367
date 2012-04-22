@@ -1,0 +1,25 @@
+w   w   w   w   w   w   w   w   w   w   w   w   w   w   w
+
+w   f   f   f   b   f   f   b   f   f   f   b   f   f   w
+
+w   f   f   b   f   f   f   f   w   w   f   b   f   f   w
+
+w   p   p   b   f   f   f   f   f   w   f   f   f   b   w
+
+w   f   f   f   f   f   f   f   f   w   f   f   f   f   w
+
+w   f   p   b   f   f   f   f   f   w   f   b   f   f   w
+
+w   f   f   b   f   f   f   f   f   w   f   f   f   p   w
+
+w   f   p   f   w   w   f   f   f   w   f   f   f   f   w
+
+w   f   f   b   w   f   f   f   f   w   f   b   f   p   w
+
+w   p   p   b   w   f   f   f   f   w   f   f   f   f   w
+
+w   f   f   f   w   w   w   w   w   w   f   f   f   p   w
+
+w   f   f   b   f   f   f   f   f   f   f   b   f   f   w
+
+w   w   w   w   w   w   w   w   w   w   w   w   w   w   w

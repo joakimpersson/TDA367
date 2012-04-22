@@ -12,9 +12,9 @@ public class GameMap implements IGameMap {
 	private MapLoader mapLoader;
 	
 	public GameMap() {
-
-		mapLoader = new MapLoader(width, height);
-		map = mapLoader.readFile();
+		
+		mapLoader = MapLoader.getInstance();
+		map = mapLoader.getMap(0);
 	}
 
 	@Override

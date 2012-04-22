@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Box;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Pillar;
@@ -25,15 +26,59 @@ public class MapLoader {
 	private Map<Character, MapTile> chars;
 	private int width;
 	private int height;
+	private List<Tile[][]> maps = null;
+	private static MapLoader instance = null;
 
-	public MapLoader(int width, int height) {
+	private MapLoader() {
 		this.chars = new HashMap<Character, MapLoader.MapTile>();
 		chars.put('w', MapTile.Wall);
 		chars.put('f', MapTile.Floor);
 		chars.put('b', MapTile.Box);
 		chars.put('p', MapTile.Pillar);
-		this.width = width;
-		this.height = height;
+		this.width = Parameters.INSTANCE.getMapSize().width;
+		this.height = Parameters.INSTANCE.getMapSize().height;
+		maps = new ArrayList<Tile[][]>();
+		initMapsList();
+	}
+
+	public static MapLoader getInstance() {
+		if (instance == null) {
+			instance = new MapLoader();
+		}
+		return instance;
+	}
+
+	private void initMapsList() {
+		File file = new File("./res/maps");
+		File[] files = file.listFiles();
+		for (File f : files) {
+			Tile[][] map = createMapFromTxt(f);
+			maps.add(map);
+		}
+	}
+
+	private Tile[][] createMapFromTxt(File file) {
+
+		List<String> lines = new ArrayList<String>();
+
+		try {
+			Scanner scanner = new Scanner(file);
+
+			while (scanner.hasNextLine()) {
+				String line = scanner.nextLine().replaceAll(" ", "");
+				if (!line.equals("")) {
+					lines.add(line);
+				}
+			}
+
+			scanner.close();
+
+		} catch (FileNotFoundException e) {
+			System.out.println("No File, sir :/");
+			e.printStackTrace();
+		}
+		validateTxt(lines);
+		return converToTileMatrix(lines);
 	}
 
 	public Tile[][] readFile() {
@@ -155,5 +200,13 @@ public class MapLoader {
 			throws IllegalArgumentException {
 		throw new IllegalArgumentException(msg + " expected: " + expected
 				+ " and got: " + actual);
+	}
+
+	public Tile[][] getMap(int index) {
+		if (index > maps.size() || index < 0) {
+			throw new IllegalArgumentException("There is no map with index: "
+					+ index);
+		}
+		return maps.get(0);
 	}
 }
