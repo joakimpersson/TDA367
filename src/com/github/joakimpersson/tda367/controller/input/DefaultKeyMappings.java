@@ -79,4 +79,8 @@ public class DefaultKeyMappings {
 		int i = index % mappings.size();
 		return mappings.get(i);
 	}
+
+	public Integer getProccedButton() {
+		return Input.KEY_ENTER;
+	}
 }

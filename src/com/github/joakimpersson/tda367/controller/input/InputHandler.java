@@ -42,4 +42,6 @@ public interface InputHandler {
 	 * @return The inputhandlers player
 	 */
 	Player getPlayer();
+	
+	boolean pressedProcced(Input input);
 }

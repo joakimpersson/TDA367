@@ -127,4 +127,13 @@ public class InputManager {
 		}
 		return dataList;
 	}
+
+	public boolean pressedProcced(Input input) {
+		for (InputHandler handler : inputHandlers) {
+			if (handler.pressedProcced(input)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

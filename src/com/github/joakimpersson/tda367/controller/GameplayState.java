@@ -13,7 +13,6 @@ import com.github.joakimpersson.tda367.controller.input.InputData;
 import com.github.joakimpersson.tda367.controller.input.InputManager;
 import com.github.joakimpersson.tda367.controller.input.KeyBoardInputHandler;
 import com.github.joakimpersson.tda367.gui.GameplayView;
-import com.github.joakimpersson.tda367.gui.IView;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
@@ -29,14 +28,14 @@ public class GameplayState extends BasicGameState {
 
 	private int stateID = -1;
 	private IBombermanModel model = null;
-	private IView view = null;
+	private GameplayView view = null;
 	private STATE currentState = null;
 	private InputManager inputManager = null;
 
 	private List<Player> players = null;
 
 	private enum STATE {
-		GAME_RUNNING, ROUND_OVER, MATCH_OVER, GAME_OVER;
+		GAME_RUNNING, ROUND_OVER, MATCH_OVER, GAME_OVER, NOT_STARTED;
 	}
 
 	public GameplayState(int stateID) {
@@ -67,18 +66,31 @@ public class GameplayState extends BasicGameState {
 			id++;
 		}
 
-		currentState = STATE.GAME_RUNNING;
+		currentState = STATE.NOT_STARTED;
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		view.render(container, g);
+		if (!currentState.equals(STATE.NOT_STARTED)) {
+			view.render(container, g);
+
+			if (currentState.equals(STATE.ROUND_OVER)) {
+				// view.showRoundStats(container, g);
+				System.out.println("press enter");
+			}
+
+		}
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
+		// TODO only during development
+		if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
+			container.exit();
+		}
+
 		switch (currentState) {
 		case GAME_RUNNING:
 
@@ -101,13 +113,25 @@ public class GameplayState extends BasicGameState {
 			break;
 		case ROUND_OVER:
 
-			if (model.isMatchOver()) {
-				currentState = STATE.MATCH_OVER;
-			}
-			resetState();
+			roundOver(container);
+
 			break;
 		default:
 			break;
+		}
+
+	}
+
+	private void roundOver(GameContainer container) {
+		Input input = container.getInput();
+
+		if (inputManager.pressedProcced(input)) {
+			if (model.isMatchOver()) {
+				currentState = STATE.MATCH_OVER;
+			} else {
+				resetState();
+				// TODO jocke add an wainting state and restart
+			}
 		}
 
 	}
@@ -124,6 +148,7 @@ public class GameplayState extends BasicGameState {
 		default:
 			break;
 		}
+
 	}
 
 	private void gameRunning(GameContainer gc) {

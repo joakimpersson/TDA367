@@ -87,4 +87,11 @@ public class KeyBoardInputHandler implements InputHandler {
 		return this.player.equals(other.player)
 				&& this.keyActionMap.equals(other.keyActionMap);
 	}
+
+	@Override
+	public boolean pressedProcced(Input input) {
+		int proccedButton = DefaultKeyMappings.getInstance().getProccedButton();
+		
+		return input.isKeyPressed(proccedButton);
+	}
 }
