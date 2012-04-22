@@ -10,9 +10,9 @@ public class GameMap implements IGameMap {
 	private static final int width = 15;
 	private static final int height = 13;
 	private MapLoader mapLoader;
-	
+
 	public GameMap() {
-		
+
 		mapLoader = MapLoader.getInstance();
 		map = mapLoader.getMap(0);
 	}
@@ -22,7 +22,6 @@ public class GameMap implements IGameMap {
 		return map;
 	}
 
-	// TODO jocke perhaps refactor
 	@Override
 	public void setTile(final Tile tile, final Position pos) {
 		isOutOfBounds(pos, "Index out of bounds");
@@ -49,8 +48,8 @@ public class GameMap implements IGameMap {
 
 	@Override
 	public void reset() {
-		map = mapLoader.readFile();
-		
+		map = mapLoader.getMap(0);
+
 	}
-	
+
 }

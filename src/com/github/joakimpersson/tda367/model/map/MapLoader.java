@@ -207,6 +207,16 @@ public class MapLoader {
 			throw new IllegalArgumentException("There is no map with index: "
 					+ index);
 		}
-		return maps.get(0);
+		Tile[][] tileMap = maps.get(index);
+		Tile[][] tmp = new Tile[height][width];
+
+		// TODO jocke perhaps extract to a util class
+		for (int i = 0; i < tileMap.length; i++) {
+			for (int j = 0; j < tileMap[0].length; j++) {
+				tmp[i][j] = tileMap[i][j];
+			}
+		}
+
+		return tmp;
 	}
 }
