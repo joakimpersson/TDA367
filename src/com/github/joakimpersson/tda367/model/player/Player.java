@@ -5,7 +5,6 @@ import static com.github.joakimpersson.tda367.model.constants.Attribute.Health;
 import static com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType.Match;
 import static com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType.Round;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -54,8 +53,6 @@ public class Player {
 	private Direction facingDirection;
 	private int bombsPlaced, health;
 	private boolean justHit;
-
-	
 
 	/**
 	 * Creates a player with a pre-defined position and name.
@@ -155,9 +152,9 @@ public class Player {
 	public void decreaseBombsPlaced() {
 		this.bombsPlaced--;
 	}
-	
+
 	public int getBombsAvailable() {
-		return getAttribute(BombStack)-this.bombsPlaced;
+		return getAttribute(BombStack) - this.bombsPlaced;
 	}
 
 	/**
@@ -295,9 +292,19 @@ public class Player {
 		return "P[" + this.name + ", " + this.tilePos + ", " + this.health
 				+ " HP]";
 	}
-	
+
 	public String getImage() {
 		return "player-" + this.facingDirection;
+	}
+
+	/**
+	 * Get the players current status whether is has been hit by an exploded
+	 * bimb or not
+	 * 
+	 * @return Whether the players has recently been hit by a bomb
+	 */
+	public boolean isImmortal() {
+		return justHit;
 	}
 
 }

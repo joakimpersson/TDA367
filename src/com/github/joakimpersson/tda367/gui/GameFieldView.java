@@ -23,25 +23,26 @@ import com.github.joakimpersson.tda367.model.utils.FPosition;
  */
 public class GameFieldView implements IView {
 
-	// TODO jocke ask if this is okay!
 	private IBombermanModel model = null;
 
 	private static final int blockSide = 50;
 	private int startY;
 	private int startX;
 	private List<Player> players = null;
+
 	private ImageLoader imgs;
 
 	public GameFieldView(int startX, int startY) {
 		this.startX = startX;
 		this.startY = startY;
 		init();
-		this.imgs = ImageLoader.getInstance();
+
 	}
 
 	private void init() {
 		model = BombermanModel.getInstance();
 		this.players = model.getPlayers();
+		this.imgs = ImageLoader.getInstance();
 	}
 
 	@Override
@@ -54,17 +55,20 @@ public class GameFieldView implements IView {
 	private void drawPlayer(Graphics g) {
 
 		for (Player p : players) {
+
+			g.setColor(Color.white);
+			
+			if ( p.isImmortal()) {
+				g.setColor(Color.gray);
+			}
+			
 			// The x,y coordinates doesn't matter since we set the center
 			// coordinates after
 			Rectangle rect = new Rectangle(0, 0, blockSide, blockSide);
 			FPosition pos = p.getGamePosition();
 			rect.setCenterX(pos.getX() * blockSide + startX);
 			rect.setCenterY(pos.getY() * blockSide + startY);
-			if (players.get(1) == p) {
-				g.setColor(Color.white);
-			} else {
-				g.setColor(Color.cyan);
-			}
+
 			g.fill(rect);
 
 			// TODO remove, just for test, added to determine orientation of
