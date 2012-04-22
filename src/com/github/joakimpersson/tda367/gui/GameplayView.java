@@ -13,6 +13,7 @@ public class GameplayView implements IView {
 
 	private GameFieldView gameFieldView = null;
 	private PlayerInfoContainerView infoContainer = null;
+	private RoundInfoView roundInfoView = null;
 
 	public GameplayView() {
 		init();
@@ -21,6 +22,7 @@ public class GameplayView implements IView {
 	private void init() {
 		infoContainer = new PlayerInfoContainerView(0, 0);
 		gameFieldView = new GameFieldView(200, 0);
+		roundInfoView = new RoundInfoView();
 	}
 
 	@Override
@@ -29,6 +31,11 @@ public class GameplayView implements IView {
 		gameFieldView.render(container, g);
 		infoContainer.render(container, g);
 
+	}
+
+	public void showRoundStats(GameContainer container, Graphics g)
+			throws SlickException {
+		roundInfoView.render(container, g);
 	}
 
 }

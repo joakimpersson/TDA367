@@ -2,12 +2,16 @@ package com.github.joakimpersson.tda367.controller;
 
 import java.util.List;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
+import org.newdawn.slick.state.transition.Transition;
 
 import com.github.joakimpersson.tda367.controller.input.InputData;
 import com.github.joakimpersson.tda367.controller.input.InputManager;
@@ -76,8 +80,7 @@ public class GameplayState extends BasicGameState {
 			view.render(container, g);
 
 			if (currentState.equals(STATE.ROUND_OVER)) {
-				// view.showRoundStats(container, g);
-				System.out.println("press enter");
+				view.showRoundStats(container, g);
 			}
 
 		}
@@ -89,6 +92,10 @@ public class GameplayState extends BasicGameState {
 		// TODO only during development
 		if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
 			container.exit();
+		}
+
+		if (container.getInput().isKeyPressed(Input.KEY_Z)) {
+			currentState = STATE.ROUND_OVER;
 		}
 
 		switch (currentState) {
@@ -107,7 +114,10 @@ public class GameplayState extends BasicGameState {
 			if (model.isGameOver()) {
 				currentState = STATE.GAME_OVER;
 			} else {
-				game.enterState(BombermanGame.UPGRADE_PLAYER_STATE);
+				Transition fadeIn = new FadeInTransition(Color.cyan, 500);
+				Transition fadeOut = new FadeOutTransition(Color.cyan, 500);
+				game.enterState(BombermanGame.UPGRADE_PLAYER_STATE, fadeOut,
+						fadeIn);
 			}
 			resetState();
 			break;
