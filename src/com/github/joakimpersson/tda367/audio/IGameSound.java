@@ -1,5 +1,6 @@
 package com.github.joakimpersson.tda367.audio;
 
+// TODO Will be changed into abstract later class.
 
 /**
  * This is an interface for sounds in the game.

@@ -14,16 +14,18 @@ public class SoundEffect implements IGameSound {
 
 	private Sound sound;
 	private String path;
+	private float initVolume;
 	
 	
-	public SoundEffect(String path) throws SlickException {
+	public SoundEffect(String path, float initVolume) throws SlickException {
 		this.path = path;
+		this.initVolume = initVolume;
 		this.sound = new Sound(path);
 	}
 	
 	@Override
 	public void play(float volume) {
-		sound.play(1, volume);
+		sound.play(1, volume + initVolume);
 	}
 	
 	@Override

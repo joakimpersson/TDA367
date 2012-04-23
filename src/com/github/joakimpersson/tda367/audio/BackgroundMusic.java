@@ -15,14 +15,22 @@ public class BackgroundMusic implements IGameSound {
 		private Sound sound;
 		private String path;
 		
-		public BackgroundMusic(String path) throws SlickException {
+		/**
+		 * This is the volume that is added/subtracted from the global
+		 * volume when the sound plays. This is so that volume differences
+		 * in between different tracks can be evened out.
+		 */
+		private float initVolume;
+		
+		public BackgroundMusic(String path, float initVolume) throws SlickException {
 			this.path = path;
+			this.initVolume = initVolume;
 			this.sound = new Sound(path);
 		}
 		
 		@Override
 		public void play(float volume) {
-			sound.loop(1, volume);			
+			sound.loop(1, volume + initVolume);			
 		}
 
 		@Override

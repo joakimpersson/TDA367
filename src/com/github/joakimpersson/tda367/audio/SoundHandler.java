@@ -69,9 +69,9 @@ public class SoundHandler {
 	 */
 	public void initiateSounds() {
 		try {
-			bombPlaced = new SoundEffect("res/sounds/PlaceBomb1.ogg");
-			bombExplode = new SoundEffect("res/sounds/Bomb1.ogg");
-			titleTheme = new BackgroundMusic("res/sounds/bg1.ogg");			
+			bombPlaced = new SoundEffect("res/sounds/PlaceBomb1.ogg", 0);
+			bombExplode = new SoundEffect("res/sounds/Bomb1.ogg", -0.5f);
+			titleTheme = new BackgroundMusic("res/sounds/bg1.ogg", -0.9f);			
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
