@@ -54,7 +54,10 @@ public class Fire implements WalkableTile {
 	 */
 	@Override
 	public Tile playerEnter(Player player) {
-		player.playerHit();
+		// TODO owner of the fire's bomb won't get points when a player enters the fire.
+		if(!player.isImmortal()) {
+			player.playerHit();
+		}
 		return this;
 	}
 

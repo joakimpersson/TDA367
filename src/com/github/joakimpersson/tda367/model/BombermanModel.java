@@ -268,7 +268,7 @@ public class BombermanModel implements IBombermanModel {
 		for (Position pos : positions) {
 			// Converting positions into PointGivers
 			for (Player player : players) {
-				if (isPlayerAtPosition(player, pos)) {
+				if (isPlayerAtPosition(player, pos) && !player.isImmortal()) {
 					pg.add(PointGiver.PlayerHit);
 					player.playerHit();
 					if (!player.isAlive()) {
