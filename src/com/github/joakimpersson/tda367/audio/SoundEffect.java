@@ -1,7 +1,6 @@
 package com.github.joakimpersson.tda367.audio;
 
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
 
 
 /**
@@ -10,43 +9,26 @@ import org.newdawn.slick.Sound;
  * @author Viktor Anderling
  *
  */
-public class SoundEffect implements IGameSound {
+public class SoundEffect extends IGameSound {
 
-	private Sound sound;
-	private String path;
-	private float initVolume;
-	
-	
 	public SoundEffect(String path, float initVolume) throws SlickException {
-		this.path = path;
-		this.initVolume = initVolume;
-		this.sound = new Sound(path);
+		super(path, initVolume);
 	}
-	
+
 	@Override
 	public void play(float volume) {
-		sound.play(1, volume + initVolume);
-	}
-	
-	@Override
-	public void stop() {
-		sound.stop();
+		getSound().play(1, volume + getInitVolume());
 	}
 	
 	@Override
 	public String toString() {
-		String s = "SoundEffect: " + path + ", is ";
-		if(sound.playing()) {
+		String s = "SoundEffect: " + getPath() + ", is ";
+		if(isPlaying()) {
 			s = s + "playing.";
 		} else {
 			s = s + "not playing.";
 		}
 		return s;
-	}
-
-	@Override
-	public boolean isPlaying() {
-		return sound.playing();
 	}
 
 }
