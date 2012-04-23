@@ -219,6 +219,7 @@ public class BombermanModel implements IBombermanModel {
 					Parameters.INSTANCE.getBombDetonationTime());
 
 			map.setTile(bomb, player.getTilePosition());
+			pcs.firePropertyChange("play", null, SoundType.BombPlacedSFX);
 		}
 	}
 

@@ -30,6 +30,7 @@ public class SoundHandler {
 	private float sfxVolume;
 	
 	private SoundEffect bombExplode;
+	private SoundEffect bombPlaced;
 	private BackgroundMusic titleTheme;
 	
 	
@@ -68,9 +69,9 @@ public class SoundHandler {
 	 */
 	public void initiateSounds() {
 		try {
+			bombPlaced = new SoundEffect("res/sounds/PlaceBomb1.ogg");
 			bombExplode = new SoundEffect("res/sounds/Bomb1.ogg");
-			titleTheme = new BackgroundMusic("res/sounds/bg1.ogg");
-			
+			titleTheme = new BackgroundMusic("res/sounds/bg1.ogg");			
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -134,6 +135,8 @@ public class SoundHandler {
 	 */
 	private IGameSound chooseSound(SoundType soundType) {
 		switch(soundType) {
+		case BombPlacedSFX:
+			return bombPlaced;
 		case BombExplodeSFX:
 			return bombExplode;
 		case TitleBGM:
