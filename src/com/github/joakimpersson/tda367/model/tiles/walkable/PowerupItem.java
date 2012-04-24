@@ -13,11 +13,10 @@ import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
  */
 public abstract class PowerupItem implements WalkableTile {
 
-	private int toughness;
+	private static int toughness = 0;
 
 	public PowerupItem() {
-		// should not slow down the fire
-		this.toughness = 0;
+
 	}
 
 	@Override
