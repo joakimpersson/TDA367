@@ -54,7 +54,7 @@ public class PillarTest {
 	}
 
 	@Test
-	public void test() {
+	public void testGetRandomNbr() {
 		int sum = 0;
 		int max = 20;
 		for (int j = 0; j < max; j++) {
@@ -68,7 +68,7 @@ public class PillarTest {
 			}
 			sum += k;
 		}
-		
+
 		int ratio = sum / max;
 		int probability = (int) (Parameters.INSTANCE
 				.getPowerUpProbabilityPillar() * 100);

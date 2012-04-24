@@ -46,11 +46,6 @@ public class BoxTest {
 		assertFalse(box.isWalkable());
 	}
 
-	@After
-	public void tearDown() throws Exception {
-		box = null;
-	}
-
 	@Test
 	public void testGetRandomNbr() {
 		int sum = 0;
@@ -69,7 +64,11 @@ public class BoxTest {
 		int ratio = sum / max;
 		int probability = (int) (Parameters.INSTANCE.getPowerUpProbabilityBox() * 100);
 		int delta = 2;
-		assertEquals(probability, ratio,delta);
+		assertEquals(probability, ratio, delta);
 	}
 
+	@After
+	public void tearDown() throws Exception {
+		box = null;
+	}
 }
