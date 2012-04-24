@@ -1,11 +1,14 @@
 package com.github.joakimpersson.tda367.model.tiles.bombs;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Timer;
 
 import org.junit.After;
@@ -14,11 +17,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
-import com.github.joakimpersson.tda367.model.tiles.bombs.AreaBomb;
-import com.github.joakimpersson.tda367.model.tiles.bombs.Bomb;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Box;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Pillar;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Wall;
@@ -59,6 +59,22 @@ public class AreaBombTest {
 	}
 
 	@Test
+	public void testGetToughness() {
+		assertEquals(1, bomb.getToughness());
+	}
+
+	@Test
+	public void testOnFire() {
+		Tile tile = bomb.onFire();
+		assertThat(tile, is(instanceOf(Floor.class)));
+	}
+
+	@Test
+	public void testIsWalkable() {
+		assertFalse(bomb.isWalkable());
+	}
+
+	@Test
 	public void testExplode() {
 
 		List<Position> expectedPositions = new ArrayList<Position>();
@@ -70,10 +86,11 @@ public class AreaBombTest {
 		expectedPositions.add(new Position(4, 2));
 		expectedPositions.add(new Position(4, 1));
 		expectedPositions.add(new Position(4, 3));
-		List<Position> actualPositions = new ArrayList(bomb.explode(map).keySet());
+		List<Position> actualPositions = new ArrayList(bomb.explode(map)
+				.keySet());
 
 		// TODO Fix the test for the new returntype: Map<Position, Direction>.
-		
+
 		// can not use the lists equal method since it does not regard that the
 		// two lists have the positions at different index
 		assertEquals(expectedPositions.size(), actualPositions.size());

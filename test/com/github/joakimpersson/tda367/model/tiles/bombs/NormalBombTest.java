@@ -1,6 +1,10 @@
 package com.github.joakimpersson.tda367.model.tiles.bombs;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -20,7 +24,6 @@ import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Box;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Pillar;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Wall;
-import com.github.joakimpersson.tda367.model.tiles.walkable.Fire;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
 import com.github.joakimpersson.tda367.model.utils.Position;
 
@@ -57,6 +60,22 @@ public class NormalBombTest {
 	}
 
 	@Test
+	public void testGetToughness() {
+		assertEquals(1, bomb.getToughness());
+	}
+
+	@Test
+	public void testOnFire() {
+		Tile tile = bomb.onFire();
+		assertThat(tile, is(instanceOf(Floor.class)));
+	}
+
+	@Test
+	public void testIsWalkable() {
+		assertFalse(bomb.isWalkable());
+	}
+
+	@Test
 	public void testExplode() {
 
 		List<Position> expectedPositions = new ArrayList<Position>();
@@ -68,14 +87,14 @@ public class NormalBombTest {
 		Map<Position, Direction> actualPositions = bomb.explode(map);
 
 		// TODO Fix the test for the new returntype: Map<Position, Direction>.
-		
+
 		// cannot use the lists equal method since it does not regard that the
 		// two lists have the positions at different index
 		assertEquals(expectedPositions.size(), actualPositions.size());
 
 		for (Position pos : expectedPositions) {
 			assertTrue(true);
-	//		assertTrue(actualPositions.contains(pos));
+			// assertTrue(actualPositions.contains(pos));
 		}
 
 	}
