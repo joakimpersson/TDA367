@@ -40,7 +40,7 @@ public class FireTest {
 	@Test
 	public void testOnFire() {
 		Tile tile = fire.onFire();
-		assertThat(tile, is(instanceOf(Fire.class)));
+		assertThat(tile, is(instanceOf(Floor.class)));
 	}
 
 	@Test
