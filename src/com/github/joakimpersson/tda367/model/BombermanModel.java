@@ -138,7 +138,7 @@ public class BombermanModel implements IBombermanModel {
 		case MoveRight:
 			direction = Direction.Right;
 			break;
-		case PlaceBomb:
+		case Action:
 			this.placeBomb(player);
 			break;
 		default:

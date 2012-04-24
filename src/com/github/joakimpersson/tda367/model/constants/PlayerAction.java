@@ -6,5 +6,5 @@ package com.github.joakimpersson.tda367.model.constants;
  * 
  */
 public enum PlayerAction {
-	MoveUp, MoveDown, MoveLeft, MoveRight, PlaceBomb;
+	MoveUp, MoveDown, MoveLeft, MoveRight, Action;
 }

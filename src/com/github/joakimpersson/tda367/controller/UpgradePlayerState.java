@@ -79,7 +79,7 @@ public class UpgradePlayerState extends BasicGameState {
 		actions.add(PlayerAction.MoveUp);
 		actions.add(PlayerAction.MoveDown);
 		// should be rename to action perhaps
-		actions.add(PlayerAction.PlaceBomb);
+		actions.add(PlayerAction.Action);
 		List<InputData> data = inputManager.getData(input, actions);
 
 		for (InputData d : data) {
@@ -92,7 +92,7 @@ public class UpgradePlayerState extends BasicGameState {
 			case MoveDown:
 				moveIndex(p, 1);
 				break;
-			case PlaceBomb:
+			case Action:
 				model.upgradePlayer(p, attributes.get(playersIndex.get(p)));
 				break;
 			default:
