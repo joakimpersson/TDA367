@@ -55,7 +55,7 @@ public class SetupGameView {
 				g.setColor(white);
 				posY += yDelta;
 			}
-		} else if (progress == 1) {
+		} else if (progress == 1 && index <= playersSelected) {
 			g.setColor(white);
 			g.drawString("Player " + index + ", type your name and press", posX, posY);
 			posY += 25;
@@ -67,8 +67,8 @@ public class SetupGameView {
 	public void startPlayerCreation(int players) {
 		playersSelected = players;
 		index = 1;
-		resetField();
 		progress++;
+		resetField();
 	}
 
 	private void resetField() {
@@ -87,5 +87,10 @@ public class SetupGameView {
 	public void playerCreated() {
 		resetField();
 		index++;
+	}
+
+	public int getIndex() {
+		// TODO Auto-generated method stub
+		return index;
 	}
 }
