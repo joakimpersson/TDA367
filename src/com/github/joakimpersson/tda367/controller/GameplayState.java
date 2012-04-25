@@ -19,7 +19,6 @@ import com.github.joakimpersson.tda367.controller.input.KeyBoardInputHandler;
 import com.github.joakimpersson.tda367.gui.GameplayView;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
-import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.constants.ResetType;
 import com.github.joakimpersson.tda367.model.player.Player;
 
@@ -135,7 +134,7 @@ public class GameplayState extends BasicGameState {
 	private void roundOver(GameContainer container) {
 		Input input = container.getInput();
 
-		if (inputManager.pressedProcced(input)) {
+		if (inputManager.pressedProceed(input)) {
 			if (model.isMatchOver()) {
 				currentState = STATE.MATCH_OVER;
 			} else {
@@ -173,28 +172,6 @@ public class GameplayState extends BasicGameState {
 
 		for (InputData d : data) {
 			model.updateGame(d.getPlayer(), d.getAction());
-		}
-
-		// TODO adrian 360 controller input tests
-		Player p1 = players.get(0);
-		Player p2 = players.get(1);
-		X360Input(input, p1, 0);
-		X360Input(input, p2, 1);
-	}
-
-	private void X360Input(Input input, Player player, int controller) {
-		if (input.isButtonPressed(11, controller)) {
-			model.updateGame(player, PlayerAction.Action);
-		}
-
-		if (input.isControllerUp(controller)) {
-			model.updateGame(player, PlayerAction.MoveUp);
-		} else if (input.isControllerDown(controller)) {
-			model.updateGame(player, PlayerAction.MoveDown);
-		} else if (input.isControllerLeft(controller)) {
-			model.updateGame(player, PlayerAction.MoveLeft);
-		} else if (input.isControllerRight(controller)) {
-			model.updateGame(player, PlayerAction.MoveRight);
 		}
 	}
 
