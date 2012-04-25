@@ -70,7 +70,7 @@ public class UpgradePlayerState extends BasicGameState {
 			container.exit();
 		}
 
-		if (inputManager.pressedProcced(input)) {
+		if (inputManager.pressedProceed(input)) {
 			game.enterState(BombermanGame.GAMEPLAY_STATE);
 		}
 
