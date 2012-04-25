@@ -32,6 +32,7 @@ public class SoundHandler {
 	private SoundEffect bombExplode;
 	private SoundEffect bombPlaced;
 	private BackgroundMusic titleTheme;
+	private BackgroundMusic battleSong1;
 	
 	
 	private BackgroundMusic playingMusic;
@@ -71,7 +72,8 @@ public class SoundHandler {
 		try {
 			bombPlaced = new SoundEffect("res/sounds/PlaceBomb1.ogg", 0);
 			bombExplode = new SoundEffect("res/sounds/Bomb1.ogg", -0.5f);
-			titleTheme = new BackgroundMusic("res/sounds/bg1.ogg", -0.9f);			
+			titleTheme = new BackgroundMusic("res/sounds/bg1.ogg", -0.6f);
+			battleSong1 = new BackgroundMusic("res/sounds/BattleSong1.ogg", -0.4f);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -140,12 +142,15 @@ public class SoundHandler {
 		case BombExplodeSFX:
 			return bombExplode;
 		case TitleBGM:
-			return titleTheme;		
+			return titleTheme;
+		case BattleBGM:
+			return battleSong1;
 		default:
 			return null;
 		}
 	}
 	
+	// TODO fix input for setVolume.
 	
 	/**
 	 * This method sets the volume for all the background music.

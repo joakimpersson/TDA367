@@ -97,7 +97,7 @@ public class BombermanModel implements IBombermanModel {
 		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
 
 		// TODO this is not supposed to be here later.
-		pcs.firePropertyChange("play", null, SoundType.TitleBGM);
+		pcs.firePropertyChange("play", null, SoundType.BattleBGM);
 
 	}
 
