@@ -55,31 +55,32 @@ public class GameFieldView implements IView {
 	private void drawPlayer(Graphics g) {
 
 		for (Player p : players) {
+			if (p.isAlive()) {
+				g.setColor(Color.white);
 
-			g.setColor(Color.white);
-			
-			if ( p.isImmortal()) {
-				g.setColor(Color.gray);
+				if (p.isImmortal()) {
+					g.setColor(Color.gray);
+				}
+
+				// The x,y coordinates doesn't matter since we set the center
+				// coordinates after
+				Rectangle rect = new Rectangle(0, 0, blockSide, blockSide);
+				FPosition pos = p.getGamePosition();
+				rect.setCenterX(pos.getX() * blockSide + startX);
+				rect.setCenterY(pos.getY() * blockSide + startY);
+
+				g.fill(rect);
+
+				// TODO remove, just for test, added to determine orientation of
+				// final picture
+				Circle circle = new Circle(0, 0, 2);
+				circle.setCenterX(pos.getX() * blockSide
+						+ (p.getDirection().getX() * 20) + startX);
+				circle.setCenterY(pos.getY() * blockSide
+						+ (p.getDirection().getY() * 20) + startY);
+				g.setColor(Color.black);
+				g.fill(circle);
 			}
-			
-			// The x,y coordinates doesn't matter since we set the center
-			// coordinates after
-			Rectangle rect = new Rectangle(0, 0, blockSide, blockSide);
-			FPosition pos = p.getGamePosition();
-			rect.setCenterX(pos.getX() * blockSide + startX);
-			rect.setCenterY(pos.getY() * blockSide + startY);
-
-			g.fill(rect);
-
-			// TODO remove, just for test, added to determine orientation of
-			// final picture
-			Circle circle = new Circle(0, 0, 2);
-			circle.setCenterX(pos.getX() * blockSide
-					+ (p.getDirection().getX() * 20) + startX);
-			circle.setCenterY(pos.getY() * blockSide
-					+ (p.getDirection().getY() * 20) + startY);
-			g.setColor(Color.black);
-			g.fill(circle);
 		}
 
 	}

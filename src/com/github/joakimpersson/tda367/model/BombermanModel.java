@@ -124,28 +124,30 @@ public class BombermanModel implements IBombermanModel {
 
 	@Override
 	public void updateGame(Player player, PlayerAction action) {
-		Direction direction = null;
-		switch (action) {
-		case MoveUp:
-			direction = Direction.Up;
-			break;
-		case MoveDown:
-			direction = Direction.Down;
-			break;
-		case MoveLeft:
-			direction = Direction.Left;
-			break;
-		case MoveRight:
-			direction = Direction.Right;
-			break;
-		case Action:
-			this.placeBomb(player);
-			break;
-		default:
-			break;
-		}
-		if (direction != null) {
-			this.move(player, direction);
+		if (player.isAlive()) {
+			Direction direction = null;
+			switch (action) {
+			case MoveUp:
+				direction = Direction.Up;
+				break;
+			case MoveDown:
+				direction = Direction.Down;
+				break;
+			case MoveLeft:
+				direction = Direction.Left;
+				break;
+			case MoveRight:
+				direction = Direction.Right;
+				break;
+			case Action:
+				this.placeBomb(player);
+				break;
+			default:
+				break;
+			}
+			if (direction != null) {
+				this.move(player, direction);
+			}
 		}
 	}
 
@@ -269,7 +271,8 @@ public class BombermanModel implements IBombermanModel {
 		for (Position pos : positions) {
 			// Converting positions into PointGivers
 			for (Player player : players) {
-				if (isPlayerAtPosition(player, pos) && !player.isImmortal()) {
+				if (isPlayerAtPosition(player, pos) && !player.isImmortal()
+						&& player.isAlive()) {
 					pg.add(PointGiver.PlayerHit);
 					player.playerHit();
 					if (!player.isAlive()) {
@@ -347,12 +350,14 @@ public class BombermanModel implements IBombermanModel {
 
 	@Override
 	public boolean isRoundOver() {
+		int aliveCount = 0;
 		for (Player p : players) {
-			if (!p.isAlive()) {
-				// TODO add implementation for reducing player life
-				return true;
+			if (p.isAlive()) {
+				aliveCount++;
 			}
 		}
+		if (aliveCount <= 1)
+			return true;
 		return false;
 	}
 
