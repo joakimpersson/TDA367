@@ -80,7 +80,7 @@ public class DefaultKeyMappings {
 		return mappings.get(i);
 	}
 
-	public Integer getProccedButton() {
+	public Integer getProceedButton() {
 		return Input.KEY_ENTER;
 	}
 }

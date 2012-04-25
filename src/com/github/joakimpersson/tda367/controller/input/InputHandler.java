@@ -43,5 +43,5 @@ public interface InputHandler {
 	 */
 	Player getPlayer();
 	
-	boolean pressedProcced(Input input);
+	boolean pressedProceed(Input input);
 }

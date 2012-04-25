@@ -89,9 +89,9 @@ public class KeyBoardInputHandler implements InputHandler {
 	}
 
 	@Override
-	public boolean pressedProcced(Input input) {
-		int proccedButton = DefaultKeyMappings.getInstance().getProccedButton();
+	public boolean pressedProceed(Input input) {
+		int proceedButton = DefaultKeyMappings.getInstance().getProceedButton();
 		
-		return input.isKeyPressed(proccedButton);
+		return input.isKeyPressed(proceedButton);
 	}
 }

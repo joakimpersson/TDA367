@@ -128,9 +128,9 @@ public class InputManager {
 		return dataList;
 	}
 
-	public boolean pressedProcced(Input input) {
+	public boolean pressedProceed(Input input) {
 		for (InputHandler handler : inputHandlers) {
-			if (handler.pressedProcced(input)) {
+			if (handler.pressedProceed(input)) {
 				return true;
 			}
 		}
