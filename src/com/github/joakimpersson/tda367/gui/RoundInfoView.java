@@ -13,8 +13,8 @@ import com.github.joakimpersson.tda367.model.player.Player;
 
 public class RoundInfoView implements IView {
 
-	private final int width = 650;
-	private final int height = 450;
+	private static final int width = 650;
+	private static final int height = 450;
 	private int startX;
 	private int startY;
 	private IBombermanModel model = null;
