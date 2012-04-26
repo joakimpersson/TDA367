@@ -42,40 +42,6 @@ import com.github.joakimpersson.tda367.model.utils.Position;
  */
 public class BombermanModel implements IBombermanModel {
 
-
-	// TODO This is not supposed to be here later.
-	// SoundHandler sh = SoundHandler.getInstance();
-
-	/**
-	 * Timer-task that is used for scheduling what happens when the fire is
-	 * removed.
-	 */
-	private class FireTimerTask extends TimerTask {
-		@Override
-		public void run() {
-			removeFirstFire();
-		}
-	}
-
-	/**
-	 * Timer-task that is used for scheduling what happens when a bomb
-	 * detonates.
-	 */
-	private class BombTask extends TimerTask {
-		private Bomb bomb;
-
-		public BombTask(Bomb b) {
-			this.bomb = b;
-		}
-
-		@Override
-		public void run() {
-			handleFire(bomb.getPlayer(), bomb.explode(map.getMap()));
-
-			pcs.firePropertyChange("play", null, EventType.BOMB_EXPLODED);
-		}
-	}
-
 	private List<Player> players;
 	private IGameMap map;
 	private static BombermanModel instance = null;
@@ -106,7 +72,7 @@ public class BombermanModel implements IBombermanModel {
 		}
 		return instance;
 	}
-	
+
 	@Override
 	public void addPropertyChangeListener(PropertyChangeListener pcl) {
 		this.pcs.addPropertyChangeListener(pcl);
@@ -124,7 +90,7 @@ public class BombermanModel implements IBombermanModel {
 	@Override
 	public void updateGame(Player player, PlayerAction action) {
 		if (player.isAlive()) {
-			Direction direction = null;
+			Direction direction = Direction.None;
 			switch (action) {
 			case MoveUp:
 				direction = Direction.Up;
@@ -144,9 +110,8 @@ public class BombermanModel implements IBombermanModel {
 			default:
 				break;
 			}
-			if (direction != null) {
-				this.move(player, direction);
-			}
+
+			this.move(player, direction);
 		}
 	}
 
@@ -171,19 +136,18 @@ public class BombermanModel implements IBombermanModel {
 			player.move(direction);
 		} else {
 			FPosition decimalPos = player.getGamePosition();
+			// Removes the integer part of the players position, leaving only
+			// the decimal part.
 			decimalPos = new FPosition(decimalPos.getX()
 					- (int) decimalPos.getX(), decimalPos.getY()
 					- (int) decimalPos.getY());
 
-			// Removes the integer part of the players position, leaving only
-			// the decimal part.
-
 			double stepSize = Parameters.INSTANCE.getPlayerStepSize();
 			double xStep = stepSize * direction.getX();
 			double yStep = stepSize * direction.getY();
+			// Adding the steps to the player's new position.
 			decimalPos = new FPosition((float) (decimalPos.getX() + xStep),
 					(float) (decimalPos.getY() + yStep));
-			// Adding the steps to the player's new position.
 
 			// Can't move closer than 0.2 to a non-walkable tile.
 			float pD = 0.2F;
@@ -220,11 +184,13 @@ public class BombermanModel implements IBombermanModel {
 					Parameters.INSTANCE.getBombDetonationTime());
 
 			map.setTile(bomb, player.getTilePosition());
+			
+			
 			pcs.firePropertyChange("play", null, EventType.BOMB_PLACED);
 		}
 	}
 
-	// TODO changed location of creating the bomb from player to bombermanModel
+	// TODO refactor
 	private Bomb createBomb(Player player, Timer bombTimer) {
 
 		switch (player.getAttribute(Attribute.BombType)) {
@@ -279,8 +245,8 @@ public class BombermanModel implements IBombermanModel {
 					}
 				}
 			}
-			tmpTile = map.getTile(pos);
 
+			tmpTile = map.getTile(pos);
 			if (tmpTile instanceof Destroyable) {
 				Destroyable destroyableTile = (Destroyable) tmpTile;
 				pg.add(destroyableTile.getPointGiver());
@@ -363,8 +329,9 @@ public class BombermanModel implements IBombermanModel {
 				aliveCount++;
 			}
 		}
-		if (aliveCount <= 1)
+		if (aliveCount <= 1) {
 			return true;
+		}
 		return false;
 	}
 
@@ -419,6 +386,36 @@ public class BombermanModel implements IBombermanModel {
 
 	private boolean isPlayerAtPosition(Player player, Position pos) {
 		return player.getTilePosition().equals(pos);
+	}
+
+	/**
+	 * Timer-task that is used for scheduling what happens when the fire is
+	 * removed.
+	 */
+	private class FireTimerTask extends TimerTask {
+		@Override
+		public void run() {
+			removeFirstFire();
+		}
+	}
+
+	/**
+	 * Timer-task that is used for scheduling what happens when a bomb
+	 * detonates.
+	 */
+	private class BombTask extends TimerTask {
+		private Bomb bomb;
+
+		public BombTask(Bomb b) {
+			this.bomb = b;
+		}
+
+		@Override
+		public void run() {
+			handleFire(bomb.getPlayer(), bomb.explode(map.getMap()));
+
+			pcs.firePropertyChange("play", null, EventType.BOMB_EXPLODED);
+		}
 	}
 
 }
