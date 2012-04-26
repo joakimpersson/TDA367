@@ -13,7 +13,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.github.joakimpersson.tda367.audio.AudioEventBus;
-import com.github.joakimpersson.tda367.audio.SoundType;
+import com.github.joakimpersson.tda367.audio.EventType;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
@@ -72,7 +72,7 @@ public class BombermanModel implements IBombermanModel {
 		public void run() {
 			handleFire(bomb.getPlayer(), bomb.explode(map.getMap()));
 
-			pcs.firePropertyChange("play", null, SoundType.BombExplodeSFX);
+			pcs.firePropertyChange("play", null, EventType.BombExplodeSFX);
 		}
 	}
 
@@ -222,7 +222,7 @@ public class BombermanModel implements IBombermanModel {
 					Parameters.INSTANCE.getBombDetonationTime());
 
 			map.setTile(bomb, player.getTilePosition());
-			pcs.firePropertyChange("play", null, SoundType.BombPlacedSFX);
+			pcs.firePropertyChange("play", null, EventType.BombPlacedSFX);
 		}
 	}
 

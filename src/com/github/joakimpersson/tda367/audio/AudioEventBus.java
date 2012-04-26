@@ -45,9 +45,9 @@ public class AudioEventBus implements PropertyChangeListener {
 		String propertyName = arg0.getPropertyName();
 		try {
 			if(propertyName.equals("play")) {
-				sh.playSound((SoundType)newValue);
+				sh.playSound((EventType)newValue);
 			} else if (propertyName.equals("stop")) {
-				sh.stopSound((SoundType)newValue);
+				sh.stopSound((EventType)newValue);
 			} else if (propertyName.equals("setSFXVolume")) {
 				sh.setSFXVolume((Float)newValue);
 			} else if (propertyName.equals("setBGMVolume")) {

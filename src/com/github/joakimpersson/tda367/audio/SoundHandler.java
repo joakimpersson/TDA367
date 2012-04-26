@@ -86,7 +86,7 @@ public class SoundHandler {
 	 * 
 	 * @param soundType The given SoundType.
 	 */
-	public void playSound(SoundType soundType) {
+	public void playSound(EventType soundType) {
 		IGameSound sound = chooseSound(soundType);
 		if(sound instanceof SoundEffect) {
 			sound.play(sfxVolume);
@@ -104,7 +104,7 @@ public class SoundHandler {
 	 * 
 	 * @param soundType The given SoundType.
 	 */
-	public void stopSound(SoundType soundType) {
+	public void stopSound(EventType soundType) {
 		chooseSound(soundType).stop();
 	}
 	
@@ -125,7 +125,7 @@ public class SoundHandler {
 	 * @param soundType The given SoundType.
 	 * @return True if the sound is playing, else false.
 	 */
-	public boolean isSoundPlaying(SoundType soundType) {
+	public boolean isSoundPlaying(EventType soundType) {
 		return chooseSound(soundType).isPlaying();	
 	}
 	
@@ -135,7 +135,7 @@ public class SoundHandler {
 	 * @param soundType
 	 * @return The IGameSound that corresponds to the given SoundType.
 	 */
-	private IGameSound chooseSound(SoundType soundType) {
+	private IGameSound chooseSound(EventType soundType) {
 		switch(soundType) {
 		case BombPlacedSFX:
 			return bombPlaced;
