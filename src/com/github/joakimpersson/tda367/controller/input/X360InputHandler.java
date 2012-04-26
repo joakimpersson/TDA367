@@ -20,8 +20,9 @@ public class X360InputHandler implements InputHandler {
 	}
 
 	public static int getProceed() {
-		if (System.getProperty("os.name").toLowerCase().indexOf("mac") >= 0)
+		if (System.getProperty("os.name").toLowerCase().indexOf("mac") >= 0) {
 			return 11;
+		}
 		return 1;
 	}
 

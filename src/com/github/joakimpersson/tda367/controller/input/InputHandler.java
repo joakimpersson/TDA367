@@ -14,7 +14,7 @@ import com.github.joakimpersson.tda367.model.player.Player;
 public interface InputHandler {
 
 	/**
-	 * Checks wheater the current inputhandler contains the key/action that was
+	 * Checks if the current inputhandler contains the key/action that was
 	 * performed
 	 * 
 	 * @param input
@@ -23,7 +23,7 @@ public interface InputHandler {
 	 * @return True if the handler contains the key and false otherwise
 	 */
 	boolean hasKey(Input input);
-	
+
 	/**
 	 * Returns an inputdata object corresponding the lates input call. It is
 	 * strongly recommended to call the haskey() first
@@ -42,6 +42,15 @@ public interface InputHandler {
 	 * @return The inputhandlers player
 	 */
 	Player getPlayer();
-	
+
+	/**
+	 * Checks if  the player has pressed their proceed button
+	 * 
+	 * @param input
+	 *            The input object used by the slick framework that contains the
+	 *            latest action
+	 * @return True if one of the player has pressed their proceed button,
+	 *         false otherwise
+	 */
 	boolean pressedProceed(Input input);
 }
