@@ -137,13 +137,13 @@ public class SoundHandler {
 	 */
 	private IGameSound chooseSound(EventType soundType) {
 		switch(soundType) {
-		case BombPlacedSFX:
+		case BOMB_PLACED:
 			return bombPlaced;
-		case BombExplodeSFX:
+		case BOMB_EXPLODED:
 			return bombExplode;
-		case TitleBGM:
+		case TITLE_SCREEN:
 			return titleTheme;
-		case BattleBGM:
+		case BATTLE_SCREEN:
 			return battleSong1;
 		default:
 			return null;

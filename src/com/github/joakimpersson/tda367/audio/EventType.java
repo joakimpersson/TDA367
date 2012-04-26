@@ -8,6 +8,6 @@ package com.github.joakimpersson.tda367.audio;
  *
  */
 public enum EventType {
-	UpgradeBGM, TitleBGM, BattleBGM, BombExplodeSFX,
-	BombPlacedSFX, PlayerHitSFX, PowerUpSFX, MenuClickSFX;
+	UPGRADE_SCREEN, TITLE_SCREEN, BATTLE_SCREEN, BOMB_EXPLODED,
+	BOMB_PLACED, PLAYER_HIT, POWERED_UP, MENU_CLICKED;
 }

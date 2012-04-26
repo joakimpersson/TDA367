@@ -72,7 +72,7 @@ public class BombermanModel implements IBombermanModel {
 		public void run() {
 			handleFire(bomb.getPlayer(), bomb.explode(map.getMap()));
 
-			pcs.firePropertyChange("play", null, EventType.BombExplodeSFX);
+			pcs.firePropertyChange("play", null, EventType.BOMB_EXPLODED);
 		}
 	}
 
@@ -222,7 +222,7 @@ public class BombermanModel implements IBombermanModel {
 					Parameters.INSTANCE.getBombDetonationTime());
 
 			map.setTile(bomb, player.getTilePosition());
-			pcs.firePropertyChange("play", null, EventType.BombPlacedSFX);
+			pcs.firePropertyChange("play", null, EventType.BOMB_PLACED);
 		}
 	}
 
