@@ -31,6 +31,7 @@ import com.github.joakimpersson.tda367.model.tiles.bombs.NormalBomb;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Box;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Pillar;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Fire;
+import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
 import com.github.joakimpersson.tda367.model.utils.FPosition;
 import com.github.joakimpersson.tda367.model.utils.Position;
 
@@ -214,7 +215,7 @@ public class BombermanModel implements IBombermanModel {
 	 */
 	private void placeBomb(Player player) {
 		if (player.canPlaceBomb()
-				&& map.getTile(player.getTilePosition()) instanceof WalkableTile) {
+				&& map.getTile(player.getTilePosition()) instanceof Floor) {
 			Timer bombTimer = new Timer();
 			Bomb bomb = createBomb(player, bombTimer);// player.createBomb(bombTimer);
 			bombTimer.schedule(new BombTask(bomb),
