@@ -51,21 +51,22 @@ public class ImageLoader {
 		loadImage("fire-column-left", "fire-row");
 		loadImage("fire-column-right", "fire-row");
 		loadImage("fire-column-none", "fire-mid");
-		// loadImage("areaBomb");
+		loadImage("fire-area", "fire-mid");
+		loadImage("bomb-area");
 		loadImage("bomb");
 		loadImage("rangeUpItem", "bomb");
 		loadImage("speedUpItem", "bomb");
 		loadImage("bombUpItem", "bomb");
-		
-		//TODO Rolén set the right name to the pics
-//		loadImage("player-moving-up");
-//		loadImage("player-moving-down");
-//		loadImage("player-moving-left");
-//		loadImage("player-moving-right");
-//		loadImage("player-still-up");
-//		loadImage("player-still-down");
-//		loadImage("player-still-left");
-//		loadImage("player-still-right");
+
+		// TODO Rolén set the right name to the pics
+		// loadImage("player-moving-up");
+		// loadImage("player-moving-down");
+		// loadImage("player-moving-left");
+		// loadImage("player-moving-right");
+		// loadImage("player-still-up");
+		// loadImage("player-still-down");
+		// loadImage("player-still-left");
+		// loadImage("player-still-right");
 	}
 
 	public static ImageLoader getInstance() {
