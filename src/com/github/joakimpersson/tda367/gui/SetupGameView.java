@@ -1,33 +1,44 @@
 package com.github.joakimpersson.tda367.gui;
 
-import static org.newdawn.slick.Color.*;
+import static org.newdawn.slick.Color.cyan;
+import static org.newdawn.slick.Color.gray;
+import static org.newdawn.slick.Color.red;
+import static org.newdawn.slick.Color.white;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.newdawn.slick.AngelCodeFont;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-
 import org.newdawn.slick.gui.TextField;
 
 public class SetupGameView {
 
 	private int yDelta = 30;
-	private int progress = 0;
+	private int stage = 0;
 	private int possiblePlayers, playersSelected;
 
-	private Font font;
+	private Font bigFont, smlFont;
 	private TextField field;
 	private int index;
+	private List<String> names = new ArrayList<String>();
 
 	public SetupGameView(int possiblePlayers, GameContainer container) {
 		try {
-			font = new AngelCodeFont("res/font.fnt", "res/font.tga");
+			bigFont = new AngelCodeFont("res/minecraft_big.fnt", "res/minecraft_big.tga");
+			smlFont = new AngelCodeFont("res/minecraft_sml.fnt", "res/minecraft_sml.tga");
+//			font = new UnicodeFont("res/minecraft.ttf", 30, false, false);
+//			font.getEffects().add(new ColorEffect(java.awt.Color.white));
+//			font.addNeheGlyphs();
+//			font.loadGlyphs();
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
 		this.possiblePlayers = possiblePlayers;
-		field = new TextField(container, font, container.getWidth() / 2 - 180, 270, 200, 35);
+		field = new TextField(container, bigFont, container.getWidth() / 2 - 180, 270, 200, 30);
 		field.setBorderColor(red);
 		init();
 	}
@@ -38,11 +49,12 @@ public class SetupGameView {
 	public void render(GameContainer container, Graphics g, int selection) throws SlickException {
 		int posX = container.getWidth() / 2 - 210;
 		int posY = 200;
-		if (progress == 0) {
-			g.setColor(white);
+		g.setColor(white);
+		g.setFont(smlFont);
+		if (stage == 0) {
 			g.drawString("Select number of players:", posX, posY);
 
-			posY += 25;
+			posY += yDelta;
 			int i = 1;
 			while (i < 4) {
 				i++;
@@ -55,20 +67,32 @@ public class SetupGameView {
 				g.setColor(white);
 				posY += yDelta;
 			}
-		} else if (progress == 1 && index <= playersSelected) {
-			g.setColor(white);
-			g.drawString("Player " + index + ", type your name and press", posX, posY);
-			posY += 25;
-			g.drawString("action on your preferred controller", posX, posY);
+		} else if (stage == 1 && index <= playersSelected) {
+			g.drawString("Player " + index + ", type your name and press enter", posX, posY);
 			field.render(container, g);
+		} else if (stage == 2 && index <= names.size()) {
+			g.drawString(names.get(index-1) + " please press action", posX, posY);
+			posY += yDelta;
+			g.drawString("on your preferred controller!", posX, posY);
 		}
 	}
 
 	public void startPlayerCreation(int players) {
 		playersSelected = players;
 		index = 1;
-		progress++;
+		stage++;
 		resetField();
+	}
+
+	public void assignControllers() {
+		index = 1;
+		stage++;
+	}
+
+	public void playerCreated() {
+		names.add(field.getText());
+		resetField();
+		incIndex();
 	}
 
 	private void resetField() {
@@ -84,13 +108,11 @@ public class SetupGameView {
 		return field.getText();
 	}
 
-	public void playerCreated() {
-		resetField();
-		index++;
+	public int getIndex() {
+		return index;
 	}
 
-	public int getIndex() {
-		// TODO Auto-generated method stub
-		return index;
+	public void incIndex() {
+		index++;
 	}
 }

@@ -32,7 +32,7 @@ public class SetupGameState extends BasicGameState {
 	private SetupGameView view = null;
 	private IBombermanModel model = null;
 	private int stateID = -1;
-	private int selection = 0, progress = 0;
+	private int selection = 0, stage = 0;
 	private int controllerCount, possiblePlayers;
 	private int players;
 	private List<Player> playerList;
@@ -44,20 +44,21 @@ public class SetupGameState extends BasicGameState {
 	}
 
 	@Override
-	public void init(GameContainer container, StateBasedGame game) throws SlickException {
+	public void init(GameContainer container, StateBasedGame game)
+			throws SlickException {
 		model = BombermanModel.getInstance();
-		inputManager  = InputManager.getInstance();
+		inputManager = InputManager.getInstance();
 		playerList = model.getPlayers();
 		controllersBound = new ArrayList<String>();
-		
+
 		controllerCount = container.getInput().getControllerCount();
 		possiblePlayers = 2 + controllerCount;
-		
+
 		if (possiblePlayers > 4) {
 			possiblePlayers = 4;
 		}
 		view = new SetupGameView(possiblePlayers, container);
-		
+
 		selection = 2;
 	}
 
@@ -83,30 +84,52 @@ public class SetupGameState extends BasicGameState {
 		if (input.isKeyPressed(Input.KEY_DOWN)) {
 			moveIndex(1);
 		}
-
-		if (validProceed(input)) {
-			if (progress == 0) {
+		
+		boolean controllerProceed = validProceed(input);
+		if (stage < 2 && input.isKeyPressed(Input.KEY_ENTER)) {
+			if (stage == 0) {
 				players = selection;
 				view.startPlayerCreation(players);
-				progress++;
-			// TODO to be handled by global input
-			} else if (progress == 1 && view.nameFilledIn()) {
-				createPlayer(view.getName(), view.getIndex(), controllerUsed(input));
-				if (allPlayersCreated()) {
-					game.enterState(BombermanGame.GAMEPLAY_STATE);
-				}
+				stage++;
+				// TODO to be handled by global input
+			} else if (stage == 1 && view.nameFilledIn()) {
+				createPlayer(view.getName(), view.getIndex());
 				view.playerCreated();
+				if (allPlayersCreated()) {
+					view.assignControllers();
+					stage++;
+				}
 			}
+		} else if (stage == 2 && controllerProceed) {
+			assignPlayer(controllerUsed(input), view.getIndex());
+			if (allPlayersAssigned()) {
+				game.enterState(BombermanGame.GAMEPLAY_STATE);
+			}
+			view.incIndex();
 		}
 	}
 
+	private boolean allPlayersAssigned() {
+		return controllersBound.size() == players;
+	}
+
+	private void assignPlayer(String controllerUsed, int i) {
+		inputManager.addInputObject(controllerFactory(
+				playerList.get(i - 1 + 2), controllerUsed));
+		// TODO next line is the correct one once players are no longer created
+		// by model
+		// inputManager.addInputObject(controllerFactory(playerList.get(i-1),
+		// controllerUsed));
+
+	}
+
 	private boolean validProceed(Input input) {
-		if (((input.isKeyPressed(Input.KEY_SPACE) || input.isKeyPressed(Input.KEY_ENTER)) && !controllersBound.contains("k0"))
-				|| (input.isKeyPressed(Input.KEY_F) && !controllersBound.contains("k1")))
+		if ((input.isKeyPressed(Input.KEY_SPACE) && !controllersBound.contains("k0")) || (input.isKeyPressed(Input.KEY_F) && !controllersBound.contains("k1"))) {
 			return true;
-		for (int i=0; i < controllerCount; i++) {
+		}
+		for (int i = 0; i < controllerCount; i++) {
 			if (input.isButtonPressed(X360InputHandler.getProceed(), i)
-					&& !controllersBound.contains("x"+i))
+					&& !controllersBound.contains("x" + i))
 				return true;
 		}
 		return false;
@@ -114,36 +137,33 @@ public class SetupGameState extends BasicGameState {
 
 	private String controllerUsed(Input input) {
 		String controller = null; // this should never stay null
-		for (int i=0; i < controllerCount; i++) {
-			if(input.isButtonPressed(X360InputHandler.getProceed(), i)) {
-				controller = "x"+i;
+		for (int i = 0; i < controllerCount; i++) {
+			if (input.isButtonPressed(X360InputHandler.getProceed(), i)) {
+				controller = "x" + i;
 			}
 		}
-		if(input.isKeyDown(Input.KEY_SPACE)
-				|| input.isKeyDown(Input.KEY_ENTER)) {
-			controller = "k"+0;
-		}
-		else if (input.isKeyDown(Input.KEY_F))
-			controller = "k"+1;
+		if (input.isKeyDown(Input.KEY_SPACE)) {
+			controller = "k" + 0;
+		} else if (input.isKeyDown(Input.KEY_F))
+			controller = "k" + 1;
 		controllersBound.add(controller);
 		return controller;
 	}
 
-	private void createPlayer(String name, int playerIndex, String controllerUsed) {
+	private void createPlayer(String name, int playerIndex) {
 		Player player = new Player(name, getInitialPosition(playerIndex));
 		playerList.add(player);
-		inputManager.addInputObject(controllerFactory(player, controllerUsed));
 	}
 
 	private Position getInitialPosition(int playerIndex) {
 		Dimension mapD = Parameters.INSTANCE.getMapSize();
-		
+
 		int left = 1;
-		int right = mapD.width-2;
+		int right = mapD.width - 2;
 		int top = 1;
-		int bottom = mapD.height-2;
-		
-		switch(playerIndex) {
+		int bottom = mapD.height - 2;
+
+		switch (playerIndex) {
 		default:
 			return new Position(left, top);
 		case 2:
@@ -155,13 +175,14 @@ public class SetupGameState extends BasicGameState {
 		case 3:
 			return new Position(left, bottom);
 		case 4:
-			return new Position(right, bottom);	
+			return new Position(right, bottom);
 		}
 	}
 
 	private InputHandler controllerFactory(Player player, String controllerUsed) {
 		char controllerType = controllerUsed.charAt(0);
-		int controllerIndex = Integer.decode(Character.toString(controllerUsed.charAt(1)));
+		int controllerIndex = Integer.decode(Character.toString(controllerUsed
+				.charAt(1)));
 		if (controllerType == 'k') {
 			return new KeyBoardInputHandler(player, controllerIndex);
 		} else {
@@ -171,20 +192,20 @@ public class SetupGameState extends BasicGameState {
 
 	private boolean allPlayersCreated() {
 		// TODO actually use these players instead of those in bomberman
-//		return playerList.size() == players;
-		return playerList.size() == players+2;
+		// return playerList.size() == players;
+		return playerList.size() == players + 2;
 	}
 
 	private void moveIndex(int delta) {
 		int currentIndex = selection;
 		int newIndex = (currentIndex + delta);
-		
+
 		if (newIndex < 2) {
 			newIndex = 2;
-		} else if ( newIndex > possiblePlayers) {
+		} else if (newIndex > possiblePlayers) {
 			newIndex = possiblePlayers;
 		}
-		
+
 		selection = newIndex;
 	}
 
