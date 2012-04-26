@@ -1,9 +1,6 @@
 package com.github.joakimpersson.tda367.model.tiles.walkable;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
@@ -11,8 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.joakimpersson.tda367.model.player.Player;
-import com.github.joakimpersson.tda367.model.tiles.Tile;
-import com.github.joakimpersson.tda367.model.tiles.walkable.Fire;
 import com.github.joakimpersson.tda367.model.utils.Position;
 
 //TODO Fix the test for the new returntype: Map<Position, Direction>.
@@ -29,18 +24,6 @@ public class FireTest {
 	@Before
 	public void setUp() throws Exception {
 		fire = new Fire(null);
-	}
-
-	@Test
-	public void testGetToughness() {
-		// fire should not be able to destroy other fires
-		assertEquals(100, fire.getToughness());
-	}
-
-	@Test
-	public void testOnFire() {
-		Tile tile = fire.onFire();
-		assertThat(tile, is(instanceOf(Floor.class)));
 	}
 
 	@Test

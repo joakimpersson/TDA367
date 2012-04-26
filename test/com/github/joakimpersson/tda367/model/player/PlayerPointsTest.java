@@ -55,10 +55,10 @@ public class PlayerPointsTest {
 		list.clear();
 		pp.resetScore();
 
-		assertEquals(5, scoreBox);
-		assertEquals(20, scorePillar);
-		assertEquals(30, scoreKill);
-		assertEquals(15, scoreHit);
+		assertEquals(PointGiver.Box.getScore(), scoreBox);
+		assertEquals(PointGiver.Pillar.getScore(), scorePillar);
+		assertEquals(PointGiver.KillPlayer.getScore(), scoreKill);
+		assertEquals(PointGiver.PlayerHit.getScore(), scoreHit);
 
 	}
 
@@ -97,14 +97,20 @@ public class PlayerPointsTest {
 		PointGiver killPoint = PointGiver.KillPlayer;
 		PointGiver hitPoint = PointGiver.PlayerHit;
 
+		int expected = 0;
+
 		list.add(pillarPoint);
+		expected += pillarPoint.getScore();
 		list.add(boxPoint);
+		expected += boxPoint.getScore();
 		list.add(killPoint);
+		expected += killPoint.getScore();
 		list.add(hitPoint);
+		expected += hitPoint.getScore();
 
 		pp.update(list);
 
-		assertEquals(70, pp.getScore());
+		assertEquals(expected, pp.getScore());
 
 	}
 
@@ -146,7 +152,7 @@ public class PlayerPointsTest {
 
 		pp.update(list);
 
-		int tmpHitPlayer = pp.getHitPlayers();
+		int tmpHitPlayer = pp.getDestroyedPointGiver(PointGiver.PlayerHit);
 
 		list.clear();
 
@@ -158,7 +164,8 @@ public class PlayerPointsTest {
 
 		pp.update(list);
 
-		assertEquals(pp.getHitPlayers(), tmpHitPlayer + 2);
+		assertEquals(pp.getDestroyedPointGiver(PointGiver.PlayerHit),
+				tmpHitPlayer + 2);
 
 	}
 
@@ -181,7 +188,7 @@ public class PlayerPointsTest {
 
 		pp.update(list);
 
-		int tmpKilledPlayer = pp.getKilledPlayers();
+		int tmpKilledPlayer = pp.getDestroyedPointGiver(PointGiver.KillPlayer);
 
 		list.clear();
 
@@ -193,7 +200,8 @@ public class PlayerPointsTest {
 
 		pp.update(list);
 
-		assertEquals(pp.getKilledPlayers(), tmpKilledPlayer + 2);
+		assertEquals(pp.getDestroyedPointGiver(PointGiver.KillPlayer),
+				tmpKilledPlayer + 2);
 
 	}
 
@@ -215,7 +223,7 @@ public class PlayerPointsTest {
 
 		pp.update(list);
 
-		int tmpDestPillarPoints = pp.getDestroyedPillars();
+		int tmpDestPillarPoints = pp.getDestroyedPointGiver(PointGiver.Pillar);
 
 		list.clear();
 
@@ -227,7 +235,8 @@ public class PlayerPointsTest {
 
 		pp.update(list);
 
-		assertEquals(pp.getDestroyedPillars(), tmpDestPillarPoints + 2);
+		assertEquals(pp.getDestroyedPointGiver(PointGiver.Pillar),
+				tmpDestPillarPoints + 2);
 
 	}
 
@@ -248,7 +257,7 @@ public class PlayerPointsTest {
 
 		pp.update(list);
 
-		int tmpDestBoxPoints = pp.getDestroyedBoxes();
+		int tmpDestBoxPoints = pp.getDestroyedPointGiver(PointGiver.Box);
 
 		list.clear();
 
@@ -259,8 +268,8 @@ public class PlayerPointsTest {
 		list.add(destBoxPoint3);
 
 		pp.update(list);
-
-		assertEquals(pp.getDestroyedBoxes(), tmpDestBoxPoints + 2);
+		// TODO do not follow the correct syntax rolen!
+		assertEquals(pp.getDestroyedPointGiver(PointGiver.Box), tmpDestBoxPoints + 2);
 
 	}
 
