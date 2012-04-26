@@ -46,17 +46,17 @@ public class ImageLoader {
 		loadImage("box5");
 		loadImage("pillar");
 		loadImage("wall");
-		loadImage("fire-column-up", "fire-column");
-		loadImage("fire-column-down", "fire-column");
-		loadImage("fire-column-left", "fire-row");
-		loadImage("fire-column-right", "fire-row");
+		loadImage("fire-column-north", "fire-column");
+		loadImage("fire-column-south", "fire-column");
+		loadImage("fire-column-west", "fire-row");
+		loadImage("fire-column-east", "fire-row");
 		loadImage("fire-column-none", "fire-mid");
 		loadImage("fire-area", "fire-mid");
 		loadImage("bomb-area");
 		loadImage("bomb");
 		loadImage("rangeUpItem", "bomb");
 		loadImage("speedUpItem", "bomb");
-		loadImage("bombUpItem", "bomb");
+		loadImage("bombUpItem");
 
 		// TODO Rolén set the right name to the pics
 		// loadImage("player-moving-up");
@@ -65,8 +65,8 @@ public class ImageLoader {
 		// loadImage("player-moving-right");
 		// loadImage("player-still-up");
 		// loadImage("player-still-down");
-		// loadImage("player-still-left");
-		// loadImage("player-still-right");
+		 loadImage("player/still-east");
+		 loadImage("player/still-west");
 	}
 
 	public static ImageLoader getInstance() {
