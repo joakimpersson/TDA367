@@ -56,30 +56,31 @@ public class GameFieldView implements IView {
 
 		for (Player p : players) {
 			if (p.isAlive()) {
-				g.setColor(Color.white);
-
-				if (p.isImmortal()) {
-					g.setColor(Color.gray);
-				}
-
-				// The x,y coordinates doesn't matter since we set the center
-				// coordinates after
-				Rectangle rect = new Rectangle(0, 0, blockSide, blockSide);
+//				g.setColor(Color.white);
+//
+//				if (p.isImmortal()) {
+//					g.setColor(Color.gray);
+//				}
+//
+//				// The x,y coordinates doesn't matter since we set the center
+//				// coordinates after
+//				Rectangle rect = new Rectangle(0, 0, blockSide, blockSide);
 				FPosition pos = p.getGamePosition();
-				rect.setCenterX(pos.getX() * blockSide + startX);
-				rect.setCenterY(pos.getY() * blockSide + startY);
-
-				g.fill(rect);
-
-				// TODO remove, just for test, added to determine orientation of
-				// final picture
-				Circle circle = new Circle(0, 0, 2);
-				circle.setCenterX(pos.getX() * blockSide
-						+ (p.getDirection().getX() * 20) + startX);
-				circle.setCenterY(pos.getY() * blockSide
-						+ (p.getDirection().getY() * 20) + startY);
-				g.setColor(Color.black);
-				g.fill(circle);
+//				rect.setCenterX(pos.getX() * blockSide + startX);
+//				rect.setCenterY(pos.getY() * blockSide + startY);
+//
+//				g.fill(rect);
+//
+//				// TODO remove, just for test, added to determine orientation of
+//				// final picture
+//				Circle circle = new Circle(0, 0, 2);
+//				circle.setCenterX(pos.getX() * blockSide
+//						+ (p.getDirection().getX() * 20) + startX);
+//				circle.setCenterY(pos.getY() * blockSide
+//						+ (p.getDirection().getY() * 20) + startY);
+//				g.setColor(Color.black);
+//				g.fill(circle);
+				drawImage(pos.getX()-0.5F, pos.getY()-0.5F, p.getImageString(), g);
 			}
 		}
 
@@ -93,13 +94,13 @@ public class GameFieldView implements IView {
 		for (int i = 0; i < mapHeight; i++) {
 			for (int j = 0; j < mapWidth; j++) {
 				Tile tile = map[i][j];
-				drawTile(j, i, tile.getTileType(), g);
+				drawImage(j, i, tile.getTileType(), g);
 			}
 		}
 
 	}
 
-	private void drawTile(int x, int y, String s, Graphics g) {
+	private void drawImage(float x, float y, String s, Graphics g) {
 		// the players position is related to matrix so compensated is needed
 		x *= blockSide;
 		y *= blockSide;

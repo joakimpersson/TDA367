@@ -59,6 +59,8 @@ public class BombermanModel implements IBombermanModel {
 		// TODO players should be created in setupgamestate
 		players.add(new Player("Joakim", new Position(14, 12)));
 		players.add(new Player("kalle", new Position(14, 12)));
+		players.get(0).killPlayer();
+		players.get(1).killPlayer();
 		this.map = new GameMap();
 		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
 	}
@@ -90,19 +92,19 @@ public class BombermanModel implements IBombermanModel {
 	@Override
 	public void updateGame(Player player, PlayerAction action) {
 		if (player.isAlive()) {
-			Direction direction = Direction.None;
+			Direction direction = Direction.NONE;
 			switch (action) {
 			case MoveUp:
-				direction = Direction.Up;
+				direction = Direction.NORTH;
 				break;
 			case MoveDown:
-				direction = Direction.Down;
+				direction = Direction.SOUTH;
 				break;
 			case MoveLeft:
-				direction = Direction.Left;
+				direction = Direction.WEST;
 				break;
 			case MoveRight:
-				direction = Direction.Right;
+				direction = Direction.EAST;
 				break;
 			case Action:
 				this.placeBomb(player);
@@ -129,7 +131,7 @@ public class BombermanModel implements IBombermanModel {
 	private void move(Player player, Direction direction) {
 		Position prevPos = player.getTilePosition();
 		Tile tileAtDirection = map.getTile(new Position(prevPos.getX()
-				+ direction.getX(), prevPos.getY() + direction.getY()));
+				+ (int)direction.getX(), prevPos.getY() + (int)direction.getY()));
 		// The tile that the player may walk into.
 
 		if (tileAtDirection.isWalkable()) {
@@ -151,10 +153,10 @@ public class BombermanModel implements IBombermanModel {
 
 			// Can't move closer than 0.2 to a non-walkable tile.
 			float pD = 0.2F;
-			if ((direction == Direction.Up && decimalPos.getY() >= pD)
-					|| (direction == Direction.Down && decimalPos.getY() <= 1 - pD)
-					|| (direction == Direction.Left && decimalPos.getX() >= pD)
-					|| (direction == Direction.Right && decimalPos.getX() <= 1 - pD)) {
+			if ((direction == Direction.NORTH && decimalPos.getY() >= pD)
+					|| (direction == Direction.SOUTH && decimalPos.getY() <= 1 - pD)
+					|| (direction == Direction.WEST && decimalPos.getX() >= pD)
+					|| (direction == Direction.EAST && decimalPos.getX() <= 1 - pD)) {
 				player.move(direction);
 			}
 		}

@@ -1,5 +1,11 @@
 package com.github.joakimpersson.tda367.model.tiles.bombs;
 
+import static com.github.joakimpersson.tda367.model.constants.Direction.SOUTH;
+import static com.github.joakimpersson.tda367.model.constants.Direction.WEST;
+import static com.github.joakimpersson.tda367.model.constants.Direction.NONE;
+import static com.github.joakimpersson.tda367.model.constants.Direction.EAST;
+import static com.github.joakimpersson.tda367.model.constants.Direction.NORTH;
+
 import java.util.Map;
 import java.util.Timer;
 
@@ -37,13 +43,13 @@ public class NormalBomb extends Bomb {
 	public Map<Position, Direction> explode(Tile[][] m) {
 		map = m;
 
-		directedFire(Direction.Up);
-		directedFire(Direction.Down);
-		directedFire(Direction.Left);
-		directedFire(Direction.Right);
+		directedFire(NORTH);
+		directedFire(SOUTH);
+		directedFire(EAST);
+		directedFire(WEST);
 
 		// dont forget to add itself
-		fireList.put(pos, Direction.None);
+		fireList.put(pos, NONE);
 
 		removeFromPlayer();
 		return fireList;
@@ -67,9 +73,7 @@ public class NormalBomb extends Bomb {
 											// player can hit only directly
 											// adjacent tiles
 			if (firePower > 0) {
-				Position firePos = new Position(x + (dir.getX() * i), y
-						+ (dir.getY() * i));
-
+				Position firePos = new Position(x + ((int)dir.getX() * i), y + ((int)dir.getY() * i));
 				if (validPos(firePos)) {
 					Tile tile = map[firePos.getY()][firePos.getX()]; // inverted
 																		// >.<

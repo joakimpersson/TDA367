@@ -84,7 +84,7 @@ public class Player {
 		this.attr.resetAttr(Round);
 		this.health = getAttribute(Health);
 		this.tilePos = initialPosition;
-		this.facingDirection = Direction.Down;
+		this.facingDirection = Direction.SOUTH;
 		this.gamePos = new FPosition(initialPosition.getX() + 0.5F,
 				initialPosition.getY() + 0.5F);
 		this.bombsPlaced = 0;
@@ -293,10 +293,6 @@ public class Player {
 				+ " HP]";
 	}
 
-	public String getImage() {
-		return "player-" + this.facingDirection;
-	}
-
 	/**
 	 * Get the players current status whether is has been hit by an exploded
 	 * bimb or not
@@ -305,6 +301,19 @@ public class Player {
 	 */
 	public boolean isImmortal() {
 		return justHit;
+	}
+
+	public void killPlayer() {
+		this.health = 0;
+	}
+	
+	public String getImageString() {
+		if (facingDirection.equals(Direction.EAST) 
+				|| facingDirection.equals(Direction.WEST)) {
+			return "player/still-"+facingDirection;
+		} else {
+			return "player/still-east";
+		}
 	}
 
 }
