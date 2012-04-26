@@ -49,7 +49,7 @@ public class GameplayState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		super.enter(container, game);
-		
+
 		pcs.firePropertyChange("play", null, EventType.BATTLE_SCREEN);
 		currentState = STATE.GAME_RUNNING;
 
@@ -62,8 +62,9 @@ public class GameplayState extends BasicGameState {
 		AudioEventListener audioEL = AudioEventListener.getInstance();
 		pcs.addPropertyChangeListener(audioEL);
 		model = BombermanModel.getInstance();
-		
-		// TODO maybe models listener should be added in the class where get instance is first called?
+
+		// TODO maybe models listener should be added in the class where get
+		// instance is first called?
 		model.addPropertyChangeListener(audioEL);
 		view = new GameplayView();
 		inputManager = InputManager.getInstance();
@@ -103,7 +104,7 @@ public class GameplayState extends BasicGameState {
 			if (model.isRoundOver()) {
 				currentState = STATE.ROUND_OVER;
 			} else {
-				gameRunning(container);
+				gameRunning(container.getInput());
 			}
 
 			break;
@@ -121,7 +122,7 @@ public class GameplayState extends BasicGameState {
 			break;
 		case ROUND_OVER:
 
-			roundOver(container);
+			roundOver(container.getInput());
 
 			break;
 		default:
@@ -130,10 +131,11 @@ public class GameplayState extends BasicGameState {
 
 	}
 
-	private void roundOver(GameContainer container) {
-		Input input = container.getInput();
+	private void roundOver(Input input) {
 
-		if (inputManager.pressedProceed(input)) {
+		boolean pressedProceed = inputManager.pressedProceed(input);
+
+		if (pressedProceed) {
 			if (model.isMatchOver()) {
 				currentState = STATE.MATCH_OVER;
 			} else {
@@ -159,13 +161,7 @@ public class GameplayState extends BasicGameState {
 
 	}
 
-	private void gameRunning(GameContainer gc) {
-		Input input = gc.getInput();
-
-		// TODO jocke only used during development
-		if (input.isKeyDown(Input.KEY_ESCAPE)) {
-			gc.exit();
-		}
+	private void gameRunning(Input input) {
 
 		List<InputData> data = inputManager.getData(input);
 
