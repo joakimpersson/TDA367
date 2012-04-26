@@ -1,15 +1,10 @@
 package com.github.joakimpersson.tda367.model.tiles.nonwalkable;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.github.joakimpersson.tda367.model.tiles.Tile;
-import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Wall;
 
 
 /**
@@ -24,18 +19,6 @@ public class WallTest {
 	@Before
 	public void setUp() throws Exception {
 		wall = new Wall();
-	}
-
-	@Test
-	public void testGetToughness() {
-		// a wall should not be able to be destroyed
-		assertEquals(100, wall.getToughness());
-	}
-
-	@Test
-	public void testOnFire() {
-		Tile tile = wall.onFire();
-		assertThat(tile, is(instanceOf(Wall.class)));
 	}
 
 	@Test

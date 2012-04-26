@@ -1,8 +1,10 @@
 package com.github.joakimpersson.tda367.model.tiles.walkable;
 
 import com.github.joakimpersson.tda367.model.constants.Attribute;
+import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
+import com.github.joakimpersson.tda367.model.tiles.Destroyable;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
 
@@ -11,7 +13,7 @@ import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
  * @author joakimpersson
  * 
  */
-public abstract class PowerupItem implements WalkableTile {
+public abstract class PowerupItem implements WalkableTile, Destroyable {
 
 	private static int toughness = 0;
 
@@ -39,6 +41,11 @@ public abstract class PowerupItem implements WalkableTile {
 	@Override
 	public Tile onFire() {
 		return new Floor();
+	}
+
+	@Override
+	public PointGiver getPointGiver() {
+		return PointGiver.PowerUpItem;
 	}
 
 	@Override

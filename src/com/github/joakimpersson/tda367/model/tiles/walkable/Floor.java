@@ -2,7 +2,9 @@ package com.github.joakimpersson.tda367.model.tiles.walkable;
 
 import java.util.Random;
 
+import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.player.Player;
+import com.github.joakimpersson.tda367.model.tiles.Destroyable;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
 
@@ -11,12 +13,11 @@ import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
  * @author joakimpersson
  * 
  */
-public class Floor implements WalkableTile {
+public class Floor implements WalkableTile, Destroyable {
 
 	private int toughness;
 	private String image;
 	private int floorNumber;
-
 
 	public Floor() {
 		// should be ignored by the fire and skipped
@@ -61,7 +62,7 @@ public class Floor implements WalkableTile {
 	public boolean isWalkable() {
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Floor";
@@ -70,5 +71,10 @@ public class Floor implements WalkableTile {
 	@Override
 	public String getTileType() {
 		return this.image;
+	}
+	
+	@Override
+	public PointGiver getPointGiver() {
+		return PointGiver.Floor;
 	}
 }

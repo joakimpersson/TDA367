@@ -13,35 +13,15 @@ import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
  */
 public class Fire implements WalkableTile {
 	private String image;
-	private int toughness;
 	private Direction direction;
-	
+
 	public Fire(Direction direction) {
-		// different players fire should not be able to cross each other
-		this.toughness = 100;
 		this.direction = direction;
-		if(this.direction == null) {
+		if (this.direction == null) {
 			this.image = "fire-area";
-		}
-		else {
+		} else {
 			this.image = "fire-column-" + direction;
 		}
-	}
-
-	@Override
-	public int getToughness() {
-		return toughness;
-	}
-
-	/**
-	 * Fire can't cross other player's fire and therefore it returns itself when
-	 * the method is invoked
-	 * 
-	 * @return Itself
-	 */
-	@Override
-	public Tile onFire() {
-		return new Floor();
 	}
 
 	/**
@@ -54,8 +34,9 @@ public class Fire implements WalkableTile {
 	 */
 	@Override
 	public Tile playerEnter(Player player) {
-		// TODO owner of the fire's bomb won't get points when a player enters the fire.
-		if(!player.isImmortal()) {
+		// TODO owner of the fire's bomb won't get points when a player enters
+		// the fire.
+		if (!player.isImmortal()) {
 			player.playerHit();
 		}
 		return this;
@@ -65,7 +46,7 @@ public class Fire implements WalkableTile {
 	public boolean isWalkable() {
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Fire";

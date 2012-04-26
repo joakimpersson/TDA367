@@ -3,6 +3,8 @@ package com.github.joakimpersson.tda367.model.tiles.nonwalkable;
 import java.util.Random;
 
 import com.github.joakimpersson.tda367.model.constants.Parameters;
+import com.github.joakimpersson.tda367.model.constants.PointGiver;
+import com.github.joakimpersson.tda367.model.tiles.Destroyable;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.factory.PowerUpFactory;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
@@ -12,7 +14,7 @@ import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
  * @author joakimpersson
  * 
  */
-public class Box implements Tile {
+public class Box implements Tile, Destroyable {
 
 	private int toughness;
 	private String image;
@@ -76,4 +78,11 @@ public class Box implements Tile {
 	public String getTileType() {
 		return this.image;
 	}
+
+	@Override
+	public PointGiver getPointGiver() {
+		return PointGiver.Box;
+	}
+	
+	
 }

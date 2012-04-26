@@ -2,19 +2,13 @@ package com.github.joakimpersson.tda367.model.tiles;
 
 /**
  * 
- * An interface for the game tiles used on the game field
+ * An interface for the game tiles used on the gamefield
  * 
  * @author joakimpersson
  * 
  */
 
 public interface Tile {
-	/**
-	 * Returns the toughness for a specific game tile
-	 * 
-	 * @return a tile's toughness
-	 */
-	public int getToughness();
 
 	/**
 	 * 
@@ -24,14 +18,6 @@ public interface Tile {
 	 */
 	public boolean isWalkable();
 
-	/**
-	 * Determines what happens when a tile is hitted by fire. Returns itself if
-	 * it cannot be destroyed
-	 * 
-	 * @return The tile that will replace the current tile.
-	 */
-	public Tile onFire();
-	
 	/**
 	 * Sets the type of the image to the Tile.
 	 * 

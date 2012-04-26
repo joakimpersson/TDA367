@@ -15,7 +15,7 @@ import com.github.joakimpersson.tda367.model.utils.Position;
  * @author rekoil
  */
 public class AreaBomb extends Bomb {
-	
+
 	private String tileType;
 	private int areaRange;
 

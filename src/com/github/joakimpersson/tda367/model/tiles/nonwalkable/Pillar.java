@@ -1,6 +1,8 @@
 package com.github.joakimpersson.tda367.model.tiles.nonwalkable;
 
 import com.github.joakimpersson.tda367.model.constants.Parameters;
+import com.github.joakimpersson.tda367.model.constants.PointGiver;
+import com.github.joakimpersson.tda367.model.tiles.Destroyable;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.factory.PowerUpFactory;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
@@ -10,11 +12,10 @@ import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
  * @author joakimpersson
  * 
  */
-public class Pillar implements Tile {
+public class Pillar implements Tile, Destroyable {
 
 	private int toughness;
 	private String image;
-
 
 	public Pillar() {
 		this.toughness = 2;
@@ -61,7 +62,7 @@ public class Pillar implements Tile {
 	public boolean isWalkable() {
 		return false;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Pillar";
@@ -71,5 +72,10 @@ public class Pillar implements Tile {
 	public String getTileType() {
 		return this.image;
 	}
-	
+
+	@Override
+	public PointGiver getPointGiver() {
+		return PointGiver.Pillar;
+	}
+
 }

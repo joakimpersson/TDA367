@@ -23,13 +23,12 @@ import com.github.joakimpersson.tda367.model.map.GameMap;
 import com.github.joakimpersson.tda367.model.map.IGameMap;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
+import com.github.joakimpersson.tda367.model.tiles.Destroyable;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
 import com.github.joakimpersson.tda367.model.tiles.bombs.AreaBomb;
 import com.github.joakimpersson.tda367.model.tiles.bombs.Bomb;
 import com.github.joakimpersson.tda367.model.tiles.bombs.NormalBomb;
-import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Box;
-import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Pillar;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Fire;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
 import com.github.joakimpersson.tda367.model.utils.FPosition;
@@ -42,6 +41,7 @@ import com.github.joakimpersson.tda367.model.utils.Position;
  * 
  */
 public class BombermanModel implements IBombermanModel {
+
 
 	// TODO This is not supposed to be here later.
 	// SoundHandler sh = SoundHandler.getInstance();
@@ -119,8 +119,6 @@ public class BombermanModel implements IBombermanModel {
 
 			player.useCredits(attr.getCost());
 		}
-		// TODO perhaps do something or notify someone when it fails!
-
 	}
 
 	@Override
@@ -267,7 +265,7 @@ public class BombermanModel implements IBombermanModel {
 	 */
 	private void distributePoints(Player bombOwner, List<Position> positions) {
 		List<PointGiver> pg = new ArrayList<PointGiver>();
-		Tile tempTile;
+		Tile tmpTile;
 
 		for (Position pos : positions) {
 			// Converting positions into PointGivers
@@ -281,11 +279,11 @@ public class BombermanModel implements IBombermanModel {
 					}
 				}
 			}
-			tempTile = map.getTile(pos);
-			if (tempTile instanceof Box) {
-				pg.add(PointGiver.Box);
-			} else if (tempTile instanceof Pillar) {
-				pg.add(PointGiver.Pillar);
+			tmpTile = map.getTile(pos);
+
+			if (tmpTile instanceof Destroyable) {
+				Destroyable destroyableTile = (Destroyable) tmpTile;
+				pg.add(destroyableTile.getPointGiver());
 			}
 		}
 		bombOwner.updatePlayerPoints(pg);
@@ -299,23 +297,31 @@ public class BombermanModel implements IBombermanModel {
 	 *            The list that contains the positions of where the fire is to
 	 *            be placed.
 	 */
-	private void setFire(Map<Position, Direction> directedFirePositions) {
+	private void setFire(Map<Position, Direction> directedFire) {
 		Map<Position, Tile> waitingTiles = new HashMap<Position, Tile>();
-		Iterator<Position> iterator = directedFirePositions.keySet().iterator();
-		Position firePos;
-		while (iterator.hasNext()) {
-			firePos = (Position) iterator.next();
-			waitingTiles.put(firePos, map.getTile(firePos).onFire());
-			map.setTile(new Fire(directedFirePositions.get(firePos)), firePos);
+
+		Set<Map.Entry<Position, Direction>> entries = directedFire.entrySet();
+		Iterator<Map.Entry<Position, Direction>> iter = entries.iterator();
+
+		while (iter.hasNext()) {
+			Map.Entry<Position, Direction> entry = iter.next();
+			Position pos = entry.getKey();
+			Direction direction = entry.getValue();
+
+			Tile currentTile = map.getTile(pos);
+			if (currentTile instanceof Destroyable) {
+
+				Destroyable destroyableTile = (Destroyable) currentTile;
+				Tile newTile = destroyableTile.onFire();
+				waitingTiles.put(pos, newTile);
+				map.setTile(new Fire(direction), pos);
+			}
 		}
-		/*
-		 * for (Position firePos : positions) { waitingTiles.put(firePos,
-		 * map.getTile(firePos).onFire()); map.setTile(new Fire(), firePos); }
-		 */
+
 		waitingFirePositions.addLast(waitingTiles);
 		Timer timer = new Timer();
-		timer.schedule(new FireTimerTask(),
-				Parameters.INSTANCE.getFireDuration());
+		int fireDuration = Parameters.INSTANCE.getFireDuration();
+		timer.schedule(new FireTimerTask(), fireDuration);
 	}
 
 	/**
@@ -414,4 +420,5 @@ public class BombermanModel implements IBombermanModel {
 	private boolean isPlayerAtPosition(Player player, Position pos) {
 		return player.getTilePosition().equals(pos);
 	}
+
 }

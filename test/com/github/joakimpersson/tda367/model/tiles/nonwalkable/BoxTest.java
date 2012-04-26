@@ -11,9 +11,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.joakimpersson.tda367.model.constants.Parameters;
+import com.github.joakimpersson.tda367.model.tiles.Destroyable;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
-import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Box;
 import com.github.joakimpersson.tda367.model.tiles.walkable.PowerupItem;
 
 /**
@@ -53,7 +53,7 @@ public class BoxTest {
 		for (int j = 0; j < max; j++) {
 			int k = 0;
 			for (int i = 0; i < 100; i++) {
-				Tile tile = new Box();
+				Destroyable tile = new Box();
 				Tile t = tile.onFire();
 				if (t instanceof PowerupItem) {
 					k++;

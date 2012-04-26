@@ -1,16 +1,16 @@
 package com.github.joakimpersson.tda367.model.tiles.bombs;
 
-import static com.github.joakimpersson.tda367.model.constants.Attribute.BombPower;
-import static com.github.joakimpersson.tda367.model.constants.Attribute.BombRange;
-
 import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 
+import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
+import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.player.Player;
+import com.github.joakimpersson.tda367.model.tiles.Destroyable;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
 import com.github.joakimpersson.tda367.model.utils.Position;
@@ -19,10 +19,10 @@ import com.github.joakimpersson.tda367.model.utils.Position;
  * This class defines a Bomb in the bomberman-like game.
  * 
  * @author rekoil
- * @modified Viktor Anderling
+ * @modified Viktor Anderling, Joakim Persson
  * 
  */
-public abstract class Bomb implements Tile {
+public abstract class Bomb implements Tile, Destroyable {
 
 	protected final int toughness, power;
 	protected int range; // TODO maybe do this differently so that it can also
@@ -45,8 +45,8 @@ public abstract class Bomb implements Tile {
 		this.pos = player.getTilePosition();
 		this.player = player;
 		this.toughness = 1; // TODO perhaps define this in Parameters?
-		this.range = player.getAttribute(BombRange);
-		this.power = player.getAttribute(BombPower);
+		this.range = player.getAttribute(Attribute.BombRange);
+		this.power = player.getAttribute(Attribute.BombPower);
 		this.timer = timer;
 		this.player.increaseBombsPlaced();
 	}
@@ -61,7 +61,11 @@ public abstract class Bomb implements Tile {
 	 * @return Whether the tile can be destroyed or not.
 	 */
 	protected boolean tryBreak(Tile tile, int power) {
-		return power >= tile.getToughness();
+		if (tile instanceof Destroyable) {
+			Destroyable tmp = (Destroyable)tile;
+			return power >= tmp.getToughness();
+		}
+		return false;
 	}
 
 	/**
@@ -73,10 +77,8 @@ public abstract class Bomb implements Tile {
 	 */
 	protected boolean validPos(Position firePos) {
 		Dimension d = Parameters.INSTANCE.getMapSize();
-		return firePos.getX() >= 0 
-				&& firePos.getX() < d.width 
-				&& firePos.getY() >= 0
-				&& firePos.getY() < d.height;
+		return firePos.getX() >= 0 && firePos.getX() < d.width
+				&& firePos.getY() >= 0 && firePos.getY() < d.height;
 	}
 
 	/**
@@ -120,16 +122,11 @@ public abstract class Bomb implements Tile {
 	public boolean isWalkable() {
 		return false;
 	}
-}
 
-//
-// int tryBreak(Position pos, int power, Tile tile) {
-// if (pos.getX()<0 || pos.getY()<0) {
-// return -1;
-// }
-// int toughness = tile.getToughness();
-// if (power >= toughness)
-// return toughness;
-// else
-// return -1;
-// }
+	@Override
+	public PointGiver getPointGiver() {
+		return PointGiver.Bomb;
+	}
+	
+	
+}

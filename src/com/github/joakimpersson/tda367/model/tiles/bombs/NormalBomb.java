@@ -1,16 +1,11 @@
 package com.github.joakimpersson.tda367.model.tiles.bombs;
 
-import static com.github.joakimpersson.tda367.model.constants.Direction.Down;
-import static com.github.joakimpersson.tda367.model.constants.Direction.Left;
-import static com.github.joakimpersson.tda367.model.constants.Direction.None;
-import static com.github.joakimpersson.tda367.model.constants.Direction.Right;
-import static com.github.joakimpersson.tda367.model.constants.Direction.Up;
-
 import java.util.Map;
 import java.util.Timer;
 
 import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.player.Player;
+import com.github.joakimpersson.tda367.model.tiles.Destroyable;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.utils.Position;
 
@@ -42,13 +37,13 @@ public class NormalBomb extends Bomb {
 	public Map<Position, Direction> explode(Tile[][] m) {
 		map = m;
 
-		directedFire(Up);
-		directedFire(Down);
-		directedFire(Left);
-		directedFire(Right);
+		directedFire(Direction.Up);
+		directedFire(Direction.Down);
+		directedFire(Direction.Left);
+		directedFire(Direction.Right);
 
 		// dont forget to add itself
-		fireList.put(pos, None);
+		fireList.put(pos, Direction.None);
 
 		removeFromPlayer();
 		return fireList;
@@ -72,13 +67,15 @@ public class NormalBomb extends Bomb {
 											// player can hit only directly
 											// adjacent tiles
 			if (firePower > 0) {
-				Position firePos = new Position(x + (dir.getX() * i), y + (dir.getY() * i));
+				Position firePos = new Position(x + (dir.getX() * i), y
+						+ (dir.getY() * i));
 
 				if (validPos(firePos)) {
 					Tile tile = map[firePos.getY()][firePos.getX()]; // inverted
 																		// >.<
 					if (tryBreak(tile, firePower)) {
-						firePower -= tile.getToughness();
+						Destroyable destroyableTile = (Destroyable) tile;
+						firePower -= destroyableTile.getToughness();
 						fireList.put(firePos, dir);
 					} else {
 						break; // fire stops directly
