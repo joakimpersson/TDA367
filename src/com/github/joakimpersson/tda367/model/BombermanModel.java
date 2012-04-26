@@ -1,5 +1,6 @@
 package com.github.joakimpersson.tda367.model;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -88,17 +89,12 @@ public class BombermanModel implements IBombermanModel {
 
 	private BombermanModel() {
 		this.pcs = new PropertyChangeSupport(this);
-		pcs.addPropertyChangeListener(AudioEventBus.getInstance());
 		this.players = new ArrayList<Player>();
 		// TODO natan perhaps instantiating the players somewhere else
 		players.add(new Player("Joakim", new Position(1, 1)));
 		players.add(new Player("kalle", new Position(13, 11)));
 		this.map = new GameMap();
 		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
-
-		// TODO this is not supposed to be here later.
-		pcs.firePropertyChange("play", null, SoundType.BattleBGM);
-
 	}
 
 	/**
@@ -109,6 +105,11 @@ public class BombermanModel implements IBombermanModel {
 			instance = new BombermanModel();
 		}
 		return instance;
+	}
+	
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener pcl) {
+		this.pcs.addPropertyChangeListener(pcl);
 	}
 
 	@Override

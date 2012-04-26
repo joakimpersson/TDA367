@@ -13,6 +13,7 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.state.transition.Transition;
 
+import com.github.joakimpersson.tda367.audio.AudioEventBus;
 import com.github.joakimpersson.tda367.controller.input.InputData;
 import com.github.joakimpersson.tda367.controller.input.InputManager;
 import com.github.joakimpersson.tda367.controller.input.KeyBoardInputHandler;
@@ -58,6 +59,7 @@ public class GameplayState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		model = BombermanModel.getInstance();
+		model.addPropertyChangeListener(AudioEventBus.getInstance());
 		view = new GameplayView();
 		players = model.getPlayers();
 		inputManager = InputManager.getInstance();

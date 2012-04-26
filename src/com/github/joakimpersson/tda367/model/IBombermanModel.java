@@ -1,7 +1,9 @@
 package com.github.joakimpersson.tda367.model;
 
+import java.beans.PropertyChangeListener;
 import java.util.List;
 
+import com.github.joakimpersson.tda367.audio.AudioEventBus;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.constants.ResetType;
@@ -91,4 +93,6 @@ public interface IBombermanModel {
 	 * @return True if the round is over and false otherwise
 	 */
 	public boolean isRoundOver();
+
+	public void addPropertyChangeListener(PropertyChangeListener pcl);
 }
