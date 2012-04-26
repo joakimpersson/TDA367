@@ -12,7 +12,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.github.joakimpersson.tda367.audio.AudioEventBus;
+import com.github.joakimpersson.tda367.audio.AudioEventListener;
 import com.github.joakimpersson.tda367.controller.input.InputHandler;
 import com.github.joakimpersson.tda367.controller.input.InputManager;
 import com.github.joakimpersson.tda367.controller.input.KeyBoardInputHandler;
@@ -60,7 +60,7 @@ public class SetupGameState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		this.pcs = new PropertyChangeSupport(this);
-		this.pcs.addPropertyChangeListener(AudioEventBus.getInstance());
+		this.pcs.addPropertyChangeListener(AudioEventListener.getInstance());
 		
 		model = BombermanModel.getInstance();
 		inputManager = InputManager.getInstance();

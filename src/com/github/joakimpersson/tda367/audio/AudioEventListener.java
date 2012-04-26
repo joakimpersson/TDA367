@@ -11,12 +11,12 @@ import com.github.joakimpersson.tda367.model.constants.EventType;
  * @author Viktor Anderling
  *
  */
-public class AudioEventBus implements PropertyChangeListener {
+public class AudioEventListener implements PropertyChangeListener {
 	
 	/**
 	 * This instance.
 	 */
-	private static AudioEventBus INSTANCE = null;
+	private static AudioEventListener INSTANCE = null;
 	
 	/**
 	 * The instance for the SoundHandler.
@@ -28,9 +28,9 @@ public class AudioEventBus implements PropertyChangeListener {
 	 * 
 	 * @return This instance.
 	 */
-	public static AudioEventBus getInstance() {
+	public static AudioEventListener getInstance() {
 		if(INSTANCE == null) {
-			INSTANCE = new AudioEventBus();
+			INSTANCE = new AudioEventListener();
 		}
 		return INSTANCE;
 	}

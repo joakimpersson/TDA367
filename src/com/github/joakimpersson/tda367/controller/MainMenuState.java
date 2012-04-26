@@ -9,7 +9,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.github.joakimpersson.tda367.audio.AudioEventBus;
+import com.github.joakimpersson.tda367.audio.AudioEventListener;
 import com.github.joakimpersson.tda367.gui.IView;
 import com.github.joakimpersson.tda367.gui.MainMenuView;
 import com.github.joakimpersson.tda367.model.constants.EventType;
@@ -42,7 +42,7 @@ public class MainMenuState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		this.pcs = new PropertyChangeSupport(this);
-		this.pcs.addPropertyChangeListener(AudioEventBus.getInstance());
+		this.pcs.addPropertyChangeListener(AudioEventListener.getInstance());
 		view = new MainMenuView();
 
 	}

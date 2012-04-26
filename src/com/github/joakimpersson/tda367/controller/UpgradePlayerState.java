@@ -13,7 +13,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.github.joakimpersson.tda367.audio.AudioEventBus;
+import com.github.joakimpersson.tda367.audio.AudioEventListener;
 import com.github.joakimpersson.tda367.controller.input.InputData;
 import com.github.joakimpersson.tda367.controller.input.InputManager;
 import com.github.joakimpersson.tda367.gui.IUpgradePlayerView;
@@ -61,7 +61,7 @@ public class UpgradePlayerState extends BasicGameState {
 		inputManager = InputManager.getInstance();
 		
 		this.pcs = new PropertyChangeSupport(this);
-		this.pcs.addPropertyChangeListener(AudioEventBus.getInstance());
+		this.pcs.addPropertyChangeListener(AudioEventListener.getInstance());
 
 		attributes = model.getPlayers().get(0).getPermanentAttributes();
 		playersIndex = new HashMap<Player, Integer>();
