@@ -92,11 +92,13 @@ public class SoundHandler {
 		if(sound instanceof SoundEffect) {
 			sound.play(sfxVolume);
 		} else {
-			if(playingMusic != null) {
-				playingMusic.stop();
+			if(!sound.equals(playingMusic)) {
+				if(playingMusic != null) {
+					playingMusic.stop();
+				}
+				sound.play(bgmVolume);
+				playingMusic = (BackgroundMusic) sound;
 			}
-			sound.play(bgmVolume);
-			playingMusic = (BackgroundMusic) sound;
 		}	
 	}
 	
