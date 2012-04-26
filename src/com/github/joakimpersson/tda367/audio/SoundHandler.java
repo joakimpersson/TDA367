@@ -80,6 +80,7 @@ public class SoundHandler {
 	 * This method plays the sound that corresponds to the given SoundType.
 	 * If a BackgroundMusic is previously playing, it will stop playing
 	 * before the next will start.
+	 * If a the same backgroundMusic is playing 
 	 * 
 	 * @param soundType The given SoundType.
 	 */
@@ -88,7 +89,7 @@ public class SoundHandler {
 		if(sound instanceof SoundEffect) {
 			sound.play(sfxVolume);
 		} else {
-			if(!sound.equals(playingMusic)) {
+			if(sound != playingMusic) {
 				if(playingMusic != null) {
 					playingMusic.stop();
 				}

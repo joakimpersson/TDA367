@@ -1,6 +1,7 @@
 package com.github.joakimpersson.tda367.controller;
 
 import java.awt.Dimension;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.github.joakimpersson.tda367.audio.AudioEventBus;
 import com.github.joakimpersson.tda367.controller.input.InputHandler;
 import com.github.joakimpersson.tda367.controller.input.InputManager;
 import com.github.joakimpersson.tda367.controller.input.KeyBoardInputHandler;
@@ -18,6 +20,7 @@ import com.github.joakimpersson.tda367.controller.input.X360InputHandler;
 import com.github.joakimpersson.tda367.gui.SetupGameView;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
+import com.github.joakimpersson.tda367.model.constants.EventType;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.utils.Position;
@@ -38,14 +41,27 @@ public class SetupGameState extends BasicGameState {
 	private List<Player> playerList;
 	private List<String> controllersBound;
 	private InputManager inputManager = null;
+	private PropertyChangeSupport pcs;
 
 	public SetupGameState(int stateID) {
 		this.stateID = stateID;
 	}
 
 	@Override
+	public void enter(GameContainer container, StateBasedGame game)
+			throws SlickException {
+		super.enter(container, game);
+		
+		pcs.firePropertyChange("play", null, EventType.TITLE_SCREEN);
+		
+	}
+	
+	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
+		this.pcs = new PropertyChangeSupport(this);
+		this.pcs.addPropertyChangeListener(AudioEventBus.getInstance());
+		
 		model = BombermanModel.getInstance();
 		inputManager = InputManager.getInstance();
 		playerList = model.getPlayers();

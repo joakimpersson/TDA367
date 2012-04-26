@@ -1,5 +1,6 @@
 package com.github.joakimpersson.tda367.controller;
 
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.github.joakimpersson.tda367.audio.AudioEventBus;
 import com.github.joakimpersson.tda367.controller.input.InputData;
 import com.github.joakimpersson.tda367.controller.input.InputManager;
 import com.github.joakimpersson.tda367.gui.IUpgradePlayerView;
@@ -19,6 +21,7 @@ import com.github.joakimpersson.tda367.gui.UpgradePlayerView;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
+import com.github.joakimpersson.tda367.model.constants.EventType;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.player.Player;
 
@@ -35,17 +38,30 @@ public class UpgradePlayerState extends BasicGameState {
 	private Map<Player, Integer> playersIndex = null;
 	private List<Attribute> attributes = null;
 	private InputManager inputManager = null;
+	private PropertyChangeSupport pcs;
 
 	public UpgradePlayerState(int stateID) {
 		this.stateID = stateID;
 	}
 
 	@Override
+	public void enter(GameContainer container, StateBasedGame game)
+			throws SlickException {
+		super.enter(container, game);
+		
+		pcs.firePropertyChange("play", null, EventType.TITLE_SCREEN);
+		
+	}
+	
+	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		view = new UpgradePlayerView();
 		model = BombermanModel.getInstance();
 		inputManager = InputManager.getInstance();
+		
+		this.pcs = new PropertyChangeSupport(this);
+		this.pcs.addPropertyChangeListener(AudioEventBus.getInstance());
 
 		attributes = model.getPlayers().get(0).getPermanentAttributes();
 		playersIndex = new HashMap<Player, Integer>();

@@ -1,5 +1,6 @@
 package com.github.joakimpersson.tda367.controller;
 
+import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 import org.newdawn.slick.Color;
@@ -20,6 +21,7 @@ import com.github.joakimpersson.tda367.controller.input.KeyBoardInputHandler;
 import com.github.joakimpersson.tda367.gui.GameplayView;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
+import com.github.joakimpersson.tda367.model.constants.EventType;
 import com.github.joakimpersson.tda367.model.constants.ResetType;
 import com.github.joakimpersson.tda367.model.player.Player;
 
@@ -35,6 +37,7 @@ public class GameplayState extends BasicGameState {
 	private GameplayView view = null;
 	private STATE currentState = null;
 	private InputManager inputManager = null;
+	private PropertyChangeSupport pcs;
 
 	private List<Player> players = null;
 
@@ -50,7 +53,8 @@ public class GameplayState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		super.enter(container, game);
-
+		
+		pcs.firePropertyChange("play", null, EventType.BATTLE_SCREEN);
 		currentState = STATE.GAME_RUNNING;
 
 	}
@@ -58,11 +62,17 @@ public class GameplayState extends BasicGameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
+		pcs = new PropertyChangeSupport(this);
+		AudioEventBus audioEL = AudioEventBus.getInstance();
+		pcs.addPropertyChangeListener(audioEL);
 		model = BombermanModel.getInstance();
-		model.addPropertyChangeListener(AudioEventBus.getInstance());
+		
+		// TODO maybe models listener should be added in the class where get instance is first called?
+		model.addPropertyChangeListener(audioEL);
 		view = new GameplayView();
 		players = model.getPlayers();
 		inputManager = InputManager.getInstance();
+
 		// TODO should be init in setupgamestate
 		int id = 0;
 		for (Player p : players) {
