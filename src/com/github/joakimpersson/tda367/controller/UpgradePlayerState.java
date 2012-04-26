@@ -1,7 +1,6 @@
 package com.github.joakimpersson.tda367.controller;
 
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +45,7 @@ public class UpgradePlayerState extends BasicGameState {
 	private STATES currentState;
 
 	private enum STATES {
-		USED, NOT_USED;
+		USED, UPGRADE_DONE, NOT_USED;
 	}
 
 	public UpgradePlayerState(int stateID) {
@@ -91,53 +90,69 @@ public class UpgradePlayerState extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-		if (currentState == STATES.USED) {
-			Input input = container.getInput();
+		Input input = container.getInput();
+		// TODO jocke only used during development
+		if (input.isKeyDown(Input.KEY_ESCAPE)) {
+			container.exit();
+		}
 
-			// TODO jocke only used during development
-			if (input.isKeyDown(Input.KEY_ESCAPE)) {
-				container.exit();
-			}
+		switch (currentState) {
 
-			if (inputManager.pressedProceed(input)) {
-				Transition fadeIn = new FadeInTransition(Color.cyan, 500);
-				Transition fadeOut = new FadeOutTransition(Color.cyan, 500);
-				game.enterState(BombermanGame.GAMEPLAY_STATE, fadeOut, fadeIn);
-				currentState = STATES.NOT_USED;
-			}
+		case USED:
+			updateGame(container.getInput());
+			break;
+		case UPGRADE_DONE:
+			upgradeDone(game);
+			break;
+		case NOT_USED:
+			// do nothing
+			break;
+		default:
+			// should not happen
+			break;
+		}
+	}
 
-			// TODO change location
-			List<PlayerAction> actions = new ArrayList<PlayerAction>();
-			actions.add(PlayerAction.MoveUp);
-			actions.add(PlayerAction.MoveDown);
-			actions.add(PlayerAction.Action);
-			List<InputData> data = inputManager.getData(input, actions);
+	private void upgradeDone(StateBasedGame game) {
+		Transition fadeIn = new FadeInTransition(Color.cyan, 500);
+		Transition fadeOut = new FadeOutTransition(Color.cyan, 500);
+		game.enterState(BombermanGame.GAMEPLAY_STATE, fadeOut, fadeIn);
+		currentState = STATES.NOT_USED;
 
-			for (InputData d : data) {
-				PlayerAction action = d.getAction();
-				Player p = d.getPlayer();
-				switch (action) {
-				case MoveUp:
-					moveIndex(p, -1);
-					break;
-				case MoveDown:
-					moveIndex(p, 1);
-					break;
-				case Action:
-					model.upgradePlayer(p, attributes.get(playersIndex.get(p)));
-					break;
-				default:
-					break;
-				}
-			}
+	}
 
-			// jocke TODO really bad solution
-			try {
-				Thread.sleep(80);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+	private void updateGame(Input input) {
+		List<InputData> data = inputManager.getData(input);
+
+		for (InputData d : data) {
+			PlayerAction action = d.getAction();
+			Player p = d.getPlayer();
+			switch (action) {
+			case MoveUp:
+				moveIndex(p, -1);
+				break;
+			case MoveDown:
+				moveIndex(p, 1);
+				break;
+			case Action:
+				model.upgradePlayer(p, attributes.get(playersIndex.get(p)));
+				break;
+			default:
+				break;
 			}
 		}
+
+		if (inputManager.pressedProceed(input)) {
+			currentState = STATES.UPGRADE_DONE;
+		}
+
+		// jocke TODO really bad solution
+		try {
+			Thread.sleep(80);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	private void moveIndex(Player p, int delta) {
