@@ -90,7 +90,7 @@ public class BombermanModel implements IBombermanModel {
 	private BombermanModel() {
 		this.pcs = new PropertyChangeSupport(this);
 		this.players = new ArrayList<Player>();
-		// TODO natan perhaps instantiating the players somewhere else
+		// TODO players should be created in setupgamestate
 		players.add(new Player("Joakim", new Position(1, 1)));
 		players.add(new Player("kalle", new Position(13, 11)));
 		this.map = new GameMap();

@@ -86,8 +86,7 @@ public class AreaBombTest {
 		expectedPositions.add(new Position(4, 2));
 		expectedPositions.add(new Position(4, 1));
 		expectedPositions.add(new Position(4, 3));
-		List<Position> actualPositions = new ArrayList(bomb.explode(map)
-				.keySet());
+		List<Position> actualPositions = new ArrayList(bomb.explode(map).keySet());
 
 		// TODO Fix the test for the new returntype: Map<Position, Direction>.
 

@@ -1,14 +1,12 @@
 package com.github.joakimpersson.tda367.model.tiles.bombs;
 
-import java.awt.Dimension;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Timer;
-
 import static com.github.joakimpersson.tda367.model.constants.Attribute.BombPower;
 import static com.github.joakimpersson.tda367.model.constants.Attribute.BombRange;
+
+import java.awt.Dimension;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Timer;
 
 import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.constants.Parameters;

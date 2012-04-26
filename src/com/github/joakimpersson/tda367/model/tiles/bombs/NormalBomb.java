@@ -1,13 +1,15 @@
 package com.github.joakimpersson.tda367.model.tiles.bombs;
 
-import java.util.List;
+import static com.github.joakimpersson.tda367.model.constants.Direction.Down;
+import static com.github.joakimpersson.tda367.model.constants.Direction.Left;
+import static com.github.joakimpersson.tda367.model.constants.Direction.None;
+import static com.github.joakimpersson.tda367.model.constants.Direction.Right;
+import static com.github.joakimpersson.tda367.model.constants.Direction.Up;
+
 import java.util.Map;
 import java.util.Timer;
 
-import static com.github.joakimpersson.tda367.model.constants.Direction.*;
-
 import com.github.joakimpersson.tda367.model.constants.Direction;
-import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.utils.Position;
