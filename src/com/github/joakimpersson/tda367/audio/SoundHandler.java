@@ -7,6 +7,7 @@ import java.util.List;
 import org.lwjgl.openal.AL;
 import org.newdawn.slick.SlickException;
 
+import com.github.joakimpersson.tda367.model.constants.EventType;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 
 /**

@@ -3,6 +3,8 @@ package com.github.joakimpersson.tda367.audio;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import com.github.joakimpersson.tda367.model.constants.EventType;
+
 /**
  * This singleton class handles events that controls the audio.
  * 
