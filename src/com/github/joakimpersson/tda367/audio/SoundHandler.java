@@ -1,9 +1,5 @@
 package com.github.joakimpersson.tda367.audio;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.lwjgl.openal.AL;
 import org.newdawn.slick.SlickException;
 
