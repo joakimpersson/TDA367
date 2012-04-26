@@ -91,8 +91,8 @@ public class BombermanModel implements IBombermanModel {
 		this.pcs = new PropertyChangeSupport(this);
 		this.players = new ArrayList<Player>();
 		// TODO players should be created in setupgamestate
-		players.add(new Player("Joakim", new Position(1, 1)));
-		players.add(new Player("kalle", new Position(13, 11)));
+		players.add(new Player("Joakim", new Position(14, 12)));
+		players.add(new Player("kalle", new Position(14, 12)));
 		this.map = new GameMap();
 		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
 	}

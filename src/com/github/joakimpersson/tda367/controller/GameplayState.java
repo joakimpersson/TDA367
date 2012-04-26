@@ -17,13 +17,11 @@ import org.newdawn.slick.state.transition.Transition;
 import com.github.joakimpersson.tda367.audio.AudioEventBus;
 import com.github.joakimpersson.tda367.controller.input.InputData;
 import com.github.joakimpersson.tda367.controller.input.InputManager;
-import com.github.joakimpersson.tda367.controller.input.KeyBoardInputHandler;
 import com.github.joakimpersson.tda367.gui.GameplayView;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.constants.EventType;
 import com.github.joakimpersson.tda367.model.constants.ResetType;
-import com.github.joakimpersson.tda367.model.player.Player;
 
 /**
  * 
@@ -38,8 +36,6 @@ public class GameplayState extends BasicGameState {
 	private STATE currentState = null;
 	private InputManager inputManager = null;
 	private PropertyChangeSupport pcs;
-
-	private List<Player> players = null;
 
 	private enum STATE {
 		GAME_RUNNING, ROUND_OVER, MATCH_OVER, GAME_OVER, NOT_STARTED;
@@ -70,16 +66,7 @@ public class GameplayState extends BasicGameState {
 		// TODO maybe models listener should be added in the class where get instance is first called?
 		model.addPropertyChangeListener(audioEL);
 		view = new GameplayView();
-		players = model.getPlayers();
 		inputManager = InputManager.getInstance();
-
-		// TODO should be init in setupgamestate
-		int id = 0;
-		for (Player p : players) {
-			KeyBoardInputHandler inputHandler = new KeyBoardInputHandler(p, id);
-			inputManager.addInputObject(inputHandler);
-			id++;
-		}
 
 		currentState = STATE.NOT_STARTED;
 	}
