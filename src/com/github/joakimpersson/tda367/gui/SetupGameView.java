@@ -28,8 +28,8 @@ public class SetupGameView {
 
 	public SetupGameView(int possiblePlayers, GameContainer container) {
 		try {
-			bigFont = new AngelCodeFont("res/minecraft_big.fnt", "res/minecraft_big.tga");
-			smlFont = new AngelCodeFont("res/minecraft_sml.fnt", "res/minecraft_sml.tga");
+			bigFont = new AngelCodeFont("res/fonts/minecraft_big.fnt", "res/fonts/minecraft_big.tga");
+			smlFont = new AngelCodeFont("res/fonts/minecraft_sml.fnt", "res/fonts/minecraft_sml.tga");
 //			font = new UnicodeFont("res/minecraft.ttf", 30, false, false);
 //			font.getEffects().add(new ColorEffect(java.awt.Color.white));
 //			font.addNeheGlyphs();
