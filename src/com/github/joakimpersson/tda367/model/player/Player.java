@@ -295,7 +295,7 @@ public class Player {
 
 	/**
 	 * Get the players current status whether is has been hit by an exploded
-	 * bimb or not
+	 * bomb or not
 	 * 
 	 * @return Whether the players has recently been hit by a bomb
 	 */
@@ -303,14 +303,25 @@ public class Player {
 		return justHit;
 	}
 
+	/**
+	 * Returns the amount of certain destroyed PointGiver type by this player.
+	 * 
+	 * @param type
+	 *            type of PointGiver tile
+	 * @return The number of destroyed tile type in PointGiver
+	 */
+	public int getDestroyedPointGiver(PointGiver type) {
+		return points.getDestroyedPointGiver(type);
+	}
+
 	public void killPlayer() {
 		this.health = 0;
 	}
-	
+
 	public String getImageString() {
-		if (facingDirection.equals(Direction.EAST) 
+		if (facingDirection.equals(Direction.EAST)
 				|| facingDirection.equals(Direction.WEST)) {
-			return "player/still-"+facingDirection;
+			return "player/still-" + facingDirection;
 		} else {
 			return "player/still-east";
 		}
