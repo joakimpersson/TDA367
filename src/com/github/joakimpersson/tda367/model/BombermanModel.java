@@ -48,19 +48,9 @@ public class BombermanModel implements IBombermanModel {
 	private LinkedList<Map<Position, Tile>> waitingFirePositions;
 	private PropertyChangeSupport pcs;
 
-	/*
-	 * This list contains, in the order of each explosion, what is supposed to
-	 * be at the positions when the fire of that explosion is to be removed.
-	 */
-
 	private BombermanModel() {
 		this.pcs = new PropertyChangeSupport(this);
 		this.players = new ArrayList<Player>();
-		// TODO players should be created in setupgamestate
-		players.add(new Player("Joakim", new Position(14, 12)));
-		players.add(new Player("kalle", new Position(14, 12)));
-		players.get(0).killPlayer();
-		players.get(1).killPlayer();
 		this.map = new GameMap();
 		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
 	}
@@ -256,7 +246,7 @@ public class BombermanModel implements IBombermanModel {
 					Bomb bomb = (Bomb) tmpTile;
 					Player p = bomb.getPlayer();
 					if (!bombOwner.equals(p)) {
-						//TODO jocke really bad code...
+						// TODO jocke really bad code...
 						Destroyable destroyableTile = (Destroyable) tmpTile;
 
 						pg.add(destroyableTile.getPointGiver());
