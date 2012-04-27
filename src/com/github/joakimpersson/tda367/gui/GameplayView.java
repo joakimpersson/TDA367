@@ -25,6 +25,12 @@ public class GameplayView implements IView {
 		roundInfoView = new RoundInfoView();
 	}
 
+	public void enter() {
+		infoContainer.enter();
+		gameFieldView.enter();
+		roundInfoView.enter();
+	}
+
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {

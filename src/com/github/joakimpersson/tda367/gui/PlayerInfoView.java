@@ -40,15 +40,19 @@ public class PlayerInfoView implements IView {
 	}
 
 	@Override
+	public void enter() {
+	}
+
+	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
 		int y = startY;
-		
+
 		g.setColor(Color.black);
 		g.drawRect(startX, y, width, height);
 
 		y += yDelta;
-		
+
 		g.setColor(Color.white);
 		g.drawString(player.getName(), X, y);
 
@@ -77,8 +81,9 @@ public class PlayerInfoView implements IView {
 			g.drawString(str.toString(), X, y);
 			y += yDelta;
 		}
-		
-		String availableBombsStr = "Nbr Of Bombs: " + player.getBombsAvailable();
+
+		String availableBombsStr = "Nbr Of Bombs: "
+				+ player.getBombsAvailable();
 		g.drawString(availableBombsStr, X, y);
 
 	}

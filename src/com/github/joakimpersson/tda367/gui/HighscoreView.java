@@ -12,7 +12,12 @@ public class HighscoreView implements IView {
 
 	private void init() {
 	}
-
+	
+	@Override
+	public void enter() {
+		
+	}
+	
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {

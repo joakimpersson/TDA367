@@ -26,9 +26,13 @@ public class RoundInfoView implements IView {
 	}
 
 	private void init() {
+		model = BombermanModel.getInstance();
+	}
+	
+	@Override
+	public void enter() {
 		startX = GUIParameters.INSTANCE.getGameWidth() / 2 - width / 2;
 		startY = GUIParameters.INSTANCE.getGameHeight() / 2 - height / 2;
-		model = BombermanModel.getInstance();
 		players = model.getPlayers();
 	}
 

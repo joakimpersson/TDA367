@@ -32,6 +32,10 @@ public class PlayerInfoContainerView implements IView {
 
 	private void init() {
 		model = BombermanModel.getInstance();
+	}
+
+	@Override
+	public void enter() {
 		playersInfo = new ArrayList<PlayerInfoView>();
 		List<Player> players = model.getPlayers();
 		int panelHeight = GUIParameters.INSTANCE.getGameHeight()
@@ -44,7 +48,6 @@ public class PlayerInfoContainerView implements IView {
 			playersInfo.add(view);
 			y += panelHeight;
 		}
-
 	}
 
 	@Override

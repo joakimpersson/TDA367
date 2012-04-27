@@ -19,7 +19,6 @@ import org.newdawn.slick.state.transition.Transition;
 import com.github.joakimpersson.tda367.audio.AudioEventListener;
 import com.github.joakimpersson.tda367.controller.input.InputData;
 import com.github.joakimpersson.tda367.controller.input.InputManager;
-import com.github.joakimpersson.tda367.gui.IUpgradePlayerView;
 import com.github.joakimpersson.tda367.gui.UpgradePlayerView;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
@@ -36,7 +35,7 @@ import com.github.joakimpersson.tda367.model.player.Player;
 public class UpgradePlayerState extends BasicGameState {
 
 	private int stateID = -1;
-	private IUpgradePlayerView view = null;
+	private UpgradePlayerView view = null;
 	private IBombermanModel model = null;
 	private Map<Player, Integer> playersIndex = null;
 	private List<Attribute> attributes = null;
@@ -76,6 +75,7 @@ public class UpgradePlayerState extends BasicGameState {
 		for (Player p : model.getPlayers()) {
 			playersIndex.put(p, 0);
 		}
+		view.enter();
 		currentState = STATES.USED;
 	}
 

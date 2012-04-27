@@ -46,16 +46,6 @@ public class GameplayState extends BasicGameState {
 	}
 
 	@Override
-	public void enter(GameContainer container, StateBasedGame game)
-			throws SlickException {
-		super.enter(container, game);
-
-		pcs.firePropertyChange("play", null, EventType.BATTLE_SCREEN);
-		currentState = STATE.GAME_RUNNING;
-
-	}
-
-	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		pcs = new PropertyChangeSupport(this);
@@ -70,6 +60,16 @@ public class GameplayState extends BasicGameState {
 		inputManager = InputManager.getInstance();
 
 		currentState = STATE.NOT_STARTED;
+	}
+
+	@Override
+	public void enter(GameContainer container, StateBasedGame game)
+			throws SlickException {
+		super.enter(container, game);
+
+		pcs.firePropertyChange("play", null, EventType.BATTLE_SCREEN);
+		currentState = STATE.GAME_RUNNING;
+		view.enter();
 	}
 
 	@Override

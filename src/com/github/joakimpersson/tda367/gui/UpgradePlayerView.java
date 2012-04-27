@@ -22,7 +22,7 @@ public class UpgradePlayerView implements IUpgradePlayerView {
 	private List<Player> players = null;
 	private List<UpgradePlayerPanelView> playerViews = null;
 	private static final int POS_Y = 50;
-	private static final int POS_X = 125;
+	private static final int POS_X = 50;
 
 	public UpgradePlayerView() {
 		init();
@@ -30,9 +30,11 @@ public class UpgradePlayerView implements IUpgradePlayerView {
 
 	private void init() {
 		model = BombermanModel.getInstance();
+	}
+
+	public void enter() {
 		players = model.getPlayers();
 		playerViews = new ArrayList<UpgradePlayerPanelView>();
-
 		int xDelta = GUIParameters.INSTANCE.getGameWidth() / players.size();
 		int x = POS_X;
 

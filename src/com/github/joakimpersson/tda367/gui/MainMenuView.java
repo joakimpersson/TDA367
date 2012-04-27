@@ -20,6 +20,11 @@ public class MainMenuView implements IView {
 	}
 
 	@Override
+	public void enter() {
+		
+	}
+	
+	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
 		// TODO only used during developing

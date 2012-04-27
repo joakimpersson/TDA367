@@ -12,4 +12,6 @@ import org.newdawn.slick.SlickException;
 public interface IView {
 	public void render(GameContainer container, Graphics g)
 			throws SlickException;
+	
+	public void enter();
 }

@@ -38,6 +38,10 @@ public class GameFieldView implements IView {
 
 	private void init() {
 		model = BombermanModel.getInstance();
+	}
+
+	@Override
+	public void enter() {
 		this.players = model.getPlayers();
 		this.imgs = ImageLoader.getInstance();
 	}
