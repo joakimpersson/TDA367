@@ -131,7 +131,8 @@ public class BombermanModel implements IBombermanModel {
 	private void move(Player player, Direction direction) {
 		Position prevPos = player.getTilePosition();
 		Tile tileAtDirection = map.getTile(new Position(prevPos.getX()
-				+ (int)direction.getX(), prevPos.getY() + (int)direction.getY()));
+				+ (int) direction.getX(), prevPos.getY()
+				+ (int) direction.getY()));
 		// The tile that the player may walk into.
 
 		if (tileAtDirection.isWalkable()) {
@@ -186,8 +187,7 @@ public class BombermanModel implements IBombermanModel {
 					Parameters.INSTANCE.getBombDetonationTime());
 
 			map.setTile(bomb, player.getTilePosition());
-			
-			
+
 			pcs.firePropertyChange("play", null, EventType.BOMB_PLACED);
 		}
 	}
@@ -239,10 +239,11 @@ public class BombermanModel implements IBombermanModel {
 			// Converting positions into PointGivers
 			for (Player player : players) {
 				if (isPlayerAtPosition(player, pos) && !player.isImmortal()
-						&& player.isAlive()) {
-					pg.add(PointGiver.PlayerHit);
-					player.playerHit();
-					if (!player.isAlive()) {
+						&& !bombOwner.equals(player)) {
+					if (player.isAlive()) {
+						pg.add(PointGiver.PlayerHit);
+						player.playerHit();
+					} else {
 						pg.add(PointGiver.KillPlayer);
 					}
 				}
@@ -250,8 +251,22 @@ public class BombermanModel implements IBombermanModel {
 
 			tmpTile = map.getTile(pos);
 			if (tmpTile instanceof Destroyable) {
-				Destroyable destroyableTile = (Destroyable) tmpTile;
-				pg.add(destroyableTile.getPointGiver());
+
+				if (tmpTile instanceof Bomb) {
+					Bomb bomb = (Bomb) tmpTile;
+					Player p = bomb.getPlayer();
+					if (!bombOwner.equals(p)) {
+						//TODO jocke really bad code...
+						Destroyable destroyableTile = (Destroyable) tmpTile;
+
+						pg.add(destroyableTile.getPointGiver());
+					}
+				} else {
+
+					Destroyable destroyableTile = (Destroyable) tmpTile;
+
+					pg.add(destroyableTile.getPointGiver());
+				}
 			}
 		}
 		bombOwner.updatePlayerPoints(pg);
