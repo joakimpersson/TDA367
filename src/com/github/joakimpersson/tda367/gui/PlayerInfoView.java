@@ -66,7 +66,7 @@ public class PlayerInfoView implements IView {
 
 		int hp = player.getHealth();
 
-		g.drawString("Life: " + hp, X, y);
+		g.drawString("Lives: " + hp, X, y);
 
 		y += yDelta;
 
@@ -75,16 +75,16 @@ public class PlayerInfoView implements IView {
 
 		for (Attribute a : playerAttrs) {
 			StringBuffer str = new StringBuffer();
-			str.append(a.name());
+			str.append(a.getName());
 			str.append(": ");
 			str.append(player.getAttribute(a));
 			g.drawString(str.toString(), X, y);
 			y += yDelta;
 		}
 
-		String availableBombsStr = "Nbr Of Bombs: "
-				+ player.getBombsAvailable();
-		g.drawString(availableBombsStr, X, y);
+//		String availableBombsStr = "Nbr Of Bombs: "
+//				+ player.getBombsAvailable();
+//		g.drawString(availableBombsStr, X, y);
 
 	}
 }

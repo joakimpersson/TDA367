@@ -6,16 +6,26 @@ package com.github.joakimpersson.tda367.model.constants;
  * 
  */
 public enum Attribute {
-	Speed(100), Health(100), BombRange(100), BombStack(100), BombPower(100), BombType(
-			100);
+	Speed(100, "Speed"), 
+	Health(100, "Health"), 
+	BombRange(100, "Bomb range"), 
+	BombStack(100, "Bomb stack"), 
+	BombPower(100, "Bomb power"), 
+	BombType(100, "Bomb type");
 
 	private int cost;
+	private String name;
 
-	Attribute(int cost) {
+	Attribute(int cost, String name) {
 		this.cost = cost;
+		this.name = name;
 	}
 
 	public int getCost() {
 		return cost;
+	}
+
+	public String getName() {
+		return name;
 	}
 }
