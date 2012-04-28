@@ -107,7 +107,6 @@ public class SetupGameState extends BasicGameState {
 				players = selection;
 				view.startPlayerCreation(players);
 				stage++;
-				// TODO to be handled by global input
 			} else if (stage == 1 && view.nameFilledIn()) {
 				createPlayer(view.getName(), view.getIndex());
 				view.playerCreated();
@@ -131,12 +130,7 @@ public class SetupGameState extends BasicGameState {
 
 	private void assignPlayer(String controllerUsed, int i) {
 		inputManager.addInputObject(controllerFactory(
-				playerList.get(i - 1 + 2), controllerUsed));
-		// TODO next line is the correct one once players are no longer created
-		// by model
-		// inputManager.addInputObject(controllerFactory(playerList.get(i-1),
-		// controllerUsed));
-
+				playerList.get(i - 1), controllerUsed));
 	}
 
 	private boolean validProceed(Input input) {
@@ -207,9 +201,7 @@ public class SetupGameState extends BasicGameState {
 	}
 
 	private boolean allPlayersCreated() {
-		// TODO actually use these players instead of those in bomberman
-		// return playerList.size() == players;
-		return playerList.size() == players + 2;
+		return playerList.size() == players;
 	}
 
 	private void moveIndex(int delta) {
