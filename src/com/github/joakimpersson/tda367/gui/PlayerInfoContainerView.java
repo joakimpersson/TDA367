@@ -53,7 +53,7 @@ public class PlayerInfoContainerView implements IView {
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
-		g.setColor(Color.pink);
+		g.setColor(Color.black);
 		g.fillRect(startX, startY, panelWidth, container.getHeight());
 		for (PlayerInfoView view : playersInfo) {
 			view.render(container, g);
