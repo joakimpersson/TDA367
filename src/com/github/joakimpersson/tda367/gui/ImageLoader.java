@@ -54,8 +54,8 @@ public class ImageLoader {
 		loadImage("fire-area", "fire-mid");
 		loadImage("bomb-area");
 		loadImage("bomb");
-		loadImage("rangeUpItem", "bomb");
-		loadImage("speedUpItem", "bomb");
+		loadImage("rangeUpItem");
+		loadImage("speedUpItem");
 		loadImage("bombUpItem");
 
 		// TODO Rolén set the right name to the pics
@@ -67,6 +67,7 @@ public class ImageLoader {
 		// loadImage("player-still-down");
 		 loadImage("player/still-east");
 		 loadImage("player/still-west");
+		 loadImage("player/still-vert");
 	}
 
 	public static ImageLoader getInstance() {

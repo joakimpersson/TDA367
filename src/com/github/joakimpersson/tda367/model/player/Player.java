@@ -323,7 +323,7 @@ public class Player {
 				|| facingDirection.equals(Direction.WEST)) {
 			return "player/still-" + facingDirection;
 		} else {
-			return "player/still-east";
+			return "player/still-vert";
 		}
 	}
 
