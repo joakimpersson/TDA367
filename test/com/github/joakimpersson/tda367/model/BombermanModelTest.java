@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.joakimpersson.tda367.model.player.Player;
+import com.github.joakimpersson.tda367.model.utils.Position;
 
 public class BombermanModelTest {
 
@@ -17,6 +18,9 @@ public class BombermanModelTest {
 	@Before
 	public void setUp() throws Exception {
 		model = BombermanModel.getInstance();
+		List<Player> players = model.getPlayers();
+		players.add(new Player("testPlayer1", new Position(1, 1)));
+		players.add(new Player("testPlayer2", new Position(1, 2)));
 	}
 
 	@Test
@@ -30,11 +34,16 @@ public class BombermanModelTest {
 		List<Player> playerList = model.getPlayers();
 		for(Player p : playerList) {
 			p.playerHit();
+			p.setImmortality(false);
 			p.playerHit();
 		}
 		test2 = model.isRoundOver();
 		
-		playerList.get(0).playerHit();
+		for(int i = 1; i < playerList.size(); i++) {
+			Player p = playerList.get(i);
+			p.setImmortality(false);
+			p.playerHit();
+		}
 		test3 = model.isRoundOver();
 
 		assertTrue(!test1 && !test2 && test3);
@@ -67,6 +76,8 @@ public class BombermanModelTest {
 	
 	@After
 	public void tearDown() throws Exception {
+		List<Player> players = model.getPlayers();
+		players.clear();
 		model = null;
 	}
 }
