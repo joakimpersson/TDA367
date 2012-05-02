@@ -9,7 +9,7 @@ import org.newdawn.slick.SlickException;
  * @author Viktor Anderling
  *
  */
-public class SoundEffect extends IGameSound {
+public class SoundEffect extends GameSound {
 
 	public SoundEffect(String path, float initVolume) throws SlickException {
 		super(path, initVolume);

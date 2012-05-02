@@ -86,7 +86,7 @@ public class SoundHandler {
 	 * @param soundType The given SoundType.
 	 */
 	public void playSound(EventType soundType) {
-		IGameSound sound = chooseSound(soundType);
+		GameSound sound = chooseSound(soundType);
 		if(sound instanceof SoundEffect) {
 			sound.play(sfxVolume);
 		} else {
@@ -136,7 +136,7 @@ public class SoundHandler {
 	 * @param soundType
 	 * @return The IGameSound that corresponds to the given SoundType.
 	 */
-	private IGameSound chooseSound(EventType soundType) {
+	private GameSound chooseSound(EventType soundType) {
 		switch(soundType) {
 		case BOMB_PLACED:
 			return bombPlaced;

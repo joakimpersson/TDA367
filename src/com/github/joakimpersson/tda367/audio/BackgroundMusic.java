@@ -9,7 +9,7 @@ import org.newdawn.slick.SlickException;
  * @author Viktor Anderling
  *
  */
-public class BackgroundMusic extends IGameSound {
+public class BackgroundMusic extends GameSound {
 
 	public BackgroundMusic(String path, float initVolume) throws SlickException {
 		super(path, initVolume);
