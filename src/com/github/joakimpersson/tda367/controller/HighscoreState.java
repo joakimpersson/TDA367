@@ -58,7 +58,7 @@ public class HighscoreState extends BasicGameState {
 		if (input.isKeyDown(Input.KEY_ESCAPE)) {
 			container.exit();
 		}
-		pcs.firePropertyChange("play", null, EventType.MENU_CLICKED);
+		
 	}
 
 	@Override

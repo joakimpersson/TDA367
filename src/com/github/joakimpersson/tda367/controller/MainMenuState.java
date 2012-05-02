@@ -28,16 +28,16 @@ public class MainMenuState extends BasicGameState {
 	public MainMenuState(int stateID) {
 		this.stateID = stateID;
 	}
-	
+
 	@Override
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		super.enter(container, game);
-		
+
 		pcs.firePropertyChange("play", null, EventType.TITLE_SCREEN);
-		
+
 	}
-	
+
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
@@ -68,7 +68,6 @@ public class MainMenuState extends BasicGameState {
 		if (input.isKeyDown(Input.KEY_G)) {
 			pcs.firePropertyChange("play", null, EventType.MENU_CLICKED);
 			game.enterState(BombermanGame.SETUP_GAME_STATE);
-			// game.enterState(BombermanGame.GAMEPLAY_STATE);
 		}
 
 		if (input.isKeyDown(Input.KEY_H)) {
