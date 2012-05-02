@@ -2,7 +2,6 @@ package com.github.joakimpersson.tda367.model.constants;
 
 import java.awt.Dimension;
 
-
 /**
  * 
  * @author joakimpersson
@@ -67,17 +66,21 @@ public enum Parameters {
 	public double getPlayerStepSize() {
 		return 0.2;
 	}
-	
+
 	public Dimension getMapSize() {
 		return new Dimension(15, 13);
 	}
-	
+
 	public float getInitSFXVolume() {
 		return 1;
 	}
-	
+
 	public float getInitBGMVolume() {
 		return 1;
 	}
-	
+
+	public int getHighscoreMaxSize() {
+		return 25;
+	}
+
 }

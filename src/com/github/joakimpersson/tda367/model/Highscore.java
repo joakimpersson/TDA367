@@ -10,17 +10,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.player.PlayerPoints;
 
 public class Highscore {
 
 	private File file;
-	private Map<String, PlayerPoints> playerList;
+	private TreeMap<String, PlayerPoints> playerList;
+	private final int maxSize;
 
 	public Highscore() {
 		playerList = new TreeMap<String, PlayerPoints>();
 		file = new File("HighScore.txt");
+		maxSize = Parameters.INSTANCE.getHighscoreMaxSize();
 	}
 
 	public void update(List<Player> otherPlayers) {
@@ -29,7 +32,16 @@ public class Highscore {
 			this.playerList.put(p.getName(), p.getPoints());
 		}
 
+		this.trimeHighScoreList();
+
 		this.saveList();
+	}
+
+	private void trimeHighScoreList() {
+		while (playerList.size() > maxSize) {
+			playerList.pollLastEntry();
+		}
+
 	}
 
 	private void saveList() {
@@ -61,7 +73,8 @@ public class Highscore {
 			ObjectInputStream source = new ObjectInputStream(inFile);
 
 			try {
-				playerList = (Map<String, PlayerPoints>) source.readObject();
+				playerList = (TreeMap<String, PlayerPoints>) source
+						.readObject();
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
