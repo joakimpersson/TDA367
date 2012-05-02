@@ -269,8 +269,7 @@ public class PlayerPointsTest {
 
 		pp.update(list);
 		// TODO do not follow the correct syntax rolen!
-		assertEquals(pp.getDestroyedPointGiver(PointGiver.Box),
-				tmpDestBoxPoints + 2);
+		assertEquals(tmpDestBoxPoints + 2, pp.getDestroyedPointGiver(PointGiver.Box));
 
 	}
 
@@ -297,6 +296,27 @@ public class PlayerPointsTest {
 		assertTrue(actualScore == 0);
 		assertTrue(actualCredits == 0);
 
+	}
+	
+	public void compareToTest() {
+		PlayerPoints ppDummy = new PlayerPoints();
+		
+		List<PointGiver> list = new ArrayList<PointGiver>();
+		list.add(PointGiver.Bomb);
+		list.add(PointGiver.Pillar);
+		list.add(PointGiver.KillPlayer);
+		
+		ppDummy.update(list);
+		pp.update(list);
+		
+		assertEquals(0, pp.compareTo(ppDummy));
+		
+		list.add(PointGiver.PlayerHit);
+		
+		pp.update(list);
+		
+		assertTrue(pp.compareTo(ppDummy) > 0);
+		
 	}
 
 	@After

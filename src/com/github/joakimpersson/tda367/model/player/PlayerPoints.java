@@ -11,7 +11,7 @@ import com.github.joakimpersson.tda367.model.constants.PointGiver;
  * @modified joakimpersson
  * 
  */
-public class PlayerPoints {
+public class PlayerPoints implements Comparable<PlayerPoints>{
 
 	private int totalScore;
 	private int credits;
@@ -88,5 +88,10 @@ public class PlayerPoints {
 		this.credits = 0;
 		pointGivers.clear();
 		initPointGiverMaps();
+	}
+
+	@Override
+	public int compareTo(PlayerPoints pp) {
+		return this.totalScore - pp.getScore();
 	}
 }
