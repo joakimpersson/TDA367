@@ -60,7 +60,7 @@ public class MainMenuState extends BasicGameState {
 		Input input = container.getInput();
 
 		// TODO jocke only used during development
-		if (input.isKeyDown(Input.KEY_ESCAPE)
+		if (input.isKeyPressed(Input.KEY_ESCAPE)
 				|| input.isKeyPressed(Input.KEY_Q)) {
 			container.exit();
 		}
