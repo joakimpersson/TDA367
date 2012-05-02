@@ -98,7 +98,64 @@ public class PlayerPoints implements Serializable, Comparable<PlayerPoints> {
 
 	@Override
 	public int compareTo(PlayerPoints pp) {
-		return this.totalScore - pp.getScore();
+		int sum = this.totalScore - pp.getScore();
+
+		if (sum != 0) {
+			return sum;
+		}
+
+		sum = this.pointGivers.get(PointGiver.KillPlayer)
+				- pp.pointGivers.get(PointGiver.KillPlayer);
+
+		if (sum != 0) {
+			return sum;
+		}
+
+		sum = this.pointGivers.get(PointGiver.PlayerHit)
+				- pp.pointGivers.get(PointGiver.PlayerHit);
+
+		sum = this.pointGivers.get(PointGiver.Bomb)
+				- pp.pointGivers.get(PointGiver.Bomb);
+
+		if (sum != 0) {
+			return sum;
+		}
+
+		sum = this.pointGivers.get(PointGiver.Box)
+				- pp.pointGivers.get(PointGiver.Box);
+
+		if (sum != 0) {
+			return sum;
+		}
+
+		return this.pointGivers.get(PointGiver.Pillar)
+				- pp.pointGivers.get(PointGiver.Pillar);
+
 	}
 
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		PlayerPoints other = (PlayerPoints) obj;
+		return this.totalScore == other.totalScore
+				&& this.credits == other.credits
+				&& this.pointGivers.equals(other.pointGivers);
+	}
+
+	@Override
+	public int hashCode() {
+		int sum = 0;
+		sum += totalScore * 5;
+		sum += credits * 7;
+		for (PointGiver pg : pointGivers.keySet()) {
+			int tmpSum = pointGivers.get(pg);
+			sum += tmpSum * 13;
+		}
+		return sum;
+	}
 }
