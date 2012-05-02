@@ -68,27 +68,29 @@ public class Highscore {
 	// TODO jocke reconsider this
 	@SuppressWarnings("unchecked")
 	private void loadList() {
-		try {
-			FileInputStream inFile = new FileInputStream(file);
-			ObjectInputStream source = new ObjectInputStream(inFile);
-
+		if (file.exists()) {
 			try {
-				playerList = (TreeMap<String, PlayerPoints>) source
-						.readObject();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
+				FileInputStream inFile = new FileInputStream(file);
+				ObjectInputStream source = new ObjectInputStream(inFile);
+
 				try {
-					source.close();
+					playerList = (TreeMap<String, PlayerPoints>) source
+							.readObject();
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
+				} finally {
+					try {
+						source.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
-			}
 
-		} catch (IOException e) {
-			e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
