@@ -398,6 +398,12 @@ public class BombermanModel implements IBombermanModel {
 		highscore.reset();
 	}
 
+	@Override
+	public void gameOver() {
+		// add the players to highscore list
+		highscore.update(players);
+	}
+
 	private void resetPlayer(ResetType type) {
 		for (Player p : players) {
 			p.reset(type);
@@ -406,8 +412,6 @@ public class BombermanModel implements IBombermanModel {
 
 	private void matchReset() {
 		resetPlayer(ResetType.Match);
-		// add the players to highscore list
-		highscore.update(players);
 	}
 
 	private void roundReset() {
