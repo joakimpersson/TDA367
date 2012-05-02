@@ -1,6 +1,5 @@
 package com.github.joakimpersson.tda367.model.player;
 
-import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -81,18 +80,13 @@ public class PlayerPoints {
 		return this.pointGivers.get(type);
 	}
 
-	// TODO rolen Not sure if this is needed...
-	public ArrayList<Integer> getPointList() {
-		ArrayList<Integer> tmp = new ArrayList<Integer>();
-		tmp.add(this.totalScore);
-		tmp.add(this.pointGivers.get(PointGiver.KillPlayer));
-		tmp.add(this.pointGivers.get(PointGiver.PlayerHit));
-		tmp.add(this.pointGivers.get(PointGiver.Box));
-		tmp.add(this.pointGivers.get(PointGiver.Pillar));
-		return tmp;
-	}
-
-	public void resetScore() {
+	/**
+	 * Resets the players score and credits to zero
+	 */
+	public void reset() {
 		this.totalScore = 0;
+		this.credits = 0;
+		pointGivers.clear();
+		initPointGiverMaps();
 	}
 }

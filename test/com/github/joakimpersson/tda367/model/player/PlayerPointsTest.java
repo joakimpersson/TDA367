@@ -1,7 +1,7 @@
 package com.github.joakimpersson.tda367.model.player;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,25 +35,25 @@ public class PlayerPointsTest {
 		pp.update(list);
 		int scoreBox = pp.getScore();
 		list.clear();
-		pp.resetScore();
+		pp.reset();
 
 		list.add(pillarPoint);
 		pp.update(list);
 		int scorePillar = pp.getScore();
 		list.clear();
-		pp.resetScore();
+		pp.reset();
 
 		list.add(killPoint);
 		pp.update(list);
 		int scoreKill = pp.getScore();
 		list.clear();
-		pp.resetScore();
+		pp.reset();
 
 		list.add(hitPoint);
 		pp.update(list);
 		int scoreHit = pp.getScore();
 		list.clear();
-		pp.resetScore();
+		pp.reset();
 
 		assertEquals(PointGiver.Box.getScore(), scoreBox);
 		assertEquals(PointGiver.Pillar.getScore(), scorePillar);
@@ -269,13 +269,34 @@ public class PlayerPointsTest {
 
 		pp.update(list);
 		// TODO do not follow the correct syntax rolen!
-		assertEquals(pp.getDestroyedPointGiver(PointGiver.Box), tmpDestBoxPoints + 2);
+		assertEquals(pp.getDestroyedPointGiver(PointGiver.Box),
+				tmpDestBoxPoints + 2);
 
 	}
 
 	@Test
-	public void testGetPointList() {
-		fail("Not yet implemented");
+	public void testReset() {
+		List<PointGiver> list = new ArrayList<PointGiver>();
+		list.add(PointGiver.PlayerHit);
+		list.add(PointGiver.PlayerHit);
+		list.add(PointGiver.PlayerHit);
+
+		// The Score and credits should be greater than zero
+		pp.update(list);
+		int actualScore = pp.getScore();
+		int actualCredits = pp.getCredits();
+
+		assertTrue(actualScore > 0);
+		assertTrue(actualCredits > 0);
+
+		// Reset the players PlayerPoints object object
+		pp.reset();
+
+		actualScore = pp.getScore();
+		actualCredits = pp.getCredits();
+		assertTrue(actualScore == 0);
+		assertTrue(actualCredits == 0);
+
 	}
 
 	@After
