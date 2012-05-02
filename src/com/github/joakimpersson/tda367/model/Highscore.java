@@ -1,103 +1,86 @@
 package com.github.joakimpersson.tda367.model;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.Writer;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
 import com.github.joakimpersson.tda367.model.player.Player;
+import com.github.joakimpersson.tda367.model.player.PlayerPoints;
 
 public class Highscore {
 
-	private File file = new File("HighScore.txt");
-	private TreeMap<String, Integer> playerList = new TreeMap<String, Integer>();
+	private File file;
+	private Map<String, PlayerPoints> playerList;
+
+	public Highscore() {
+		playerList = new TreeMap<String, PlayerPoints>();
+		file = new File("HighScore.txt");
+	}
 
 	public void update(ArrayList<Player> otherPlayers) {
 
-		HashMap<String, Integer> tmpList = new HashMap<String, Integer>();
-
-		for (int i = 0; i < otherPlayers.size(); i++) {
-			tmpList.put(otherPlayers.get(i).getName(), otherPlayers.get(i)
-					.getScore());
+		for (Player p : otherPlayers) {
+			this.playerList.put(p.getName(), p.getPoints());
 		}
-
-		playerList.putAll(tmpList);
 
 		this.saveList();
 	}
 
-	public void saveList() {
-		Writer output;
-		StringBuilder scoreText = new StringBuilder();
-		int tmpSize = this.playerList.size();
-		TreeMap<String, Integer> tmpList = new TreeMap<String, Integer>();
-		tmpList.putAll(playerList);
-		
-		// Creating a list were each row represent a players score and details
-		for (int i = 0; i < tmpSize; i++) {
-			scoreText.append(this.playerList.lastKey() + "_"
-					+ this.playerList.get(this.playerList.lastKey()) + "\n");
-			playerList.pollLastEntry();
-		}
-		
-		playerList.putAll(tmpList);
-	
+	private void saveList() {
 		try {
-			output = new BufferedWriter(new FileWriter(file));
-			// Clearing out the textfile
-			output.write("");
+			FileOutputStream outFile = new FileOutputStream(this.file);
+			ObjectOutputStream dest = new ObjectOutputStream(outFile);
 
-			// Writing updated list
-			output.write(scoreText.toString());
-			output.close();
-		} catch (IOException e) {
-			System.out.println("Error: " + e);
-		}
-	}
-
-	public void loadList() {
-		String tmpPlayerPointsLine;
-		String tmpPlayerName = null;
-		BufferedReader br;
-
-		try {
-			br = new BufferedReader(new FileReader(file));
-			while ((tmpPlayerPointsLine = br.readLine()) != null) {
-				char[] tmpChar = tmpPlayerPointsLine.toCharArray();				
-				// Saving playername
-				for (int i = 0; i < tmpChar.length; i++) {
-					if (!Character.isLetter(tmpChar[i]) && !Character.isDigit(tmpChar[i])) {
-						tmpPlayerName = tmpPlayerPointsLine.substring(0, i);
-						tmpPlayerPointsLine = tmpPlayerPointsLine.substring(i);
-						break;
-					}
+			try {
+				dest.writeObject(playerList);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					dest.close();
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-				
-				tmpPlayerPointsLine = tmpPlayerPointsLine.substring(1);
-				
-				this.playerList.put(tmpPlayerName, Integer.parseInt(tmpPlayerPointsLine));
 			}
-		} catch (FileNotFoundException e1) {
-			System.out.println("File not found!");
-		} catch (NumberFormatException e) {
-			System.out.println("Error: " + e);
 		} catch (IOException e) {
-			System.out.println("Error: " + e);
 			e.printStackTrace();
-		} 
-
-		
+		}
 	}
 
-	public Map<String, Integer> getList() {
+	// TODO jocke reconsider this
+	@SuppressWarnings("unchecked")
+	private void loadList() {
+		try {
+			FileInputStream inFile = new FileInputStream(file);
+			ObjectInputStream source = new ObjectInputStream(inFile);
+
+			try {
+				playerList = (Map<String, PlayerPoints>) source.readObject();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					source.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public Map<String, PlayerPoints> getList() {
+		this.loadList();
 		return this.playerList;
 	}
 
@@ -105,8 +88,8 @@ public class Highscore {
 		return this.playerList.size();
 	}
 
-	public void clear() {
-		this.playerList.clear();
+	public void reset() {
+		playerList.clear();
+		saveList();
 	}
-
 }

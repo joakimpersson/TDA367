@@ -1,5 +1,6 @@
 package com.github.joakimpersson.tda367.model.player;
 
+import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,12 @@ import com.github.joakimpersson.tda367.model.constants.PointGiver;
  * @modified joakimpersson
  * 
  */
-public class PlayerPoints implements Comparable<PlayerPoints>{
+public class PlayerPoints implements Serializable, Comparable<PlayerPoints> {
+
+	/**
+	 * Auto generated serial UID
+	 */
+	private static final long serialVersionUID = -4730508024940842687L;
 
 	private int totalScore;
 	private int credits;
@@ -94,4 +100,5 @@ public class PlayerPoints implements Comparable<PlayerPoints>{
 	public int compareTo(PlayerPoints pp) {
 		return this.totalScore - pp.getScore();
 	}
+
 }

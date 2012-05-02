@@ -310,7 +310,7 @@ public class Player {
 	public void removeImmortality() {
 		justHit = false;
 	}
-	
+
 	/**
 	 * Returns the amount of certain destroyed PointGiver type by this player.
 	 * 
@@ -327,7 +327,11 @@ public class Player {
 	}
 
 	public String getImageString() {
-		return "player/"+playerIndex+"/still-" + facingDirection;
+		return "player/" + playerIndex + "/still-" + facingDirection;
+	}
+
+	public PlayerPoints getPoints() {
+		return points;
 	}
 
 }
