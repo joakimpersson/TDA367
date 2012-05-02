@@ -131,6 +131,16 @@ public class GameplayState extends BasicGameState {
 
 	}
 
+	/**
+	 * 
+	 * Responsible for determine what state the game should enter when a round
+	 * is over and listens for the player to press the proceed button to enter
+	 * the next state.
+	 * 
+	 * @param input
+	 *            The input method used by the slick framework that contains the
+	 *            latest action
+	 */
 	private void roundOver(Input input) {
 
 		boolean pressedProceed = inputManager.pressedProceed(input);
@@ -146,6 +156,9 @@ public class GameplayState extends BasicGameState {
 
 	}
 
+	/**
+	 * Reset the model based on the games current state
+	 */
 	private void resetState() {
 
 		switch (currentState) {
@@ -161,6 +174,15 @@ public class GameplayState extends BasicGameState {
 
 	}
 
+	/**
+	 * 
+	 * Responsible for updating the game when the game is running and is
+	 * responsible for handling the users inputs and notify the model.
+	 * 
+	 * @param input
+	 *            The input method used by the slick framework that contains the
+	 *            latest action
+	 */
 	private void gameRunning(Input input) {
 
 		List<InputData> data = inputManager.getData(input);
