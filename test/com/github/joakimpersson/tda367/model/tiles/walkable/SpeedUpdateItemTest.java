@@ -50,7 +50,7 @@ public class SpeedUpdateItemTest {
 
 	@Test
 	public void testPlayerEnter() {
-		Player player = new Player("Kalle", new Position(0, 0));
+		Player player = new Player(1,"Kalle", new Position(0, 0));
 		Tile tile = item.playerEnter(player);
 		assertThat(tile, is(instanceOf(Floor.class)));
 

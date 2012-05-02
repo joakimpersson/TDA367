@@ -54,7 +54,7 @@ public class AreaBombTest {
 	public void setUp() throws Exception {
 		Position pos = new Position(3, 2);
 		timer = new Timer();
-		player = new Player("Kalle", pos);
+		player = new Player(1,"Kalle", pos);
 		bomb = new AreaBomb(player, timer);
 	}
 

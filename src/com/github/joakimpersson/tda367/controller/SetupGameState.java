@@ -161,7 +161,7 @@ public class SetupGameState extends BasicGameState {
 	}
 
 	private void createPlayer(String name, int playerIndex) {
-		Player player = new Player(name, getInitialPosition(playerIndex));
+		Player player = new Player(playerIndex, name, getInitialPosition(playerIndex));
 		playerList.add(player);
 	}
 

@@ -34,7 +34,7 @@ public class FireTest {
 	@Test
 	public void testPlayerEnter() {
 		Position pos = new Position(0, 0);
-		Player player = new Player("Kalle", pos);
+		Player player = new Player(1,"Kalle", pos);
 		int expected = player.getHealth() - 1;
 		fire.playerEnter(player);
 		int actual = player.getHealth();

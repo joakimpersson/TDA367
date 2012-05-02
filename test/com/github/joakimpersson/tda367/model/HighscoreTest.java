@@ -18,7 +18,7 @@ public class HighscoreTest {
 		Highscore hs = new Highscore();
 		ArrayList<Player> players = new ArrayList<Player>();		
 		for(int i = 0; i < 5; i++) {
-			Player tmpPlayer = new Player(("Player" + i), new Position(i, i));
+			Player tmpPlayer = new Player(1,("Player" + i), new Position(i, i));
 			players.add(tmpPlayer);
 		}
 		
@@ -34,7 +34,7 @@ public class HighscoreTest {
 		ArrayList<Player> players = new ArrayList<Player>();
 				
 		for(int i = 0; i < 5; i++) {
-			Player tmpPlayer = new Player(("Player" + i), new Position(i, i));
+			Player tmpPlayer = new Player(1,("Player" + i), new Position(i, i));
 			players.add(tmpPlayer);
 		}
 				
@@ -55,7 +55,7 @@ public class HighscoreTest {
 		int size = 5;
 				
 		for(int i = 0; i < size; i++) {
-			Player tmpPlayer = new Player(("Player" + i), new Position(i, i));
+			Player tmpPlayer = new Player(1,("Player" + i), new Position(i, i));
 			players.add(tmpPlayer);
 		}
 		

@@ -38,7 +38,7 @@ public class FloorTest {
 	@Test
 	public void testPlayerEnter() {
 		Position pos = new Position(1, 1);
-		Player player = new Player("Kalle", pos);
+		Player player = new Player(1,"Kalle", pos);
 		Tile tile = floor.playerEnter(player);
 		assertThat(tile, is(instanceOf(Floor.class)));
 	}

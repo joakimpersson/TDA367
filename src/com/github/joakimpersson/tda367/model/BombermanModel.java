@@ -102,8 +102,9 @@ public class BombermanModel implements IBombermanModel {
 			default:
 				break;
 			}
-
-			this.move(player, direction);
+			
+			if (direction != Direction.NONE) 
+				this.move(player, direction);
 		}
 	}
 

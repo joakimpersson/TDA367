@@ -51,7 +51,7 @@ public class Player {
 	private PlayerAttributes attr;
 	private PlayerPoints points;
 	private Direction facingDirection;
-	private int bombsPlaced, health;
+	private int bombsPlaced, health, playerIndex;
 	private boolean justHit;
 
 	/**
@@ -62,7 +62,8 @@ public class Player {
 	 * @param pos
 	 *            The starting position of a player.
 	 */
-	public Player(String name, Position pos) {
+	public Player(int playerIndex, String name, Position pos) {
+		this.playerIndex = playerIndex;
 		this.name = name;
 		this.initialPosition = pos;
 		initPlayer();
@@ -326,12 +327,7 @@ public class Player {
 	}
 
 	public String getImageString() {
-		if (facingDirection.equals(Direction.EAST)
-				|| facingDirection.equals(Direction.WEST)) {
-			return "player/still-" + facingDirection;
-		} else {
-			return "player/still-vert";
-		}
+		return "player/"+playerIndex+"/still-" + facingDirection;
 	}
 
 }
