@@ -100,7 +100,6 @@ public class GameFieldView implements IView {
 				drawImage(j, i, tile.getTileType(), g);
 			}
 		}
-
 	}
 
 	private void drawImage(float x, float y, String s, Graphics g) {
