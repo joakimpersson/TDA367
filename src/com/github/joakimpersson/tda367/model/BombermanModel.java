@@ -23,7 +23,6 @@ import com.github.joakimpersson.tda367.model.map.GameMap;
 import com.github.joakimpersson.tda367.model.map.IGameMap;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
-import com.github.joakimpersson.tda367.model.player.PlayerPoints;
 import com.github.joakimpersson.tda367.model.tiles.Destroyable;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
@@ -392,7 +391,7 @@ public class BombermanModel implements IBombermanModel {
 	}
 
 	@Override
-	public Map<String, PlayerPoints> getHighscoreMap() {
+	public Score[] getHighscoreList() {
 		return highscore.getList();
 	}
 

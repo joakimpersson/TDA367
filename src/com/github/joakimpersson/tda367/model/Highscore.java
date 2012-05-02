@@ -7,21 +7,19 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.TreeSet;
 
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.player.Player;
-import com.github.joakimpersson.tda367.model.player.PlayerPoints;
 
 public class Highscore {
 
 	private File file;
-	private TreeMap<String, PlayerPoints> playerList;
+	private TreeSet<Score> playerList;
 	private final int maxSize;
 
 	public Highscore() {
-		playerList = new TreeMap<String, PlayerPoints>();
+		playerList = new TreeSet<Score>();
 		file = new File("HighScore.txt");
 		maxSize = Parameters.INSTANCE.getHighscoreMaxSize();
 	}
@@ -29,7 +27,8 @@ public class Highscore {
 	public void update(List<Player> otherPlayers) {
 
 		for (Player p : otherPlayers) {
-			this.playerList.put(p.getName(), p.getPoints());
+			Score score = new Score(p.getName(), p.getPoints());
+			playerList.add(score);
 		}
 
 		this.trimeHighScoreList();
@@ -39,7 +38,7 @@ public class Highscore {
 
 	private void trimeHighScoreList() {
 		while (playerList.size() > maxSize) {
-			playerList.pollLastEntry();
+			playerList.pollLast();
 		}
 
 	}
@@ -74,8 +73,7 @@ public class Highscore {
 				ObjectInputStream source = new ObjectInputStream(inFile);
 
 				try {
-					playerList = (TreeMap<String, PlayerPoints>) source
-							.readObject();
+					playerList = (TreeSet<Score>) source.readObject();
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
@@ -94,9 +92,11 @@ public class Highscore {
 		}
 	}
 
-	public Map<String, PlayerPoints> getList() {
+	public Score[] getList() {
+		Score[] highscore = null;
 		this.loadList();
-		return this.playerList;
+		highscore = (Score[]) playerList.toArray(new Score[playerList.size()]);
+		return highscore;
 	}
 
 	public int getSize() {
