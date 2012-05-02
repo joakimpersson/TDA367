@@ -30,4 +30,26 @@ public class Score implements Serializable, Comparable<Score> {
 	public int compareTo(Score other) {
 		return pp.compareTo(other.pp);
 	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		Score other = (Score) obj;
+		return this.playerName.equals(other.playerName)
+				&& this.pp.equals(other.pp);
+	}
+
+	@Override
+	public int hashCode() {
+		int sum = 0;
+		sum += playerName.hashCode() * 5;
+		sum += pp.hashCode() * 7;
+
+		return sum;
+	}
 }
