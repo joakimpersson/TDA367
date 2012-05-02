@@ -22,8 +22,8 @@ public class BombermanModelTest {
 		model = BombermanModel.getInstance();
 		List<Player> players = model.getPlayers();
 		Dimension mapD = Parameters.INSTANCE.getMapSize();
-		players.add(new Player("testPlayer1", new Position(1, 1)));
-		players.add(new Player("testPlayer2", new Position(
+		players.add(new Player(1,"testPlayer1", new Position(1, 1)));
+		players.add(new Player(2,"testPlayer2", new Position(
 				(int)(mapD.getWidth()) -2, (int)(mapD.getHeight()) -2)));
 	}
 
