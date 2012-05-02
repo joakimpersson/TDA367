@@ -2,11 +2,13 @@ package com.github.joakimpersson.tda367.model;
 
 import java.beans.PropertyChangeListener;
 import java.util.List;
+import java.util.Map;
 
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.constants.ResetType;
 import com.github.joakimpersson.tda367.model.player.Player;
+import com.github.joakimpersson.tda367.model.player.PlayerPoints;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 
 /**
@@ -92,6 +94,18 @@ public interface IBombermanModel {
 	 * @return True if the round is over and false otherwise
 	 */
 	public boolean isRoundOver();
+
+	/**
+	 * Get the current highscore list
+	 * 
+	 * @return A HashMap containing the games top players
+	 */
+	public Map<String, PlayerPoints> getHighscoreMap();
+
+	/**
+	 * Reset and erase all the previous highscores from the list
+	 */
+	public void resetHighscoreMap();
 
 	public void addPropertyChangeListener(PropertyChangeListener pcl);
 }

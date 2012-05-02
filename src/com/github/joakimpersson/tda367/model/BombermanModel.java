@@ -23,6 +23,7 @@ import com.github.joakimpersson.tda367.model.map.GameMap;
 import com.github.joakimpersson.tda367.model.map.IGameMap;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
+import com.github.joakimpersson.tda367.model.player.PlayerPoints;
 import com.github.joakimpersson.tda367.model.tiles.Destroyable;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
@@ -47,12 +48,14 @@ public class BombermanModel implements IBombermanModel {
 	private static BombermanModel instance = null;
 	private LinkedList<Map<Position, Tile>> waitingFirePositions;
 	private PropertyChangeSupport pcs;
+	private Highscore highscore = null;
 
 	private BombermanModel() {
 		this.pcs = new PropertyChangeSupport(this);
 		this.players = new ArrayList<Player>();
 		this.map = new GameMap();
 		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
+		highscore = new Highscore();
 	}
 
 	/**
@@ -102,8 +105,8 @@ public class BombermanModel implements IBombermanModel {
 			default:
 				break;
 			}
-			
-			if (direction != Direction.NONE) 
+
+			if (direction != Direction.NONE)
 				this.move(player, direction);
 		}
 	}
@@ -213,8 +216,8 @@ public class BombermanModel implements IBombermanModel {
 	}
 
 	/**
-	 * This method is called internally by handle fire to
-	 * distribute points for hitting players and items.
+	 * This method is called internally by handle fire to distribute points for
+	 * hitting players and items.
 	 * 
 	 * @param positions
 	 *            The list that contains the positions of where the fire
@@ -226,21 +229,21 @@ public class BombermanModel implements IBombermanModel {
 		hitPlayers(bombOwner, positions);
 		hitItems(bombOwner, positions);
 	}
-	
+
 	public void hitPlayer(Player bombOwner, Player targetPlayer) {
 		List<PointGiver> pg = new ArrayList<PointGiver>();
-		if(!targetPlayer.isImmortal() && targetPlayer.isAlive()) {
+		if (!targetPlayer.isImmortal() && targetPlayer.isAlive()) {
 			targetPlayer.playerHit();
 			if (!bombOwner.equals(targetPlayer)) {
-				pg.add(PointGiver.PlayerHit);	
-				if(!targetPlayer.isAlive()) {
+				pg.add(PointGiver.PlayerHit);
+				if (!targetPlayer.isAlive()) {
 					pg.add(PointGiver.KillPlayer);
-				}					
+				}
 			}
 		}
 		bombOwner.updatePlayerPoints(pg);
 	}
-	
+
 	private void hitPlayers(Player bombOwner, List<Position> positions) {
 		// Converting positions into PointGivers
 		for (Position pos : positions) {
@@ -251,19 +254,19 @@ public class BombermanModel implements IBombermanModel {
 			}
 		}
 	}
-	
+
 	private void hitItems(Player bombOwner, List<Position> positions) {
 		List<PointGiver> pg = new ArrayList<PointGiver>();
 		Tile tmpTile;
-		
+
 		for (Position pos : positions) {
 
 			tmpTile = map.getTile(pos);
 			if (tmpTile instanceof Destroyable) {
 				Destroyable destroyableTile = (Destroyable) tmpTile;
-				if (tmpTile instanceof Bomb) {	
-					if(!bombOwner.equals(((Bomb)tmpTile).getPlayer())) {
-						//	 TODO jocke really bad code...
+				if (tmpTile instanceof Bomb) {
+					if (!bombOwner.equals(((Bomb) tmpTile).getPlayer())) {
+						// TODO jocke really bad code...
 						destroyableTile = (Destroyable) tmpTile;
 						pg.add(destroyableTile.getPointGiver());
 					}
@@ -385,6 +388,16 @@ public class BombermanModel implements IBombermanModel {
 		resetMap();
 	}
 
+	@Override
+	public Map<String, PlayerPoints> getHighscoreMap() {
+		return highscore.getList();
+	}
+
+	@Override
+	public void resetHighscoreMap() {
+		highscore.reset();
+	}
+
 	private void resetPlayer(ResetType type) {
 		for (Player p : players) {
 			p.reset(type);
@@ -393,6 +406,8 @@ public class BombermanModel implements IBombermanModel {
 
 	private void matchReset() {
 		resetPlayer(ResetType.Match);
+		// add the players to highscore list
+		highscore.update(players);
 	}
 
 	private void roundReset() {
