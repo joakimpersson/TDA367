@@ -66,21 +66,21 @@ public class MainMenuState extends BasicGameState {
 		}
 
 		if (input.isKeyDown(Input.KEY_G)) {
-			pcs.firePropertyChange("play", null, EventType.MENU_CLICKED);
+			pcs.firePropertyChange("play", null, EventType.MENU_ACTION);
 			game.enterState(BombermanGame.SETUP_GAME_STATE);
 		}
 
 		if (input.isKeyDown(Input.KEY_H)) {
-			pcs.firePropertyChange("play", null, EventType.MENU_CLICKED);
+			pcs.firePropertyChange("play", null, EventType.MENU_ACTION);
 			game.enterState(BombermanGame.HIGHSCORE_STATE);
 		}
 		if (input.isKeyDown(Input.KEY_D)) {
-			pcs.firePropertyChange("play", null, EventType.MENU_CLICKED);
+			pcs.firePropertyChange("play", null, EventType.MENU_ACTION);
 			game.enterState(BombermanGame.GAMEPLAY_STATE);
 		}
 
 		if (input.isKeyDown(Input.KEY_U)) {
-			pcs.firePropertyChange("play", null, EventType.MENU_CLICKED);
+			pcs.firePropertyChange("play", null, EventType.MENU_ACTION);
 			game.enterState(BombermanGame.UPGRADE_PLAYER_STATE);
 		}
 	}

@@ -95,12 +95,12 @@ public class SetupGameState extends BasicGameState {
 
 		if (input.isKeyPressed(Input.KEY_UP)) {
 			moveIndex(-1);
-			pcs.firePropertyChange("play", null, EventType.MENU_CLICKED);
+			pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
 		}
 
 		if (input.isKeyPressed(Input.KEY_DOWN)) {
 			moveIndex(1);
-			pcs.firePropertyChange("play", null, EventType.MENU_CLICKED);
+			pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
 		}
 		
 		boolean controllerProceed = validProceed(input);
@@ -117,7 +117,7 @@ public class SetupGameState extends BasicGameState {
 					stage++;
 				}
 			}
-			pcs.firePropertyChange("play", null, EventType.MENU_CLICKED);
+			pcs.firePropertyChange("play", null, EventType.MENU_ACTION);
 		} else if (stage == 2 && controllerProceed) {
 			assignPlayer(controllerUsed(input), view.getIndex());
 			if (allPlayersAssigned()) {

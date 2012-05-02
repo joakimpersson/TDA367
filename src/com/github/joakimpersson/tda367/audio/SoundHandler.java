@@ -30,7 +30,8 @@ public class SoundHandler {
 	private SoundEffect bombPlaced;
 	private BackgroundMusic titleTheme;
 	private BackgroundMusic battleSong1;
-	private SoundEffect menuClick;
+	private SoundEffect menuNavigate;
+	private SoundEffect menuAction;
 	
 	private BackgroundMusic playingMusic;
 	
@@ -69,9 +70,10 @@ public class SoundHandler {
 		try {
 			bombPlaced = new SoundEffect("res/sounds/PlaceBomb1.ogg", 0);
 			bombExplode = new SoundEffect("res/sounds/Bomb1.ogg", -0.5f);
-			titleTheme = new BackgroundMusic("res/sounds/bg1.ogg", -0.6f);
+			titleTheme = new BackgroundMusic("res/sounds/bg1.ogg", -0.65f);
 			battleSong1 = new BackgroundMusic("res/sounds/BattleSong1.ogg", -0.4f);
-			menuClick = new SoundEffect("res/sounds/MenuClickSound.ogg", -0.2f);
+			menuNavigate = new SoundEffect("res/sounds/MenuNavigate.ogg", -0.2f);
+			menuAction = new SoundEffect("res/sounds/MenuAction.ogg", 0);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -142,8 +144,10 @@ public class SoundHandler {
 			return bombPlaced;
 		case BOMB_EXPLODED:
 			return bombExplode;
-		case MENU_CLICKED:
-			return menuClick;
+		case MENU_NAVIGATE:
+			return menuNavigate;
+		case MENU_ACTION:
+			return menuAction;
 		case TITLE_SCREEN:
 			return titleTheme;
 		case BATTLE_SCREEN:
