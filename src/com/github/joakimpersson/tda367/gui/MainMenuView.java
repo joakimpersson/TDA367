@@ -1,5 +1,6 @@
 package com.github.joakimpersson.tda367.gui;
 
+import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -11,7 +12,12 @@ import org.newdawn.slick.SlickException;
  */
 public class MainMenuView implements IView {
 
+	private Font smlFont;
+
 	public MainMenuView() {
+		try {
+			smlFont = GUIParameters.INSTANCE.getSmlFont();
+		} catch (SlickException e) { }
 		init();
 	}
 
@@ -28,11 +34,12 @@ public class MainMenuView implements IView {
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
 		// TODO only used during developing
+		g.setFont(smlFont);
 		int posY = 200;
 		int posX = container.getWidth() / 2 - 130;
 		g.drawString("Bomberman", posX, posY);
 		posY += 40;
-		g.drawString("Gameplay View (G)", posX, posY);
+		g.drawString("Start game (G)", posX, posY);
 		posY += 40;
 		g.drawString("Highscore View (H)", posX, posY);
 		posY += 40;

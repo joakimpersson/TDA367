@@ -3,6 +3,7 @@ package com.github.joakimpersson.tda367.gui;
 import java.util.List;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -23,6 +24,7 @@ public class PlayerInfoView implements IView {
 	private int width;
 	private int height;
 	private int yDelta = -1;
+	private Font smlFont;
 	private static final int X = 40;
 
 	public PlayerInfoView(Player player, int startX, int startY, int width,
@@ -32,6 +34,9 @@ public class PlayerInfoView implements IView {
 		this.startY = startY;
 		this.width = width;
 		this.height = height;
+		try {
+			smlFont = GUIParameters.INSTANCE.getSmlFont();
+		} catch (SlickException e) { }
 		init();
 	}
 
@@ -47,7 +52,8 @@ public class PlayerInfoView implements IView {
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
 		int y = startY;
-
+		
+		g.setFont(smlFont);
 		g.setColor(Color.black);
 		g.drawRect(startX, y, width, height);
 

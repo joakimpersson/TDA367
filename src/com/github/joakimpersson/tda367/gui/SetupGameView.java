@@ -8,7 +8,6 @@ import static org.newdawn.slick.Color.white;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.newdawn.slick.AngelCodeFont;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -28,17 +27,11 @@ public class SetupGameView {
 
 	public SetupGameView(int possiblePlayers, GameContainer container) {
 		try {
-			bigFont = new AngelCodeFont("res/fonts/minecraft_big.fnt", "res/fonts/minecraft_big.tga");
-			smlFont = new AngelCodeFont("res/fonts/minecraft_sml.fnt", "res/fonts/minecraft_sml.tga");
-//			font = new UnicodeFont("res/minecraft.ttf", 30, false, false);
-//			font.getEffects().add(new ColorEffect(java.awt.Color.white));
-//			font.addNeheGlyphs();
-//			font.loadGlyphs();
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
+			bigFont = GUIParameters.INSTANCE.getBigFont();
+			smlFont = GUIParameters.INSTANCE.getSmlFont();
+		} catch (SlickException e) { }
 		this.possiblePlayers = possiblePlayers;
-		field = new TextField(container, bigFont, container.getWidth() / 2 - 180, 270, 200, 30);
+		field = new TextField(container, bigFont, container.getWidth() / 2 - 180, 240, 200, 30);
 		field.setBorderColor(red);
 		init();
 	}
