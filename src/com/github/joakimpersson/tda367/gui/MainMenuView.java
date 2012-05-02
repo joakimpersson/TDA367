@@ -12,24 +12,26 @@ import org.newdawn.slick.SlickException;
  */
 public class MainMenuView implements IView {
 
-	private Font smlFont;
+	private Font smlFont = null;
 
 	public MainMenuView() {
-		try {
-			smlFont = GUIParameters.INSTANCE.getSmlFont();
-		} catch (SlickException e) { }
 		init();
 	}
 
 	private void init() {
+		try {
+			smlFont = GUIParameters.INSTANCE.getSmlFont();
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
 	public void enter() {
-		
+
 	}
-	
+
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {

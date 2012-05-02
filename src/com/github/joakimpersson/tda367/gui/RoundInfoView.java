@@ -3,6 +3,7 @@ package com.github.joakimpersson.tda367.gui;
 import java.util.List;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -20,6 +21,7 @@ public class RoundInfoView implements IView {
 	private int startY;
 	private IBombermanModel model = null;
 	private List<Player> players = null;
+	private Font smlFont;
 
 	public RoundInfoView() {
 		init();
@@ -27,8 +29,13 @@ public class RoundInfoView implements IView {
 
 	private void init() {
 		model = BombermanModel.getInstance();
+		try {
+			smlFont = GUIParameters.INSTANCE.getSmlFont();
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	@Override
 	public void enter() {
 		startX = GUIParameters.INSTANCE.getGameWidth() / 2 - width / 2;
@@ -39,7 +46,7 @@ public class RoundInfoView implements IView {
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
-
+		g.setFont(smlFont);
 		int x = startX + 50;
 		int deltaX = width / players.size();
 		int midX = startX + width / 2;

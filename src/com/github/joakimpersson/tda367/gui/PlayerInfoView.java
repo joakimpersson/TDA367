@@ -24,7 +24,7 @@ public class PlayerInfoView implements IView {
 	private int width;
 	private int height;
 	private int yDelta = -1;
-	private Font smlFont;
+	private Font smlFont = null;
 	private static final int X = 40;
 
 	public PlayerInfoView(Player player, int startX, int startY, int width,
@@ -34,13 +34,16 @@ public class PlayerInfoView implements IView {
 		this.startY = startY;
 		this.width = width;
 		this.height = height;
-		try {
-			smlFont = GUIParameters.INSTANCE.getSmlFont();
-		} catch (SlickException e) { }
+
 		init();
 	}
 
 	private void init() {
+		try {
+			smlFont = GUIParameters.INSTANCE.getSmlFont();
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 		yDelta = height / 10;
 	}
 
@@ -52,7 +55,7 @@ public class PlayerInfoView implements IView {
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
 		int y = startY;
-		
+
 		g.setFont(smlFont);
 		g.setColor(Color.black);
 		g.drawRect(startX, y, width, height);
@@ -88,9 +91,9 @@ public class PlayerInfoView implements IView {
 			y += yDelta;
 		}
 
-//		String availableBombsStr = "Nbr Of Bombs: "
-//				+ player.getBombsAvailable();
-//		g.drawString(availableBombsStr, X, y);
+		// String availableBombsStr = "Nbr Of Bombs: "
+		// + player.getBombsAvailable();
+		// g.drawString(availableBombsStr, X, y);
 
 	}
 }

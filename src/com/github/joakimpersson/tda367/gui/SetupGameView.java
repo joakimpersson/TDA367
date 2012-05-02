@@ -20,26 +20,33 @@ public class SetupGameView {
 	private int stage = 0;
 	private int possiblePlayers, playersSelected;
 
-	private Font bigFont, smlFont;
+	private Font bigFont = null;
+	private Font smlFont = null;
 	private TextField field;
 	private int index;
 	private List<String> names = new ArrayList<String>();
 
 	public SetupGameView(int possiblePlayers, GameContainer container) {
-		try {
-			bigFont = GUIParameters.INSTANCE.getBigFont();
-			smlFont = GUIParameters.INSTANCE.getSmlFont();
-		} catch (SlickException e) { }
+
 		this.possiblePlayers = possiblePlayers;
-		field = new TextField(container, bigFont, container.getWidth() / 2 - 180, 240, 200, 30);
-		field.setBorderColor(red);
 		init();
+		field = new TextField(container, bigFont,
+				container.getWidth() / 2 - 180, 240, 200, 30);
+		field.setBorderColor(red);
+		
 	}
 
 	private void init() {
+		try {
+			bigFont = GUIParameters.INSTANCE.getBigFont();
+			smlFont = GUIParameters.INSTANCE.getSmlFont();
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public void render(GameContainer container, Graphics g, int selection) throws SlickException {
+	public void render(GameContainer container, Graphics g, int selection)
+			throws SlickException {
 		int posX = container.getWidth() / 2 - 210;
 		int posY = 200;
 		g.setColor(white);
@@ -56,15 +63,18 @@ public class SetupGameView {
 				} else if (i > possiblePlayers) {
 					g.setColor(gray);
 				}
-				g.drawString(i + " players", posX+80, posY);
+				g.drawString(i + " players", posX + 80, posY);
 				g.setColor(white);
 				posY += yDelta;
 			}
 		} else if (stage == 1 && index <= playersSelected) {
-			g.drawString("Player " + index + ", type your name and press enter", posX, posY);
+			g.drawString(
+					"Player " + index + ", type your name and press enter",
+					posX, posY);
 			field.render(container, g);
 		} else if (stage == 2 && index <= names.size()) {
-			g.drawString(names.get(index-1) + " please press action", posX, posY);
+			g.drawString(names.get(index - 1) + " please press action", posX,
+					posY);
 			posY += yDelta;
 			g.drawString("on your preferred controller!", posX, posY);
 		}

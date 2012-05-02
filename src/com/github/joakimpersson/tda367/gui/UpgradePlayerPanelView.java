@@ -3,8 +3,10 @@ package com.github.joakimpersson.tda367.gui;
 import java.util.Map;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.player.Player;
@@ -12,14 +14,15 @@ import com.github.joakimpersson.tda367.model.player.Player;
 /**
  * 
  * @author joakimpersson
- *
+ * 
  */
 public class UpgradePlayerPanelView implements IUpgradePlayerView {
-	//TODO jocke rethink design
+
 	private Player player;
 	private final int X;
 	private final int Y;
 	private int yDelta = -1;
+	private Font smlFont = null;
 
 	public UpgradePlayerPanelView(Player p, int x, int y) {
 		this.player = p;
@@ -29,17 +32,21 @@ public class UpgradePlayerPanelView implements IUpgradePlayerView {
 	}
 
 	private void init() {
+		try {
+			smlFont = GUIParameters.INSTANCE.getSmlFont();
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 		yDelta = 50;
 	}
 
 	@Override
 	public void render(GameContainer container, Graphics g,
 			Map<Player, Integer> playerAttrIndex) {
-
+		g.setFont(smlFont);
 		int posX = X;
 		int posY = Y;
 
-		// TODO jocke yeah i know that it is a mess
 		g.setColor(Color.white);
 
 		String str = formatHeaderString();
