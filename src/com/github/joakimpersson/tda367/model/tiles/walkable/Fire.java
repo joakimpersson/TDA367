@@ -1,5 +1,6 @@
 package com.github.joakimpersson.tda367.model.tiles.walkable;
 
+import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
@@ -14,8 +15,10 @@ import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
 public class Fire implements WalkableTile {
 	private String image;
 	private Direction direction;
+	private Player fireOwner;
 
-	public Fire(Direction direction) {
+	public Fire(Player fireOwner, Direction direction) {
+		this.fireOwner = fireOwner;
 		this.direction = direction;
 		if (this.direction == null) {
 			this.image = "fire-area";
@@ -34,11 +37,7 @@ public class Fire implements WalkableTile {
 	 */
 	@Override
 	public Tile playerEnter(Player player) {
-		// TODO owner of the fire's bomb won't get points when a player enters
-		// the fire.
-		if (!player.isImmortal()) {
-			player.playerHit();
-		}
+		BombermanModel.getInstance().hitPlayer(fireOwner, player);
 		return this;
 	}
 

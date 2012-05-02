@@ -23,7 +23,7 @@ public class FireTest {
 
 	@Before
 	public void setUp() throws Exception {
-		fire = new Fire(null);
+		fire = new Fire(null ,null);
 	}
 
 	@Test
@@ -31,6 +31,7 @@ public class FireTest {
 		assertTrue(fire.isWalkable());
 	}
 
+	// TODO This test fails.
 	@Test
 	public void testPlayerEnter() {
 		Position pos = new Position(0, 0);

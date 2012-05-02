@@ -209,7 +209,7 @@ public class BombermanModel implements IBombermanModel {
 		List<Position> list = new ArrayList<Position>(
 				directedFirePositions.keySet());
 		fireObjects(bombOwner, list);
-		setFire(directedFirePositions);
+		setFire(bombOwner, directedFirePositions);
 	}
 
 	/**
@@ -223,34 +223,36 @@ public class BombermanModel implements IBombermanModel {
 	 *            The player that placed the bomb.
 	 */
 	private void fireObjects(Player bombOwner, List<Position> positions) {
+		hitPlayers(bombOwner, positions);
+		hitItems(bombOwner, positions);
+	}
+	
+	public void hitPlayer(Player bombOwner, Player targetPlayer) {
 		List<PointGiver> pg = new ArrayList<PointGiver>();
-		pg.addAll(hitPlayers(bombOwner, positions));
-		pg.addAll(getItemPoints(bombOwner, positions));
+		if(!targetPlayer.isImmortal() && targetPlayer.isAlive()) {
+			targetPlayer.playerHit();
+			if (!bombOwner.equals(targetPlayer)) {
+				pg.add(PointGiver.PlayerHit);	
+				if(!targetPlayer.isAlive()) {
+					pg.add(PointGiver.KillPlayer);
+				}					
+			}
+		}
 		bombOwner.updatePlayerPoints(pg);
 	}
 	
-	private List<PointGiver> hitPlayers(Player bombOwner, List<Position> positions) {
-		List<PointGiver> pg = new ArrayList<PointGiver>();
+	private void hitPlayers(Player bombOwner, List<Position> positions) {
 		// Converting positions into PointGivers
 		for (Position pos : positions) {
-			for (Player player : players) {
-				if (isPlayerAtPosition(player, pos) && !player.isImmortal()) {
-					if (player.isAlive()) {
-						player.playerHit();
-					}
-					if (!bombOwner.equals(player)) {
-						if(!player.isAlive()) {
-							pg.add(PointGiver.KillPlayer);
-						}
-						pg.add(PointGiver.PlayerHit);						
-					}
+			for (Player targetPlayer : players) {
+				if (isPlayerAtPosition(targetPlayer, pos)) {
+					hitPlayer(bombOwner, targetPlayer);
 				}
 			}
 		}
-		return pg;	
 	}
 	
-	private List<PointGiver> getItemPoints(Player bombOwner, List<Position> positions) {
+	private void hitItems(Player bombOwner, List<Position> positions) {
 		List<PointGiver> pg = new ArrayList<PointGiver>();
 		Tile tmpTile;
 		
@@ -271,7 +273,7 @@ public class BombermanModel implements IBombermanModel {
 				}
 			}
 		}
-		return pg;
+		bombOwner.updatePlayerPoints(pg);
 	}
 
 	/**
@@ -282,7 +284,7 @@ public class BombermanModel implements IBombermanModel {
 	 *            The list that contains the positions of where the fire is to
 	 *            be placed.
 	 */
-	private void setFire(Map<Position, Direction> directedFire) {
+	private void setFire(Player fireOwner, Map<Position, Direction> directedFire) {
 		Map<Position, Tile> waitingTiles = new HashMap<Position, Tile>();
 
 		Set<Map.Entry<Position, Direction>> entries = directedFire.entrySet();
@@ -299,7 +301,7 @@ public class BombermanModel implements IBombermanModel {
 				Destroyable destroyableTile = (Destroyable) currentTile;
 				Tile newTile = destroyableTile.onFire();
 				waitingTiles.put(pos, newTile);
-				map.setTile(new Fire(direction), pos);
+				map.setTile(new Fire(fireOwner, direction), pos);
 			}
 		}
 
