@@ -34,7 +34,7 @@ public class Position {
 
 	@Override
 	public int hashCode() {
-		return 23456789 * this.x + 56789123 * this.y;
+		return 13 * this.x + 7 * this.y;
 	}
 
 	@Override
