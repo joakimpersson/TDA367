@@ -305,10 +305,9 @@ public class Player {
 
 	/**
 	 * Sets the players immortality to either true or false.
-	 * @param imm	Set true for immortality, false for normal.
 	 */
-	public void setImmortality(boolean imm) {
-		justHit = imm;
+	public void removeImmortality() {
+		justHit = false;
 	}
 	
 	/**

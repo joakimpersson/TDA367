@@ -2,12 +2,14 @@ package com.github.joakimpersson.tda367.model;
 
 import static org.junit.Assert.*;
 
+import java.awt.Dimension;
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.utils.Position;
 
@@ -19,8 +21,10 @@ public class BombermanModelTest {
 	public void setUp() throws Exception {
 		model = BombermanModel.getInstance();
 		List<Player> players = model.getPlayers();
+		Dimension mapD = Parameters.INSTANCE.getMapSize();
 		players.add(new Player("testPlayer1", new Position(1, 1)));
-		players.add(new Player("testPlayer2", new Position(1, 2)));
+		players.add(new Player("testPlayer2", new Position(
+				(int)(mapD.getWidth()) -2, (int)(mapD.getHeight()) -2)));
 	}
 
 	@Test
@@ -34,19 +38,24 @@ public class BombermanModelTest {
 		List<Player> playerList = model.getPlayers();
 		for(Player p : playerList) {
 			p.playerHit();
-			p.setImmortality(false);
+			p.removeImmortality();
 			p.playerHit();
 		}
 		test2 = model.isRoundOver();
 		
 		for(int i = 1; i < playerList.size(); i++) {
 			Player p = playerList.get(i);
-			p.setImmortality(false);
+			p.removeImmortality();
 			p.playerHit();
 		}
 		test3 = model.isRoundOver();
 
 		assertTrue(!test1 && !test2 && test3);
+	}
+	
+	@Test
+	public void testMove() {
+		fail("Not yet implemented");
 	}
 	
 	@Test
