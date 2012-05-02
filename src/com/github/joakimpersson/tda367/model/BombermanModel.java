@@ -208,13 +208,13 @@ public class BombermanModel implements IBombermanModel {
 			Map<Position, Direction> directedFirePositions) {
 		List<Position> list = new ArrayList<Position>(
 				directedFirePositions.keySet());
-		distributePoints(bombOwner, list);
+		fireObjects(bombOwner, list);
 		setFire(directedFirePositions);
 	}
 
 	/**
-	 * This method is called internally by handle fire to distribute points
-	 * specifically.
+	 * This method is called internally by handle fire to
+	 * distribute points for hitting players and items.
 	 * 
 	 * @param positions
 	 *            The list that contains the positions of where the fire
@@ -222,45 +222,56 @@ public class BombermanModel implements IBombermanModel {
 	 * @param bombOwner
 	 *            The player that placed the bomb.
 	 */
-	private void distributePoints(Player bombOwner, List<Position> positions) {
+	private void fireObjects(Player bombOwner, List<Position> positions) {
 		List<PointGiver> pg = new ArrayList<PointGiver>();
-		Tile tmpTile;
-
+		pg.addAll(hitPlayers(bombOwner, positions));
+		pg.addAll(getItemPoints(bombOwner, positions));
+		bombOwner.updatePlayerPoints(pg);
+	}
+	
+	private List<PointGiver> hitPlayers(Player bombOwner, List<Position> positions) {
+		List<PointGiver> pg = new ArrayList<PointGiver>();
+		// Converting positions into PointGivers
 		for (Position pos : positions) {
-			// Converting positions into PointGivers
 			for (Player player : players) {
-				if (isPlayerAtPosition(player, pos) && !player.isImmortal()
-						&& !bombOwner.equals(player)) {
+				if (isPlayerAtPosition(player, pos) && !player.isImmortal()) {
 					if (player.isAlive()) {
-						pg.add(PointGiver.PlayerHit);
 						player.playerHit();
-					} else {
-						pg.add(PointGiver.KillPlayer);
+					}
+					if (!bombOwner.equals(player)) {
+						if(!player.isAlive()) {
+							pg.add(PointGiver.KillPlayer);
+						}
+						pg.add(PointGiver.PlayerHit);						
 					}
 				}
 			}
+		}
+		return pg;	
+	}
+	
+	private List<PointGiver> getItemPoints(Player bombOwner, List<Position> positions) {
+		List<PointGiver> pg = new ArrayList<PointGiver>();
+		Tile tmpTile;
+		
+		for (Position pos : positions) {
 
 			tmpTile = map.getTile(pos);
 			if (tmpTile instanceof Destroyable) {
-
-				if (tmpTile instanceof Bomb) {
-					Bomb bomb = (Bomb) tmpTile;
-					Player p = bomb.getPlayer();
-					if (!bombOwner.equals(p)) {
-						// TODO jocke really bad code...
-						Destroyable destroyableTile = (Destroyable) tmpTile;
-
+				Destroyable destroyableTile = (Destroyable) tmpTile;
+				if (tmpTile instanceof Bomb) {	
+					if(!bombOwner.equals(((Bomb)tmpTile).getPlayer())) {
+						//	 TODO jocke really bad code...
+						destroyableTile = (Destroyable) tmpTile;
 						pg.add(destroyableTile.getPointGiver());
 					}
 				} else {
-
-					Destroyable destroyableTile = (Destroyable) tmpTile;
-
+					destroyableTile = (Destroyable) tmpTile;
 					pg.add(destroyableTile.getPointGiver());
 				}
 			}
 		}
-		bombOwner.updatePlayerPoints(pg);
+		return pg;
 	}
 
 	/**
