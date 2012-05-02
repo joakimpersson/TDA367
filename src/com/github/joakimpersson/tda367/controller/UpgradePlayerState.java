@@ -138,7 +138,6 @@ public class UpgradePlayerState extends BasicGameState {
 				break;
 			case Action:
 				model.upgradePlayer(p, attributes.get(playersIndex.get(p)));
-				pcs.firePropertyChange("play", null, EventType.MENU_ACTION);
 				break;
 			default:
 				break;
