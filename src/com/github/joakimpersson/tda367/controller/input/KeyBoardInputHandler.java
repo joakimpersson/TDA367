@@ -75,6 +75,13 @@ public class KeyBoardInputHandler implements InputHandler {
 	}
 
 	@Override
+	public boolean pressedProceed(Input input) {
+		int proceedButton = DefaultKeyMappings.getInstance().getProceedButton();
+		
+		return input.isKeyPressed(proceedButton);
+	}
+	
+	@Override
 	public boolean equals(final Object obj) {
 		if (this == obj) {
 			return true;
@@ -87,11 +94,19 @@ public class KeyBoardInputHandler implements InputHandler {
 		return this.player.equals(other.player)
 				&& this.keyActionMap.equals(other.keyActionMap);
 	}
-
+	
 	@Override
-	public boolean pressedProceed(Input input) {
-		int proceedButton = DefaultKeyMappings.getInstance().getProceedButton();
+	public int hashCode() {
+		int sum = 0;
 		
-		return input.isKeyPressed(proceedButton);
+		for(Integer i : keyActionMap.keySet()) {
+			sum += i * 13;
+		}
+		
+		sum += currentKey * 7;
+		
+		sum += player.hashCode() * 5;
+		
+		return sum;
 	}
 }
