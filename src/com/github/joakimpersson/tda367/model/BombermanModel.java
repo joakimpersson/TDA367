@@ -458,4 +458,11 @@ public class BombermanModel implements IBombermanModel {
 		}
 	}
 
+	@Override
+	public void reloadPlayerAttributes() {
+		for (Player p : players) {
+			p.reloadAttributes();
+		}
+	}
+
 }

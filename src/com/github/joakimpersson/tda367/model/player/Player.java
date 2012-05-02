@@ -334,4 +334,8 @@ public class Player {
 		return points;
 	}
 
+	public void reloadAttributes() {
+		health = getAttribute(Health);
+	}
+
 }

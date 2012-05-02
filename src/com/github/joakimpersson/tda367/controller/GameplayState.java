@@ -66,6 +66,7 @@ public class GameplayState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		super.enter(container, game);
+		model.reloadPlayerAttributes();
 
 		pcs.firePropertyChange("play", null, EventType.BATTLE_SCREEN);
 		currentState = STATE.GAME_RUNNING;
