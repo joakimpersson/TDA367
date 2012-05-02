@@ -70,16 +70,21 @@ public class ImageLoader {
 		loadImage("bombUpItem");
 
 		// player tiles
-		// loadImage("player/moving-up");
-		// loadImage("player/moving-down");
-		// loadImage("player/moving-left");
-		// loadImage("player/moving-right");
 		for (int i = 1; i <= 4; i++) {
 			loadImage("player/"+i+"/still-north");
 			loadImage("player/"+i+"/still-east");
 			loadImage("player/"+i+"/still-south");
 			loadImage("player/"+i+"/still-west");
 		}
+		
+		// info pane support images
+		loadImage("info/bomb");
+		loadImage("info/fire");
+		loadImage("info/heart");
+		loadImage("info/power2");
+		loadImage("info/power3");
+		loadImage("info/speed");
+		loadImage("info/skull");
 	}
 
 	public static ImageLoader getInstance() {

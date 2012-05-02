@@ -38,8 +38,7 @@ public class PlayerInfoContainerView implements IView {
 	public void enter() {
 		playersInfo = new ArrayList<PlayerInfoView>();
 		List<Player> players = model.getPlayers();
-		int panelHeight = GUIParameters.INSTANCE.getGameHeight()
-				/ model.getPlayers().size();
+		int panelHeight = 102;
 		int x = 0;
 		int y = 0;
 		for (Player p : players) {

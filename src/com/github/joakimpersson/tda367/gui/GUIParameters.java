@@ -16,7 +16,7 @@ public enum GUIParameters {
 	}
 
 	public int getGameWidth() {
-		return 950;
+		return 955;
 	}
 
 	public int getGameHeight() {

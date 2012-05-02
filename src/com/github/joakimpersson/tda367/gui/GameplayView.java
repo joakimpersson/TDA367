@@ -21,7 +21,7 @@ public class GameplayView implements IView {
 
 	private void init() {
 		infoContainer = new PlayerInfoContainerView(0, 0);
-		gameFieldView = new GameFieldView(200, 0);
+		gameFieldView = new GameFieldView(205, 0);
 		roundInfoView = new RoundInfoView();
 	}
 
