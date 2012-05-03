@@ -80,7 +80,7 @@ public enum Parameters {
 	}
 
 	public int getHighscoreMaxSize() {
-		return 25;
+		return 20;
 	}
 
 }

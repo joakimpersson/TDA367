@@ -43,6 +43,7 @@ public class Highscore {
 		int index = playerList.size() - 1;
 		while (playerList.size() > maxSize) {
 			playerList.remove(index);
+			index--;
 		}
 
 	}

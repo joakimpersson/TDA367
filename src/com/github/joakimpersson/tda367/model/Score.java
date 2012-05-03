@@ -28,7 +28,6 @@ public class Score implements Serializable, Comparable<Score> {
 
 	@Override
 	public int compareTo(Score other) {
-		System.out.println(this.playerPoints.compareTo(other.playerPoints));
 		return this.playerPoints.compareTo(other.playerPoints);
 	}
 
