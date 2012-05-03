@@ -1,5 +1,8 @@
 package com.github.joakimpersson.tda367.gui;
 
+import java.util.List;
+
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -19,7 +22,7 @@ public class HighscoreListView {
 	private final int Y;
 	private final static int WIDTH = 400;
 	private IBombermanModel model = null;
-	private Score[] highscore = null;
+	private List<Score> highscore = null;
 
 	public HighscoreListView(int x, int y) {
 		this.X = x;
@@ -32,7 +35,7 @@ public class HighscoreListView {
 	}
 
 	public void enter() {
-		if (model.getHighscoreList().length > 0) {
+		if (model.getHighscoreList().size() > 0) {
 			highscore = model.getHighscoreList();
 		}
 	}
@@ -42,14 +45,39 @@ public class HighscoreListView {
 		int x = X;
 		int y = Y;
 		if (highscore != null) {
-			for (Score s : highscore) {
-				g.drawString(s.getPlayerName(), x, y);
-				y += 50;
-				System.out.println(s.getPlayerName());
-			}
+			drawPlayerInfo(x, y, g, currentIndex);
 		} else {
 			drawEmptyListString(x, y, g);
 		}
+	}
+
+	private void drawPlayerInfo(int x, int y, Graphics g, int currentIndex) {
+		g.setColor(Color.white);
+		int i = 0;
+		for (Score s : highscore) {
+			String str = formatScoreString(s, i);
+
+			if (i == currentIndex) {
+				g.setColor(Color.cyan);
+			}
+
+			g.drawString(str, x, y);
+			y += 25;
+			i++;
+			// Make sure that the color always is white
+			g.setColor(Color.white);
+		}
+	}
+
+	private String formatScoreString(Score s, int i) {
+		StringBuffer str = new StringBuffer();
+		str.append((i + 1));
+		str.append(". ");
+		str.append(s.getPlayerName());
+		str.append(" : ");
+		str.append(s.getPlayerPoints().getScore());
+		str.append("p");
+		return str.toString();
 	}
 
 	private void drawEmptyListString(int x, int y, Graphics g) {

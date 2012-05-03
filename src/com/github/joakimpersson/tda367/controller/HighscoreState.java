@@ -112,9 +112,9 @@ public class HighscoreState extends BasicGameState {
 	}
 
 	private void moveIndex(int delta) {
-		int n = model.getHighscoreList().length;
+		int n = model.getHighscoreList().size();
 		int newIndex = (currentIndex + delta);
-		System.out.println(newIndex);
+		
 		int r = newIndex % n;
 		if (r < 0) {
 			r += n;
