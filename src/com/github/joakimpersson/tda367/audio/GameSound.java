@@ -1,5 +1,11 @@
 package com.github.joakimpersson.tda367.audio;
 
+import java.io.File;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 
@@ -14,6 +20,7 @@ public abstract class GameSound {
 
 	private Sound sound;
 	private String path;
+	private float duration;
 
 	/**
 	 * This is the volume that is added/subtracted from the global volume when
@@ -26,6 +33,8 @@ public abstract class GameSound {
 		this.path = path;
 		this.initVolume = initVolume;
 		this.sound = new Sound(path);
+		this.duration = calculateDuration();
+		System.out.println(duration);
 	}
 
 	/**
@@ -61,6 +70,33 @@ public abstract class GameSound {
 		return initVolume;
 	}
 
+	/**
+	 * @return
+	 * 			The duration of this sound in milliseconds.
+	 */
+	protected float getDuration() {
+		return duration;
+	}
+	
+	/**
+	 * Calculates the duration of this GameSound.
+	 * 
+	 * @return
+	 * 			The duration in milliseconds.
+	 */
+	private float calculateDuration() {
+		File file = new File(path);
+		AudioInputStream audioInputStream;
+		try {
+			audioInputStream = AudioSystem.getAudioInputStream(file);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1f;
+			}
+	    AudioFormat format = audioInputStream.getFormat();
+	    return (file.length() * 1000 / (format.getFrameSize() * format.getFrameRate()));		
+	}
+	
 	/**
 	 * This method returns a string of the path to the file where the sound is
 	 * located.

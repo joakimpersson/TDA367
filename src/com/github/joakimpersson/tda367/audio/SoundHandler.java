@@ -34,6 +34,9 @@ public class SoundHandler {
 	private SoundEffect menuAction;
 	private SoundEffect errorSound;
 	
+	/**
+	 * The music that is currently playing.
+	 */
 	private BackgroundMusic playingMusic;
 	
 	/**
@@ -65,17 +68,17 @@ public class SoundHandler {
 	}
 	
 	/**
-	 * This class initiate and saves all the sound from the resources folder.
+	 * This class initiate and saves all the sounds from the resources folder.
 	 */
 	public void initiateSounds() {
 		try {
-			bombPlaced = new SoundEffect("res/sounds/PlaceBomb1.ogg", -2f);
-			bombExplode = new SoundEffect("res/sounds/Bomb1.ogg", -0.5f);
-			titleTheme = new BackgroundMusic("res/sounds/bg1.ogg", -0.65f);
-			battleSong1 = new BackgroundMusic("res/sounds/BattleSong1.ogg", -0.4f);
-			menuNavigate = new SoundEffect("res/sounds/MenuNavigate.ogg", -0.1f);
-			menuAction = new SoundEffect("res/sounds/MenuAction.ogg", -0.45f);
-			errorSound = new SoundEffect("res/sounds/ErrorSound.ogg", -0.45f);
+			bombPlaced = new SoundEffect("res/sounds/PlaceBomb1.wav", -2f);
+			bombExplode = new SoundEffect("res/sounds/Bomb1.wav", -0.5f);
+			titleTheme = new BackgroundMusic("res/sounds/bg1.wav", -0.65f);
+			battleSong1 = new BackgroundMusic("res/sounds/BattleSong1.wav", -0.4f);
+			menuNavigate = new SoundEffect("res/sounds/MenuNavigate.wav", -0.1f);
+			menuAction = new SoundEffect("res/sounds/MenuAction.wav", -0.45f);
+			errorSound = new SoundEffect("res/sounds/ErrorSound.wav", -0.55f);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -114,7 +117,7 @@ public class SoundHandler {
 	}
 	
 	/**
-	 * This method stops all currently playing backgroundmusic.
+	 * This method stops all currently playing background-music.
 	 */
 	public void stopCurrentlyPlayingMusic() {
 		if(playingMusic != null) {
