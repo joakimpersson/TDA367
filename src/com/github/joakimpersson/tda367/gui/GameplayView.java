@@ -15,7 +15,7 @@ public class GameplayView implements IView {
 	private PlayerInfoContainerView infoContainer = null;
 	private RoundInfoView roundInfoView = null;
 	private RoundWaitingView roundWaitingView = null;
-	
+
 	public GameplayView() {
 		init();
 	}
@@ -49,7 +49,7 @@ public class GameplayView implements IView {
 
 	public void showWaitingBox(GameContainer container, Graphics g)
 			throws SlickException {
-		roundWaitingView.render(container,g);
+		roundWaitingView.render(container, g);
 	}
 
 }

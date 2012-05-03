@@ -40,7 +40,7 @@ public class HighscoreListView {
 	public void render(GameContainer container, Graphics g, int currentIndex)
 			throws SlickException {
 		int midX = 0;
-		int x = X + 50;
+		int x = X;
 		int y = Y;
 		if (highscore != null) {
 			for (Score s : highscore) {
@@ -48,12 +48,12 @@ public class HighscoreListView {
 			}
 		} else {
 			String str = "Nothing here";
-			midX = getStrinCenterX(str, x, WIDTH, g);
-			g.drawString(str, midX, y);
+			midX = getStrinCenterX(str, WIDTH, g);
+			g.drawString(str, midX + x, y);
 		}
 	}
 
-	private int getStrinCenterX(String str, int x, int width, Graphics g) {
+	private int getStrinCenterX(String str, int width, Graphics g) {
 		int strWidth = g.getFont().getWidth(str);
 		return width / 2 - strWidth / 2;
 	}

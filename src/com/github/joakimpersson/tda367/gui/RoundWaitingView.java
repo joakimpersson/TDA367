@@ -9,7 +9,7 @@ import org.newdawn.slick.SlickException;
 /**
  * 
  * @author joakimpersson
- *
+ * 
  */
 public class RoundWaitingView implements IView {
 	private static final int WIDTH = 600;
