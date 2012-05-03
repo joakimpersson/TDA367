@@ -11,11 +11,11 @@ public class Score implements Serializable, Comparable<Score> {
 	 */
 	private static final long serialVersionUID = -7241270636215740757L;
 	private String playerName;
-	private PlayerPoints pp;
+	private PlayerPoints playerPoints;
 
 	public Score(String playerName, PlayerPoints pp) {
 		this.playerName = playerName;
-		this.pp = pp;
+		this.playerPoints = pp;
 	}
 
 	public String getPlayerName() {
@@ -23,12 +23,13 @@ public class Score implements Serializable, Comparable<Score> {
 	}
 
 	public PlayerPoints getPlayerPoints() {
-		return pp;
+		return playerPoints;
 	}
 
 	@Override
 	public int compareTo(Score other) {
-		return pp.compareTo(other.pp);
+		System.out.println(this.playerPoints.compareTo(other.playerPoints));
+		return this.playerPoints.compareTo(other.playerPoints);
 	}
 
 	@Override
@@ -41,14 +42,14 @@ public class Score implements Serializable, Comparable<Score> {
 		}
 		Score other = (Score) obj;
 		return this.playerName.equals(other.playerName)
-				&& this.pp.equals(other.pp);
+				&& this.playerPoints.equals(other.playerPoints);
 	}
 
 	@Override
 	public int hashCode() {
 		int sum = 0;
 		sum += playerName.hashCode() * 5;
-		sum += pp.hashCode() * 7;
+		sum += playerPoints.hashCode() * 7;
 
 		return sum;
 	}

@@ -96,9 +96,9 @@ public interface IBombermanModel {
 	/**
 	 * Get the current highscore list
 	 * 
-	 * @return A HashMap containing the games top players
+	 * @return A List containing the games top players
 	 */
-	public Score[] getHighscoreList();
+	public List<Score> getHighscoreList();
 
 	/**
 	 * Reset and erase all the previous highscores from the list

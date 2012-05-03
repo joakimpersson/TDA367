@@ -369,6 +369,7 @@ public class BombermanModel implements IBombermanModel {
 
 	@Override
 	public boolean isMatchOver() {
+		highscore.update(players);
 		// TODO add implementation/support
 		return true;
 	}
@@ -391,7 +392,7 @@ public class BombermanModel implements IBombermanModel {
 	}
 
 	@Override
-	public Score[] getHighscoreList() {
+	public List<Score> getHighscoreList() {
 		return highscore.getList();
 	}
 
