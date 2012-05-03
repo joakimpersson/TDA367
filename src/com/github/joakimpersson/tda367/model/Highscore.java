@@ -25,7 +25,6 @@ public class Highscore {
 	}
 
 	public void update(List<Player> otherPlayers) {
-
 		for (Player p : otherPlayers) {
 			Score score = new Score(p.getName(), p.getPoints());
 			playerList.add(score);

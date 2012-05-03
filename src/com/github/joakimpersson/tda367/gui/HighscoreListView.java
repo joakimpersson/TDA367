@@ -17,7 +17,7 @@ public class HighscoreListView {
 
 	private final int X;
 	private final int Y;
-	private final static int WIDTH = 450;
+	private final static int WIDTH = 400;
 	private IBombermanModel model = null;
 	private Score[] highscore = null;
 
@@ -39,18 +39,24 @@ public class HighscoreListView {
 
 	public void render(GameContainer container, Graphics g, int currentIndex)
 			throws SlickException {
-		int midX = 0;
 		int x = X;
 		int y = Y;
 		if (highscore != null) {
 			for (Score s : highscore) {
-				System.out.println(s);
+				g.drawString(s.getPlayerName(), x, y);
+				y += 50;
+				System.out.println(s.getPlayerName());
 			}
 		} else {
-			String str = "Nothing here";
-			midX = getStrinCenterX(str, WIDTH, g);
-			g.drawString(str, midX + x, y);
+			drawEmptyListString(x, y, g);
 		}
+	}
+
+	private void drawEmptyListString(int x, int y, Graphics g) {
+		String str = "No Highscroes yet!";
+		x += getStrinCenterX(str, WIDTH, g);
+		g.drawString(str, x, y);
+
 	}
 
 	private int getStrinCenterX(String str, int width, Graphics g) {

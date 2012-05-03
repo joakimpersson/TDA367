@@ -17,7 +17,7 @@ public class HighscoreInfoView {
 
 	private final int X;
 	private final int Y;
-	private final static int WIDTH = 450;
+	private final static int WIDTH = 400;
 	private IBombermanModel model = null;
 	private Score[] highscore = null;
 
@@ -39,24 +39,32 @@ public class HighscoreInfoView {
 
 	public void render(GameContainer container, Graphics g, int currentIndex)
 			throws SlickException {
-		int x = X + 50;
+		int x = X;
 		int y = Y;
-		int midX = X;
 		if (highscore != null) {
-			Score currentScore = highscore[currentIndex];
-			String playerName = currentScore.getPlayerName();
-			int strWidth = g.getFont().getWidth(playerName);
-			midX += WIDTH / 2 - strWidth / 2;
-			g.drawString(playerName, midX, y);
+			drawSelectedPlayer(x, y, currentIndex, g);
 		} else {
-			String str = "Current Index : " + currentIndex;
-			midX += getStrinCenterX(str, x, WIDTH, g);
-			g.drawString(str, midX, y);
+			drawEmptyListString(x, y, g);
 		}
 
 	}
 
-	private int getStrinCenterX(String str, int x, int width, Graphics g) {
+	private void drawEmptyListString(int x, int y, Graphics g) {
+		String str = "Du vågar aldrig...";
+		x += getStrinCenterX(str, WIDTH, g);
+		g.drawString(str, x, y);
+
+	}
+
+	private void drawSelectedPlayer(int x, int y, int currentIndex, Graphics g) {
+		Score currentScore = highscore[currentIndex];
+		String playerName = currentScore.getPlayerName();
+		int strWidth = g.getFont().getWidth(playerName);
+		x += WIDTH / 2 - strWidth / 2;
+		g.drawString(playerName, x, y);
+	}
+
+	private int getStrinCenterX(String str, int width, Graphics g) {
 		int strWidth = g.getFont().getWidth(str);
 		return width / 2 - strWidth / 2;
 	}

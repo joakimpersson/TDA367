@@ -17,7 +17,7 @@ public class HighscoreView {
 
 	private void init() {
 		highscoreListView = new HighscoreListView(50, 100);
-		highscoreInfoView = new HighscoreInfoView(500, 100);
+		highscoreInfoView = new HighscoreInfoView(475, 100);
 		try {
 			bigFont = GUIParameters.INSTANCE.getBigFont();
 		} catch (SlickException e) {

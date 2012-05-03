@@ -77,7 +77,7 @@ public class BombermanModel implements IBombermanModel {
 		if (player.getCredits() >= attr.getCost()) {
 			player.upgradeAttr(attr, UpgradeType.Match);
 			player.useCredits(attr.getCost());
-			
+
 			pcs.firePropertyChange("play", null, EventType.MENU_ACTION);
 		} else {
 			pcs.firePropertyChange("play", null, EventType.ERROR);
