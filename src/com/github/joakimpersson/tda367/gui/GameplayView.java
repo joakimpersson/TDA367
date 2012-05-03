@@ -16,10 +16,17 @@ public class GameplayView implements IView {
 	private RoundInfoView roundInfoView = null;
 	private RoundWaitingView roundWaitingView = null;
 
+	/**
+	 * Creates a new view holding the game view and sub panels
+	 */
 	public GameplayView() {
 		init();
 	}
 
+	/**
+	 * Responsible for fetching instances, info from the model and init fonts
+	 * etc
+	 */
 	private void init() {
 		infoContainer = new PlayerInfoContainerView(0, 0);
 		gameFieldView = new GameFieldView(205, 0);
@@ -27,6 +34,7 @@ public class GameplayView implements IView {
 		roundWaitingView = new RoundWaitingView();
 	}
 
+	@Override
 	public void enter() {
 		infoContainer.enter();
 		gameFieldView.enter();
@@ -42,11 +50,29 @@ public class GameplayView implements IView {
 
 	}
 
+	/**
+	 * 
+	 * @param container
+	 *            The container holding the game
+	 * @param g
+	 *            The graphics context to render to
+	 * @throws SlickException
+	 *             Indicates a failure to render an gui object
+	 */
 	public void showRoundStats(GameContainer container, Graphics g)
 			throws SlickException {
 		roundInfoView.render(container, g);
 	}
 
+	/**
+	 * 
+	 * @param container
+	 *            The container holding the game
+	 * @param g
+	 *            The graphics context to render to
+	 * @throws SlickException
+	 *             Indicates a failure to render an gui object
+	 */
 	public void showWaitingBox(GameContainer container, Graphics g)
 			throws SlickException {
 		roundWaitingView.render(container, g);

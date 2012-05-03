@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 import com.github.joakimpersson.tda367.model.player.PlayerPoints;
 
+/**
+ * 
+ * @author joakimpersson
+ * 
+ */
 public class Score implements Serializable, Comparable<Score> {
 
 	/**
@@ -13,15 +18,29 @@ public class Score implements Serializable, Comparable<Score> {
 	private String playerName;
 	private PlayerPoints playerPoints;
 
+	/**
+	 * Create a new score object using a player and his playerpoint object
+	 * 
+	 * @param playerName The name of the player
+	 * @param pp The players playerpoint object
+	 */
 	public Score(String playerName, PlayerPoints pp) {
 		this.playerName = playerName;
 		this.playerPoints = pp;
 	}
 
+	/**
+	 * Get the name of the player
+	 * @return The player's name
+	 */
 	public String getPlayerName() {
 		return playerName;
 	}
 
+	/**
+	 * Get the players playerpoint object
+	 * @return The player's playerpoint object
+	 */
 	public PlayerPoints getPlayerPoints() {
 		return playerPoints;
 	}

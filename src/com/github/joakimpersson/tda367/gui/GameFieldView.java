@@ -29,6 +29,14 @@ public class GameFieldView implements IView {
 
 	private ImageLoader imgs;
 
+	/**
+	 * Creats a new view displaying the game map and the players
+	 * 
+	 * @param startX
+	 *            The starting coordinate in the x-axis
+	 * @param startY
+	 *            The starting coordinate in the y-axis
+	 */
 	public GameFieldView(int startX, int startY) {
 		this.startX = startX;
 		this.startY = startY;
@@ -36,6 +44,10 @@ public class GameFieldView implements IView {
 
 	}
 
+	/**
+	 * Responsible for fetching instances ,info from the model and init fonts
+	 * etc
+	 */
 	private void init() {
 		model = BombermanModel.getInstance();
 	}
@@ -53,6 +65,12 @@ public class GameFieldView implements IView {
 		drawPlayer(g);
 	}
 
+	/**
+	 * Draws the players current positions on the game map
+	 * 
+	 * @param g
+	 *            The graphics context to render to
+	 */
 	private void drawPlayer(Graphics g) {
 
 		for (Player p : players) {
@@ -65,6 +83,12 @@ public class GameFieldView implements IView {
 
 	}
 
+	/**
+	 * Draws the current verision of the game map onto the screen
+	 * 
+	 * @param g
+	 *            The graphics context to render to
+	 */
 	private void drawMap(Graphics g) {
 		Tile[][] map = model.getMap();
 		int mapHeight = map.length;
@@ -78,6 +102,19 @@ public class GameFieldView implements IView {
 		}
 	}
 
+	/**
+	 * 
+	 * Draws an image to the screen
+	 * 
+	 * @param x
+	 *            The starting coordinate in the x-axis
+	 * @param y
+	 *            The starting coordinate in the y-axis
+	 * @param s
+	 *            The path to the image as a string
+	 * @param g
+	 *            The graphics context to render to
+	 */
 	private void drawImage(float x, float y, String s, Graphics g) {
 		// the players position is related to matrix so compensated is needed
 		x *= blockSide;

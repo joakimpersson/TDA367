@@ -26,12 +26,25 @@ public class HighscoreInfoView {
 	private IBombermanModel model = null;
 	private List<Score> highscore = null;
 
+	/**
+	 * Create a new HighscoreInfoView that is responsible for displaying info
+	 * about a single score object
+	 * 
+	 * @param x
+	 *            The starting coordinate in the x-axis
+	 * @param y
+	 *            The starting coordinate in the y-axis
+	 */
 	public HighscoreInfoView(int x, int y) {
 		this.X = x;
 		this.Y = y;
 		init();
 	}
 
+	/**
+	 * Responsible for fetching instances ,info from the model and init fonts
+	 * etc
+	 */
 	private void init() {
 		model = BombermanModel.getInstance();
 	}
@@ -48,7 +61,7 @@ public class HighscoreInfoView {
 		int y = Y;
 		if (highscore != null) {
 			g.setColor(Color.cyan);
-			drawSelectedPlayer(x, y, currentIndex, g);
+			drawSelectedPlayerName(x, y, currentIndex, g);
 			y += 60;
 			g.setColor(Color.white);
 			drawPlayerScore(x, y, currentIndex, g);
@@ -60,7 +73,21 @@ public class HighscoreInfoView {
 
 	}
 
-	private void drawSelectedPlayer(int x, int y, int currentIndex, Graphics g) {
+	/**
+	 * Draws the name of the player onto the screen,
+	 * 
+	 * @param x
+	 *            The starting coordinate in the x-axis
+	 * @param y
+	 *            The starting coordinate in the y-axis
+	 * @param currentIndex
+	 *            The index in the highscore list for the score object to be
+	 *            shown
+	 * @param g
+	 *            The graphics context to render to
+	 */
+	private void drawSelectedPlayerName(int x, int y, int currentIndex,
+			Graphics g) {
 
 		Score score = highscore.get(currentIndex);
 		String playerName = score.getPlayerName();
@@ -69,6 +96,19 @@ public class HighscoreInfoView {
 
 	}
 
+	/**
+	 * Draws the score/player objects score onto the screen
+	 * 
+	 * @param x
+	 *            The starting coordinate in the x-axis
+	 * @param y
+	 *            The starting coordinate in the y-axis
+	 * @param currentIndex
+	 *            The index in the highscore list for the score object to be
+	 *            shown
+	 * @param g
+	 *            The graphics context to render to
+	 */
 	private void drawPlayerScore(int x, int y, int currentIndex, Graphics g) {
 		Score s = highscore.get(currentIndex);
 		PlayerPoints pp = s.getPlayerPoints();
@@ -76,6 +116,20 @@ public class HighscoreInfoView {
 		g.drawString(str, x, y);
 	}
 
+	/**
+	 * Draws all the info about the score objects playerpoint object onto the
+	 * screen
+	 * 
+	 * @param x
+	 *            The starting coordinate in the x-axis
+	 * @param y
+	 *            The starting coordinate in the y-axis
+	 * @param currentIndex
+	 *            The index in the highscore list for the score object to be
+	 *            shown
+	 * @param g
+	 *            The graphics context to render to
+	 */
 	private void drawPlayerStats(int x, int y, int currentIndex, Graphics g) {
 		PointGiver[] pointGivers = PointGiver.values();
 
@@ -96,6 +150,16 @@ public class HighscoreInfoView {
 
 	}
 
+	/**
+	 * Formats a string including the pointgivers name and its corresponging
+	 * value in the PlayerPoint object
+	 * 
+	 * @param pg
+	 *            The current PointGiver
+	 * @param pp
+	 *            The PointGiveres value in the PlayerPoints object
+	 * @return A string containg the name of the PointGiver and its value
+	 */
 	private String getPointGiverString(PointGiver pg, PlayerPoints pp) {
 		StringBuilder strBuilder = new StringBuilder();
 		strBuilder.append(pg.name());
@@ -105,6 +169,16 @@ public class HighscoreInfoView {
 		return strBuilder.toString();
 	}
 
+	/**
+	 * Draws the string shown when the highscore list is empty
+	 * 
+	 * @param x
+	 *            The starting coordinate in the x-axis
+	 * @param y
+	 *            The starting coordinate in the y-axis
+	 * @param g
+	 *            The graphics context to render to
+	 */
 	private void drawEmptyListString(int x, int y, Graphics g) {
 		String str = "Du vågar aldrig...";
 		x += getStrinCenterX(str, WIDTH, g);
@@ -112,6 +186,17 @@ public class HighscoreInfoView {
 
 	}
 
+	/**
+	 * A util method for centering the texts midpoint in the panel/container
+	 * 
+	 * @param str
+	 *            The text that needs to be centered
+	 * @param width
+	 *            The width of the panel/container
+	 * @param g
+	 *            The graphics context to render to
+	 * @return The x coordinate for the string to be draws from
+	 */
 	private int getStrinCenterX(String str, int width, Graphics g) {
 		int strWidth = g.getFont().getWidth(str);
 		return width / 2 - strWidth / 2;

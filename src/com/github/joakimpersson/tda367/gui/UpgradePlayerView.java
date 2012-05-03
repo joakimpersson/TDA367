@@ -24,10 +24,18 @@ public class UpgradePlayerView implements IUpgradePlayerView {
 	private static final int POS_Y = 50;
 	private static final int POS_X = 50;
 
+	/**
+	 * Creats a new view that holds the info about the upgradeplayerview
+	 * subpanels
+	 */
 	public UpgradePlayerView() {
 		init();
 	}
 
+	/**
+	 * Responsible for fetching instances ,info from the model and init fonts
+	 * etc
+	 */
 	private void init() {
 		model = BombermanModel.getInstance();
 	}

@@ -13,6 +13,11 @@ import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.player.Player;
 
+/**
+ * 
+ * @author joakimpersson
+ * 
+ */
 public class RoundInfoView implements IView {
 
 	private static final int width = 850;
@@ -23,10 +28,18 @@ public class RoundInfoView implements IView {
 	private List<Player> players = null;
 	private Font smlFont;
 
+	/**
+	 * Creates a new view containing info about the players stats from the
+	 * PlayerPoints object
+	 */
 	public RoundInfoView() {
 		init();
 	}
 
+	/**
+	 * Responsible for fetching instances ,info from the model and init fonts
+	 * etc
+	 */
 	private void init() {
 		model = BombermanModel.getInstance();
 		try {
@@ -64,14 +77,30 @@ public class RoundInfoView implements IView {
 		}
 	}
 
-	private void drawTitle(Graphics g, int midX, int y) {
+	/**
+	 * Draws the title of the view
+	 * 
+	 * @param g
+	 *            The games graphics object
+	 * @param x
+	 *            The starting coordinate in the x-axis
+	 * @param y
+	 *            The starting coordinate in the y-axis
+	 */
+	private void drawTitle(Graphics g, int x, int y) {
 		// should be template and say round over, matchover etc
 		String str = "Skumme dummy()";
 		int strWidth = g.getFont().getWidth(str);
-		g.drawString(str, midX - strWidth / 2, y);
+		g.drawString(str, x - strWidth / 2, y);
 
 	}
 
+	/**
+	 * Draws the background of the container
+	 * 
+	 * @param g
+	 *            The games graphics object
+	 */
 	private void drawBackgroundContainer(Graphics g) {
 		g.setColor(Color.black);
 
@@ -81,15 +110,21 @@ public class RoundInfoView implements IView {
 
 	}
 
-	private String getPlayerString(Player p, PointGiver pg) {
-		StringBuilder strBuilder = new StringBuilder();
-		strBuilder.append(pg.name());
-		strBuilder.append(": ");
-		strBuilder.append(p.getDestroyedPointGiver(pg));
-		strBuilder.append(" st");
-		return strBuilder.toString();
-	}
-
+	/**
+	 * Draws all the info about the Player and stats from his PlayerPoint object
+	 * onto the screen
+	 * 
+	 * 
+	 * @param p
+	 *            The player holding the PlayerPoints object
+	 * @param x
+	 *            The starting coordinate in the x-axis
+	 * @param y
+	 *            The starting coordinate in the y-axis
+	 * 
+	 * @param g
+	 *            The games graphics object
+	 */
 	private void drawPlayerStats(Player p, int x, int y, Graphics g) {
 		PointGiver[] pointGivers = PointGiver.values();
 
@@ -110,5 +145,24 @@ public class RoundInfoView implements IView {
 
 		}
 
+	}
+
+	/**
+	 * Formats a string including the pointgivers name and its corresponging
+	 * value in the PlayerPoint object
+	 * 
+	 * @param p
+	 *            The player holding the PlayerPoints object
+	 * @param pp
+	 *            The PointGiveres value in the PlayerPoints object
+	 * @return A string containing the name of the PointGiver and its value
+	 */
+	private String getPlayerString(Player p, PointGiver pg) {
+		StringBuilder strBuilder = new StringBuilder();
+		strBuilder.append(pg.name());
+		strBuilder.append(": ");
+		strBuilder.append(p.getDestroyedPointGiver(pg));
+		strBuilder.append(" st");
+		return strBuilder.toString();
 	}
 }

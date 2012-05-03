@@ -21,18 +21,28 @@ import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 
 public class HighscoreState extends BasicGameState {
 
+	/**
+	 * A simple enum containing the different states in the highscorestate
+	 * 
+	 */
+	private enum STATE {
+		ACTIVE, NOT_ACTIVE;
+	}
+
 	private int stateID = -1;
 	private HighscoreView view = null;
 	private InputManager inputManager = null;
 	private PropertyChangeSupport pcs = null;
 	private IBombermanModel model = null;
-	private STATES currentState = null;
+	private STATE currentState = null;
 	private int currentIndex = 0;
 
-	private enum STATES {
-		ACTIVE, NOT_ACTIVE;
-	}
-
+	/**
+	 * Create a new slick BasicGameState controller for the Highscorestate
+	 * 
+	 * @param stateID
+	 *            The states id number
+	 */
 	public HighscoreState(int stateID) {
 		this.stateID = stateID;
 	}
@@ -41,7 +51,7 @@ public class HighscoreState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 
-		this.currentState = STATES.NOT_ACTIVE;
+		this.currentState = STATE.NOT_ACTIVE;
 		this.model = BombermanModel.getInstance();
 		this.view = new HighscoreView();
 		this.inputManager = InputManager.getInstance();
@@ -54,7 +64,7 @@ public class HighscoreState extends BasicGameState {
 			throws SlickException {
 		super.enter(container, game);
 
-		currentState = STATES.ACTIVE;
+		currentState = STATE.ACTIVE;
 		view.enter();
 		pcs.firePropertyChange("play", null, EventType.TITLE_SCREEN);
 
@@ -64,7 +74,7 @@ public class HighscoreState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 
-		if (currentState != STATES.NOT_ACTIVE) {
+		if (currentState != STATE.NOT_ACTIVE) {
 			view.render(container, g, currentIndex);
 		}
 
@@ -92,6 +102,14 @@ public class HighscoreState extends BasicGameState {
 		}
 	}
 
+	/**
+	 * Manages all the states input by the player and maps it into an certain
+	 * action that the player has requested to perform
+	 * 
+	 * @param input
+	 *            The input method used by the slick framework that contains the
+	 *            latest action
+	 */
 	private void updateGame(Input input) {
 		List<InputData> data = inputManager.getData(input);
 
@@ -111,10 +129,16 @@ public class HighscoreState extends BasicGameState {
 
 	}
 
+	/**
+	 * Moves the currentIndex for the players navigation
+	 * 
+	 * @param delta
+	 *            The number of steps to be moved
+	 */
 	private void moveIndex(int delta) {
 		int n = model.getHighscoreList().size();
 		int newIndex = (currentIndex + delta);
-		
+
 		int r = newIndex % n;
 		if (r < 0) {
 			r += n;

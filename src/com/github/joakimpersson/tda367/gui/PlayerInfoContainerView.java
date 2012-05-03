@@ -24,12 +24,24 @@ public class PlayerInfoContainerView implements IView {
 	private IBombermanModel model = null;
 	private List<PlayerInfoView> playersInfo = null;
 
+	/**
+	 * Create a new container view for holding playerinfoviews
+	 * 
+	 * @param startX
+	 *            The starting coordinate in the x-axis
+	 * @param startY
+	 *            The starting coordinate in the y-axis
+	 */
 	public PlayerInfoContainerView(int startX, int startY) {
 		this.startX = startX;
 		this.startY = startY;
 		init();
 	}
 
+	/**
+	 * Responsible for fetching instances ,info from the model and init fonts
+	 * etc
+	 */
 	private void init() {
 		model = BombermanModel.getInstance();
 	}

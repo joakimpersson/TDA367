@@ -30,6 +30,14 @@ import com.github.joakimpersson.tda367.model.constants.ResetType;
  */
 public class GameplayState extends BasicGameState {
 
+	/**
+	 * A simple enum containing the different states in the game while running
+	 * 
+	 */
+	private enum STATE {
+		GAME_RUNNING, ROUND_OVER, MATCH_OVER, GAME_OVER, NOT_STARTED, GAME_WAITING;
+	}
+
 	private int stateID = -1;
 	private IBombermanModel model = null;
 	private GameplayView view = null;
@@ -37,10 +45,12 @@ public class GameplayState extends BasicGameState {
 	private InputManager inputManager = null;
 	private PropertyChangeSupport pcs;
 
-	private enum STATE {
-		GAME_RUNNING, ROUND_OVER, MATCH_OVER, GAME_OVER, NOT_STARTED, GAME_WAITING;
-	}
-
+	/**
+	 * Create a new slick BasicGameState controller for the Gameplaystate
+	 * 
+	 * @param stateID
+	 *            The states id number
+	 */
 	public GameplayState(int stateID) {
 		this.stateID = stateID;
 	}
@@ -141,6 +151,9 @@ public class GameplayState extends BasicGameState {
 	}
 
 	/**
+	 * 
+	 * Listens to player interaction while the game is waiting to send the
+	 * player into another State
 	 * 
 	 * @param input
 	 *            The input method used by the slick framework that contains the

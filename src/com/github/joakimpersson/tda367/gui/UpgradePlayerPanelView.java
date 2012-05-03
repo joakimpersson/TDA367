@@ -24,6 +24,17 @@ public class UpgradePlayerPanelView implements IUpgradePlayerView {
 	private int yDelta = -1;
 	private Font smlFont = null;
 
+	/**
+	 * Creates a new view displaying a attributes that a player can purchase and
+	 * also information about his current attributes
+	 * 
+	 * @param p
+	 *            The player to show info about
+	 * @param x
+	 *            The starting coordinate in the x-axis
+	 * @param y
+	 *            The starting coordinate in the y-axis
+	 */
 	public UpgradePlayerPanelView(Player p, int x, int y) {
 		this.player = p;
 		this.X = x;
@@ -31,6 +42,10 @@ public class UpgradePlayerPanelView implements IUpgradePlayerView {
 		init();
 	}
 
+	/**
+	 * Responsible for fetching instances ,info from the model and init fonts
+	 * etc
+	 */
 	private void init() {
 		try {
 			smlFont = GUIParameters.INSTANCE.getSmlFont();
@@ -71,6 +86,12 @@ public class UpgradePlayerPanelView implements IUpgradePlayerView {
 		}
 	}
 
+	/**
+	 * Formats a header string for a player containing its name and its credits
+	 * to spend
+	 * 
+	 * @return A string containing the players name and credits
+	 */
 	private String formatHeaderString() {
 		StringBuilder str = new StringBuilder();
 
@@ -81,6 +102,13 @@ public class UpgradePlayerPanelView implements IUpgradePlayerView {
 		return str.toString();
 	}
 
+	/**
+	 * Formats a string containing info about the current attribute and its cost
+	 * 
+	 * @param a
+	 *            The Attribute to draw info about
+	 * @return A string containing the attributes name and cost
+	 */
 	private String formatAttrString(Attribute a) {
 		StringBuilder str = new StringBuilder();
 

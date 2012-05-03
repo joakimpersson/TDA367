@@ -18,10 +18,16 @@ public class RoundWaitingView implements IView {
 	private int startX;
 	private int startY;
 
+	/**
+	 * Creates a new view that shows info when the game is waiting for input
+	 */
 	public RoundWaitingView() {
 		init();
 	}
 
+	/**
+	 * Responsible for fetching instances ,info from the model and init fonts a
+	 */
 	private void init() {
 		try {
 			bigFont = GUIParameters.INSTANCE.getBigFont();
@@ -45,6 +51,12 @@ public class RoundWaitingView implements IView {
 		drawText(g);
 	}
 
+	/**
+	 * Draws the info text to the screen
+	 * 
+	 * @param g
+	 *            The graphics context to render to
+	 */
 	private void drawText(Graphics g) {
 		String str = "Press Proceed to start the game";
 		int x = getStrinCenterX(str, WIDTH, g) + startX;
@@ -52,6 +64,12 @@ public class RoundWaitingView implements IView {
 		g.drawString(str, x, y);
 	}
 
+	/**
+	 * Draws the background container to the game
+	 * 
+	 * @param g
+	 *            The graphics context to render to
+	 */
 	private void drawBackgroundContainer(Graphics g) {
 		g.setColor(Color.black);
 		g.fillRoundRect(startX, startY, WIDTH, HEIGHT, 25);
@@ -59,11 +77,33 @@ public class RoundWaitingView implements IView {
 		g.drawRoundRect(startX, startY, WIDTH, HEIGHT, 25);
 	}
 
+	/**
+	 * A util method for centering the texts midpoint in the panel/container
+	 * 
+	 * @param str
+	 *            The text that needs to be centered
+	 * @param width
+	 *            The width of the panel/container
+	 * @param g
+	 *            The graphics context to render to
+	 * @return The x coordinate for the string to be draws from
+	 */
 	private int getStrinCenterX(String str, int width, Graphics g) {
 		int strWidth = g.getFont().getWidth(str);
 		return width / 2 - strWidth / 2;
 	}
 
+	/**
+	 * A util method for centering the texts midpoint in the panel/container
+	 * 
+	 * @param str
+	 *            The text that needs to be centered
+	 * @param height
+	 *            The height of the panel/container
+	 * @param g
+	 *            The graphics context to render to
+	 * @return The y coordinate for the string to be draws from
+	 */
 	private int getStrinCenterY(String str, int height, Graphics g) {
 		int strHeight = g.getFont().getHeight(str);
 		return height / 2 - strHeight / 2;

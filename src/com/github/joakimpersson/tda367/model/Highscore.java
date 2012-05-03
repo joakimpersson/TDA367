@@ -19,6 +19,10 @@ public class Highscore {
 	private List<Score> playerList;
 	private final int maxSize;
 
+	/**
+	 * Create a new Highscore object responsible for managing the games score
+	 * objects
+	 */
 	public Highscore() {
 		playerList = new ArrayList<Score>();
 		file = new File("highScore.data");
@@ -26,19 +30,38 @@ public class Highscore {
 		loadList();
 	}
 
-	public void update(List<Player> otherPlayers) {
-		for (Player p : otherPlayers) {
+	/**
+	 * Update the current highscore
+	 * 
+	 * @param players
+	 *            A list of the players that have completed a game
+	 */
+	public void update(List<Player> players) {
+		for (Player p : players) {
 			Score score = new Score(p.getName(), p.getPoints());
 			playerList.add(score);
 		}
 
-		// Reverse the order, since it sorts ascending
-		Collections.sort(playerList);
-		Collections.reverse(playerList);
+		this.sortList();
 		this.trimeHighScoreList();
 		this.saveList();
 	}
 
+	/**
+	 * Sorts the list of score objects in descending order
+	 */
+	private void sortList() {
+
+		Collections.sort(playerList);
+		// Reverse the order, since it sorts ascending
+		Collections.reverse(playerList);
+
+	}
+
+	/**
+	 * Responsible for score objects from the list if they don't qualify under
+	 * the limit of scoreobjects
+	 */
 	private void trimeHighScoreList() {
 		int index = playerList.size() - 1;
 		while (playerList.size() > maxSize) {
@@ -97,15 +120,28 @@ public class Highscore {
 		}
 	}
 
+	/**
+	 * Get the highscore list
+	 * 
+	 * @return The list of score objects in descending order
+	 */
 	public List<Score> getList() {
 		this.loadList();
 		return playerList;
 	}
 
+	/**
+	 * Get the size of the highscore list
+	 * 
+	 * @return The number of score objects in the list
+	 */
 	public int getSize() {
 		return this.playerList.size();
 	}
 
+	/**
+	 * Reset the highscorelist and remove all previous records from the game
+	 */
 	public void reset() {
 		playerList.clear();
 		saveList();

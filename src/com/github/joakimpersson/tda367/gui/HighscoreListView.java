@@ -24,12 +24,25 @@ public class HighscoreListView {
 	private IBombermanModel model = null;
 	private List<Score> highscore = null;
 
+	/**
+	 * Creats a new view display a lit of all the score objects in the highscore
+	 * list
+	 * 
+	 * @param x
+	 *            The starting coordinate in the x-axis
+	 * @param y
+	 *            The starting coordinate in the y-axis
+	 */
 	public HighscoreListView(int x, int y) {
 		this.X = x;
 		this.Y = y;
 		init();
 	}
 
+	/**
+	 * Responsible for fetching instances ,info from the model and init fonts
+	 * etc
+	 */
 	private void init() {
 		model = BombermanModel.getInstance();
 	}
@@ -51,11 +64,24 @@ public class HighscoreListView {
 		}
 	}
 
+	/**
+	 * Draws info about the player in the score object and also draws his score
+	 * 
+	 * @param x
+	 *            The starting coordinate in the x-axis
+	 * @param y
+	 *            The starting coordinate in the y-axis *
+	 * @param g
+	 *            The games graphics object
+	 * @param currentIndex
+	 *            The index in the highscore list for the score object to be
+	 *            shown as selected
+	 */
 	private void drawPlayerInfo(int x, int y, Graphics g, int currentIndex) {
 		g.setColor(Color.white);
 		int i = 0;
 		for (Score s : highscore) {
-			String str = formatScoreString(s, i);
+			String str = formatScoreString(s, i + 1);
 
 			if (i == currentIndex) {
 				g.setColor(Color.cyan);
@@ -69,9 +95,20 @@ public class HighscoreListView {
 		}
 	}
 
+	/**
+	 * Formats the score objects string containing the players name and total
+	 * score in the game
+	 * 
+	 * @param s
+	 *            The score object
+	 * @param i
+	 *            The score objects placement in the highscore list
+	 * @return
+	 */
+	// TODO jocke perhaps write a toString method in the score object
 	private String formatScoreString(Score s, int i) {
 		StringBuffer str = new StringBuffer();
-		str.append((i + 1));
+		str.append(i);
 		str.append(". ");
 		str.append(s.getPlayerName());
 		str.append(" : ");
@@ -80,6 +117,16 @@ public class HighscoreListView {
 		return str.toString();
 	}
 
+	/**
+	 * Draws the string shown when the highscore list is empty
+	 * 
+	 * @param x
+	 *            The starting coordinate in the x-axis
+	 * @param y
+	 *            The starting coordinate in the y-axis
+	 * @param g
+	 *            The games graphics object
+	 */
 	private void drawEmptyListString(int x, int y, Graphics g) {
 		String str = "No Highscroes yet!";
 		x += getStrinCenterX(str, WIDTH, g);
@@ -87,6 +134,17 @@ public class HighscoreListView {
 
 	}
 
+	/**
+	 * A util method for centering the texts midpoint in the panel/container
+	 * 
+	 * @param str
+	 *            The text that needs to be centered
+	 * @param width
+	 *            The width of the panel/container
+	 * @param g
+	 *            The games graphics object
+	 * @return The x coordinate for the string to be draws from
+	 */
 	private int getStrinCenterX(String str, int width, Graphics g) {
 		int strWidth = g.getFont().getWidth(str);
 		return width / 2 - strWidth / 2;

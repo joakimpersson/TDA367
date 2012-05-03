@@ -20,10 +20,18 @@ public class InputManager {
 		init();
 	}
 
+	/**
+	 * Init the inputmanager
+	 */
 	private void init() {
 		inputHandlers = new ArrayList<InputHandler>();
 	}
 
+	/**
+	 * Get the games central inputmangers single instance
+	 * 
+	 * @return the inputmanager instance
+	 */
 	public static InputManager getInstance() {
 		if (instance == null) {
 			instance = new InputManager();
@@ -112,7 +120,7 @@ public class InputManager {
 		}
 		return dataList;
 	}
-	
+
 	/**
 	 * Checks if one of the players has pressed their proceed button
 	 * 

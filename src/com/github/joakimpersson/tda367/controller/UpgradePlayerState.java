@@ -34,6 +34,14 @@ import com.github.joakimpersson.tda367.model.player.Player;
  */
 public class UpgradePlayerState extends BasicGameState {
 
+	/**
+	 * A simple enum containing the different states in the upgradeplayerstate
+	 * 
+	 */
+	private enum STATE {
+		USED, UPGRADE_DONE, NOT_USED;
+	}
+
 	private int stateID = -1;
 	private UpgradePlayerView view = null;
 	private IBombermanModel model = null;
@@ -41,12 +49,14 @@ public class UpgradePlayerState extends BasicGameState {
 	private List<Attribute> attributes = null;
 	private InputManager inputManager = null;
 	private PropertyChangeSupport pcs;
-	private STATES currentState;
+	private STATE currentState;
 
-	private enum STATES {
-		USED, UPGRADE_DONE, NOT_USED;
-	}
-
+	/**
+	 * Create a new slick BasicGameState controller for the UpgradePlayerState
+	 * 
+	 * @param stateID
+	 *            The states id number
+	 */
 	public UpgradePlayerState(int stateID) {
 		this.stateID = stateID;
 	}
@@ -60,7 +70,7 @@ public class UpgradePlayerState extends BasicGameState {
 
 		this.pcs = new PropertyChangeSupport(this);
 		this.pcs.addPropertyChangeListener(AudioEventListener.getInstance());
-		currentState = STATES.NOT_USED;
+		currentState = STATE.NOT_USED;
 	}
 
 	@Override
@@ -76,13 +86,13 @@ public class UpgradePlayerState extends BasicGameState {
 			playersIndex.put(p, 0);
 		}
 		view.enter();
-		currentState = STATES.USED;
+		currentState = STATE.USED;
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		if (currentState != STATES.NOT_USED) {
+		if (currentState != STATE.NOT_USED) {
 			view.render(container, g, playersIndex);
 		}
 	}
@@ -113,14 +123,29 @@ public class UpgradePlayerState extends BasicGameState {
 		}
 	}
 
+	/**
+	 * Resposible for chagne the current game state into another using a
+	 * fadein/out transition
+	 * 
+	 * @param game
+	 *            The game holding this state
+	 */
 	private void upgradeDone(StateBasedGame game) {
 		Transition fadeIn = new FadeInTransition(Color.cyan, 500);
 		Transition fadeOut = new FadeOutTransition(Color.cyan, 500);
 		game.enterState(BombermanGame.GAMEPLAY_STATE, fadeOut, fadeIn);
-		currentState = STATES.NOT_USED;
+		currentState = STATE.NOT_USED;
 
 	}
 
+	/**
+	 * Manages all the states input by the player and maps it into an certain
+	 * action that the player has requested to perform
+	 * 
+	 * @param input
+	 *            The input method used by the slick framework that contains the
+	 *            latest action
+	 */
 	private void updateGame(Input input) {
 		List<InputData> data = inputManager.getData(input);
 
@@ -145,7 +170,7 @@ public class UpgradePlayerState extends BasicGameState {
 		}
 
 		if (inputManager.pressedProceed(input)) {
-			currentState = STATES.UPGRADE_DONE;
+			currentState = STATE.UPGRADE_DONE;
 		}
 
 		// jocke TODO really bad solution
@@ -157,6 +182,14 @@ public class UpgradePlayerState extends BasicGameState {
 
 	}
 
+	/**
+	 * Moves the currentIndex for the players navigation
+	 * 
+	 * @param p
+	 *            The player that wants his navigation index to be moved
+	 * @param delta
+	 *            The number of steps to be moved
+	 */
 	private void moveIndex(Player p, int delta) {
 		int currentIndex = playersIndex.get(p);
 		int n = attributes.size();

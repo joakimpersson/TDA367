@@ -14,10 +14,17 @@ public class MainMenuView implements IView {
 
 	private Font smlFont = null;
 
+	/**
+	 * Creates a new view representing the main menu in the game
+	 */
 	public MainMenuView() {
 		init();
 	}
 
+	/**
+	 * Responsible for fetching instances ,info from the model and init fonts
+	 * etc
+	 */
 	private void init() {
 		try {
 			smlFont = GUIParameters.INSTANCE.getSmlFont();
