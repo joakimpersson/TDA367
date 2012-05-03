@@ -43,5 +43,4 @@ Thumbs.db
 # Rolen generated files #
 #########################
 Highscore.txt
-
-
+*.data
