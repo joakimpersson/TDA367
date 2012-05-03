@@ -1,5 +1,10 @@
 package com.github.joakimpersson.tda367.audio;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import org.lwjgl.openal.AL;
 import org.newdawn.slick.SlickException;
 
@@ -38,6 +43,11 @@ public class SoundHandler {
 	 * The music that is currently playing.
 	 */
 	private BackgroundMusic playingMusic;
+	
+	/**
+	 * The timer that consecutively ticks through the playlist.
+	 */
+	private Timer playlistTimer;
 	
 	/**
 	 * The instance of this class.
@@ -94,10 +104,22 @@ public class SoundHandler {
 	 */
 	public void playSound(EventType soundType) {
 		GameSound sound = chooseSound(soundType);
+		playSound(sound);
+		
+	}
+	
+	/**
+	 * See playSound(EventType soundType).
+	 */
+	private void playSound(GameSound sound) {
 		if(sound instanceof SoundEffect) {
 			sound.play(sfxVolume);
 		} else {
 			if(sound != playingMusic) {
+				if(playlistTimer != null) {
+					playlistTimer.cancel();
+					playlistTimer = null;
+				}
 				if(playingMusic != null) {
 					playingMusic.stop();
 				}
@@ -105,6 +127,36 @@ public class SoundHandler {
 				playingMusic = (BackgroundMusic) sound;
 			}
 		}	
+	}
+	
+	/**
+	 * Plays the the music that corresponds to the eventTypes in the given list.
+	 * When one sound has stopped playing, the next one will start.
+	 * The last song in the list will loop, so it is possible to use this method to
+	 * play one or several pre-songs before the main song. 
+	 * 
+	 * @param playlist
+	 * 					The given playlist.
+	 * @precon
+	 * 			The list contains only EventTypes that corresponds to a BackgroundMusic.
+	 */
+	public void playList(List<EventType> playlist) {
+
+		LinkedList<BackgroundMusic> soundList = new LinkedList<BackgroundMusic>();
+		for(EventType et : playlist) {
+			if(chooseSound(et) instanceof BackgroundMusic) {
+				soundList.add((BackgroundMusic) chooseSound(et));
+			}
+		}
+		if(soundList.size() > 1) {
+			stopCurrentlyPlayingMusic();
+			playlistTimer = new Timer();
+			playlistTimer.schedule(new PlaylistTask(soundList), soundList.get(0).getDuration());
+			playingMusic = soundList.removeFirst();
+			playingMusic.play(bgmVolume);
+		} else {
+			playSound(soundList.getFirst());
+		}
 	}
 	
 	/**
@@ -192,4 +244,29 @@ public class SoundHandler {
 		AL.destroy();
 	}
 	
+	/**
+	 * The timer task that is scheduled for the playlistTimer.
+	 * Its run() method calls on a new timer task until all songs have played.
+	 */
+	private class PlaylistTask extends TimerTask {
+		private LinkedList<BackgroundMusic> playlist;
+		
+		public PlaylistTask(LinkedList<BackgroundMusic> playlist) {
+			this.playlist = playlist;
+		}
+
+		@Override
+		public void run() {
+			if(!playlist.isEmpty()) {
+				stopCurrentlyPlayingMusic();
+				BackgroundMusic sound = playlist.removeFirst();
+				sound.play(bgmVolume);
+				playingMusic = sound;
+				playlistTimer = new Timer();
+				playlistTimer.schedule(new PlaylistTask(playlist), sound.getDuration());
+			} else {
+				playlistTimer = null;
+			}
+		}
+	}
 }

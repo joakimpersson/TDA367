@@ -20,7 +20,7 @@ public abstract class GameSound {
 
 	private Sound sound;
 	private String path;
-	private float duration;
+	private long duration;
 
 	/**
 	 * This is the volume that is added/subtracted from the global volume when
@@ -34,7 +34,6 @@ public abstract class GameSound {
 		this.initVolume = initVolume;
 		this.sound = new Sound(path);
 		this.duration = calculateDuration();
-		System.out.println(duration);
 	}
 
 	/**
@@ -74,7 +73,7 @@ public abstract class GameSound {
 	 * @return
 	 * 			The duration of this sound in milliseconds.
 	 */
-	protected float getDuration() {
+	protected long getDuration() {
 		return duration;
 	}
 	
@@ -84,17 +83,17 @@ public abstract class GameSound {
 	 * @return
 	 * 			The duration in milliseconds.
 	 */
-	private float calculateDuration() {
+	private long calculateDuration() {
 		File file = new File(path);
 		AudioInputStream audioInputStream;
 		try {
 			audioInputStream = AudioSystem.getAudioInputStream(file);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return -1f;
+			return -1;
 			}
 	    AudioFormat format = audioInputStream.getFormat();
-	    return (file.length() * 1000 / (format.getFrameSize() * format.getFrameRate()));		
+	    return (file.length() * 1000 / (format.getFrameSize() * (long)format.getFrameRate()));		
 	}
 	
 	/**
