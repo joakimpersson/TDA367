@@ -38,7 +38,7 @@ public class GameplayState extends BasicGameState {
 	private PropertyChangeSupport pcs;
 
 	private enum STATE {
-		GAME_RUNNING, ROUND_OVER, MATCH_OVER, GAME_OVER, NOT_STARTED;
+		GAME_RUNNING, ROUND_OVER, MATCH_OVER, GAME_OVER, NOT_STARTED, GAME_WAITING;
 	}
 
 	public GameplayState(int stateID) {
@@ -69,7 +69,7 @@ public class GameplayState extends BasicGameState {
 		model.reloadPlayerAttributes();
 
 		pcs.firePropertyChange("play", null, EventType.BATTLE_SCREEN);
-		currentState = STATE.GAME_RUNNING;
+		currentState = STATE.GAME_WAITING;
 		view.enter();
 	}
 
@@ -83,22 +83,22 @@ public class GameplayState extends BasicGameState {
 				view.showRoundStats(container, g);
 			}
 
+			if (currentState.equals(STATE.GAME_WAITING)) {
+				view.showWaitingBox(container, g);
+			}
+
 		}
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-		// TODO only during development, also test AL.destroy() here.
-		if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
-			container.exit();
-		}
-
-		if (container.getInput().isKeyPressed(Input.KEY_Z)) {
-			currentState = STATE.ROUND_OVER;
-		}
 
 		switch (currentState) {
+
+		case GAME_WAITING:
+			gameWaiting(container.getInput());
+			break;
 		case GAME_RUNNING:
 
 			// simple check to see whether the turn is over or not
@@ -130,6 +130,29 @@ public class GameplayState extends BasicGameState {
 			break;
 		}
 
+		// TODO perhaps map to some input object
+		if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
+			game.enterState(BombermanGame.MAIN_MENU_STATE);
+		}
+
+		if (container.getInput().isKeyPressed(Input.KEY_Z)) {
+			currentState = STATE.ROUND_OVER;
+		}
+	}
+
+	/**
+	 * 
+	 * @param input
+	 *            The input method used by the slick framework that contains the
+	 *            latest action
+	 */
+	private void gameWaiting(Input input) {
+
+		boolean pressedProceed = inputManager.pressedProceed(input);
+
+		if (pressedProceed) {
+			currentState = STATE.GAME_RUNNING;
+		}
 	}
 
 	/**

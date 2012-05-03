@@ -14,7 +14,8 @@ public class GameplayView implements IView {
 	private GameFieldView gameFieldView = null;
 	private PlayerInfoContainerView infoContainer = null;
 	private RoundInfoView roundInfoView = null;
-
+	private RoundWaitingView roundWaitingView = null;
+	
 	public GameplayView() {
 		init();
 	}
@@ -23,12 +24,14 @@ public class GameplayView implements IView {
 		infoContainer = new PlayerInfoContainerView(0, 0);
 		gameFieldView = new GameFieldView(205, 0);
 		roundInfoView = new RoundInfoView();
+		roundWaitingView = new RoundWaitingView();
 	}
 
 	public void enter() {
 		infoContainer.enter();
 		gameFieldView.enter();
 		roundInfoView.enter();
+		roundWaitingView.enter();
 	}
 
 	@Override
@@ -42,6 +45,11 @@ public class GameplayView implements IView {
 	public void showRoundStats(GameContainer container, Graphics g)
 			throws SlickException {
 		roundInfoView.render(container, g);
+	}
+
+	public void showWaitingBox(GameContainer container, Graphics g)
+			throws SlickException {
+		roundWaitingView.render(container,g);
 	}
 
 }
