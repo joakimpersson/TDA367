@@ -1,8 +1,8 @@
 package com.github.joakimpersson.tda367.model.constants;
 
 public enum PointGiver {
-	Pillar(20), Box(10), PlayerHit(15), KillPlayer(30), PowerUpItem(10), Bomb(
-			10), Floor(0);
+	RoundWon(100),MatchWon(200),Pillar(30), Box(10), PlayerHit(25), KillPlayer(50), PowerUpItem(20), Bomb(
+			20), Floor(0);
 
 	private int score;
 

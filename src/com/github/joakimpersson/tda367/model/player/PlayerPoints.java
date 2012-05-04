@@ -104,6 +104,20 @@ public class PlayerPoints implements Serializable, Comparable<PlayerPoints> {
 			return sum;
 		}
 
+		sum = this.pointGivers.get(PointGiver.MatchWon)
+				- pp.pointGivers.get(PointGiver.MatchWon);
+
+		if (sum != 0) {
+			return sum;
+		}
+
+		sum = this.pointGivers.get(PointGiver.RoundWon)
+				- pp.pointGivers.get(PointGiver.RoundWon);
+
+		if (sum != 0) {
+			return sum;
+		}
+
 		sum = this.pointGivers.get(PointGiver.KillPlayer)
 				- pp.pointGivers.get(PointGiver.KillPlayer);
 
