@@ -53,7 +53,7 @@ public class NormalBombTest {
 
 	@Before
 	public void setUp() throws Exception {
-		Position pos = new Position(3, 2);
+		Position pos = new Position(2, 3);
 		timer = new Timer();
 		player = new Player(1,"Kalle", pos);
 		bomb = new NormalBomb(player, timer);
@@ -77,26 +77,19 @@ public class NormalBombTest {
 
 	@Test
 	public void testExplode() {
-
 		List<Position> expectedPositions = new ArrayList<Position>();
 		expectedPositions.add(new Position(3, 3));
-		expectedPositions.add(new Position(3, 1));
-		expectedPositions.add(new Position(4, 2));
-		expectedPositions.add(new Position(5, 2));
-		expectedPositions.add(new Position(3, 2));
+		expectedPositions.add(new Position(1, 3));
+		expectedPositions.add(new Position(2, 4));
+		expectedPositions.add(new Position(2, 3));
 		Map<Position, Direction> actualPositions = bomb.explode(map);
 
 		// TODO Fix the test for the new returntype: Map<Position, Direction>.
-
-		// cannot use the lists equal method since it does not regard that the
-		// two lists have the positions at different index
+		
 		assertEquals(expectedPositions.size(), actualPositions.size());
-
 		for (Position pos : expectedPositions) {
-			assertTrue(true);
-			// assertTrue(actualPositions.contains(pos));
+			assertTrue(actualPositions.containsKey(pos));
 		}
-
 	}
 
 	@After

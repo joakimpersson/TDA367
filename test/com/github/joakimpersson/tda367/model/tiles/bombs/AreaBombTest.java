@@ -52,9 +52,9 @@ public class AreaBombTest {
 
 	@Before
 	public void setUp() throws Exception {
-		Position pos = new Position(3, 2);
+		Position pos = new Position(2, 3);
 		timer = new Timer();
-		player = new Player(1,"Kalle", pos);
+		player = new Player(1, "Kalle", pos);
 		bomb = new AreaBomb(player, timer);
 	}
 
@@ -78,20 +78,22 @@ public class AreaBombTest {
 	public void testExplode() {
 
 		List<Position> expectedPositions = new ArrayList<Position>();
-		expectedPositions.add(new Position(2, 1));
-		expectedPositions.add(new Position(2, 3));
-		expectedPositions.add(new Position(3, 1));
+		expectedPositions.add(new Position(1, 2));
 		expectedPositions.add(new Position(3, 2));
+		expectedPositions.add(new Position(1, 3));
+		expectedPositions.add(new Position(2, 3));
 		expectedPositions.add(new Position(3, 3));
-		expectedPositions.add(new Position(4, 2));
-		expectedPositions.add(new Position(4, 1));
-		expectedPositions.add(new Position(4, 3));
-		List<Position> actualPositions = new ArrayList(bomb.explode(map).keySet());
+		expectedPositions.add(new Position(2, 4));
+		expectedPositions.add(new Position(1, 4));
+		expectedPositions.add(new Position(3, 4));
+		List<Position> actualPositions = new ArrayList<Position>(bomb.explode(
+				map).keySet());
 
 		// TODO Fix the test for the new returntype: Map<Position, Direction>.
 
-		// can not use the lists equal method since it does not regard that the
-		// two lists have the positions at different index
+		// can not use the lists equal method since it does not take into
+		// consideration that the two lists might have the positions at
+		// different index
 		assertEquals(expectedPositions.size(), actualPositions.size());
 
 		for (Position pos : expectedPositions) {
