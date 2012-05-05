@@ -2,7 +2,6 @@ package com.github.joakimpersson.tda367.model.player;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
