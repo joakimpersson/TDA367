@@ -90,14 +90,14 @@ public class PlayerInfoView implements IView {
 		float yDisp = 0F;
 		int pSpeed = player.getAttribute(Attribute.Speed);
 		drawImage(x+xDisp, y+yDisp, "info/speed", g);
-		g.drawString(""+pSpeed, x+textDisp, y+yDisp+10F);
+		drawAttributeValue(pSpeed, x+textDisp, y+yDisp+10F, g);
 		
 		// --range and power--
 		yDisp += 30F;
 		int pRange = player.getAttribute(Attribute.BombRange);
 		int pPower = player.getAttribute(Attribute.BombPower);
 		drawImage(x+xDisp, y+yDisp, "info/fire", g);
-		g.drawString(""+pRange, x+textDisp, y+yDisp+10F);
+		drawAttributeValue(pRange, x+textDisp, y+yDisp+10F, g);
 		if (pPower > 1) {
 			if (pPower < 3) {
 				drawImage(x+xDisp+16F, y+yDisp, "info/power2", g);
@@ -110,7 +110,17 @@ public class PlayerInfoView implements IView {
 		yDisp += 30F;
 		int pBombs = player.getAttribute(Attribute.BombStack);
 		drawImage(x+xDisp, y+yDisp, "info/bomb", g);
-		g.drawString(""+pBombs, x+textDisp, y+yDisp+10F);
+		drawAttributeValue(pBombs, x+textDisp, y+yDisp+10F, g);
+	}
+
+	private void drawAttributeValue(int i, float x, float y,
+			Graphics g) {
+//		System.out.println(Integer.decode(string));
+		if (i >= 10) {
+			g.drawString(""+i, x-5F, y);
+		} else {
+			g.drawString(""+i, x, y);
+		}
 	}
 
 	private void drawHearts(float x, float y, Graphics g) {
