@@ -24,9 +24,7 @@ import com.github.joakimpersson.tda367.model.utils.Position;
  */
 public abstract class Bomb implements Tile, Destroyable {
 
-	protected final int toughness, power;
-	protected int range; // TODO maybe do this differently so that it can also
-							// be final
+	protected final int toughness, power, range;
 	protected final Timer timer;
 	protected final Player player;
 	protected final Position pos;

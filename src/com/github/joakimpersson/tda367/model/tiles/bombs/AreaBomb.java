@@ -3,7 +3,6 @@ package com.github.joakimpersson.tda367.model.tiles.bombs;
 import java.util.Map;
 import java.util.Timer;
 
-import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
@@ -16,7 +15,6 @@ import com.github.joakimpersson.tda367.model.utils.Position;
  */
 public class AreaBomb extends Bomb {
 
-	private String tileType;
 	private int areaRange;
 
 	/**
@@ -29,12 +27,10 @@ public class AreaBomb extends Bomb {
 	 */
 	public AreaBomb(Player player, Timer timer) {
 		super(player, timer);
-		this.tileType = "bomb-area";
-		int playerRange = player.getAttribute(Attribute.BombRange);
 		
-		if (playerRange > 5) {
+		if (range > 5) {
 			this.areaRange = 3;
-		} else if (playerRange > 3) {
+		} else if (range > 3) {
 			this.areaRange = 2;
 		} else {
 			this.areaRange = 1;
@@ -61,7 +57,7 @@ public class AreaBomb extends Bomb {
 
 	@Override
 	public String getTileType() {
-		return this.tileType;
+		return "bomb-area";
 	}
 
 }

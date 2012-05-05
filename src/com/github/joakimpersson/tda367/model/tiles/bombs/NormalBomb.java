@@ -24,7 +24,6 @@ import com.github.joakimpersson.tda367.model.utils.Position;
  */
 public class NormalBomb extends Bomb {
 	private Tile[][] map;
-	private String image;
 
 	/**
 	 * Creates a regular bomb.
@@ -36,7 +35,6 @@ public class NormalBomb extends Bomb {
 	 */
 	public NormalBomb(Player player, Timer timer) {
 		super(player, timer);
-		this.image = "bomb";
 	}
 
 	@Override
@@ -91,6 +89,6 @@ public class NormalBomb extends Bomb {
 
 	@Override
 	public String getTileType() {
-		return this.image;
+		return "bomb";
 	}
 }
