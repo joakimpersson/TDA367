@@ -51,23 +51,23 @@ public class SetupGameState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		super.enter(container, game);
-		
+
 		pcs.firePropertyChange("play", null, EventType.TITLE_SCREEN);
-		
+
 	}
-	
+
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		
+
 		clearInputQueue(container.getInput());
-		
+
 		this.pcs = new PropertyChangeSupport(this);
 		this.pcs.addPropertyChangeListener(AudioEventListener.getInstance());
-		
+
 		model = BombermanModel.getInstance();
 		inputManager = InputManager.getInstance();
-		playerList = model.getPlayers();
+		playerList = new ArrayList<Player>();
 		controllersBound = new ArrayList<String>();
 
 		controllerCount = container.getInput().getControllerCount();
@@ -105,7 +105,7 @@ public class SetupGameState extends BasicGameState {
 			moveIndex(1);
 			pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
 		}
-		
+
 		boolean controllerProceed = validProceed(input);
 		if (stage < 2 && input.isKeyPressed(Input.KEY_ENTER)) {
 			if (stage == 0) {
@@ -135,12 +135,15 @@ public class SetupGameState extends BasicGameState {
 	}
 
 	private void assignPlayer(String controllerUsed, int i) {
-		inputManager.addInputObject(controllerFactory(
-				playerList.get(i - 1), controllerUsed));
+		inputManager.addInputObject(controllerFactory(playerList.get(i - 1),
+				controllerUsed));
 	}
 
 	private boolean validProceed(Input input) {
-		if ((input.isKeyPressed(Input.KEY_SPACE) && !controllersBound.contains("k0")) || (input.isKeyPressed(Input.KEY_F) && !controllersBound.contains("k1"))) {
+		if ((input.isKeyPressed(Input.KEY_SPACE) && !controllersBound
+				.contains("k0"))
+				|| (input.isKeyPressed(Input.KEY_F) && !controllersBound
+						.contains("k1"))) {
 			return true;
 		}
 		for (int i = 0; i < controllerCount; i++) {
@@ -167,7 +170,8 @@ public class SetupGameState extends BasicGameState {
 	}
 
 	private void createPlayer(String name, int playerIndex) {
-		Player player = new Player(playerIndex, name, getInitialPosition(playerIndex));
+		Player player = new Player(playerIndex, name,
+				getInitialPosition(playerIndex));
 		playerList.add(player);
 	}
 
@@ -222,7 +226,7 @@ public class SetupGameState extends BasicGameState {
 
 		selection = newIndex;
 	}
-	
+
 	/**
 	 * Clear everything in the input queue from previous states
 	 * 
@@ -235,7 +239,14 @@ public class SetupGameState extends BasicGameState {
 		input.clearKeyPressedRecord();
 		input.clearMousePressedRecord();
 	}
-	
+
+	@Override
+	public void leave(GameContainer container, StateBasedGame game)
+			throws SlickException {
+		super.leave(container, game);
+		model.startGame(playerList);
+	}
+
 	@Override
 	public int getID() {
 		return stateID;

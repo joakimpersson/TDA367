@@ -3,6 +3,7 @@ package com.github.joakimpersson.tda367.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -51,7 +52,6 @@ public class BombermanModel implements IBombermanModel {
 
 	private BombermanModel() {
 		this.pcs = new PropertyChangeSupport(this);
-		this.players = new ArrayList<Player>();
 		this.map = new GameMap();
 		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
 		highscore = new Highscore();
@@ -72,6 +72,12 @@ public class BombermanModel implements IBombermanModel {
 		this.pcs.addPropertyChangeListener(pcl);
 	}
 
+
+	@Override
+	public void startGame(List<Player> players) {
+		Collections.copy(players, this.players);	
+	}
+	
 	@Override
 	public void upgradePlayer(Player player, Attribute attr) {
 		if (player.getCredits() >= attr.getCost()) {

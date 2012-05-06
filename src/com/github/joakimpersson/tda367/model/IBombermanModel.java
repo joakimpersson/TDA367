@@ -20,7 +20,15 @@ import com.github.joakimpersson.tda367.model.tiles.Tile;
 public interface IBombermanModel {
 
 	/**
-	 * Responisble for updating the model with player movements and actions
+	 * Starts a new game of BombermanModel with the supplied players
+	 * 
+	 * @param players
+	 *            The players to participate in the game
+	 */
+	public void startGame(List<Player> players);
+
+	/**
+	 * Responsible for updating the model with player movements and actions
 	 * 
 	 * @param player
 	 *            The player responsible for the action
@@ -34,7 +42,7 @@ public interface IBombermanModel {
 	 * Upgrades a players attribute
 	 * 
 	 * @param player
-	 *            The player to recceive an attribute upgrade
+	 *            The player to receive an attribute upgrade
 	 * @param attr
 	 *            The attribute to be upgraded or added
 	 */
