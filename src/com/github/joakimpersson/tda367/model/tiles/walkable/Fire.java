@@ -1,7 +1,10 @@
 package com.github.joakimpersson.tda367.model.tiles.walkable;
 
-import com.github.joakimpersson.tda367.model.BombermanModel;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.github.joakimpersson.tda367.model.constants.Direction;
+import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
@@ -37,8 +40,30 @@ public class Fire implements WalkableTile {
 	 */
 	@Override
 	public Tile playerEnter(Player player) {
-		BombermanModel.getInstance().hitPlayer(fireOwner, player);
+		player.playerHit();
+		distributePlayerPoints(player);
 		return this;
+	}
+
+	/**
+	 * Responsible for distributing the points the player that placed the fire
+	 * deserves when another player walks into his fire
+	 * 
+	 * @param targetPlayer
+	 *            The player that walked into the fire
+	 */
+	private void distributePlayerPoints(Player targetPlayer) {
+		List<PointGiver> pg = new ArrayList<PointGiver>();
+		if (!targetPlayer.isImmortal() && targetPlayer.isAlive()) {
+			targetPlayer.playerHit();
+			if (!fireOwner.equals(targetPlayer)) {
+				pg.add(PointGiver.PlayerHit);
+				if (!targetPlayer.isAlive()) {
+					pg.add(PointGiver.KillPlayer);
+				}
+			}
+		}
+		fireOwner.updatePlayerPoints(pg);
 	}
 
 	@Override

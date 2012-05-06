@@ -232,7 +232,7 @@ public class BombermanModel implements IBombermanModel {
 		hitItems(bombOwner, positions);
 	}
 
-	public void hitPlayer(Player bombOwner, Player targetPlayer) {
+	private void hitPlayer(Player bombOwner, Player targetPlayer) {
 		List<PointGiver> pg = new ArrayList<PointGiver>();
 		if (!targetPlayer.isImmortal() && targetPlayer.isAlive()) {
 			targetPlayer.playerHit();

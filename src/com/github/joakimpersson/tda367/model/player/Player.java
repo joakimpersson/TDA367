@@ -244,13 +244,18 @@ public class Player {
 	/**
 	 * This will update a players points with a list of PointGiver's.
 	 * 
-	 * @param pg
+	 * @param pointGivers
 	 *            List containing PointGiver's.
 	 */
-	public void updatePlayerPoints(List<PointGiver> pg) {
-		this.points.update(pg);
+	public void updatePlayerPoints(List<PointGiver> pointGivers) {
+		this.points.update(pointGivers);
 	}
 
+	public void updatePlayerPoints(PointGiver pointGiver) {
+		this.points.update(pointGiver);
+		
+	}
+	
 	/**
 	 * Get the players name.
 	 * 

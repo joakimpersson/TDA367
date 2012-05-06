@@ -62,6 +62,21 @@ public class PlayerPoints implements Serializable, Comparable<PlayerPoints> {
 	}
 
 	/**
+	 * * Update the players PlayerPoint score, credits and number of destroyed
+	 * blocks
+	 * 
+	 * @param pointGiver
+	 *            The achievment the player performed as a PointGiver
+	 */
+	public void update(PointGiver pointGiver) {
+		int score = pointGiver.getScore();
+		this.totalScore += score;
+		this.credits += score;
+		int prevValue = this.pointGivers.get(pointGiver);
+		this.pointGivers.put(pointGiver, prevValue + 1);
+	}
+
+	/**
 	 * Reducing the players credits.
 	 * 
 	 * @param cost
