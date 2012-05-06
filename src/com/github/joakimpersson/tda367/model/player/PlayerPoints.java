@@ -23,6 +23,9 @@ public class PlayerPoints implements Serializable, Comparable<PlayerPoints> {
 	private int credits;
 	private Map<PointGiver, Integer> pointGivers;
 
+	/**
+	 * Create a new PlayerPoint object with all fields set to zero
+	 */
 	public PlayerPoints() {
 		this.totalScore = 0;
 		this.credits = 0;
@@ -30,6 +33,10 @@ public class PlayerPoints implements Serializable, Comparable<PlayerPoints> {
 		initPointGiverMaps();
 	}
 
+	/**
+	 * Create a new map of all the possible PointGivers and set their starting
+	 * value to zero
+	 */
 	private void initPointGiverMaps() {
 		int startValue = 0;
 		for (PointGiver pg : PointGiver.values()) {
@@ -37,6 +44,13 @@ public class PlayerPoints implements Serializable, Comparable<PlayerPoints> {
 		}
 	}
 
+	/**
+	 * Update the players PlayerPoint score, credits and number of destroyed
+	 * blocks
+	 * 
+	 * @param list
+	 *            A list of PointGivers that the player has received
+	 */
 	public void update(List<PointGiver> list) {
 
 		for (PointGiver p : list) {

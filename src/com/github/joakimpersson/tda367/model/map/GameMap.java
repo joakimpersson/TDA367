@@ -1,20 +1,33 @@
 package com.github.joakimpersson.tda367.model.map;
 
+import java.awt.Dimension;
+
+import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.utils.Position;
 
+/**
+ * 
+ * @author joakimpersson
+ * 
+ */
 public class GameMap implements IGameMap {
 
 	private Tile[][] map;
-	// TODO all perhaps refactor/move
-	private static final int width = 15;
-	private static final int height = 13;
+	private final int WIDTH;
+	private final int HEIGHT;
 	private MapLoader mapLoader;
 
+	/**
+	 * Create a new GameMap instance using the default map
+	 */
 	public GameMap() {
 
 		mapLoader = MapLoader.getInstance();
 		map = mapLoader.getMap(0);
+		Dimension mapSize = Parameters.INSTANCE.getMapSize();
+		WIDTH = mapSize.width;
+		HEIGHT = mapSize.height;
 	}
 
 	@Override
@@ -23,26 +36,40 @@ public class GameMap implements IGameMap {
 	}
 
 	@Override
-	public void setTile(final Tile tile, final Position pos) {
-		isOutOfBounds(pos, "Index out of bounds");
+	public void setTile(Tile tile, Position pos) {
+		isOutOfBounds(pos);
 		map[pos.getY()][pos.getX()] = tile;
 
 	}
 
-	private void isOutOfBounds(Position pos, String msg) {
-		if (pos.getX() < 0 || pos.getX() >= width || pos.getY() < 0
-				|| pos.getY() >= height) {
-			errorMsg(msg);
+	/**
+	 * A private util method that check if a position exits within the current
+	 * map
+	 * 
+	 * @param pos
+	 *            The position to be checked
+	 */
+	private void isOutOfBounds(Position pos) {
+		if (pos.getX() < 0 || pos.getX() >= WIDTH || pos.getY() < 0
+				|| pos.getY() >= HEIGHT) {
+			errorMsg("The supplied position doesnt exist on the map: "
+					+ pos.toString());
 		}
 	}
 
-	private void errorMsg(final String msg) throws IllegalArgumentException {
+	/**
+	 * A private util method used when errors occurs in the class
+	 * 
+	 * @param msg
+	 *            The message that describes the error
+	 */
+	private void errorMsg(String msg) {
 		throw new IllegalArgumentException(msg);
 	}
 
 	@Override
-	public Tile getTile(final Position pos) {
-		isOutOfBounds(pos, "Index out of bounds");
+	public Tile getTile(Position pos) {
+		isOutOfBounds(pos);
 		return map[pos.getY()][pos.getX()];
 	}
 

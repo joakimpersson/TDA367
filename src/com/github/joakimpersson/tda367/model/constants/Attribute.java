@@ -6,25 +6,40 @@ package com.github.joakimpersson.tda367.model.constants;
  * 
  */
 public enum Attribute {
-	Speed(100, "Speed"), 
-	Health(100, "Health"), 
-	BombRange(100, "Bomb range"), 
-	BombStack(100, "Bomb stack"), 
-	BombPower(100, "Bomb power"), 
-	BombType(100, "Bomb type");
+	Speed("Speed", 100), Health("Health", 100), BombRange("Bomb range", 100), BombStack(
+			"Bomb stack", 100), BombPower("Bomb power", 100), BombType(
+			"Bomb type", 100);
 
 	private int cost;
 	private String name;
 
-	Attribute(int cost, String name) {
+	/**
+	 * Create a new Attribute enum
+	 * 
+	 * @param name
+	 *            The name of the attribute
+	 * @param cost
+	 *            The cost of the attribute
+	 */
+	Attribute(String name, int cost) {
 		this.cost = cost;
 		this.name = name;
 	}
 
+	/**
+	 * Get the cost of the attribute
+	 * 
+	 * @return The attributes cost
+	 */
 	public int getCost() {
 		return cost;
 	}
 
+	/**
+	 * Get the name of the attribute
+	 * 
+	 * @return The name of the attribute
+	 */
 	public String getName() {
 		return name;
 	}

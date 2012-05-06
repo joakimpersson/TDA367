@@ -5,7 +5,6 @@ import com.github.joakimpersson.tda367.model.tiles.walkable.PowerupItem;
 import com.github.joakimpersson.tda367.model.tiles.walkable.RangeUpdateItem;
 import com.github.joakimpersson.tda367.model.tiles.walkable.SpeedUpdateItem;
 
-
 /**
  * A factory for creating a PowerUpItem. It chooses randomly one of the three
  * available items
@@ -14,10 +13,6 @@ import com.github.joakimpersson.tda367.model.tiles.walkable.SpeedUpdateItem;
  * 
  */
 public class PowerUpFactory {
-
-	public PowerUpFactory() {
-		// simply only here
-	}
 
 	/**
 	 * The factory method chooses randomly between one of the three available

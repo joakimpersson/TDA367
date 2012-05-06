@@ -180,10 +180,21 @@ public class PlayerAttributes {
 
 	}
 
+	/**
+	 * Get the Map that is representing the players match attributes and its
+	 * corresponding values
+	 * 
+	 * @return The players Match Attributs Map
+	 */
 	public Map<Attribute, Integer> getMatchAttrs() {
 		return matchAttr;
 	}
 
+	/**
+	 * Get a list of all the players attribute
+	 * 
+	 * @return List of the players match attributes
+	 */
 	public List<Attribute> getAttributes() {
 		ArrayList<Attribute> tmp = new ArrayList<Attribute>();
 		for (Attribute a : matchAttr.keySet()) {
