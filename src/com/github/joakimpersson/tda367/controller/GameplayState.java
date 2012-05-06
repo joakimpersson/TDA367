@@ -76,7 +76,7 @@ public class GameplayState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		super.enter(container, game);
-
+		clearInputQueue(container.getInput());
 		pcs.firePropertyChange("play", null, EventType.BATTLE_SCREEN);
 		currentState = STATE.GAME_WAITING;
 		view.enter();
@@ -226,6 +226,19 @@ public class GameplayState extends BasicGameState {
 		for (InputData d : data) {
 			model.updateGame(d.getPlayer(), d.getAction());
 		}
+	}
+
+	/**
+	 * Clear everything in the input queue from previous states
+	 * 
+	 * @param input
+	 *            The input method used by the slick framework that contains the
+	 *            latest action
+	 */
+	private void clearInputQueue(Input input) {
+		input.clearControlPressedRecord();
+		input.clearKeyPressedRecord();
+		input.clearMousePressedRecord();
 	}
 
 	@Override

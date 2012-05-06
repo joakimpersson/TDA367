@@ -78,6 +78,8 @@ public class UpgradePlayerState extends BasicGameState {
 			throws SlickException {
 		super.enter(container, game);
 
+		clearInputQueue(container.getInput());
+
 		pcs.firePropertyChange("play", null, EventType.TITLE_SCREEN);
 		playersIndex = new HashMap<Player, Integer>();
 		attributes = model.getPlayers().get(0).getPermanentAttributes();
@@ -124,7 +126,20 @@ public class UpgradePlayerState extends BasicGameState {
 	}
 
 	/**
-	 * Resposible for chagne the current game state into another using a
+	 * Clear everything in the input queue from previous states
+	 * 
+	 * @param input
+	 *            The input method used by the slick framework that contains the
+	 *            latest action
+	 */
+	private void clearInputQueue(Input input) {
+		input.clearControlPressedRecord();
+		input.clearKeyPressedRecord();
+		input.clearMousePressedRecord();
+	}
+
+	/**
+	 * Responsible for change the current game state into another using a
 	 * fadein/out transition
 	 * 
 	 * @param game

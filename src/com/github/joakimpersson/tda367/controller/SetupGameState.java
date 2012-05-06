@@ -59,6 +59,9 @@ public class SetupGameState extends BasicGameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
+		
+		clearInputQueue(container.getInput());
+		
 		this.pcs = new PropertyChangeSupport(this);
 		this.pcs.addPropertyChangeListener(AudioEventListener.getInstance());
 		
@@ -219,7 +222,20 @@ public class SetupGameState extends BasicGameState {
 
 		selection = newIndex;
 	}
-
+	
+	/**
+	 * Clear everything in the input queue from previous states
+	 * 
+	 * @param input
+	 *            The input method used by the slick framework that contains the
+	 *            latest action
+	 */
+	private void clearInputQueue(Input input) {
+		input.clearControlPressedRecord();
+		input.clearKeyPressedRecord();
+		input.clearMousePressedRecord();
+	}
+	
 	@Override
 	public int getID() {
 		return stateID;
