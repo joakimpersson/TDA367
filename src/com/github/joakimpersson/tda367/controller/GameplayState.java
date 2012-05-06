@@ -113,13 +113,15 @@ public class GameplayState extends BasicGameState {
 			// simple check to see whether the turn is over or not
 			if (model.isRoundOver()) {
 				currentState = STATE.ROUND_OVER;
+			} else if (model.isMatchOver()) {
+				currentState = STATE.MATCH_OVER;
 			} else {
 				gameRunning(container.getInput());
 			}
 
 			break;
 		case MATCH_OVER:
-			resetState();
+
 			if (model.isGameOver()) {
 				currentState = STATE.GAME_OVER;
 			} else {
@@ -142,10 +144,6 @@ public class GameplayState extends BasicGameState {
 		// TODO perhaps map to some input object
 		if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
 			game.enterState(BombermanGame.MAIN_MENU_STATE);
-		}
-
-		if (container.getInput().isKeyPressed(Input.KEY_Z)) {
-			currentState = STATE.ROUND_OVER;
 		}
 	}
 
@@ -186,7 +184,7 @@ public class GameplayState extends BasicGameState {
 				currentState = STATE.MATCH_OVER;
 			} else {
 				resetState();
-				// TODO jocke add an wainting state and restart
+				currentState = STATE.GAME_WAITING;
 			}
 		}
 
@@ -207,7 +205,6 @@ public class GameplayState extends BasicGameState {
 		default:
 			break;
 		}
-
 	}
 
 	/**

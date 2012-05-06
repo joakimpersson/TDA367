@@ -3,7 +3,6 @@ package com.github.joakimpersson.tda367.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -49,11 +48,10 @@ public class BombermanModel implements IBombermanModel {
 	private LinkedList<Map<Position, Tile>> waitingFirePositions;
 	private PropertyChangeSupport pcs;
 	private Highscore highscore = null;
+	private GameController gameController = null;
 
 	private BombermanModel() {
 		this.pcs = new PropertyChangeSupport(this);
-		this.map = new GameMap();
-		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
 		highscore = new Highscore();
 	}
 
@@ -72,12 +70,14 @@ public class BombermanModel implements IBombermanModel {
 		this.pcs.addPropertyChangeListener(pcl);
 	}
 
-
 	@Override
 	public void startGame(List<Player> players) {
-		Collections.copy(players, this.players);	
+		this.players = players;
+		this.gameController = new GameController(players);
+		this.map = new GameMap();
+		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
 	}
-	
+
 	@Override
 	public void upgradePlayer(Player player, Attribute attr) {
 		if (player.getCredits() >= attr.getCost()) {
@@ -354,29 +354,17 @@ public class BombermanModel implements IBombermanModel {
 
 	@Override
 	public boolean isRoundOver() {
-		int aliveCount = 0;
-		for (Player p : players) {
-			if (p.isAlive()) {
-				aliveCount++;
-			}
-		}
-		if (aliveCount <= 1) {
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public boolean isGameOver() {
-		// TODO add implementation/support
-		return false;
+		return gameController.isRoundOver();
 	}
 
 	@Override
 	public boolean isMatchOver() {
-		highscore.update(players);
-		// TODO add implementation/support
-		return true;
+		return gameController.isMatchOver();
+	}
+
+	@Override
+	public boolean isGameOver() {
+		return gameController.isGameOver();
 	}
 
 	@Override
@@ -408,22 +396,36 @@ public class BombermanModel implements IBombermanModel {
 
 	@Override
 	public void gameOver() {
+
+		gameController.gameOver();
+
 		// add the players to highscore list
 		highscore.update(players);
+
+		// destroy the current GameController Objet
+		gameController = null;
+
+		// destroy the list of current players
+		players = null;
+
+		// also destroy the current map
+		map = null;
+	}
+
+	private void matchReset() {
+		gameController.matchOver();
+		resetPlayer(ResetType.Match);
+	}
+
+	private void roundReset() {
+		gameController.roundOver();
+		resetPlayer(ResetType.Round);
 	}
 
 	private void resetPlayer(ResetType type) {
 		for (Player p : players) {
 			p.reset(type);
 		}
-	}
-
-	private void matchReset() {
-		resetPlayer(ResetType.Match);
-	}
-
-	private void roundReset() {
-		resetPlayer(ResetType.Round);
 	}
 
 	private void resetMap() {
