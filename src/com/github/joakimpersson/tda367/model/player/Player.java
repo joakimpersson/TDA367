@@ -168,6 +168,9 @@ public class Player {
 	 */
 	public void upgradeAttr(Attribute attr, UpgradeType type) {
 		this.attr.upgradeAttr(attr, type);
+		if (type.equals(UpgradeType.Match)) {
+			this.reloadAttributes();
+		}
 	}
 
 	/**
@@ -338,7 +341,7 @@ public class Player {
 		return playerIndex;
 	}
 
-	public void reloadAttributes() {
+	private void reloadAttributes() {
 		health = getAttribute(Health);
 	}
 

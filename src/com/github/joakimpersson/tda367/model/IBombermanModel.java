@@ -106,8 +106,6 @@ public interface IBombermanModel {
 	public void resetHighscoreMap();
 
 	public void addPropertyChangeListener(PropertyChangeListener pcl);
-	
-	public void gameOver();
 
-	public void reloadPlayerAttributes();
+	public void gameOver();
 }
