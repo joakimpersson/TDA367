@@ -247,12 +247,11 @@ public class BombermanModel implements IBombermanModel {
 	}
 
 	private void hitPlayers(Player bombOwner, List<Position> positions) {
-		// Converting positions into PointGivers
-		for (Position pos : positions) {
-			for (Player targetPlayer : players) {
-				if (isPlayerAtPosition(targetPlayer, pos)) {
-					hitPlayer(bombOwner, targetPlayer);
-				}
+
+		for (Player p : players) {
+			Position playerPos = p.getTilePosition();
+			if (positions.contains(playerPos)) {
+				hitPlayer(bombOwner, p);
 			}
 		}
 	}
@@ -425,10 +424,6 @@ public class BombermanModel implements IBombermanModel {
 		// In order to avoid that tiles are cleared on the new map
 		waitingFirePositions.clear();
 		map.reset();
-	}
-
-	private boolean isPlayerAtPosition(Player player, Position pos) {
-		return player.getTilePosition().equals(pos);
 	}
 
 	/**
