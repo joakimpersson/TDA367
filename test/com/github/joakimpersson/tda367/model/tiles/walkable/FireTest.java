@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.utils.Position;
 
@@ -23,7 +24,8 @@ public class FireTest {
 
 	@Before
 	public void setUp() throws Exception {
-		fire = new Fire(null ,null);
+		Player fireOwner = new Player(0, "Kalle", new Position(0, 0));
+		fire = new Fire(fireOwner, Direction.NONE);
 	}
 
 	@Test
@@ -31,11 +33,10 @@ public class FireTest {
 		assertTrue(fire.isWalkable());
 	}
 
-	// TODO This test fails.
 	@Test
 	public void testPlayerEnter() {
 		Position pos = new Position(0, 0);
-		Player player = new Player(1,"Kalle", pos);
+		Player player = new Player(1, "Kalle", pos);
 		int expected = player.getHealth() - 1;
 		fire.playerEnter(player);
 		int actual = player.getHealth();
