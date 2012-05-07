@@ -2,7 +2,6 @@ package com.github.joakimpersson.tda367.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -36,7 +35,7 @@ public class HighscoreTest {
 
 		hs.update(players);
 
-		assertTrue(hs.getList().containsKey(players.get(0).getName()));
+		assertTrue(hs.getList().contains(players.get(0).getName()));
 	}
 
 	@Test
