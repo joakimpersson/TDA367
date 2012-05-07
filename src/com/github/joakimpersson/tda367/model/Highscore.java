@@ -13,6 +13,7 @@ import java.util.List;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.player.Player;
 
+
 public class Highscore {
 
 	private File file;
@@ -20,7 +21,7 @@ public class Highscore {
 	private final int maxSize;
 
 	/**
-	 * Create a new Highscore object responsible for managing the games score
+	 * Create a new HighScore object responsible for managing the games score
 	 * objects
 	 */
 	public Highscore() {
@@ -31,7 +32,7 @@ public class Highscore {
 	}
 
 	/**
-	 * Update the current highscore
+	 * Update the current HighScorelist
 	 * 
 	 * @param players
 	 *            A list of the players that have completed a game
@@ -60,7 +61,7 @@ public class Highscore {
 
 	/**
 	 * Responsible for score objects from the list if they don't qualify under
-	 * the limit of scoreobjects
+	 * the limit of Score objects
 	 */
 	private void trimeHighScoreList() {
 		int index = playerList.size() - 1;
@@ -92,7 +93,7 @@ public class Highscore {
 		}
 	}
 
-	// TODO jocke reconsider this
+	// TODO jocke relocate this piece of code
 	@SuppressWarnings("unchecked")
 	private void loadList() {
 		if (file.exists()) {
@@ -121,7 +122,7 @@ public class Highscore {
 	}
 
 	/**
-	 * Get the highscore list
+	 * Get the HighScore list
 	 * 
 	 * @return The list of score objects in descending order
 	 */
@@ -131,7 +132,7 @@ public class Highscore {
 	}
 
 	/**
-	 * Get the size of the highscore list
+	 * Get the size of the HighScore list
 	 * 
 	 * @return The number of score objects in the list
 	 */
@@ -140,7 +141,7 @@ public class Highscore {
 	}
 
 	/**
-	 * Reset the highscorelist and remove all previous records from the game
+	 * Reset the HighScorelist and remove all previous records from the game
 	 */
 	public void reset() {
 		playerList.clear();
