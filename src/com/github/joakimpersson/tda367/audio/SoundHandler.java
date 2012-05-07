@@ -84,15 +84,15 @@ public class SoundHandler {
 	 */
 	public void initiateSounds() {
 		try {
-			bombPlaced = new SoundEffect("res/sounds/PlaceBomb1.wav", -2f);
-			bombExplode = new SoundEffect("res/sounds/Bomb1.wav", -0.5f);
-			titleTheme = new BackgroundMusic("res/sounds/bg1.wav", -0.55f);
-			battleSong1 = new BackgroundMusic("res/sounds/BattleSong1.wav", -0.3f);
-			menuNavigate = new SoundEffect("res/sounds/MenuNavigate.wav", -0.1f);
-			menuAction = new SoundEffect("res/sounds/MenuAction.wav", -0.35f);
-			errorSound = new SoundEffect("res/sounds/ErrorSound.wav", -0.45f);
-			preInterlude = new BackgroundMusic("res/sounds/PreInterlude.wav", -0.5f);
-			interlude = new BackgroundMusic("res/sounds/Interlude1.wav", -0.65f);
+			bombPlaced = new SoundEffect("res/sounds/PlaceBomb1.wav", 0.7f);
+			bombExplode = new SoundEffect("res/sounds/Bomb1.wav", 0.4f);
+			titleTheme = new BackgroundMusic("res/sounds/bg1.wav", 0.7f);
+			battleSong1 = new BackgroundMusic("res/sounds/BattleSong1.wav", 1.0f);
+			menuNavigate = new SoundEffect("res/sounds/MenuNavigate.wav", 0.75f);
+			menuAction = new SoundEffect("res/sounds/MenuAction.wav", 0.5f);
+			errorSound = new SoundEffect("res/sounds/ErrorSound.wav", 0.6f);
+			preInterlude = new BackgroundMusic("res/sounds/PreInterlude.wav", 0.5f);
+			interlude = new BackgroundMusic("res/sounds/Interlude1.wav", 0.35f);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

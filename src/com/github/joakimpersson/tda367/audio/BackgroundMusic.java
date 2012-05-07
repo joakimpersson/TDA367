@@ -16,7 +16,7 @@ public class BackgroundMusic extends GameSound {
 	}	
 	@Override
 	public void play(float volume) {
-		getSound().loop(1, volume + getInitVolume());			
+		getSound().loop(1, volume * getInitVolume());			
 	}
 	
 	@Override

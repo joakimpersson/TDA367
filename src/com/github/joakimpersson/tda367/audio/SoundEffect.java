@@ -17,7 +17,7 @@ public class SoundEffect extends GameSound {
 
 	@Override
 	public void play(float volume) {
-		getSound().play(1, volume + getInitVolume());
+		getSound().play(1, volume * getInitVolume());
 	}
 	
 	@Override
