@@ -1,6 +1,7 @@
 package com.github.joakimpersson.tda367.controller;
 
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.newdawn.slick.Color;
@@ -44,7 +45,9 @@ public class GameplayState extends BasicGameState {
 	private STATE currentState = null;
 	private InputManager inputManager = null;
 	private PropertyChangeSupport pcs;
-
+	private List<EventType> playlist;
+	private boolean playlistIsPlaying = false;
+	
 	/**
 	 * Create a new slick BasicGameState controller for the Gameplaystate
 	 * 
@@ -62,6 +65,10 @@ public class GameplayState extends BasicGameState {
 		AudioEventListener audioEL = AudioEventListener.getInstance();
 		pcs.addPropertyChangeListener(audioEL);
 		model = BombermanModel.getInstance();
+		
+		this.playlist = new ArrayList<EventType>();
+		playlist.add(EventType.ROUND_ENDED);
+		playlist.add(EventType.UPGRADE_SCREEN);
 
 		// TODO maybe models listener should be added in the class where get
 		// instance is first called?
@@ -109,7 +116,7 @@ public class GameplayState extends BasicGameState {
 			gameWaiting(container.getInput());
 			break;
 		case GAME_RUNNING:
-
+			
 			// simple check to see whether the turn is over or not
 			if (model.isRoundOver()) {
 				currentState = STATE.ROUND_OVER;
@@ -133,7 +140,6 @@ public class GameplayState extends BasicGameState {
 			resetState();
 			break;
 		case ROUND_OVER:
-
 			roundOver(container.getInput());
 
 			break;
@@ -176,9 +182,13 @@ public class GameplayState extends BasicGameState {
 	 *            latest action
 	 */
 	private void roundOver(Input input) {
-
+		if(!playlistIsPlaying) {
+			pcs.firePropertyChange("playList", null, playlist);
+			playlistIsPlaying = true;
+		}
+		
 		boolean pressedProceed = inputManager.pressedProceed(input);
-
+		
 		if (pressedProceed) {
 			if (model.isMatchOver()) {
 				currentState = STATE.MATCH_OVER;
@@ -217,6 +227,11 @@ public class GameplayState extends BasicGameState {
 	 *            latest action
 	 */
 	private void gameRunning(Input input) {
+		
+		if(playlistIsPlaying) {
+			pcs.firePropertyChange("play", null, EventType.BATTLE_SCREEN);
+			playlistIsPlaying = false;
+		}
 
 		List<InputData> data = inputManager.getData(input);
 

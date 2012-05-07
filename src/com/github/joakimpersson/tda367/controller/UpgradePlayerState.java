@@ -1,6 +1,7 @@
 package com.github.joakimpersson.tda367.controller;
 
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +71,7 @@ public class UpgradePlayerState extends BasicGameState {
 
 		this.pcs = new PropertyChangeSupport(this);
 		this.pcs.addPropertyChangeListener(AudioEventListener.getInstance());
+		
 		currentState = STATE.NOT_USED;
 	}
 
@@ -79,8 +81,7 @@ public class UpgradePlayerState extends BasicGameState {
 		super.enter(container, game);
 
 		clearInputQueue(container.getInput());
-
-		pcs.firePropertyChange("play", null, EventType.TITLE_SCREEN);
+		
 		playersIndex = new HashMap<Player, Integer>();
 		attributes = model.getPlayers().get(0).getPermanentAttributes();
 
