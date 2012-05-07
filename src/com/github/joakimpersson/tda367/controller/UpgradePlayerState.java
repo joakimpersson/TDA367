@@ -1,7 +1,6 @@
 package com.github.joakimpersson.tda367.controller;
 
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

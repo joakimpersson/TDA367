@@ -113,14 +113,6 @@ public class PlayerAttributes {
 	}
 
 	/**
-	 * Reset both match and round attributes
-	 */
-	public void resetAttr() {
-		this.resetMatchAttr();
-		this.resetRoundAttr();
-	}
-
-	/**
 	 * 
 	 * After either a round or a match reset the players attribute to its
 	 * standrad values
@@ -132,6 +124,7 @@ public class PlayerAttributes {
 		switch (type) {
 		case Match:
 			resetMatchAttr();
+			resetRoundAttr();
 			break;
 		case Round:
 			resetRoundAttr();
@@ -201,5 +194,32 @@ public class PlayerAttributes {
 			tmp.add(a);
 		}
 		return tmp;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		PlayerAttributes other = (PlayerAttributes) obj;
+		return this.matchAttr.equals(other.matchAttr)
+				&& this.roundAttr.equals(other.roundAttr);
+	}
+
+	@Override
+	public int hashCode() {
+		int sum = 0;
+
+		for (Attribute a : matchAttr.keySet()) {
+			sum += matchAttr.get(a) * 5;
+		}
+
+		for (Attribute a : roundAttr.keySet()) {
+			sum += roundAttr.get(a) * 7;
+		}
+		return sum;
 	}
 }
