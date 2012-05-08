@@ -1,22 +1,16 @@
 package com.github.joakimpersson.tda367.model;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.player.Player;
-
+import com.github.joakimpersson.tda367.model.utils.FileScanner;
 
 public class Highscore {
 
-	private File file;
+	private String fileName;
 	private List<Score> playerList;
 	private final int maxSize;
 
@@ -26,7 +20,7 @@ public class Highscore {
 	 */
 	public Highscore() {
 		playerList = new ArrayList<Score>();
-		file = new File("highScore.data");
+		fileName = "highScore.data";
 		maxSize = Parameters.INSTANCE.getHighscoreMaxSize();
 		loadList();
 	}
@@ -73,52 +67,13 @@ public class Highscore {
 	}
 
 	private void saveList() {
-		try {
-			FileOutputStream outFile = new FileOutputStream(this.file);
-			ObjectOutputStream dest = new ObjectOutputStream(outFile);
-
-			try {
-				dest.writeObject(playerList);
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					dest.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		FileScanner.writeOjbect(fileName, playerList);
 	}
 
-	// TODO jocke relocate this piece of code
 	@SuppressWarnings("unchecked")
 	private void loadList() {
-		if (file.exists()) {
-			try {
-				FileInputStream inFile = new FileInputStream(file);
-				ObjectInputStream source = new ObjectInputStream(inFile);
-
-				try {
-					playerList = (List<Score>) source.readObject();
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				} finally {
-					try {
-						source.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		Object object = FileScanner.readObject(fileName);
+		playerList = (List<Score>) object;
 	}
 
 	/**
