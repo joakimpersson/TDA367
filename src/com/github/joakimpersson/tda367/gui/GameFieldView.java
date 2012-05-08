@@ -12,6 +12,7 @@ import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.utils.FPosition;
+import com.github.joakimpersson.tda367.model.utils.Position;
 
 /**
  * 
@@ -76,8 +77,18 @@ public class GameFieldView implements IView {
 		for (Player p : players) {
 			if (p.isAlive()) {
 				FPosition pos = p.getGamePosition();
-				drawImage(pos.getX() - 0.5F, pos.getY() - 0.5F,
+				drawImage(pos.getX() - 0.5F, pos.getY() - 0.6F,
 						p.getImageString(), g);
+				// TODO this will only work if we have a wall, else there will be null pointer exception
+				for (int i = -1; i <= 1; i++) {
+					Position tilePos = new Position(p.getTilePosition().getX()+i,
+							p.getTilePosition().getY() + 1);
+					Tile tile = model.getMap()[tilePos.getY()][tilePos.getX()];
+					if (!tile.isWalkable()) {
+						drawImage(tilePos.getX(), tilePos.getY(),
+								tile.getTileType(), g);
+					}
+				}
 			}
 		}
 
