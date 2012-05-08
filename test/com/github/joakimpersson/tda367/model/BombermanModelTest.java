@@ -12,9 +12,6 @@ import org.junit.Test;
 
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.player.Player;
-import com.github.joakimpersson.tda367.model.tiles.Tile;
-import com.github.joakimpersson.tda367.model.tiles.nonwalkable.*;
-import com.github.joakimpersson.tda367.model.tiles.walkable.*;
 import com.github.joakimpersson.tda367.model.utils.Position;
 
 public class BombermanModelTest {
@@ -34,7 +31,6 @@ public class BombermanModelTest {
 
 	@Test
 	public void testIsRoundOver() {
-		
 		boolean test1;
 		boolean test2;
 		boolean test3;
@@ -61,25 +57,6 @@ public class BombermanModelTest {
 	
 	@Test
 	public void testMove() {
-//		String s = "";
-//		String t;
-//		Tile[][] map = model.getMap();
-//		for(int i = 0; i < map.length; i++) {
-//			for(int j = 0; j < map[0].length; j++) {
-//				if(map[i][j] instanceof Floor) {
-//					t = "F ";
-//				} else if(map[i][j] instanceof Pillar) {
-//					t = "P ";
-//				} else if(map[i][j] instanceof Box) {
-//					t = "B ";
-//				} else {
-//					t = ". ";
-//				}
-//				s = s + t;
-//			}
-//			s = s + "\n";
-//		}
-//		System.out.println(s);
 		fail("Not yet implemented");
 	}
 	
