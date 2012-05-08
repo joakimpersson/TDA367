@@ -1,6 +1,7 @@
 package com.github.joakimpersson.tda367.model.player;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -14,11 +15,11 @@ import com.github.joakimpersson.tda367.model.constants.PointGiver;
 
 public class PlayerPointsTest {
 
-	private PlayerPoints pp;
+	private PlayerPoints playerPoint;
 
 	@Before
 	public void setUp() throws Exception {
-		pp = new PlayerPoints();
+		playerPoint = new PlayerPoints();
 	}
 
 	@Test
@@ -32,28 +33,28 @@ public class PlayerPointsTest {
 		PointGiver hitPoint = PointGiver.PlayerHit;
 
 		list.add(boxPoint);
-		pp.update(list);
-		int scoreBox = pp.getScore();
+		playerPoint.update(list);
+		int scoreBox = playerPoint.getScore();
 		list.clear();
-		pp.reset();
+		playerPoint.reset();
 
 		list.add(pillarPoint);
-		pp.update(list);
-		int scorePillar = pp.getScore();
+		playerPoint.update(list);
+		int scorePillar = playerPoint.getScore();
 		list.clear();
-		pp.reset();
+		playerPoint.reset();
 
 		list.add(killPoint);
-		pp.update(list);
-		int scoreKill = pp.getScore();
+		playerPoint.update(list);
+		int scoreKill = playerPoint.getScore();
 		list.clear();
-		pp.reset();
+		playerPoint.reset();
 
 		list.add(hitPoint);
-		pp.update(list);
-		int scoreHit = pp.getScore();
+		playerPoint.update(list);
+		int scoreHit = playerPoint.getScore();
 		list.clear();
-		pp.reset();
+		playerPoint.reset();
 
 		assertEquals(PointGiver.Box.getScore(), scoreBox);
 		assertEquals(PointGiver.Pillar.getScore(), scorePillar);
@@ -77,13 +78,13 @@ public class PlayerPointsTest {
 		list.add(killPoint);
 		list.add(hitPoint);
 
-		pp.update(list);
+		playerPoint.update(list);
 
-		int tmpCredits = pp.getCredits();
+		int tmpCredits = playerPoint.getCredits();
 
-		pp.useCredits(50);
+		playerPoint.useCredits(50);
 
-		assertEquals(pp.getCredits(), (tmpCredits - 50));
+		assertEquals(playerPoint.getCredits(), (tmpCredits - 50));
 
 	}
 
@@ -108,9 +109,9 @@ public class PlayerPointsTest {
 		list.add(hitPoint);
 		expected += hitPoint.getScore();
 
-		pp.update(list);
+		playerPoint.update(list);
 
-		assertEquals(expected, pp.getScore());
+		assertEquals(expected, playerPoint.getScore());
 
 	}
 
@@ -129,9 +130,9 @@ public class PlayerPointsTest {
 		list.add(killPoint);
 		list.add(hitPoint);
 
-		pp.update(list);
+		playerPoint.update(list);
 
-		assertEquals(pp.getScore(), pp.getCredits());
+		assertEquals(playerPoint.getScore(), playerPoint.getCredits());
 
 	}
 
@@ -150,9 +151,10 @@ public class PlayerPointsTest {
 		list.add(killPoint);
 		list.add(hitPoint);
 
-		pp.update(list);
+		playerPoint.update(list);
 
-		int tmpHitPlayer = pp.getDestroyedPointGiver(PointGiver.PlayerHit);
+		int tmpHitPlayer = playerPoint
+				.getDestroyedPointGiver(PointGiver.PlayerHit);
 
 		list.clear();
 
@@ -162,9 +164,9 @@ public class PlayerPointsTest {
 		list.add(hitPoint2);
 		list.add(hitPoint3);
 
-		pp.update(list);
+		playerPoint.update(list);
 
-		assertEquals(pp.getDestroyedPointGiver(PointGiver.PlayerHit),
+		assertEquals(playerPoint.getDestroyedPointGiver(PointGiver.PlayerHit),
 				tmpHitPlayer + 2);
 
 	}
@@ -255,9 +257,10 @@ public class PlayerPointsTest {
 		list.add(killPoint);
 		list.add(hitPoint);
 
-		pp.update(list);
+		playerPoint.update(list);
 
-		int tmpDestBoxPoints = pp.getDestroyedPointGiver(PointGiver.Box);
+		int tmpDestBoxPoints = playerPoint
+				.getDestroyedPointGiver(PointGiver.Box);
 
 		list.clear();
 
@@ -267,9 +270,10 @@ public class PlayerPointsTest {
 		list.add(destBoxPoint2);
 		list.add(destBoxPoint3);
 
-		pp.update(list);
+		playerPoint.update(list);
 		// TODO do not follow the correct syntax rolen!
-		assertEquals(tmpDestBoxPoints + 2, pp.getDestroyedPointGiver(PointGiver.Box));
+		assertEquals(tmpDestBoxPoints + 2,
+				playerPoint.getDestroyedPointGiver(PointGiver.Box));
 
 	}
 
@@ -281,46 +285,105 @@ public class PlayerPointsTest {
 		list.add(PointGiver.PlayerHit);
 
 		// The Score and credits should be greater than zero
-		pp.update(list);
-		int actualScore = pp.getScore();
-		int actualCredits = pp.getCredits();
+		playerPoint.update(list);
+		int actualScore = playerPoint.getScore();
+		int actualCredits = playerPoint.getCredits();
 
 		assertTrue(actualScore > 0);
 		assertTrue(actualCredits > 0);
 
 		// Reset the players PlayerPoints object object
-		pp.reset();
+		playerPoint.reset();
 
-		actualScore = pp.getScore();
-		actualCredits = pp.getCredits();
+		actualScore = playerPoint.getScore();
+		actualCredits = playerPoint.getCredits();
 		assertTrue(actualScore == 0);
 		assertTrue(actualCredits == 0);
 
 	}
-	
+
+	@Test
 	public void compareToTest() {
 		PlayerPoints ppDummy = new PlayerPoints();
-		
+
 		List<PointGiver> list = new ArrayList<PointGiver>();
 		list.add(PointGiver.Bomb);
 		list.add(PointGiver.Pillar);
 		list.add(PointGiver.KillPlayer);
-		
+
 		ppDummy.update(list);
-		pp.update(list);
-		
-		assertEquals(0, pp.compareTo(ppDummy));
-		
+		playerPoint.update(list);
+
+		assertEquals(0, playerPoint.compareTo(ppDummy));
+
 		list.add(PointGiver.PlayerHit);
+
+		playerPoint.update(list);
+
+		assertTrue(playerPoint.compareTo(ppDummy) > 0);
+
+	}
+
+	@Test
+	public void testHashCode() {
+		PlayerPoints otherPlayerPoints = new PlayerPoints();
+
+		// They should be equal when created
+		assertTrue(playerPoint.hashCode() == otherPlayerPoints.hashCode());
+
+		// changes to the playerPoint object
+		playerPoint.update(PointGiver.Bomb);
+
+		// They should not be equal anymore
+		assertFalse(playerPoint.hashCode() == otherPlayerPoints.hashCode());
+
+		// same changes to the other playerPoint object
+		otherPlayerPoints.update(PointGiver.Bomb);
+
+		// they should now be equal again
+		assertTrue(playerPoint.hashCode() == otherPlayerPoints.hashCode());
+
+		// this time changes to the other playerPoint object
+		otherPlayerPoints.update(PointGiver.Bomb);
+
+		// no equal anymore
+		assertFalse(playerPoint.hashCode() == otherPlayerPoints.hashCode());
+	}
+
+	@Test
+	public void testEquals() {
+		PlayerPoints otherPlayerPoints = new PlayerPoints();
+
+		//testing against itself and null
+		assertTrue(playerPoint.equals(playerPoint));
 		
-		pp.update(list);
+		assertFalse(playerPoint.equals(null));
 		
-		assertTrue(pp.compareTo(ppDummy) > 0);
-		
+		// They should be equal when created
+		assertTrue(playerPoint.equals(otherPlayerPoints));
+
+		// changes to the playerPoint object
+		playerPoint.update(PointGiver.Bomb);
+
+		// They should not be equal anymore
+		assertFalse(playerPoint.equals(otherPlayerPoints));
+
+		// same changes to the other playerPoint object
+		otherPlayerPoints.update(PointGiver.Bomb);
+
+		// they should now be equal again
+		assertTrue(playerPoint.equals(otherPlayerPoints));
+
+		// this time changes to the other playerPoint object
+		otherPlayerPoints.update(PointGiver.Bomb);
+
+		// no equal anymore
+		assertFalse(playerPoint.equals(otherPlayerPoints));
+
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		pp = null;
+		playerPoint = null;
 	}
 }

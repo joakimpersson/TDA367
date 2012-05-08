@@ -177,7 +177,7 @@ public class PlayerPoints implements Serializable, Comparable<PlayerPoints> {
 	}
 
 	@Override
-	public boolean equals(final Object obj) {
+	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
 		}
@@ -195,10 +195,7 @@ public class PlayerPoints implements Serializable, Comparable<PlayerPoints> {
 		int sum = 0;
 		sum += totalScore * 5;
 		sum += credits * 7;
-		for (PointGiver pg : pointGivers.keySet()) {
-			int tmpSum = pointGivers.get(pg);
-			sum += tmpSum * 13;
-		}
+		sum += pointGivers.hashCode() * 17;
 		return sum;
 	}
 }
