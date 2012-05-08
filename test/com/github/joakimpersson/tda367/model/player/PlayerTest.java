@@ -1,7 +1,7 @@
 package com.github.joakimpersson.tda367.model.player;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,11 +77,11 @@ public class PlayerTest {
 
 	@Test
 	public void testKillPlayer() {
-		int lives = player.getHealth();
-		for (int i = 0; i < lives; i++) {
+		while(player.getHealth() > 0) {
 			player.playerHit();
 		}
-		assertTrue(player.isAlive());
+		
+		assertFalse(player.isAlive());
 	}
 
 	@Test

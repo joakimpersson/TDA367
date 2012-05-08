@@ -1,10 +1,5 @@
 package com.github.joakimpersson.tda367.model.player;
 
-import static com.github.joakimpersson.tda367.model.constants.Attribute.BombStack;
-import static com.github.joakimpersson.tda367.model.constants.Attribute.Health;
-import static com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType.Match;
-import static com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType.Round;
-
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -82,8 +77,8 @@ public class Player {
 	 * Method used to reset a players state for a new round.
 	 */
 	private void roundReset() {
-		this.attr.resetAttr(Round);
-		this.health = getAttribute(Health);
+		this.attr.resetAttr(UpgradeType.Round);
+		this.health = getAttribute(Attribute.Health);
 		this.tilePos = initialPosition;
 		this.facingDirection = Direction.SOUTH;
 		this.gamePos = new FPosition(initialPosition.getX() + 0.5F,
@@ -96,7 +91,7 @@ public class Player {
 	 * Method used to reset a players state for a new match (3 rounds).
 	 */
 	private void matchReset() {
-		this.attr.resetAttr(Match);
+		this.attr.resetAttr(UpgradeType.Match);
 		roundReset();
 	}
 
@@ -134,7 +129,7 @@ public class Player {
 	 * @return If a player can place a bomb or not.
 	 */
 	public boolean canPlaceBomb() {
-		if (getAttribute(BombStack) > this.bombsPlaced) {
+		if (getAttribute(Attribute.BombStack) > this.bombsPlaced) {
 			return true;
 		}
 		return false;
@@ -155,7 +150,7 @@ public class Player {
 	}
 
 	public int getBombsAvailable() {
-		return getAttribute(BombStack) - this.bombsPlaced;
+		return getAttribute(Attribute.BombStack) - this.bombsPlaced;
 	}
 
 	/**
@@ -347,7 +342,7 @@ public class Player {
 	}
 
 	private void reloadAttributes() {
-		health = getAttribute(Health);
+		health = getAttribute(Attribute.Health);
 	}
 
 	public void adjustPosition(Direction direction) {
@@ -361,49 +356,28 @@ public class Player {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + playerIndex;
-		result = prime * result + ((attr == null) ? 0 : attr.hashCode());
-		result = prime * result + ((gamePos == null) ? 0 : gamePos.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((points == null) ? 0 : points.hashCode());
-		return result;
+		int sum = 0;
+		sum += this.playerIndex * 5;
+		sum += this.name.hashCode() * 7;
+		sum += this.attr.hashCode() * 13;
+		sum += this.tilePos.hashCode() * 17;
+		// TODO jocke this makes the program crash
+		// sum += this.points.hashCode() * 19;
+		return sum;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null || getClass() != obj.getClass()) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		
+		}
 		Player other = (Player) obj;
-		
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (playerIndex != other.playerIndex)
-			return false;
-		if (attr == null) {
-			if (other.attr != null)
-				return false;
-		} else if (!attr.equals(other.attr))
-			return false;
-		if (points == null) {
-			if (other.points != null)
-				return false;
-		} else if (!points.equals(other.points))
-			return false;
-		if (gamePos == null) {
-			if (other.gamePos != null)
-				return false;
-		} else if (!gamePos.equals(other.gamePos))
-			return false;
-		return true;
+		return this.name.equals(name) && this.attr.equals(other.attr)
+				&& this.points.equals(points) && this.tilePos == other.tilePos
+				&& this.playerIndex == other.playerIndex;
+
 	}
 }
