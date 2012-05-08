@@ -44,6 +44,7 @@ public class AudioEventListener implements PropertyChangeListener {
 	 * containing EventTypes.
 	 *  If setSFX/BGMVolume, it will set the volume, and newValue must be a Float.
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
 		Object newValue = arg0.getNewValue();
