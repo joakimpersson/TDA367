@@ -253,9 +253,9 @@ public class Player {
 
 	public void updatePlayerPoints(PointGiver pointGiver) {
 		this.points.update(pointGiver);
-		
+
 	}
-	
+
 	/**
 	 * Get the players name.
 	 * 
@@ -350,4 +350,60 @@ public class Player {
 		health = getAttribute(Health);
 	}
 
+	public void adjustPosition(Direction direction) {
+		if (direction.equals(Direction.NORTH)
+				|| direction.equals(Direction.SOUTH)) {
+			gamePos = new FPosition(tilePos.getX() + 0.5F, gamePos.getY());
+		} else {
+			gamePos = new FPosition(gamePos.getX(), tilePos.getY() + 0.5F);
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + playerIndex;
+		result = prime * result + ((attr == null) ? 0 : attr.hashCode());
+		result = prime * result + ((gamePos == null) ? 0 : gamePos.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((points == null) ? 0 : points.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		
+		Player other = (Player) obj;
+		
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (playerIndex != other.playerIndex)
+			return false;
+		if (attr == null) {
+			if (other.attr != null)
+				return false;
+		} else if (!attr.equals(other.attr))
+			return false;
+		if (points == null) {
+			if (other.points != null)
+				return false;
+		} else if (!points.equals(other.points))
+			return false;
+		if (gamePos == null) {
+			if (other.gamePos != null)
+				return false;
+		} else if (!gamePos.equals(other.gamePos))
+			return false;
+		return true;
+	}
 }
