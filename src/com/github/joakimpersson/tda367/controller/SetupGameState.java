@@ -13,6 +13,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.github.joakimpersson.tda367.audio.AudioEventListener;
+import com.github.joakimpersson.tda367.controller.input.InputData;
 import com.github.joakimpersson.tda367.controller.input.InputHandler;
 import com.github.joakimpersson.tda367.controller.input.InputManager;
 import com.github.joakimpersson.tda367.controller.input.KeyBoardInputHandler;
@@ -22,6 +23,7 @@ import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.constants.EventType;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
+import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.utils.Position;
 
@@ -86,28 +88,38 @@ public class SetupGameState extends BasicGameState {
 			throws SlickException {
 		view.render(container, g, selection);
 	}
+	
+	private List<PlayerAction> defaultInput(Input input) {
+		List<InputData> dataList = inputManager.getData(input);
+		List<PlayerAction> actions = new ArrayList<PlayerAction>();
+		for (InputData data : dataList) {
+			actions.add(data.getAction());
+		}
+		return actions;
+	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
 		Input input = container.getInput();
-
+		List<PlayerAction> actions = defaultInput(input);
+		
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
 			container.exit();
 		}
 
-		if (input.isKeyPressed(Input.KEY_UP)) {
+		if (actions.contains(PlayerAction.MoveUp)) {
 			moveIndex(-1);
 			pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
 		}
 
-		if (input.isKeyPressed(Input.KEY_DOWN)) {
+		if (actions.contains(PlayerAction.MoveDown)) {
 			moveIndex(1);
 			pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
 		}
 
 		boolean controllerProceed = validProceed(input);
-		if (stage < 2 && input.isKeyPressed(Input.KEY_ENTER)) {
+		if (stage < 2 && inputManager.pressedProceed(input)) {
 			if (stage == 0) {
 				players = selection;
 				view.startPlayerCreation(players);
@@ -124,6 +136,7 @@ public class SetupGameState extends BasicGameState {
 		} else if (stage == 2 && controllerProceed) {
 			assignPlayer(controllerUsed(input), view.getIndex());
 			if (allPlayersAssigned()) {
+				
 				game.enterState(BombermanGame.GAMEPLAY_STATE);
 			}
 			view.incIndex();
@@ -147,7 +160,7 @@ public class SetupGameState extends BasicGameState {
 			return true;
 		}
 		for (int i = 0; i < controllerCount; i++) {
-			if (input.isButtonPressed(X360InputHandler.getProceed(), i)
+			if (input.isButtonPressed(X360InputHandler.PROCEED_BUTTON, i)
 					&& !controllersBound.contains("x" + i))
 				return true;
 		}
@@ -157,7 +170,7 @@ public class SetupGameState extends BasicGameState {
 	private String controllerUsed(Input input) {
 		String controller = null; // this should never stay null
 		for (int i = 0; i < controllerCount; i++) {
-			if (input.isButtonPressed(X360InputHandler.getProceed(), i)) {
+			if (input.isButtonPressed(X360InputHandler.PROCEED_BUTTON, i)) {
 				controller = "x" + i;
 			}
 		}

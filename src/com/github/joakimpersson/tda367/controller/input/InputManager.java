@@ -15,6 +15,7 @@ import com.github.joakimpersson.tda367.model.player.Player;
 public class InputManager {
 	private static InputManager instance = null;
 	private List<InputHandler> inputHandlers = null;
+	private boolean defaultEnabled = false;
 
 	private InputManager() {
 		init();
@@ -25,6 +26,18 @@ public class InputManager {
 	 */
 	private void init() {
 		inputHandlers = new ArrayList<InputHandler>();
+		createDeafaultInputs();
+	}
+
+	private void createDeafaultInputs() {
+		defaultEnabled = true;
+		inputHandlers = new ArrayList<InputHandler>();
+		for (int i = 0; i < 4; i++) {
+			inputHandlers.add(new X360InputHandler(i));
+		}
+		for (int i = 0; i < 2; i++) {
+			inputHandlers.add(new KeyBoardInputHandler(i));
+		}
 	}
 
 	/**
@@ -47,6 +60,10 @@ public class InputManager {
 	 * @param inputObj
 	 */
 	public void addInputObject(InputHandler inputObj) {
+		if (defaultEnabled) {
+			this.clearInput();
+			this.defaultEnabled = false;
+		}
 		if (!playerIsUsedPrev(inputObj) && !inputHandlers.contains(inputObj)) {
 			inputHandlers.add(inputObj);
 		} else if (playerIsUsedPrev(inputObj)) {
@@ -137,5 +154,9 @@ public class InputManager {
 			}
 		}
 		return false;
+	}
+
+	private void clearInput() {
+		inputHandlers.clear();
 	}
 }

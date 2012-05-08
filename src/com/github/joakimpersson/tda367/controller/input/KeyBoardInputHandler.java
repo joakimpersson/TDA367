@@ -15,7 +15,7 @@ import com.github.joakimpersson.tda367.model.player.Player;
 public class KeyBoardInputHandler implements InputHandler {
 
 	private int currentKey = -1;
-	private Player player;
+	private Player player = null;
 	private Map<Integer, PlayerAction> keyActionMap;
 
 	/**
@@ -29,6 +29,11 @@ public class KeyBoardInputHandler implements InputHandler {
 	 */
 	public KeyBoardInputHandler(Player player, int id) {
 		this.player = player;
+		this.keyActionMap = DefaultKeyMappings.getInstance()
+				.getKeyActionMap(id);
+	}
+	
+	public KeyBoardInputHandler(int id) {
 		this.keyActionMap = DefaultKeyMappings.getInstance()
 				.getKeyActionMap(id);
 	}
