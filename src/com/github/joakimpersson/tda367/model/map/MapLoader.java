@@ -1,13 +1,11 @@
 package com.github.joakimpersson.tda367.model.map;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
@@ -15,6 +13,7 @@ import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Box;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Pillar;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Wall;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
+import com.github.joakimpersson.tda367.model.utils.FileScanner;
 
 public class MapLoader {
 
@@ -22,6 +21,7 @@ public class MapLoader {
 		Wall, Floor, Box, Pillar;
 	}
 
+	private String mapsFolderPath = "./res/maps";
 	private Character[] legalCharacters = { 'w', 'f', 'b', 'p' };
 	private Map<Character, MapTile> chars;
 	private int width;
@@ -40,7 +40,7 @@ public class MapLoader {
 		maps = new ArrayList<Tile[][]>();
 		initMapsList();
 	}
-
+	
 	public static MapLoader getInstance() {
 		if (instance == null) {
 			instance = new MapLoader();
@@ -48,9 +48,9 @@ public class MapLoader {
 		return instance;
 	}
 
+	
 	private void initMapsList() {
-		File file = new File("./res/maps");
-		File[] files = file.listFiles();
+		File[] files = FileScanner.readFilesFromFolder(mapsFolderPath);
 		for (File f : files) {
 			Tile[][] map = createMapFromTxt(f);
 			maps.add(map);
@@ -59,51 +59,18 @@ public class MapLoader {
 
 	private Tile[][] createMapFromTxt(File file) {
 
-		List<String> lines = new ArrayList<String>();
-
-		try {
-			Scanner scanner = new Scanner(file);
-
-			while (scanner.hasNextLine()) {
-				String line = scanner.nextLine().replaceAll(" ", "");
-				if (!line.equals("")) {
-					lines.add(line);
-				}
-			}
-
-			scanner.close();
-
-		} catch (FileNotFoundException e) {
-			System.out.println("No File, sir :/");
-			e.printStackTrace();
-		}
+		List<String> lines = FileScanner.readTextFromFile(file);
+		lines = removeWhiteSpace(lines);
 		validateTxt(lines);
 		return converToTileMatrix(lines);
 	}
 
-	public Tile[][] readFile() {
-		File file = new File("./maps");
-		File[] files = file.listFiles();
-		List<String> lines = new ArrayList<String>();
-
-		try {
-			Scanner scanner = new Scanner(files[0]);
-
-			while (scanner.hasNextLine()) {
-				String line = scanner.nextLine().replaceAll(" ", "");
-				if (!line.equals("")) {
-					lines.add(line);
-				}
-			}
-
-			scanner.close();
-
-		} catch (FileNotFoundException e) {
-			System.out.println("No File, sir :/");
-			e.printStackTrace();
+	private List<String> removeWhiteSpace(List<String> lines) {
+		List<String> tmpLines = new ArrayList<String>();
+		for (String line : lines) {
+			tmpLines.add(line.replaceAll(" ", ""));
 		}
-		validateTxt(lines);
-		return converToTileMatrix(lines);
+		return tmpLines;
 	}
 
 	private Tile[][] converToTileMatrix(final List<String> lines) {
@@ -138,7 +105,6 @@ public class MapLoader {
 			return new Wall();
 		default:
 			// should not happen
-			// TODO should there be a floor here perhaps?
 			return null;
 		}
 
