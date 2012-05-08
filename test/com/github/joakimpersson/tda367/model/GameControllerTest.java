@@ -31,7 +31,7 @@ public class GameControllerTest {
 	public void setUp() throws Exception {
 		players = new ArrayList<Player>();
 		players.add(new Player(0, "Kalle", new Position(0, 0)));
-		players.add(new Player(1, "Hobbe", new Position(0, 0)));
+		players.add(new Player(1, "Hobbe", new Position(10, 0)));
 		gameController = new GameController(players);
 	}
 
@@ -75,19 +75,24 @@ public class GameControllerTest {
 
 	@Test
 	public void testGetRoundsWin() {
+		Player losingPlayer = players.get(0);
+		// the winner should be player2
+		Player winningPlayer = players.get(1);
+
 		// first kill one of the player to simulate round over
-		killPlayer(players.get(0));
+		killPlayer(losingPlayer);
 
 		// the round is over
 		gameController.roundOver();
-
-		// the winner shold be player2
-		Player winningPlayer = players.get(1);
 
 		// his number of rounds win should be 1
 		int actual = gameController.getRoundsWin(winningPlayer);
 		int expected = 1;
 		assertEquals(expected, actual);
+
+		actual = gameController.getRoundsWin(losingPlayer);
+		expected = 0;
+		assertEquals(actual, expected);
 	}
 
 	@Test

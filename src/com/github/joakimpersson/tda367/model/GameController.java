@@ -22,13 +22,13 @@ public class GameController {
 	/**
 	 * Create a new GameController instance with this games active players
 	 * 
-	 * @param players
+	 * @param playersList
 	 *            A list of the active players in the current game
 	 */
-	public GameController(List<Player> players) {
+	public GameController(List<Player> playersList) {
 		this.players = new HashMap<Player, Integer>();
 		int roundsWon = 0;
-		for (Player p : players) {
+		for (Player p : playersList) {
 			this.players.put(p, roundsWon);
 		}
 		maxMatchesWon = BombermanRules.INSTANCE.getNumberOfMatches();
@@ -60,7 +60,9 @@ public class GameController {
 	public void roundOver() {
 		Player p = getRoundWinner();
 		int roundsWon = players.get(p);
+
 		players.put(p, roundsWon + 1);
+
 		p.updatePlayerPoints(PointGiver.RoundWon);
 	}
 
