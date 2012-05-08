@@ -47,7 +47,7 @@ public class GameplayState extends BasicGameState {
 	private PropertyChangeSupport pcs;
 	private List<EventType> playlist;
 	private boolean playlistIsPlaying = false;
-	
+
 	/**
 	 * Create a new slick BasicGameState controller for the Gameplaystate
 	 * 
@@ -65,7 +65,7 @@ public class GameplayState extends BasicGameState {
 		AudioEventListener audioEL = AudioEventListener.getInstance();
 		pcs.addPropertyChangeListener(audioEL);
 		model = BombermanModel.getInstance();
-		
+
 		this.playlist = new ArrayList<EventType>();
 		playlist.add(EventType.ROUND_ENDED);
 		playlist.add(EventType.UPGRADE_SCREEN);
@@ -116,12 +116,10 @@ public class GameplayState extends BasicGameState {
 			gameWaiting(container.getInput());
 			break;
 		case GAME_RUNNING:
-			
+
 			// simple check to see whether the turn is over or not
 			if (model.isRoundOver()) {
 				currentState = STATE.ROUND_OVER;
-			} else if (model.isMatchOver()) {
-				currentState = STATE.MATCH_OVER;
 			} else {
 				gameRunning(container.getInput());
 			}
@@ -182,13 +180,13 @@ public class GameplayState extends BasicGameState {
 	 *            latest action
 	 */
 	private void roundOver(Input input) {
-		if(!playlistIsPlaying) {
+		if (!playlistIsPlaying) {
 			pcs.firePropertyChange("playList", null, playlist);
 			playlistIsPlaying = true;
 		}
-		
+
 		boolean pressedProceed = inputManager.pressedProceed(input);
-		
+
 		if (pressedProceed) {
 			if (model.isMatchOver()) {
 				currentState = STATE.MATCH_OVER;
@@ -227,8 +225,8 @@ public class GameplayState extends BasicGameState {
 	 *            latest action
 	 */
 	private void gameRunning(Input input) {
-		
-		if(playlistIsPlaying) {
+
+		if (playlistIsPlaying) {
 			pcs.firePropertyChange("play", null, EventType.BATTLE_SCREEN);
 			playlistIsPlaying = false;
 		}
