@@ -8,7 +8,7 @@ public class X360OsDep {
 		if (platform.equals("Mac OS X")) {
 			return 4;
 		}
-		return 1; // this is wrong at the moment
+		return 7;
 	}
 	
 	// should be mapped to A
@@ -16,7 +16,7 @@ public class X360OsDep {
 		if (platform.equals("Mac OS X")) {
 			return 11;
 		}
-		return 1; // this is wrong at the moment
+		return 0;
 	}
 
 }

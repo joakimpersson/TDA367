@@ -7,11 +7,11 @@ import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.player.Player;
 
 public class X360InputHandler implements InputHandler {
-	private final static int PROCEED_BUTTON = X360OsDep.getProceed();
-	private final static int ACTION_BUTTON = X360OsDep.getAction();
+	public final static int PROCEED_BUTTON = X360OsDep.getProceed();
+	public final static int ACTION_BUTTON = X360OsDep.getAction();
 
 	private PlayerAction lastAction = null;
-	private Player player;
+	private Player player = null;
 	private int controllerId;
 	
 	public X360InputHandler(Player player, int controllerId) {
@@ -19,12 +19,8 @@ public class X360InputHandler implements InputHandler {
 		this.controllerId = controllerId;
 	}
 	
-	// TODO put in separate package... and add support for action key
-	public static int getProceed() {
-		if (System.getProperty("os.name").toLowerCase().indexOf("mac") >= 0) {
-			return 4;
-		}
-		return 1;
+	public X360InputHandler(int controllerId) {
+		this.controllerId = controllerId;
 	}
 
 	@Override
