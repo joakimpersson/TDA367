@@ -76,6 +76,7 @@ public class BombermanModel implements IBombermanModel {
 		this.gameController = new GameController(players);
 		this.map = new GameMap();
 		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
+		System.out.println(this);
 	}
 
 	@Override
@@ -432,6 +433,15 @@ public class BombermanModel implements IBombermanModel {
 		// In order to avoid that tiles are cleared on the new map
 		waitingFirePositions.clear();
 		map.reset();
+	}
+	
+	public String toString() {
+		String s = "";
+		for(Player p : players) {
+			s = s + p + "\n";
+		}
+		s = s + "\n" + map.toString();
+		return s;
 	}
 
 	/**

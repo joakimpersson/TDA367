@@ -51,6 +51,6 @@ public class Position {
 
 	@Override
 	public String toString() {
-		return "[ + x: " + this.getX() + ", y: " + this.getY() + " ]";
+		return "[x: " + this.getX() + ", y: " + this.getY() + " ]";
 	}
 }
