@@ -89,7 +89,9 @@ public class GameMap implements IGameMap {
 			for (int j = 0; j < WIDTH; j++) {
 				Tile tmpTile = map[i][j];
 				strBuilder.append(tmpTile.toString());
+				strBuilder.append("\t");
 			}
+			strBuilder.append("\n");
 		}
 		return strBuilder.toString();
 	}

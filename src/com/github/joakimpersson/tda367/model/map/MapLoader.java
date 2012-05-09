@@ -2,45 +2,37 @@ package com.github.joakimpersson.tda367.model.map;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import com.github.joakimpersson.tda367.model.constants.MapTileType;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
-import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Box;
-import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Pillar;
-import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Wall;
-import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
+import com.github.joakimpersson.tda367.model.tiles.factory.MapTileFactory;
 import com.github.joakimpersson.tda367.model.utils.FileScanner;
 
 public class MapLoader {
 
-	public enum MapTile {
-		Wall, Floor, Box, Pillar;
-	}
-
 	private String mapsFolderPath = "./res/maps";
-	private Character[] legalCharacters = { 'w', 'f', 'b', 'p' };
-	private Map<Character, MapTile> chars;
-	private int width;
-	private int height;
+	private Map<Character, MapTileType> chars;
+	private MapTileFactory mapTileFactory;
+	private final int WIDTH;
+	private final int HEIGHT;
 	private List<Tile[][]> maps = null;
 	private static MapLoader instance = null;
 
 	private MapLoader() {
-		this.chars = new HashMap<Character, MapLoader.MapTile>();
-		chars.put('w', MapTile.Wall);
-		chars.put('f', MapTile.Floor);
-		chars.put('b', MapTile.Box);
-		chars.put('p', MapTile.Pillar);
-		this.width = Parameters.INSTANCE.getMapSize().width;
-		this.height = Parameters.INSTANCE.getMapSize().height;
-		maps = new ArrayList<Tile[][]>();
+		this.chars = new HashMap<Character, MapTileType>();
+		this.WIDTH = Parameters.INSTANCE.getMapSize().width;
+		this.HEIGHT = Parameters.INSTANCE.getMapSize().height;
+		this.mapTileFactory = new MapTileFactory();
+		this.maps = new ArrayList<Tile[][]>();
+		initTypeCharArray();
 		initMapsList();
 	}
-	
+
 	public static MapLoader getInstance() {
 		if (instance == null) {
 			instance = new MapLoader();
@@ -48,13 +40,19 @@ public class MapLoader {
 		return instance;
 	}
 
-	
 	private void initMapsList() {
 		File[] files = FileScanner.readFilesFromFolder(mapsFolderPath);
 		for (File f : files) {
 			Tile[][] map = createMapFromTxt(f);
 			maps.add(map);
 		}
+	}
+
+	private void initTypeCharArray() {
+		chars.put('w', MapTileType.Wall);
+		chars.put('f', MapTileType.Floor);
+		chars.put('b', MapTileType.Box);
+		chars.put('p', MapTileType.Pillar);
 	}
 
 	private Tile[][] createMapFromTxt(File file) {
@@ -73,44 +71,7 @@ public class MapLoader {
 		return tmpLines;
 	}
 
-	private Tile[][] converToTileMatrix(final List<String> lines) {
-		Tile[][] map = new Tile[this.height][this.width];
-
-		for (int i = 0; i < map.length; i++) {
-			map[i] = convertToTileArray(lines.get(i));
-		}
-
-		return map;
-	}
-
-	private Tile[] convertToTileArray(final String string) {
-		Tile[] tiles = new Tile[string.length()];
-		for (int i = 0; i < tiles.length; i++) {
-			tiles[i] = converSymbolToTile(string.charAt(i));
-		}
-		return tiles;
-	}
-
-	private Tile converSymbolToTile(final Character charAt) {
-		MapTile type = chars.get(charAt);
-
-		switch (type) {
-		case Box:
-			return new Box();
-		case Floor:
-			return new Floor();
-		case Pillar:
-			return new Pillar();
-		case Wall:
-			return new Wall();
-		default:
-			// should not happen
-			return null;
-		}
-
-	}
-
-	private void validateTxt(final List<String> lines)
+	private void validateTxt(List<String> lines)
 			throws IllegalArgumentException {
 
 		validateSize(lines);
@@ -118,7 +79,7 @@ public class MapLoader {
 
 	}
 
-	private void validateContent(final List<String> lines)
+	private void validateContent(List<String> lines)
 			throws IllegalArgumentException {
 		int row = 1;
 		for (String line : lines) {
@@ -129,21 +90,10 @@ public class MapLoader {
 		}
 	}
 
-	private boolean correctSymbols(final char[] symbols) {
-		// TODO not pretty
-		List<Character> chars = Arrays.asList(legalCharacters);
-		for (Character c : symbols) {
-			if (!chars.contains(c)) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	private void validateSize(final List<String> lines)
+	private void validateSize(List<String> lines)
 			throws IllegalArgumentException {
-		int height = this.height;
-		int width = this.width;
+		int height = this.HEIGHT;
+		int width = this.WIDTH;
 		if (lines.size() != height) {
 			errorMsg("Map height is wrong", height, lines.size());
 		}
@@ -158,11 +108,44 @@ public class MapLoader {
 
 	}
 
-	private void errorMsg(final String msg) throws IllegalArgumentException {
+	private Tile[][] converToTileMatrix(List<String> lines) {
+		Tile[][] map = new Tile[this.HEIGHT][this.WIDTH];
+
+		for (int i = 0; i < map.length; i++) {
+			map[i] = convertToTileArray(lines.get(i));
+		}
+
+		return map;
+	}
+
+	private Tile[] convertToTileArray(String string) {
+		Tile[] tiles = new Tile[string.length()];
+		for (int i = 0; i < tiles.length; i++) {
+			tiles[i] = converSymbolToTile(string.charAt(i));
+		}
+		return tiles;
+	}
+
+	private Tile converSymbolToTile(Character charAt) {
+		MapTileType type = chars.get(charAt);
+		return mapTileFactory.createObject(type);
+	}
+
+	private boolean correctSymbols(char[] symbols) {
+		Set<Character> legalCharacters = chars.keySet();
+		for (Character c : symbols) {
+			if (!legalCharacters.contains(c)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private void errorMsg(String msg) throws IllegalArgumentException {
 		throw new IllegalArgumentException(msg);
 	}
 
-	private <E> void errorMsg(final String msg, final E expected, final E actual)
+	private <E> void errorMsg(String msg, E expected, E actual)
 			throws IllegalArgumentException {
 		throw new IllegalArgumentException(msg + " expected: " + expected
 				+ " and got: " + actual);
@@ -170,19 +153,23 @@ public class MapLoader {
 
 	public Tile[][] getMap(int index) {
 		if (index > maps.size() || index < 0) {
-			throw new IllegalArgumentException("There is no map with index: "
-					+ index);
+			String msg = "There is no map with index: " + index;
+			errorMsg(msg);
 		}
 		Tile[][] tileMap = maps.get(index);
-		Tile[][] tmp = new Tile[height][width];
 
-		// TODO jocke perhaps extract to a util class
-		for (int i = 0; i < tileMap.length; i++) {
-			for (int j = 0; j < tileMap[0].length; j++) {
-				tmp[i][j] = tileMap[i][j];
+		return copyMatrix(tileMap);
+	}
+
+	private Tile[][] copyMatrix(Tile[][] originalMatrix) {
+		Tile[][] tmpMatrixMap = new Tile[HEIGHT][WIDTH];
+
+		for (int i = 0; i < originalMatrix.length; i++) {
+			for (int j = 0; j < originalMatrix[0].length; j++) {
+				tmpMatrixMap[i][j] = originalMatrix[i][j];
 			}
 		}
-
-		return tmp;
+		return tmpMatrixMap;
 	}
+
 }
