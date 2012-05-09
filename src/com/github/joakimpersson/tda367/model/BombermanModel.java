@@ -435,13 +435,15 @@ public class BombermanModel implements IBombermanModel {
 		map.reset();
 	}
 	
+	@Override
 	public String toString() {
-		String s = "";
-		for(Player p : players) {
-			s = s + p + "\n";
+		StringBuilder strBuilder = new StringBuilder();
+		for(Player player : players) {
+			strBuilder.append(player.toString());
+			strBuilder.append("\n");
 		}
-		s = s + "\n" + map.toString();
-		return s;
+		strBuilder.append(map.toString());
+		return strBuilder.toString();
 	}
 
 	/**
