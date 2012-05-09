@@ -361,8 +361,7 @@ public class Player {
 		sum += this.name.hashCode() * 7;
 		sum += this.attr.hashCode() * 13;
 		sum += this.tilePos.hashCode() * 17;
-		// TODO jocke this makes the program crash
-		// sum += this.points.hashCode() * 19;
+		sum += this.points.hashCode() * 19;
 		return sum;
 	}
 
@@ -376,7 +375,8 @@ public class Player {
 		}
 		Player other = (Player) obj;
 		return this.name.equals(other.name) && this.attr.equals(other.attr)
-				&& this.points.equals(other.points) && this.tilePos == other.tilePos
+				&& this.points.equals(other.points)
+				&& this.tilePos == other.tilePos
 				&& this.playerIndex == other.playerIndex;
 
 	}
