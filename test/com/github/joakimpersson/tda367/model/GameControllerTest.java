@@ -130,12 +130,19 @@ public class GameControllerTest {
 		int actual = winningPlayer.getDestroyedPointGiver(PointGiver.MatchWon);
 		assertEquals(expected, actual);
 
-		// the roundmap should also be reseted
-		expected = 0;
-		for (Player player : players) {
-			actual = gameController.getRoundsWin(player);
-			assertEquals(expected, actual);
-		}
+	}
+
+	@Test
+	public void tesetMatchesWon() {
+		Player losingPlayer = players.get(0);
+		Player winningPlayer = players.get(1);
+		PointGiver matchesWon = PointGiver.MatchWon;
+
+		simulateMatchOver(losingPlayer);
+		gameController.matchOver();
+		
+		assertEquals(0, losingPlayer.getDestroyedPointGiver(matchesWon));
+		assertEquals(1, winningPlayer.getDestroyedPointGiver(matchesWon));
 	}
 
 	@Test

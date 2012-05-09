@@ -1,8 +1,6 @@
 package com.github.joakimpersson.tda367.model;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.github.joakimpersson.tda367.model.constants.BombermanRules;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
@@ -15,9 +13,10 @@ import com.github.joakimpersson.tda367.model.player.Player;
  */
 public class GameController {
 
-	private Map<Player, Integer> players;
+	private List<Player> players;
 	private int maxRoundsWon;
 	private int maxMatchesWon;
+	private int matchID;
 
 	/**
 	 * Create a new GameController instance with this games active players
@@ -26,13 +25,10 @@ public class GameController {
 	 *            A list of the active players in the current game
 	 */
 	public GameController(List<Player> playersList) {
-		this.players = new HashMap<Player, Integer>();
-		int roundsWon = 0;
-		for (Player p : playersList) {
-			this.players.put(p, roundsWon);
-		}
-		maxMatchesWon = BombermanRules.INSTANCE.getNumberOfMatches();
-		maxRoundsWon = BombermanRules.INSTANCE.getNumberOfRounds();
+		this.players = playersList;
+		this.matchID = 1;
+		this.maxMatchesWon = BombermanRules.INSTANCE.getNumberOfMatches();
+		this.maxRoundsWon = BombermanRules.INSTANCE.getNumberOfRounds();
 	}
 
 	/**
@@ -44,7 +40,7 @@ public class GameController {
 	public boolean isRoundOver() {
 
 		int alivePlayers = 0;
-		for (Player p : players.keySet()) {
+		for (Player p : players) {
 
 			if (p.isAlive()) {
 				alivePlayers++;
@@ -59,22 +55,25 @@ public class GameController {
 	 */
 	public void roundOver() {
 		Player p = getRoundWinner();
-		int roundsWon = players.get(p);
-
-		players.put(p, roundsWon + 1);
-
 		p.updatePlayerPoints(PointGiver.RoundWon);
 	}
 
 	/**
-	 * Get how many rounds one player has win
+	 * Get how many rounds a player has win in the current match
 	 * 
 	 * @param player
 	 *            The player who round wins you want
 	 * @return How many rounds the player has win
 	 */
 	public int getRoundsWin(Player player) {
-		return players.get(player);
+		int totalRoundsWin = player.getDestroyedPointGiver(PointGiver.RoundWon);
+		int modFactor = maxRoundsWon;
+
+		if (totalRoundsWin == maxRoundsWon * matchID) {
+			return totalRoundsWin;
+		}
+
+		return totalRoundsWin % modFactor;
 	}
 
 	/**
@@ -85,7 +84,7 @@ public class GameController {
 	 */
 	private Player getRoundWinner() {
 		Player roundWinner = null;
-		for (Player p : players.keySet()) {
+		for (Player p : players) {
 			if (p.isAlive()) {
 				roundWinner = p;
 			}
@@ -100,8 +99,8 @@ public class GameController {
 	 * @return If the Match is over or not
 	 */
 	public boolean isMatchOver() {
-		for (Player p : players.keySet()) {
-			int roundsWon = players.get(p);
+		for (Player player : players) {
+			int roundsWon = getRoundsWin(player);
 
 			if (roundsWon == maxRoundsWon) {
 				return true;
@@ -117,7 +116,18 @@ public class GameController {
 	public void matchOver() {
 		Player p = getMatchWinner();
 		p.updatePlayerPoints(PointGiver.MatchWon);
-		resetRoundMap();
+		insreaseMatcheID();
+	}
+
+	/**
+	 * Get how many matches a player has win in the current game
+	 * 
+	 * @param player
+	 *            The player whose matches win you want
+	 * @return How many matches a player has won
+	 */
+	public int getMatchsWon(Player player) {
+		return player.getDestroyedPointGiver(PointGiver.MatchWon);
 	}
 
 	/**
@@ -127,26 +137,21 @@ public class GameController {
 	 */
 	private Player getMatchWinner() {
 		Player matchWinner = null;
-		for (Player p : players.keySet()) {
-			int roundsWon = players.get(p);
+		for (Player player : players) {
+			int roundsWon = getRoundsWin(player);
 
 			if (roundsWon == maxRoundsWon) {
-				matchWinner = p;
+				matchWinner = player;
 			}
 		}
 		return matchWinner;
 	}
 
 	/**
-	 * Resets the Map responsible for storing how many rounds every player has
-	 * win
+	 * Increases the matchID one step
 	 */
-	private void resetRoundMap() {
-		int newValue = 0;
-		for (Player p : players.keySet()) {
-			players.put(p, newValue);
-		}
-
+	private void insreaseMatcheID() {
+		matchID++;
 	}
 
 	/**
@@ -155,8 +160,8 @@ public class GameController {
 	 * @return If the game if over or not
 	 */
 	public boolean isGameOver() {
-		for (Player p : players.keySet()) {
-			int matchesWon = p.getDestroyedPointGiver(PointGiver.MatchWon);
+		for (Player player : players) {
+			int matchesWon = getMatchsWon(player);
 			if (matchesWon == maxMatchesWon) {
 				return true;
 			}
@@ -169,8 +174,9 @@ public class GameController {
 	 * Perform actions corresponding to that the game is over
 	 */
 	public void gameOver() {
-		Player p = getGameWinner();
-		p.updatePlayerPoints(PointGiver.GameWon);
+		Player player = getGameWinner();
+		player.updatePlayerPoints(PointGiver.GameWon);
+		matchID = 1;
 	}
 
 	/**
@@ -181,10 +187,10 @@ public class GameController {
 	private Player getGameWinner() {
 		Player gameWinner = null;
 
-		for (Player p : players.keySet()) {
-			int matchesWon = p.getDestroyedPointGiver(PointGiver.MatchWon);
+		for (Player player : players) {
+			int matchesWon = getMatchsWon(player);
 			if (matchesWon == maxMatchesWon) {
-				gameWinner = p;
+				gameWinner = player;
 			}
 		}
 
