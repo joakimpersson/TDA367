@@ -4,13 +4,6 @@ import java.awt.Dimension;
 
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
-import com.github.joakimpersson.tda367.model.tiles.bombs.Bomb;
-import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Box;
-import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Pillar;
-import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Wall;
-import com.github.joakimpersson.tda367.model.tiles.walkable.Fire;
-import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
-import com.github.joakimpersson.tda367.model.tiles.walkable.PowerupItem;
 import com.github.joakimpersson.tda367.model.utils.Position;
 
 /**
@@ -87,38 +80,17 @@ public class GameMap implements IGameMap {
 	}
 
 	/**
-	 * Returns a string representation of this map, where "_" represents a Floor,
-	 * "#" a Box, "Z" a Wall, "^" a Fire, "¤" a Bomb and "!" a PowerupItem.
-	 * An unrecognized tile is represented by an "?".
+	 * Returns a text based version of the map
 	 */
 	@Override
 	public String toString() {
-		String s = "";
-		String t = "";
-		for(int i = 0; i < HEIGHT; i++) {
-			for(int j = 0; j < WIDTH; j++) {
-				if(map[i][j] instanceof Floor) {
-					t = "_ ";
-				} else if(map[i][j] instanceof Pillar) {
-					t = "O ";
-				} else if(map[i][j] instanceof Box) {
-					t = "# ";
-				} else if(map[i][j] instanceof Wall) {
-					t = "Z ";
-				} else if(map[i][j] instanceof Fire) {
-					t = "^ ";
-				} else if(map[i][j] instanceof Bomb) {
-					t = "¤  ";
-				} else if(map[i][j] instanceof PowerupItem) {
-					t = "! ";
-				} else {
-					t = "? ";
-				}
-				s = s + t;
+		StringBuilder strBuilder = new StringBuilder();
+		for (int i = 0; i < HEIGHT; i++) {
+			for (int j = 0; j < WIDTH; j++) {
+				Tile tmpTile = map[i][j];
+				strBuilder.append(tmpTile.toString());
 			}
-			s = s + "\n";
 		}
-		return s;
+		return strBuilder.toString();
 	}
-	
 }
