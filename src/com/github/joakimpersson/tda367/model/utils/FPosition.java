@@ -34,7 +34,10 @@ public class FPosition {
 
 	@Override
 	public int hashCode() {
-		return 23456789 * (int)this.x + 56789123 * (int)this.y;
+		int sum = 0;
+		sum += 23456789 * Float.floatToIntBits(this.x);
+		sum += 56789123 * Float.floatToIntBits(this.y);
+		return sum;
 	}
 
 	@Override
@@ -46,7 +49,8 @@ public class FPosition {
 			return false;
 		}
 		FPosition other = (FPosition) obj;
-		return this.x == other.x && this.y == other.y;
+		return Float.floatToIntBits(this.x) == Float.floatToIntBits(other.x)
+				&& Float.floatToIntBits(this.y) == Float.floatToIntBits(this.y);
 	}
 
 	@Override
