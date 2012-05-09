@@ -37,7 +37,8 @@ public class FileScanner {
 			throws IllegalArgumentException {
 
 		if (!(object instanceof Serializable)) {
-			System.out.println("bajs på dig!");
+			throw new IllegalArgumentException(
+					"Object must implement Serializable");
 		}
 
 		File file = new File(path);

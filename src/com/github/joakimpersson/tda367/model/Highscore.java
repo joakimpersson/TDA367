@@ -73,7 +73,9 @@ public class Highscore {
 	@SuppressWarnings("unchecked")
 	private void loadList() {
 		Object object = FileScanner.readObject(fileName);
-		playerList = (List<Score>) object;
+		if (object != null) {
+			playerList = (List<Score>) object;
+		}// otherwise it should overwrite itself
 	}
 
 	/**
