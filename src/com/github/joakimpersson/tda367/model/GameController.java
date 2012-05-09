@@ -26,16 +26,16 @@ public class GameController {
 	 */
 	public GameController(List<Player> playersList) {
 		this.players = playersList;
-		this.matchID = 1;
 		this.maxMatchesWon = BombermanRules.INSTANCE.getNumberOfMatches();
 		this.maxRoundsWon = BombermanRules.INSTANCE.getNumberOfRounds();
+		this.matchID = 1;
 	}
 
 	/**
 	 * Is the current round over. The round is over when all players but one has
 	 * died
 	 * 
-	 * @return Of the round is over
+	 * @return if the round is over
 	 */
 	public boolean isRoundOver() {
 
@@ -67,10 +67,10 @@ public class GameController {
 	 */
 	public int getRoundsWin(Player player) {
 		int totalRoundsWin = player.getDestroyedPointGiver(PointGiver.RoundWon);
-		int modFactor = maxRoundsWon;
+		int modFactor = maxRoundsWon * matchID;
 
-		if (totalRoundsWin == maxRoundsWon * matchID) {
-			return totalRoundsWin;
+		if (totalRoundsWin != 0 && (totalRoundsWin % (modFactor) == 0)) {
+			return maxRoundsWon;
 		}
 
 		return totalRoundsWin % modFactor;
@@ -116,7 +116,7 @@ public class GameController {
 	public void matchOver() {
 		Player p = getMatchWinner();
 		p.updatePlayerPoints(PointGiver.MatchWon);
-		insreaseMatcheID();
+		matchID++;
 	}
 
 	/**
@@ -148,20 +148,13 @@ public class GameController {
 	}
 
 	/**
-	 * Increases the matchID one step
-	 */
-	private void insreaseMatcheID() {
-		matchID++;
-	}
-
-	/**
 	 * Get the status of the game
 	 * 
 	 * @return If the game if over or not
 	 */
 	public boolean isGameOver() {
 		for (Player player : players) {
-			int matchesWon = getMatchsWon(player);
+			int matchesWon = player.getDestroyedPointGiver(PointGiver.MatchWon);
 			if (matchesWon == maxMatchesWon) {
 				return true;
 			}
@@ -176,7 +169,7 @@ public class GameController {
 	public void gameOver() {
 		Player player = getGameWinner();
 		player.updatePlayerPoints(PointGiver.GameWon);
-		matchID = 1;
+		matchID++;
 	}
 
 	/**

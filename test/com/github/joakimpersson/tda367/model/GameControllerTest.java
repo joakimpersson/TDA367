@@ -47,9 +47,10 @@ public class GameControllerTest {
 	}
 
 	private void killPlayer(Player p) {
-		while (p.isAlive()) {
-			p.playerHit();
-		}
+		// while (p.isAlive()) {
+		// p.playerHit();
+		// }
+		p.killPlayer();
 	}
 
 	@Test
@@ -106,6 +107,7 @@ public class GameControllerTest {
 
 		// should be true
 		assertTrue(gameController.isMatchOver());
+
 	}
 
 	private void simulateMatchOver(Player losingPlayer) {
@@ -140,7 +142,7 @@ public class GameControllerTest {
 
 		simulateMatchOver(losingPlayer);
 		gameController.matchOver();
-		
+
 		assertEquals(0, losingPlayer.getDestroyedPointGiver(matchesWon));
 		assertEquals(1, winningPlayer.getDestroyedPointGiver(matchesWon));
 	}
