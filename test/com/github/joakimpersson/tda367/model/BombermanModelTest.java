@@ -10,7 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
+import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.utils.Position;
 
@@ -77,7 +79,23 @@ public class BombermanModelTest {
 
 	@Test
 	public void testUpgradePlayer() {
-		fail("Not yet implemented");
+		
+		Player player = model.getPlayers().get(0);
+		List<PointGiver> pointGivers = new ArrayList<PointGiver>();
+		
+		for(int i = 0; i < 20; i++) {
+			pointGivers.add(PointGiver.KillPlayer);
+		}
+		player.updatePlayerPoints(pointGivers);
+		int preHealth = player.getHealth();
+		int preCredits = player.getCredits();
+
+		model.upgradePlayer(player, Attribute.Health);
+		
+		int postHealth = player.getHealth();
+		int postCredits = player.getCredits();
+		
+		assertTrue(postHealth == preHealth + 1 && postCredits < preCredits);
 	}
 
 	@Test

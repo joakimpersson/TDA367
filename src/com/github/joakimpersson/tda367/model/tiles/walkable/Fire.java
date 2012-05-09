@@ -61,9 +61,9 @@ public class Fire implements WalkableTile {
 				if (!targetPlayer.isAlive()) {
 					pg.add(PointGiver.KillPlayer);
 				}
+				fireOwner.updatePlayerPoints(pg);
 			}
 		}
-		fireOwner.updatePlayerPoints(pg);
 	}
 
 	@Override
