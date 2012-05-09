@@ -24,31 +24,31 @@ public class FPositionTest {
 	@Test
 	public void testGetX() {
 
-		float expected = 5.5F;
-		float actual = positionOne.getX();
+		float expected = Float.floatToIntBits(5.5F);
+		float actual = Float.floatToIntBits(positionOne.getX());
 		assertTrue(expected == actual);
 		expected = 2F;
 		actual = positionTwo.getX();
 		assertTrue(expected == actual);
 
-		expected = 5.1F;
-		actual = positionThree.getX();
+		expected = Float.floatToIntBits(5.1F);
+		actual = Float.floatToIntBits(positionThree.getX());
 		assertTrue(expected == actual);
 
 	}
 
 	@Test
 	public void testGetY() {
-		float expected = 10.5F;
-		float actual = positionOne.getY();
+		float expected = Float.floatToIntBits(10.5F);
+		float actual = Float.floatToIntBits(positionOne.getY());
 		assertTrue(expected == actual);
 
 		expected = 3F;
 		actual = positionTwo.getY();
 		assertTrue(expected == actual);
 
-		expected = -1.9F;
-		actual = positionThree.getY();
+		expected = Float.floatToIntBits(-1.9F);
+		actual = Float.floatToIntBits(positionThree.getY());
 		assertTrue(expected == actual);
 	}
 
