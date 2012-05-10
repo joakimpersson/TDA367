@@ -380,4 +380,8 @@ public class Player {
 				&& this.playerIndex == other.playerIndex;
 
 	}
+
+	public Direction getFacingDirection() {
+		return this.facingDirection;
+	}
 }

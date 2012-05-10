@@ -27,6 +27,7 @@ public class GameFieldView implements IView {
 	private int startY;
 	private int startX;
 	private List<Player> players = null;
+	private int counter = 0;
 
 	private ImageLoader imgs;
 
@@ -79,6 +80,12 @@ public class GameFieldView implements IView {
 				FPosition pos = p.getGamePosition();
 				drawImage(pos.getX() - 0.5F, pos.getY() - 0.6F,
 						p.getImageString(), g);
+				if (p.isImmortal() && counter >= 10) {
+					drawImage(pos.getX() - 0.5F, pos.getY() - 0.6F, "player/overlay/still-"+p.getFacingDirection(), g);
+					if (counter >= 20) {
+						counter = 0;
+					}
+				}
 				// TODO this will only work if we have a wall, else there will be null pointer exception
 				for (int i = -1; i <= 1; i++) {
 					Position tilePos = new Position(p.getTilePosition().getX()+i,
@@ -89,6 +96,7 @@ public class GameFieldView implements IView {
 								tile.getTileType(), g);
 					}
 				}
+				counter++;
 			}
 		}
 

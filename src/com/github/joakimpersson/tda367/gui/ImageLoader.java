@@ -76,6 +76,10 @@ public class ImageLoader {
 			loadImage("player/"+i+"/still-south");
 			loadImage("player/"+i+"/still-west");
 		}
+		loadImage("player/overlay/still-north");
+		loadImage("player/overlay/still-east");
+		loadImage("player/overlay/still-south");
+		loadImage("player/overlay/still-west");
 		
 		// info pane support images
 		loadImage("info/bomb");
