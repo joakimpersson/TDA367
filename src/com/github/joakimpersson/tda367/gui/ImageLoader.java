@@ -33,6 +33,10 @@ public class ImageLoader {
 	}
 
 	private void initHashMap() {
+		// splash screen
+		loadImage("splash/bg");
+		loadImage("splash/text");
+		
 		// floor tiles
 		loadImage("floor1");
 		loadImage("floor2");
