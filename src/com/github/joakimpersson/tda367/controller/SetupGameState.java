@@ -105,7 +105,7 @@ public class SetupGameState extends BasicGameState {
 		List<PlayerAction> actions = defaultInput(input);
 		
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-			container.exit();
+			game.enterState(BombermanGame.MAIN_MENU_STATE);
 		}
 
 		if (actions.contains(PlayerAction.MoveUp)) {
