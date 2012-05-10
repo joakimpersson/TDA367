@@ -76,7 +76,6 @@ public class BombermanModel implements IBombermanModel {
 		this.gameController = new GameController(players);
 		this.map = new GameMap();
 		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
-		System.out.println(this);
 	}
 
 	@Override
