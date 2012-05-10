@@ -88,12 +88,12 @@ public class MainMenuState extends BasicGameState {
 			container.exit();
 		}
 
-		if (actions.contains(PlayerAction.MoveUp)) {
+		if (actions.contains(PlayerAction.MOVE_NORTH)) {
 			moveIndex(-1);
 			pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
 		}
 
-		if (actions.contains(PlayerAction.MoveDown)) {
+		if (actions.contains(PlayerAction.MOVE_SOUTH)) {
 			moveIndex(1);
 			pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
 		}
