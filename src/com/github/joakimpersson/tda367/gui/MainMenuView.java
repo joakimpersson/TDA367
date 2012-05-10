@@ -58,13 +58,13 @@ public class MainMenuView implements IView {
 			}
 
 			if (i == 1) {
-				g.drawString("Start game (G)", posX, posY);
+				g.drawString("Start game", posX, posY);
 				posY += 40;
 			} else if (i == 2) {
-				g.drawString("Highscore View (H)", posX, posY);
+				g.drawString("Highscore View", posX, posY);
 				posY += 40;
 			} else if (i == 3) {
-				g.drawString("Exit Game - yeah right... (Q)", posX, posY);
+				g.drawString("Exit Game - yeah right...", posX, posY);
 			}
 			i++;
 		}
