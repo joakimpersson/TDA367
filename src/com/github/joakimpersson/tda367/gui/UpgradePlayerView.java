@@ -58,7 +58,7 @@ public class UpgradePlayerView implements IUpgradePlayerView {
 
 	@Override
 	public void render(GameContainer container, Graphics g,
-			Map<Player, Integer> playerAttrIndex) {
+			Map<Integer, Integer> playerAttrIndex) {
 
 		for (UpgradePlayerPanelView view : playerViews) {
 			view.render(container, g, playerAttrIndex);

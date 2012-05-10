@@ -45,7 +45,11 @@ public class UpgradePlayerState extends BasicGameState {
 	private int stateID = -1;
 	private UpgradePlayerView view = null;
 	private IBombermanModel model = null;
-	private Map<Player, Integer> playersIndex = null;
+	/**
+	 * TODO tmp solution Indexing on the players index, since the player object
+	 * is mutable but not his index its non-mutable
+	 */
+	private Map<Integer, Integer> playersIndex = null;
 	private List<Attribute> attributes = null;
 	private InputManager inputManager = null;
 	private PropertyChangeSupport pcs;
@@ -70,7 +74,7 @@ public class UpgradePlayerState extends BasicGameState {
 
 		this.pcs = new PropertyChangeSupport(this);
 		this.pcs.addPropertyChangeListener(AudioEventListener.getInstance());
-		
+
 		currentState = STATE.NOT_USED;
 	}
 
@@ -80,12 +84,12 @@ public class UpgradePlayerState extends BasicGameState {
 		super.enter(container, game);
 
 		clearInputQueue(container.getInput());
-		
-		playersIndex = new HashMap<Player, Integer>();
+
+		playersIndex = new HashMap<Integer, Integer>();
 		attributes = model.getPlayers().get(0).getPermanentAttributes();
 
 		for (Player p : model.getPlayers()) {
-			playersIndex.put(p, 0);
+			playersIndex.put(p.getIndex(), 0);
 		}
 		view.enter();
 		currentState = STATE.USED;
@@ -103,10 +107,6 @@ public class UpgradePlayerState extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
 		Input input = container.getInput();
-		// TODO jocke only used during development
-		if (input.isKeyDown(Input.KEY_ESCAPE)) {
-			container.exit();
-		}
 
 		switch (currentState) {
 
@@ -122,6 +122,10 @@ public class UpgradePlayerState extends BasicGameState {
 		default:
 			// should not happen
 			break;
+		}
+
+		if (input.isKeyDown(Input.KEY_ESCAPE)) {
+			container.exit();
 		}
 	}
 
@@ -177,7 +181,7 @@ public class UpgradePlayerState extends BasicGameState {
 				pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
 				break;
 			case ACTION:
-				model.upgradePlayer(p, attributes.get(playersIndex.get(p)));
+				model.upgradePlayer(p, attributes.get(playersIndex.get(p.getIndex())));
 				break;
 			default:
 				break;
@@ -206,7 +210,7 @@ public class UpgradePlayerState extends BasicGameState {
 	 *            The number of steps to be moved
 	 */
 	private void moveIndex(Player p, int delta) {
-		int currentIndex = playersIndex.get(p);
+		int currentIndex = playersIndex.get(p.getIndex());
 		int n = attributes.size();
 		int newIndex = (currentIndex + delta);
 
@@ -215,7 +219,7 @@ public class UpgradePlayerState extends BasicGameState {
 			r += n;
 
 		}
-		playersIndex.put(p, r);
+		playersIndex.put(p.getIndex(), r);
 	}
 
 	@Override

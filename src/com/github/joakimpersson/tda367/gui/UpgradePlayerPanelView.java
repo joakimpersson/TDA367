@@ -57,7 +57,7 @@ public class UpgradePlayerPanelView implements IUpgradePlayerView {
 
 	@Override
 	public void render(GameContainer container, Graphics g,
-			Map<Player, Integer> playerAttrIndex) {
+			Map<Integer, Integer> playerAttrIndex) {
 		g.setFont(smlFont);
 		int posX = X;
 		int posY = Y;
@@ -75,7 +75,7 @@ public class UpgradePlayerPanelView implements IUpgradePlayerView {
 		for (Attribute a : player.getPermanentAttributes()) {
 			posY += yDelta;
 
-			if (index == playerAttrIndex.get(player)) {
+			if (index == playerAttrIndex.get(player.getIndex())) {
 				g.setColor(Color.cyan);
 			}
 			str = formatAttrString(a);
