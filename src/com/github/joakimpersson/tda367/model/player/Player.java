@@ -49,6 +49,9 @@ public class Player {
 	private int bombsPlaced, health, playerIndex;
 	private boolean justHit;
 
+	private int rounsdWon;
+	private int matchesWon;
+
 	/**
 	 * Creates a player with a pre-defined position and name.
 	 * 
@@ -61,6 +64,7 @@ public class Player {
 		this.playerIndex = playerIndex;
 		this.name = name;
 		this.initialPosition = pos;
+		this.rounsdWon = 0;
 		initPlayer();
 	}
 
@@ -354,6 +358,45 @@ public class Player {
 		}
 	}
 
+	/**
+	 * Increase the number of rounds a player has win in the current match
+	 */
+	public void roundWon() {
+		this.rounsdWon += 1;
+	}
+
+	/**
+	 * Get how many rounds a player has win during a match
+	 * 
+	 * @return Number of rounds a player has win
+	 */
+	public int getRoundsWon() {
+		return rounsdWon;
+	}
+
+	/**
+	 * Reset how many rounds a player has win
+	 */
+	public void resetRoundsWon() {
+		this.rounsdWon = 0;
+	}
+
+	/**
+	 * Increase number of matches a player has win
+	 */
+	public void matchWon() {
+		this.matchesWon += 1;
+	}
+
+	/**
+	 * Get how many matches a player has win during a game
+	 * 
+	 * @return How many matches a player has win
+	 */
+	public int getMatchesWon() {
+		return matchesWon;
+	}
+
 	@Override
 	public int hashCode() {
 		int sum = 0;
@@ -380,6 +423,7 @@ public class Player {
 				&& this.playerIndex == other.playerIndex;
 
 	}
+
 
 	public Direction getFacingDirection() {
 		return this.facingDirection;

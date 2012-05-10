@@ -12,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.joakimpersson.tda367.model.constants.BombermanRules;
-import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.constants.ResetType;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.utils.Position;
@@ -62,7 +61,7 @@ public class GameControllerTest {
 		Player winningPlayer = players.get(1);
 		gameController.roundOver();
 
-		int actual = winningPlayer.getDestroyedPointGiver(PointGiver.RoundWon);
+		int actual = winningPlayer.getRoundsWon();
 		int expected = 1;
 		// he should now have 1 in roundwon
 		assertEquals(actual, expected);
@@ -129,7 +128,7 @@ public class GameControllerTest {
 		gameController.matchOver();
 		// he's MatchWon in PlayerPoints should be equal to 1
 		int expected = 1;
-		int actual = winningPlayer.getDestroyedPointGiver(PointGiver.MatchWon);
+		int actual = winningPlayer.getMatchesWon();
 		assertEquals(expected, actual);
 
 	}
@@ -138,13 +137,12 @@ public class GameControllerTest {
 	public void tesetMatchesWon() {
 		Player losingPlayer = players.get(0);
 		Player winningPlayer = players.get(1);
-		PointGiver matchesWon = PointGiver.MatchWon;
 
 		simulateMatchOver(losingPlayer);
 		gameController.matchOver();
 
-		assertEquals(0, losingPlayer.getDestroyedPointGiver(matchesWon));
-		assertEquals(1, winningPlayer.getDestroyedPointGiver(matchesWon));
+		assertEquals(0, losingPlayer.getMatchesWon());
+		assertEquals(1, winningPlayer.getMatchesWon());
 	}
 
 	@Test
@@ -179,8 +177,8 @@ public class GameControllerTest {
 		gameController.gameOver();
 
 		// winningPlayers GameWon in PlayerPoints should be equal to 1
-		int expected = 1;
-		int actual = winningPlayer.getDestroyedPointGiver(PointGiver.GameWon);
+		int expected = 3;
+		int actual = winningPlayer.getMatchesWon();
 		assertEquals(expected, actual);
 	}
 

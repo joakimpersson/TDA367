@@ -16,7 +16,6 @@ public class GameController {
 	private List<Player> players;
 	private int maxRoundsWon;
 	private int maxMatchesWon;
-	private int matchID;
 
 	/**
 	 * Create a new GameController instance with this games active players
@@ -28,7 +27,6 @@ public class GameController {
 		this.players = playersList;
 		this.maxMatchesWon = BombermanRules.INSTANCE.getNumberOfMatches();
 		this.maxRoundsWon = BombermanRules.INSTANCE.getNumberOfRounds();
-		this.matchID = 1;
 	}
 
 	/**
@@ -56,6 +54,7 @@ public class GameController {
 	public void roundOver() {
 		Player p = getRoundWinner();
 		p.updatePlayerPoints(PointGiver.RoundWon);
+		p.roundWon();
 	}
 
 	/**
@@ -66,14 +65,7 @@ public class GameController {
 	 * @return How many rounds the player has win
 	 */
 	public int getRoundsWin(Player player) {
-		int totalRoundsWin = player.getDestroyedPointGiver(PointGiver.RoundWon);
-		int modFactor = maxRoundsWon * matchID;
-
-		if (totalRoundsWin != 0 && (totalRoundsWin % (modFactor) == 0)) {
-			return maxRoundsWon;
-		}
-
-		return totalRoundsWin % modFactor;
+		return player.getRoundsWon();
 	}
 
 	/**
@@ -116,7 +108,10 @@ public class GameController {
 	public void matchOver() {
 		Player p = getMatchWinner();
 		p.updatePlayerPoints(PointGiver.MatchWon);
-		matchID++;
+		p.matchWon();
+		for (Player player : players) {
+			player.resetRoundsWon();
+		}
 	}
 
 	/**
@@ -127,7 +122,7 @@ public class GameController {
 	 * @return How many matches a player has won
 	 */
 	public int getMatchsWon(Player player) {
-		return player.getDestroyedPointGiver(PointGiver.MatchWon);
+		return player.getMatchesWon();
 	}
 
 	/**
@@ -154,7 +149,7 @@ public class GameController {
 	 */
 	public boolean isGameOver() {
 		for (Player player : players) {
-			int matchesWon = player.getDestroyedPointGiver(PointGiver.MatchWon);
+			int matchesWon = player.getMatchesWon();
 			if (matchesWon == maxMatchesWon) {
 				return true;
 			}
@@ -169,7 +164,6 @@ public class GameController {
 	public void gameOver() {
 		Player player = getGameWinner();
 		player.updatePlayerPoints(PointGiver.GameWon);
-		matchID++;
 	}
 
 	/**
