@@ -18,7 +18,6 @@ import org.newdawn.slick.state.transition.Transition;
 import com.github.joakimpersson.tda367.audio.AudioEventListener;
 import com.github.joakimpersson.tda367.controller.input.InputData;
 import com.github.joakimpersson.tda367.controller.input.InputManager;
-import com.github.joakimpersson.tda367.gui.IView;
 import com.github.joakimpersson.tda367.gui.MainMenuView;
 import com.github.joakimpersson.tda367.model.constants.EventType;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
