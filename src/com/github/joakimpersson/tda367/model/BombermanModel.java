@@ -156,6 +156,7 @@ public class BombermanModel implements IBombermanModel {
 					(float) (decimalPos.getY() + yStep));
 
 			// Can't move closer than 0.2 to a non-walkable tile.
+			// TODO move/refactor this parameter?
 			float pD = 0.2F;
 			if ((direction == Direction.NORTH && decimalPos.getY() >= pD)
 					|| (direction == Direction.SOUTH && decimalPos.getY() <= 1 - pD)

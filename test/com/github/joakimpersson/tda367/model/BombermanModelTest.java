@@ -12,8 +12,10 @@ import org.junit.Test;
 
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
+import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.player.Player;
+import com.github.joakimpersson.tda367.model.utils.FPosition;
 import com.github.joakimpersson.tda367.model.utils.Position;
 
 public class BombermanModelTest {
@@ -58,11 +60,6 @@ public class BombermanModelTest {
 	}
 	
 	@Test
-	public void testMove() {
-		fail("Not yet implemented");
-	}
-	
-	@Test
 	public void testStartGame() {
 		fail("Not yet implemented");
 	}
@@ -74,7 +71,33 @@ public class BombermanModelTest {
 
 	@Test
 	public void testUpdateGame() {
-		fail("Not yet implemented");
+		System.out.println(model);
+		
+		Player player = model.getPlayers().get(0);
+		double stepSize = Parameters.INSTANCE.getPlayerStepSize();
+		double pD = 0.2;
+		FPosition prevPos = new FPosition(0, 0);
+		boolean test1;
+		boolean test2;
+		
+		// Test 1.
+		prevPos = player.getGamePosition();
+		model.updateGame(player, PlayerAction.MoveLeft);
+		test1 = Math.abs(prevPos.getX() - stepSize - player.getGamePosition().getX()) < 0.01 &&
+				Math.abs(prevPos.getY() - player.getGamePosition().getY()) < 0.01;
+		
+		
+		// Test 2.
+		while(player.getGamePosition().getX() - (int)player.getGamePosition().getX() - stepSize > pD) {
+			model.updateGame(player, PlayerAction.MoveLeft);
+		}
+		prevPos = player.getGamePosition();
+		model.updateGame(player, PlayerAction.MoveLeft);
+		test2 = (prevPos.getX() == player.getGamePosition().getX() &&
+				prevPos.getY() == player.getGamePosition().getY());
+		
+		assertTrue(test1);
+		// TODO write more on this test depending on how we want move to work...
 	}
 
 	@Test
@@ -96,11 +119,6 @@ public class BombermanModelTest {
 		int postCredits = player.getCredits();
 		
 		assertTrue(postHealth == preHealth + 1 && postCredits < preCredits);
-	}
-
-	@Test
-	public void testGetPlayers() {
-		fail("Not yet implemented");
 	}
 	
 	@After
