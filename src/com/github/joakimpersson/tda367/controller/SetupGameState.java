@@ -108,12 +108,12 @@ public class SetupGameState extends BasicGameState {
 			game.enterState(BombermanGame.MAIN_MENU_STATE);
 		}
 
-		if (actions.contains(PlayerAction.MoveUp)) {
+		if (actions.contains(PlayerAction.MOVE_NORTH)) {
 			moveIndex(-1);
 			pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
 		}
 
-		if (actions.contains(PlayerAction.MoveDown)) {
+		if (actions.contains(PlayerAction.MOVE_SOUTH)) {
 			moveIndex(1);
 			pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
 		}

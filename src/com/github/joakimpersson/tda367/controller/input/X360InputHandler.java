@@ -26,21 +26,21 @@ public class X360InputHandler implements InputHandler {
 	@Override
 	public boolean hasKey(Input input) {
 		if (input.isButtonPressed(ACTION_BUTTON, controllerId)) {
-			lastAction = PlayerAction.Action;
+			lastAction = PlayerAction.ACTION;
 			return true;
 		}
 
 		if (input.isControllerUp(controllerId)) {
-			lastAction = PlayerAction.MoveUp;
+			lastAction = PlayerAction.MOVE_NORTH;
 			return true;
 		} else if (input.isControllerDown(controllerId)) {
-			lastAction = PlayerAction.MoveDown;
+			lastAction = PlayerAction.MOVE_SOUTH;
 			return true;
 		} else if (input.isControllerLeft(controllerId)) {
-			lastAction = PlayerAction.MoveLeft;
+			lastAction = PlayerAction.MOVE_WEST;
 			return true;
 		} else if (input.isControllerRight(controllerId)) {
-			lastAction = PlayerAction.MoveRight;
+			lastAction = PlayerAction.MOVE_EAST;
 			return true;
 		}
 		return false;

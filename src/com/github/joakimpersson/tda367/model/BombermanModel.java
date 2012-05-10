@@ -91,32 +91,26 @@ public class BombermanModel implements IBombermanModel {
 		}
 	}
 
+	/**
+	 * Updates the model by either moving a player or making them place a bomb.
+	 * 
+	 * @param action
+	 * 				The given action.
+	 * @param player
+	 * 				The player that will perform the action.
+	 */
 	@Override
 	public void updateGame(Player player, PlayerAction action) {
 		if (player.isAlive()) {
-			Direction direction = Direction.NONE;
-			switch (action) {
-			case MoveUp:
-				direction = Direction.NORTH;
-				break;
-			case MoveDown:
-				direction = Direction.SOUTH;
-				break;
-			case MoveLeft:
-				direction = Direction.WEST;
-				break;
-			case MoveRight:
-				direction = Direction.EAST;
-				break;
-			case Action:
+			if(action.equals(PlayerAction.ACTION)) {
 				this.placeBomb(player);
-				break;
-			default:
-				break;
-			}
-
-			if (direction != Direction.NONE)
-				this.move(player, direction);
+			} else {
+				for(Direction direction : action.getDirections()) {
+					if (direction != Direction.NONE) {
+						this.move(player, direction);
+					}
+				}
+			}			
 		}
 	}
 
@@ -134,10 +128,11 @@ public class BombermanModel implements IBombermanModel {
 	private void move(Player player, Direction direction) {
 		Position prevPos = player.getTilePosition();
 		Tile tileAtDirection = map.getTile(new Position(prevPos.getX()
-				+ (int) direction.getX(), prevPos.getY()
-				+ (int) direction.getY()));
+				+ direction.getX(), prevPos.getY()
+				+ direction.getY()));
 		// The tile that the player may walk into.
-
+		
+		// TODO fix bug where player walks into blocks.
 		if (tileAtDirection.isWalkable()) {
 			player.move(direction);
 		} else {

@@ -71,7 +71,7 @@ public class NormalBomb extends Bomb {
 											// player can hit only directly
 											// adjacent tiles
 			if (firePower > 0) {
-				Position firePos = new Position(x + ((int)dir.getX() * i), y + ((int)dir.getY() * i));
+				Position firePos = new Position(x + (dir.getX() * i), y + (dir.getY() * i));
 				if (validPos(firePos)) {
 					Tile tile = map[firePos.getY()][firePos.getX()]; // inverted
 																		// >.<

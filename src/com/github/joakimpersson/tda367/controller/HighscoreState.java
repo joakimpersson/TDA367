@@ -116,10 +116,10 @@ public class HighscoreState extends BasicGameState {
 		for (InputData d : data) {
 			PlayerAction action = d.getAction();
 			switch (action) {
-			case MoveUp:
+			case MOVE_NORTH:
 				moveIndex(-1);
 				break;
-			case MoveDown:
+			case MOVE_SOUTH:
 				moveIndex(1);
 				break;
 			default:

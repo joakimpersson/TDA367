@@ -82,17 +82,17 @@ public class BombermanModelTest {
 		
 		// Test 1.
 		prevPos = player.getGamePosition();
-		model.updateGame(player, PlayerAction.MoveLeft);
+		model.updateGame(player, PlayerAction.MOVE_WEST);
 		test1 = Math.abs(prevPos.getX() - stepSize - player.getGamePosition().getX()) < 0.01 &&
 				Math.abs(prevPos.getY() - player.getGamePosition().getY()) < 0.01;
 		
 		
 		// Test 2.
 		while(player.getGamePosition().getX() - (int)player.getGamePosition().getX() - stepSize > pD) {
-			model.updateGame(player, PlayerAction.MoveLeft);
+			model.updateGame(player, PlayerAction.MOVE_WEST);
 		}
 		prevPos = player.getGamePosition();
-		model.updateGame(player, PlayerAction.MoveLeft);
+		model.updateGame(player, PlayerAction.MOVE_WEST);
 		test2 = (prevPos.getX() == player.getGamePosition().getX() &&
 				prevPos.getY() == player.getGamePosition().getY());
 		

@@ -168,15 +168,15 @@ public class UpgradePlayerState extends BasicGameState {
 			PlayerAction action = d.getAction();
 			Player p = d.getPlayer();
 			switch (action) {
-			case MoveUp:
+			case MOVE_NORTH:
 				moveIndex(p, -1);
 				pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
 				break;
-			case MoveDown:
+			case MOVE_SOUTH:
 				moveIndex(p, 1);
 				pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
 				break;
-			case Action:
+			case ACTION:
 				model.upgradePlayer(p, attributes.get(playersIndex.get(p)));
 				break;
 			default:
