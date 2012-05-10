@@ -1,5 +1,6 @@
 package com.github.joakimpersson.tda367.gui;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -39,20 +40,41 @@ public class MainMenuView implements IView {
 
 	}
 
-	@Override
-	public void render(GameContainer container, Graphics g)
+	public void render(GameContainer container, Graphics g, int selection)
 			throws SlickException {
 		// TODO only used during developing
 		g.setFont(smlFont);
 		int posY = 200;
 		int posX = container.getWidth() / 2 - 130;
+		g.setColor(Color.green);
 		g.drawString("Bomberman", posX, posY);
 		posY += 40;
-		g.drawString("Start game (G)", posX, posY);
-		posY += 40;
-		g.drawString("Highscore View (H)", posX, posY);
-		posY += 40;
-		g.drawString("Exit Game - yeah right... (Q)", posX, posY);
+		int i = 1;
+		while (i < 4) {
+			if (selection == i) {
+				g.setColor(Color.cyan);
+			} else {
+				g.setColor(Color.gray);
+			}
+
+			if (i == 1) {
+				g.drawString("Start game (G)", posX, posY);
+				posY += 40;
+			} else if (i == 2) {
+				g.drawString("Highscore View (H)", posX, posY);
+				posY += 40;
+			} else if (i == 3) {
+				g.drawString("Exit Game - yeah right... (Q)", posX, posY);
+			}
+			i++;
+		}
+	}
+
+	@Override
+	public void render(GameContainer container, Graphics g)
+			throws SlickException {
+		// TODO Auto-generated method stub
+
 	}
 
 }
