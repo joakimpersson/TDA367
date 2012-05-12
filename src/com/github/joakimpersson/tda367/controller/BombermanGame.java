@@ -17,6 +17,7 @@ public class BombermanGame extends StateBasedGame {
 	public static final int GAMEPLAY_STATE = 3;
 	public static final int UPGRADE_PLAYER_STATE = 4;
 	public static final int HIGHSCORE_STATE = 5;
+	public static final int GAMEOVER_STATE = 6;
 
 	public BombermanGame(String name) {
 		super(name);
@@ -27,6 +28,7 @@ public class BombermanGame extends StateBasedGame {
 		this.addState(new GameplayState(GAMEPLAY_STATE));
 		this.addState(new UpgradePlayerState(UPGRADE_PLAYER_STATE));
 		this.addState(new HighscoreState(HIGHSCORE_STATE));
+		this.addState(new GameOverState(GAMEOVER_STATE));
 
 		this.enterState(SPLASH_STATE);
 
@@ -40,6 +42,7 @@ public class BombermanGame extends StateBasedGame {
 		this.getState(GAMEPLAY_STATE).init(container, this);
 		this.getState(UPGRADE_PLAYER_STATE).init(container, this);
 		this.getState(HIGHSCORE_STATE).init(container, this);
+		this.getState(GAMEOVER_STATE).init(container, this);
 	}
 
 }

@@ -36,7 +36,7 @@ public class GameplayState extends BasicGameState {
 	 * 
 	 */
 	private enum STATE {
-		GAME_RUNNING, ROUND_OVER, MATCH_OVER, GAME_OVER, NOT_STARTED, GAME_WAITING, ROUND_TMP;
+		GAME_RUNNING, ROUND_OVER, MATCH_OVER, GAME_OVER, NOT_STARTED, GAME_WAITING, ROUND_INFO_STATE;
 	}
 
 	private int stateID = -1;
@@ -95,7 +95,7 @@ public class GameplayState extends BasicGameState {
 		if (!currentState.equals(STATE.NOT_STARTED)) {
 			view.render(container, g);
 
-			if (currentState.equals(STATE.ROUND_TMP)) {
+			if (currentState.equals(STATE.ROUND_INFO_STATE)) {
 				view.showRoundStats(container, g);
 			}
 
@@ -116,14 +116,7 @@ public class GameplayState extends BasicGameState {
 			gameWaiting(container.getInput());
 			break;
 		case GAME_RUNNING:
-
-			// simple check to see whether the turn is over or not
-			if (model.isRoundOver()) {
-				currentState = STATE.ROUND_OVER;
-			} else {
-				gameRunning(container.getInput());
-			}
-
+			gameRunning(container.getInput(), game);
 			break;
 		case MATCH_OVER:
 
@@ -131,26 +124,20 @@ public class GameplayState extends BasicGameState {
 				model.gameOver();
 				currentState = STATE.GAME_OVER;
 			} else {
-				Transition fadeIn = new FadeInTransition(Color.cyan, 500);
-				Transition fadeOut = new FadeOutTransition(Color.cyan, 500);
-				game.enterState(BombermanGame.UPGRADE_PLAYER_STATE, fadeOut,
-						fadeIn);
+				int newState = BombermanGame.UPGRADE_PLAYER_STATE;
+				changeState(game, newState);
 			}
 			resetState();
 			break;
 		case ROUND_OVER:
-			model.roundOver();
-			if (model.isMatchOver()) {
-				model.matchOver();
-			}
-			currentState = STATE.ROUND_TMP;
-
+			roundOver();
 			break;
-		case ROUND_TMP:
-			roundOver(container.getInput());
+		case ROUND_INFO_STATE:
+			roundInfo(container.getInput());
 			break;
 		case GAME_OVER:
-			System.out.println("Game Over");
+			int newState = BombermanGame.GAMEOVER_STATE;
+			changeState(game, newState);
 			break;
 		default:
 			break;
@@ -180,52 +167,14 @@ public class GameplayState extends BasicGameState {
 		}
 	}
 
-	/**
-	 * 
-	 * Responsible for determine what state the game should enter when a round
-	 * is over and listens for the player to press the proceed button to enter
-	 * the next state.
-	 * 
-	 * @param input
-	 *            The input method used by the slick framework that contains the
-	 *            latest action
-	 */
-	private void roundOver(Input input) {
-		if (!playlistIsPlaying) {
-			pcs.firePropertyChange("playList", null, playlist);
-			playlistIsPlaying = true;
+	private void gameRunning(Input input, StateBasedGame game) {
+		// simple check to see whether the turn is over or not
+		if (model.isRoundOver()) {
+			currentState = STATE.ROUND_OVER;
+		} else {
+			updateGame(input);
 		}
 
-		boolean pressedProceed = inputManager.pressedProceed(input);
-
-		if (pressedProceed) {
-			if (model.isMatchOver()) {
-				currentState = STATE.MATCH_OVER;
-				System.out.println("never here right?");
-			} else {
-				System.out.println("should be reseted!");
-				resetState();
-				currentState = STATE.GAME_WAITING;
-			}
-		}
-
-	}
-
-	/**
-	 * Reset the model based on the games current state
-	 */
-	private void resetState() {
-
-		switch (currentState) {
-		case ROUND_TMP:
-			model.reset(ResetType.Round);
-			break;
-		case MATCH_OVER:
-			model.reset(ResetType.Match);
-			break;
-		default:
-			break;
-		}
 	}
 
 	/**
@@ -237,7 +186,7 @@ public class GameplayState extends BasicGameState {
 	 *            The input method used by the slick framework that contains the
 	 *            latest action
 	 */
-	private void gameRunning(Input input) {
+	private void updateGame(Input input) {
 
 		if (playlistIsPlaying) {
 			pcs.firePropertyChange("play", null, EventType.BATTLE_SCREEN);
@@ -249,6 +198,43 @@ public class GameplayState extends BasicGameState {
 		for (InputData d : data) {
 			model.updateGame(d.getPlayer(), d.getAction());
 		}
+	}
+
+	private void roundOver() {
+		model.roundOver();
+		if (model.isMatchOver()) {
+			model.matchOver();
+		}
+		currentState = STATE.ROUND_INFO_STATE;
+	}
+
+	/**
+	 * 
+	 * Responsible for determine what state the game should enter when a round
+	 * is over and listens for the player to press the proceed button to enter
+	 * the next state.
+	 * 
+	 * @param input
+	 *            The input method used by the slick framework that contains the
+	 *            latest action
+	 */
+	private void roundInfo(Input input) {
+		if (!playlistIsPlaying) {
+			pcs.firePropertyChange("playList", null, playlist);
+			playlistIsPlaying = true;
+		}
+
+		boolean pressedProceed = inputManager.pressedProceed(input);
+		boolean matchOver = model.isMatchOver();
+
+		if (pressedProceed) {
+			if (matchOver) {
+				currentState = STATE.MATCH_OVER;
+			} else {
+				currentState = STATE.GAME_WAITING;
+			}
+		}
+
 	}
 
 	/**
@@ -264,9 +250,45 @@ public class GameplayState extends BasicGameState {
 		input.clearMousePressedRecord();
 	}
 
+	/**
+	 * 
+	 * Responsible for change the current game state into another using a
+	 * fadein/out transition
+	 * 
+	 * @param game
+	 *            The game holding this state
+	 * @param newState
+	 *            The new state to change to
+	 */
+	private void changeState(StateBasedGame game, int newState) {
+		Transition fadeIn = new FadeInTransition(Color.cyan, 300);
+		Transition fadeOut = new FadeOutTransition(Color.cyan, 300);
+		game.enterState(newState, fadeOut, fadeIn);
+	}
+
 	@Override
 	public int getID() {
 		return stateID;
 	}
 
+	/*
+	 * TODO jocke methods I want to remove
+	 */
+
+	/**
+	 * Reset the model based on the games current state
+	 */
+	private void resetState() {
+
+		switch (currentState) {
+		case ROUND_INFO_STATE:
+			model.reset(ResetType.Round);
+			break;
+		case MATCH_OVER:
+			model.reset(ResetType.Match);
+			break;
+		default:
+			break;
+		}
+	}
 }
