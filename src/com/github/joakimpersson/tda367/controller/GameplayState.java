@@ -36,7 +36,7 @@ public class GameplayState extends BasicGameState {
 	 * 
 	 */
 	private enum STATE {
-		GAME_RUNNING, ROUND_OVER, MATCH_OVER, GAME_OVER, NOT_STARTED, GAME_WAITING;
+		GAME_RUNNING, ROUND_OVER, MATCH_OVER, GAME_OVER, NOT_STARTED, GAME_WAITING, ROUND_TMP;
 	}
 
 	private int stateID = -1;
@@ -95,7 +95,7 @@ public class GameplayState extends BasicGameState {
 		if (!currentState.equals(STATE.NOT_STARTED)) {
 			view.render(container, g);
 
-			if (currentState.equals(STATE.ROUND_OVER)) {
+			if (currentState.equals(STATE.ROUND_TMP)) {
 				view.showRoundStats(container, g);
 			}
 
@@ -128,6 +128,7 @@ public class GameplayState extends BasicGameState {
 		case MATCH_OVER:
 
 			if (model.isGameOver()) {
+				model.gameOver();
 				currentState = STATE.GAME_OVER;
 			} else {
 				Transition fadeIn = new FadeInTransition(Color.cyan, 500);
@@ -138,8 +139,18 @@ public class GameplayState extends BasicGameState {
 			resetState();
 			break;
 		case ROUND_OVER:
-			roundOver(container.getInput());
+			model.roundOver();
+			if (model.isMatchOver()) {
+				model.matchOver();
+			}
+			currentState = STATE.ROUND_TMP;
 
+			break;
+		case ROUND_TMP:
+			roundOver(container.getInput());
+			break;
+		case GAME_OVER:
+			System.out.println("Game Over");
 			break;
 		default:
 			break;
@@ -190,7 +201,9 @@ public class GameplayState extends BasicGameState {
 		if (pressedProceed) {
 			if (model.isMatchOver()) {
 				currentState = STATE.MATCH_OVER;
+				System.out.println("never here right?");
 			} else {
+				System.out.println("should be reseted!");
 				resetState();
 				currentState = STATE.GAME_WAITING;
 			}
@@ -204,7 +217,7 @@ public class GameplayState extends BasicGameState {
 	private void resetState() {
 
 		switch (currentState) {
-		case ROUND_OVER:
+		case ROUND_TMP:
 			model.reset(ResetType.Round);
 			break;
 		case MATCH_OVER:

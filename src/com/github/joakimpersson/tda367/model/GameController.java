@@ -109,6 +109,9 @@ public class GameController {
 		Player p = getMatchWinner();
 		p.updatePlayerPoints(PointGiver.MatchWon);
 		p.matchWon();
+	}
+
+	public void resetRoundStats() {
 		for (Player player : players) {
 			player.resetRoundsWon();
 		}

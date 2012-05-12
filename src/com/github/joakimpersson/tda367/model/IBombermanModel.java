@@ -116,4 +116,8 @@ public interface IBombermanModel {
 	public void addPropertyChangeListener(PropertyChangeListener pcl);
 
 	public void gameOver();
+	
+	public void roundOver();
+	
+	public void matchOver();
 }

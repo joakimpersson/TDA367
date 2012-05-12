@@ -398,23 +398,14 @@ public class BombermanModel implements IBombermanModel {
 		// add the players to highscore list
 		highscore.update(players);
 
-		// destroy the current GameController Objet
-		gameController = null;
-
-		// destroy the list of current players
-		players = null;
-
-		// also destroy the current map
-		map = null;
 	}
 
 	private void matchReset() {
-		gameController.matchOver();
 		resetPlayer(ResetType.Match);
+		gameController.resetRoundStats();
 	}
 
 	private void roundReset() {
-		gameController.roundOver();
 		resetPlayer(ResetType.Round);
 	}
 
@@ -440,7 +431,15 @@ public class BombermanModel implements IBombermanModel {
 		strBuilder.append(map.toString());
 		return strBuilder.toString();
 	}
-
+	
+	public void roundOver() {
+		gameController.roundOver();
+	}
+	
+	public void matchOver() {
+		gameController.matchOver();
+	}
+	
 	/**
 	 * Timer-task that is used for scheduling what happens when the fire is
 	 * removed.
