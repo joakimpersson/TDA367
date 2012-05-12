@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
-import com.github.joakimpersson.tda367.model.constants.ResetType;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 
@@ -63,21 +62,6 @@ public interface IBombermanModel {
 	public Tile[][] getMap();
 
 	/**
-	 * Reset the models state with different kind of level to represent or three
-	 * main game states
-	 * 
-	 * Game - Means that the game is over
-	 * 
-	 * Match - Enables players to buy upgrades
-	 * 
-	 * Round - Starts another round
-	 * 
-	 * @param type
-	 *            What type of model reset
-	 */
-	public void reset(ResetType type);
-
-	/**
 	 * 
 	 * Returns true or false depending if the game is over or not
 	 * 
@@ -118,6 +102,11 @@ public interface IBombermanModel {
 	 * game is properly updated and also adds the players to the Highscore list
 	 */
 	public void gameOver();
+
+	/*
+	 * Reset all the stats that has been upgraded during the past match
+	 */
+	public void resetRoundStats();
 
 	/**
 	 * Get the current Highscore list

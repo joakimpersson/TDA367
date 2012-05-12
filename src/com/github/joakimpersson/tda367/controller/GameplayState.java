@@ -22,7 +22,6 @@ import com.github.joakimpersson.tda367.gui.GameplayView;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.constants.EventType;
-import com.github.joakimpersson.tda367.model.constants.ResetType;
 
 /**
  * 
@@ -119,15 +118,7 @@ public class GameplayState extends BasicGameState {
 			gameRunning(container.getInput(), game);
 			break;
 		case MATCH_OVER:
-
-			if (model.isGameOver()) {
-				model.gameOver();
-				currentState = STATE.GAME_OVER;
-			} else {
-				int newState = BombermanGame.UPGRADE_PLAYER_STATE;
-				changeState(game, newState);
-			}
-			resetState();
+			matchOver(game);
 			break;
 		case ROUND_OVER:
 			roundOver();
@@ -237,6 +228,17 @@ public class GameplayState extends BasicGameState {
 
 	}
 
+	private void matchOver(StateBasedGame game) {
+		if (model.isGameOver()) {
+			model.gameOver();
+			currentState = STATE.GAME_OVER;
+		} else {
+			int newState = BombermanGame.UPGRADE_PLAYER_STATE;
+			changeState(game, newState);
+		}
+		model.resetRoundStats();
+	}
+
 	/**
 	 * Clear everything in the input queue from previous states
 	 * 
@@ -269,26 +271,5 @@ public class GameplayState extends BasicGameState {
 	@Override
 	public int getID() {
 		return stateID;
-	}
-
-	/*
-	 * TODO jocke methods I want to remove
-	 */
-
-	/**
-	 * Reset the model based on the games current state
-	 */
-	private void resetState() {
-
-		switch (currentState) {
-		case ROUND_INFO_STATE:
-			model.reset(ResetType.Round);
-			break;
-		case MATCH_OVER:
-			model.reset(ResetType.Match);
-			break;
-		default:
-			break;
-		}
 	}
 }

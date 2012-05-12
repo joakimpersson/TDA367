@@ -111,6 +111,9 @@ public class GameController {
 		p.matchWon();
 	}
 
+	/**
+	 * Reset every players rounds won stat to zero
+	 */
 	public void resetRoundStats() {
 		for (Player player : players) {
 			player.resetRoundsWon();

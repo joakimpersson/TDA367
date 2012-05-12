@@ -268,7 +268,6 @@ public class BombermanModel implements IBombermanModel {
 				Destroyable destroyableTile = (Destroyable) tmpTile;
 				if (tmpTile instanceof Bomb) {
 					if (!bombOwner.equals(((Bomb) tmpTile).getPlayer())) {
-						// TODO jocke really bad code...
 						destroyableTile = (Destroyable) tmpTile;
 						pg.add(destroyableTile.getPointGiver());
 					}
@@ -358,14 +357,20 @@ public class BombermanModel implements IBombermanModel {
 	}
 
 	@Override
+	public boolean isGameOver() {
+		return gameController.isGameOver();
+	}
+
+	@Override
 	public void roundOver() {
 		gameController.roundOver();
-		reset(ResetType.Round);
+		roundReset();
 	}
 
 	@Override
 	public void matchOver() {
 		gameController.matchOver();
+		matchReset();
 	}
 
 	@Override
@@ -379,8 +384,8 @@ public class BombermanModel implements IBombermanModel {
 	}
 
 	@Override
-	public boolean isGameOver() {
-		return gameController.isGameOver();
+	public void resetRoundStats() {
+		gameController.resetRoundStats();
 	}
 
 	@Override
@@ -393,38 +398,37 @@ public class BombermanModel implements IBombermanModel {
 		highscore.reset();
 	}
 
-	@Override
-	public void reset(ResetType type) {
-
-		switch (type) {
-		case Match:
-			matchReset();
-			break;
-		case Round:
-			roundReset();
-			break;
-		default:
-			// Should not happen and therefore we do nothing TODO perhaps
-			break;
-		}
+	/**
+	 * Reset the model after every round
+	 */
+	private void roundReset() {
+		resetPlayer(ResetType.Round);
 		resetMap();
 	}
 
+	/**
+	 * Reset the model after every match
+	 */
 	private void matchReset() {
 		resetPlayer(ResetType.Match);
-		gameController.resetRoundStats();
+		resetMap();
 	}
 
-	private void roundReset() {
-		resetPlayer(ResetType.Round);
-	}
-
+	/**
+	 * Reset all the players in the game corresponding the the specified type
+	 * 
+	 * @param type
+	 *            What kind of reset
+	 */
 	private void resetPlayer(ResetType type) {
 		for (Player p : players) {
 			p.reset(type);
 		}
 	}
 
+	/**
+	 * Resets the game map
+	 */
 	private void resetMap() {
 		// In order to avoid that tiles are cleared on the new map
 		waitingFirePositions.clear();
