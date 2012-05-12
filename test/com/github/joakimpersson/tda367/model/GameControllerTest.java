@@ -103,9 +103,14 @@ public class GameControllerTest {
 
 		killPlayer(losingPlayer);
 		gameController.roundOver();
-
+		
 		assertEquals(0, losingPlayer.getRoundsWon());
 		assertEquals(1, winningPlayer.getRoundsWon());
+		
+		gameController.resetRoundStats();
+		
+		assertEquals(0, losingPlayer.getRoundsWon());
+		assertEquals(0, winningPlayer.getRoundsWon());
 	}
 
 	@Test
