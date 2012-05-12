@@ -94,22 +94,22 @@ public class BombermanModel implements IBombermanModel {
 	 * Updates the model by either moving a player or making them place a bomb.
 	 * 
 	 * @param action
-	 * 				The given action.
+	 *            The given action.
 	 * @param player
-	 * 				The player that will perform the action.
+	 *            The player that will perform the action.
 	 */
 	@Override
 	public void updateGame(Player player, PlayerAction action) {
 		if (player.isAlive()) {
-			if(action.equals(PlayerAction.ACTION)) {
+			if (action.equals(PlayerAction.ACTION)) {
 				this.placeBomb(player);
 			} else {
-				for(Direction direction : action.getDirections()) {
+				for (Direction direction : action.getDirections()) {
 					if (direction != Direction.NONE) {
 						this.move(player, direction);
 					}
 				}
-			}			
+			}
 		}
 	}
 
@@ -127,10 +127,9 @@ public class BombermanModel implements IBombermanModel {
 	private void move(Player player, Direction direction) {
 		Position prevPos = player.getTilePosition();
 		Tile tileAtDirection = map.getTile(new Position(prevPos.getX()
-				+ direction.getX(), prevPos.getY()
-				+ direction.getY()));
+				+ direction.getX(), prevPos.getY() + direction.getY()));
 		// The tile that the player may walk into.
-		
+
 		// TODO fix bug where player walks into blocks.
 		if (tileAtDirection.isWalkable()) {
 			player.move(direction);
@@ -359,8 +358,39 @@ public class BombermanModel implements IBombermanModel {
 	}
 
 	@Override
+	public void roundOver() {
+		gameController.roundOver();
+		reset(ResetType.Round);
+	}
+
+	@Override
+	public void matchOver() {
+		gameController.matchOver();
+	}
+
+	@Override
+	public void gameOver() {
+
+		gameController.gameOver();
+
+		// add the players to highscore list
+		highscore.update(players);
+
+	}
+
+	@Override
 	public boolean isGameOver() {
 		return gameController.isGameOver();
+	}
+
+	@Override
+	public List<Score> getHighscoreList() {
+		return highscore.getList();
+	}
+
+	@Override
+	public void resetHighscoreList() {
+		highscore.reset();
 	}
 
 	@Override
@@ -378,26 +408,6 @@ public class BombermanModel implements IBombermanModel {
 			break;
 		}
 		resetMap();
-	}
-
-	@Override
-	public List<Score> getHighscoreList() {
-		return highscore.getList();
-	}
-
-	@Override
-	public void resetHighscoreMap() {
-		highscore.reset();
-	}
-
-	@Override
-	public void gameOver() {
-
-		gameController.gameOver();
-
-		// add the players to highscore list
-		highscore.update(players);
-
 	}
 
 	private void matchReset() {
@@ -420,26 +430,18 @@ public class BombermanModel implements IBombermanModel {
 		waitingFirePositions.clear();
 		map.reset();
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder strBuilder = new StringBuilder();
-		for(Player player : players) {
+		for (Player player : players) {
 			strBuilder.append(player.toString());
 			strBuilder.append("\n");
 		}
 		strBuilder.append(map.toString());
 		return strBuilder.toString();
 	}
-	
-	public void roundOver() {
-		gameController.roundOver();
-	}
-	
-	public void matchOver() {
-		gameController.matchOver();
-	}
-	
+
 	/**
 	 * Timer-task that is used for scheduling what happens when the fire is
 	 * removed.

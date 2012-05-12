@@ -102,22 +102,35 @@ public interface IBombermanModel {
 	public boolean isRoundOver();
 
 	/**
-	 * Get the current highscore list
+	 * Handling the actions for when the round is over and makes sure that the
+	 * game is properly updated and setups the next round
+	 */
+	public void roundOver();
+
+	/**
+	 * Handling the actions for when the match is over and makes sure that the
+	 * game is properly updated and setups the next match
+	 */
+	public void matchOver();
+
+	/**
+	 * Handling the actions for when the game is over and makes sure that the
+	 * game is properly updated and also adds the players to the Highscore list
+	 */
+	public void gameOver();
+
+	/**
+	 * Get the current Highscore list
 	 * 
 	 * @return A List containing the games top players
 	 */
 	public List<Score> getHighscoreList();
 
 	/**
-	 * Reset and erase all the previous highscores from the list
+	 * Reset and erase all the previous Highscore:s from the list
 	 */
-	public void resetHighscoreMap();
+	public void resetHighscoreList();
 
 	public void addPropertyChangeListener(PropertyChangeListener pcl);
 
-	public void gameOver();
-	
-	public void roundOver();
-	
-	public void matchOver();
 }
