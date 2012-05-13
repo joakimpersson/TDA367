@@ -127,8 +127,7 @@ public class GameplayState extends BasicGameState {
 			roundInfo(container.getInput());
 			break;
 		case GAME_OVER:
-			int newState = BombermanGame.GAMEOVER_STATE;
-			changeState(game, newState);
+			gameOver(game);
 			break;
 		default:
 			break;
@@ -237,6 +236,13 @@ public class GameplayState extends BasicGameState {
 			changeState(game, newState);
 		}
 		model.resetRoundStats();
+	}
+
+	private void gameOver(StateBasedGame game) {
+
+		int newState = BombermanGame.GAMEOVER_STATE;
+		changeState(game, newState);
+
 	}
 
 	/**
