@@ -109,6 +109,11 @@ public interface IBombermanModel {
 	public void resetRoundStats();
 
 	/**
+	 * Reset the model after an ended game
+	 */
+	public void gameReset();
+
+	/**
 	 * Get the current Highscore list
 	 * 
 	 * @return A List containing the games top players

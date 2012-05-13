@@ -398,6 +398,14 @@ public class BombermanModel implements IBombermanModel {
 		highscore.reset();
 	}
 
+	@Override
+	public void gameReset() {
+		this.players = null;
+		this.map = null;
+		this.gameController = null;
+		waitingFirePositions.clear();
+	}
+
 	/**
 	 * Reset the model after every round
 	 */
