@@ -61,7 +61,7 @@ public class InputManager {
 	 */
 	public void addInputObject(InputHandler inputObj) {
 		if (defaultEnabled) {
-			this.clearInput();
+			this.inputHandlers.clear();
 			this.defaultEnabled = false;
 		}
 		if (!playerIsUsedPrev(inputObj) && !inputHandlers.contains(inputObj)) {
@@ -156,7 +156,8 @@ public class InputManager {
 		return false;
 	}
 
-	private void clearInput() {
+	public void removeAllInputHandlers() {
 		inputHandlers.clear();
+		createDeafaultInputs();
 	}
 }
