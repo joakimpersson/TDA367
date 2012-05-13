@@ -14,26 +14,32 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.TextField;
 
+/**
+ * Sets up the players
+ * 
+ * @author rekoil
+ * @modified joakimpersson
+ */
 public class SetupGameView {
 
 	private int yDelta = 30;
-	private int stage = 0;
-	private int possiblePlayers, playersSelected;
+	private int stage = -1;
+	private int possiblePlayers = -1;
+	private int playersSelected = -1;
 
 	private Font bigFont = null;
 	private Font smlFont = null;
 	private TextField field;
 	private int index;
-	private List<String> names = new ArrayList<String>();
+	private List<String> names = null;
 
-	public SetupGameView(int possiblePlayers, GameContainer container) {
+	public SetupGameView(GameContainer container) {
 
-		this.possiblePlayers = possiblePlayers;
 		init();
 		field = new TextField(container, bigFont,
 				container.getWidth() / 2 - 180, 240, 200, 30);
 		field.setBorderColor(red);
-		
+
 	}
 
 	private void init() {
@@ -43,6 +49,11 @@ public class SetupGameView {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void enter() {
+		stage = 0;
+		names = new ArrayList<String>();
 	}
 
 	public void render(GameContainer container, Graphics g, int selection)
@@ -86,7 +97,11 @@ public class SetupGameView {
 		stage++;
 		resetField();
 	}
-
+	
+	public void setPossiblePlayers(int numberOfPlayers) {
+		this.possiblePlayers = numberOfPlayers;
+	}
+	
 	public void assignControllers() {
 		index = 1;
 		stage++;

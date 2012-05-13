@@ -31,14 +31,17 @@ import com.github.joakimpersson.tda367.model.utils.Position;
  * Sets up the players
  * 
  * @author rekoil
+ * @modified joakimpersson
  */
 public class SetupGameState extends BasicGameState {
 
 	private SetupGameView view = null;
 	private IBombermanModel model = null;
 	private int stateID = -1;
-	private int selection = 0, stage = 0;
-	private int controllerCount, possiblePlayers;
+	private int selection = 0;
+	private int stage = 0;
+	private int controllerCount;
+	private int possiblePlayers;
 	private int players;
 	private List<Player> playerList;
 	private List<String> controllersBound;
@@ -55,7 +58,21 @@ public class SetupGameState extends BasicGameState {
 		super.enter(container, game);
 
 		pcs.firePropertyChange("play", null, EventType.TITLE_SCREEN);
+		playerList = new ArrayList<Player>();
+		controllersBound = new ArrayList<String>();
 
+		stage = 0;
+		controllerCount = container.getInput().getControllerCount();
+		possiblePlayers = 2 + controllerCount;
+
+		if (possiblePlayers > 4) {
+			possiblePlayers = 4;
+		}
+		
+
+		selection = 2;
+		view.setPossiblePlayers(possiblePlayers);
+		view.enter();
 	}
 
 	@Override
@@ -69,18 +86,7 @@ public class SetupGameState extends BasicGameState {
 
 		model = BombermanModel.getInstance();
 		inputManager = InputManager.getInstance();
-		playerList = new ArrayList<Player>();
-		controllersBound = new ArrayList<String>();
-
-		controllerCount = container.getInput().getControllerCount();
-		possiblePlayers = 2 + controllerCount;
-
-		if (possiblePlayers > 4) {
-			possiblePlayers = 4;
-		}
-		view = new SetupGameView(possiblePlayers, container);
-
-		selection = 2;
+		view = new SetupGameView(container);
 	}
 
 	@Override
@@ -88,7 +94,7 @@ public class SetupGameState extends BasicGameState {
 			throws SlickException {
 		view.render(container, g, selection);
 	}
-	
+
 	private List<PlayerAction> defaultInput(Input input) {
 		List<InputData> dataList = inputManager.getData(input);
 		List<PlayerAction> actions = new ArrayList<PlayerAction>();
@@ -103,7 +109,7 @@ public class SetupGameState extends BasicGameState {
 			throws SlickException {
 		Input input = container.getInput();
 		List<PlayerAction> actions = defaultInput(input);
-		
+
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
 			game.enterState(BombermanGame.MAIN_MENU_STATE);
 		}
@@ -136,7 +142,7 @@ public class SetupGameState extends BasicGameState {
 		} else if (stage == 2 && controllerProceed) {
 			assignPlayer(controllerUsed(input), view.getIndex());
 			if (allPlayersAssigned()) {
-				
+
 				game.enterState(BombermanGame.GAMEPLAY_STATE);
 			}
 			view.incIndex();
