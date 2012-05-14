@@ -150,6 +150,17 @@ public class MapLoader {
 				+ " and got: " + actual);
 	}
 
+	public List<Tile[][]> getMapList() {
+		List<Tile[][]> tmpList = new ArrayList<Tile[][]>();
+
+		for (Tile[][] tmpMap : maps) {
+			Tile[][] tmp = Utils.copyGameMap(tmpMap);
+			tmpList.add(tmp);
+		}
+
+		return tmpList;
+	}
+
 	public Tile[][] getMap(int index) {
 		if (index > maps.size() || index < 0) {
 			String msg = "There is no map with index: " + index;
