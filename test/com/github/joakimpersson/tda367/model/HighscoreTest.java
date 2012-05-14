@@ -42,7 +42,6 @@ public class HighscoreTest {
 		assertEquals(expected.size(), actual.size());
 
 		assertEquals(expected, actual);
-		fail("Not sure about implementation");
 	}
 
 	@Test

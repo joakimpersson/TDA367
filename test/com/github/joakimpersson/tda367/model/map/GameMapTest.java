@@ -10,6 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Box;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Pillar;
@@ -68,7 +69,33 @@ public class GameMapTest {
 
 	@Test
 	public void testGetMap() {
-		fail("Not yet implemented!");
+
+		Tile[][] mapTmp = map.getMap();
+
+		// checking that the map has correct size
+		int expectedWidth = Parameters.INSTANCE.getMapSize().width;
+		int expectedHeight = Parameters.INSTANCE.getMapSize().height;
+		int actualHeight = mapTmp.length;
+		int actualWidth = 0;
+
+		assertEquals(expectedHeight, actualHeight);
+
+		for (int i = 0; i < mapTmp.length; i++) {
+			actualWidth = mapTmp[i].length;
+			assertEquals(expectedWidth, actualWidth);
+		}
+
+		// checking that the matrix only contains classes that implements the
+		// tile interface
+
+		for (int i = 0; i < mapTmp.length; i++) {
+			for (int j = 0; j < mapTmp[i].length; j++) {
+				Tile tmpTile = mapTmp[i][j];
+				assertThat(tmpTile, is(instanceOf(Tile.class)));
+			}
+		}
+
+		fail("Not sure about implementation!");
 	}
 
 	@After
