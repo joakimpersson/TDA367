@@ -66,7 +66,6 @@ public class ScoreTest {
 
 		assertFalse(score.hashCode() == otherScore.hashCode());
 		
-//		fail("Not sure about this should be implemented");
 	}
 
 	@Test
