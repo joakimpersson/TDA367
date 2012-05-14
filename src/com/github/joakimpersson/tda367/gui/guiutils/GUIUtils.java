@@ -67,7 +67,7 @@ public class GUIUtils {
 	 */
 	public static int getStrinCenterX(String str, int width, Graphics g) {
 		int strWidth = g.getFont().getWidth(str);
-		return width / 2 - strWidth / 2;
+		return (width / 2) - (strWidth / 2);
 	}
 
 	/**
