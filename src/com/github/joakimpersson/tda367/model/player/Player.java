@@ -417,9 +417,10 @@ public class Player {
 			return false;
 		}
 		Player other = (Player) obj;
+		
 		return this.name.equals(other.name) && this.attr.equals(other.attr)
 				&& this.points.equals(other.points)
-				&& this.tilePos == other.tilePos
+				&& this.tilePos.equals(other.tilePos)
 				&& this.playerIndex == other.playerIndex;
 
 	}
