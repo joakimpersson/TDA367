@@ -24,7 +24,7 @@ public class Box implements Tile, Destroyable {
 		this.toughness = 1;
 		Random rand = new Random();
 		this.boxImageNumber = rand.nextInt(5) + 1;
-		this.image = "box" + this.boxImageNumber;
+		this.image = "box";
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class Box implements Tile, Destroyable {
 
 	@Override
 	public String getTileType() {
-		return this.image;
+		return this.image +  + this.boxImageNumber;
 	}
 
 	@Override
