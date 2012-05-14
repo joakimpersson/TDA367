@@ -1,4 +1,4 @@
-package com.github.joakimpersson.tda367.model.map;
+package com.github.joakimpersson.tda367.model.utils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,8 +11,6 @@ import com.github.joakimpersson.tda367.model.constants.MapTileType;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.factory.MapTileFactory;
-import com.github.joakimpersson.tda367.model.utils.FileScanner;
-import com.github.joakimpersson.tda367.model.utils.Utils;
 
 public class MapLoader {
 

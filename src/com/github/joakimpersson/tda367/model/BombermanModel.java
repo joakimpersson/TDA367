@@ -33,10 +33,11 @@ import com.github.joakimpersson.tda367.model.tiles.bombs.Bomb;
 import com.github.joakimpersson.tda367.model.tiles.bombs.NormalBomb;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Fire;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
+import com.github.joakimpersson.tda367.model.utils.MapLoader;
 
 /**
- * This class is responsible for connecting the players and
- * the map together and handling the events between them.
+ * This class is responsible for connecting the players and the map together and
+ * handling the events between them.
  * 
  * @author Viktor Anderling
  * @modified Joakim Persson, Adrian Bjugård
@@ -74,9 +75,11 @@ public class BombermanModel implements IBombermanModel {
 
 	@Override
 	public void startGame(List<Player> players) {
+		MapLoader mapLoader = MapLoader.getInstance();
+		Tile[][] gameField = mapLoader.getMap(0);
 		this.players = players;
 		this.gameController = new GameController(players);
-		this.map = new GameMap();
+		this.map = new GameMap(gameField);
 		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
 	}
 
@@ -196,9 +199,9 @@ public class BombermanModel implements IBombermanModel {
 	 * Creates and returns a bomb corresponding to the player's bomb type.
 	 * 
 	 * @param player
-	 * 				The player that creates a bomb.
+	 *            The player that creates a bomb.
 	 * @param bombTimer
-	 * 				The timer that detonates the bomb.
+	 *            The timer that detonates the bomb.
 	 * @return A new bomb.
 	 */
 	private Bomb createBomb(Player player, Timer bombTimer) {
@@ -248,9 +251,9 @@ public class BombermanModel implements IBombermanModel {
 	 * Damage the target player and gives points to the owner of the bomb.
 	 * 
 	 * @param bombOwner
-	 * 					The owner of the bomb.
+	 *            The owner of the bomb.
 	 * @param targetPlayer
-	 * 					The player who is the target of the fire.
+	 *            The player who is the target of the fire.
 	 */
 	private void hitPlayer(Player bombOwner, Player targetPlayer) {
 		List<PointGiver> pg = new ArrayList<PointGiver>();
@@ -270,9 +273,9 @@ public class BombermanModel implements IBombermanModel {
 	 * Calls hit player for all players.
 	 * 
 	 * @param bombOwner
-	 * 					The owner of the bomb.
+	 *            The owner of the bomb.
 	 * @param targetPlayer
-	 * 					The player who is the target of the fire.
+	 *            The player who is the target of the fire.
 	 */
 	private void hitPlayers(Player bombOwner, List<Position> positions) {
 
@@ -283,14 +286,14 @@ public class BombermanModel implements IBombermanModel {
 			}
 		}
 	}
-	
+
 	/**
 	 * Hits all items and distributes points to the bomb-owner.
 	 * 
 	 * @param bombOwner
-	 * 					The owner of the bomb.
+	 *            The owner of the bomb.
 	 * @param positions
-	 * 					A list of positions of potential items.
+	 *            A list of positions of potential items.
 	 */
 	private void hitItems(Player bombOwner, List<Position> positions) {
 		List<PointGiver> pg = new ArrayList<PointGiver>();

@@ -19,6 +19,7 @@ import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Box;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Pillar;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Wall;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
+import com.github.joakimpersson.tda367.model.utils.MapLoader;
 import com.github.joakimpersson.tda367.model.utils.Utils;
 
 /**
@@ -31,7 +32,9 @@ public class GameMapTest {
 
 	@Before
 	public void setUp() throws Exception {
-		map = new GameMap();
+		MapLoader mapLoader = MapLoader.getInstance();
+		Tile[][]gameField = mapLoader.getMap(0);
+		map = new GameMap(gameField);
 
 	}
 

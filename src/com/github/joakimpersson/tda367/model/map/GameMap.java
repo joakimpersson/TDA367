@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
+import com.github.joakimpersson.tda367.model.utils.Utils;
 
 /**
  * 
@@ -14,17 +15,19 @@ import com.github.joakimpersson.tda367.model.tiles.Tile;
 public class GameMap implements IGameMap {
 
 	private Tile[][] map;
+	private Tile[][] originalMap;
 	private final int WIDTH;
 	private final int HEIGHT;
-	private MapLoader mapLoader;
 
 	/**
 	 * Create a new GameMap instance using the default map
+	 * 
+	 * @param gameMap
+	 *            The gameMap to use in this map
 	 */
-	public GameMap() {
-
-		mapLoader = MapLoader.getInstance();
-		map = mapLoader.getMap(0);
+	public GameMap(Tile[][] gameMap) {
+		map = Utils.copyGameMap(gameMap);
+		originalMap = Utils.copyGameMap(gameMap);
 		Dimension mapSize = Parameters.INSTANCE.getMapSize();
 		WIDTH = mapSize.width;
 		HEIGHT = mapSize.height;
@@ -75,7 +78,7 @@ public class GameMap implements IGameMap {
 
 	@Override
 	public void reset() {
-		map = mapLoader.getMap(0);
+		map = Utils.copyGameMap(originalMap);
 
 	}
 
