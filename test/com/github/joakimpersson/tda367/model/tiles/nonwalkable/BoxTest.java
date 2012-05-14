@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -65,6 +66,35 @@ public class BoxTest {
 		int probability = (int) (Parameters.INSTANCE.getPowerUpProbabilityBox() * 100);
 		int delta = 3;
 		assertEquals(probability, ratio, delta);
+	}
+
+	@Test
+	public void testEquals() {
+		Tile otherBox = new Box();
+		Tile otherWall = new Wall();
+
+		// testing for null and self
+		assertTrue(box.equals(box));
+		assertFalse(box.equals(null));
+
+		// should be true
+		assertTrue(box.equals(otherBox));
+
+		// should be false since an box is not an wall
+		assertFalse(box.equals(otherWall));
+	}
+
+	@Test
+	public void testHashCode() {
+
+		Tile otherBox = new Box();
+		Tile otherWall = new Wall();
+
+		// should be true
+		assertTrue(box.hashCode() == otherBox.hashCode());
+
+		// should be false since an box is not an wall
+		assertFalse(box.hashCode() == otherWall.hashCode());
 	}
 
 	@After

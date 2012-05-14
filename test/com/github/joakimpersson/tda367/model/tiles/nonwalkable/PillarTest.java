@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -48,11 +49,6 @@ public class PillarTest {
 		assertFalse(pillar.isWalkable());
 	}
 
-	@After
-	public void tearDown() throws Exception {
-		pillar = null;
-	}
-
 	@Test
 	public void testGetRandomNbr() {
 		int sum = 0;
@@ -76,4 +72,37 @@ public class PillarTest {
 		assertEquals(probability, ratio, delta);
 	}
 
+	@Test
+	public void testEquals() {
+		Tile otherPillar = new Pillar();
+		Tile otherWall = new Wall();
+
+		// testing for null and self
+		assertTrue(pillar.equals(pillar));
+		assertFalse(pillar.equals(null));
+
+		// should be true
+		assertTrue(pillar.equals(otherPillar));
+
+		// should be false since an box is not an wall
+		assertFalse(pillar.equals(otherWall));
+	}
+
+	@Test
+	public void testHashCode() {
+
+		Tile otherPillar = new Pillar();
+		Tile otherWall = new Wall();
+
+		// should be true
+		assertTrue(pillar.hashCode() == otherPillar.hashCode());
+
+		// should be false since an box is not an wall
+		assertFalse(pillar.hashCode() == otherWall.hashCode());
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		pillar = null;
+	}
 }

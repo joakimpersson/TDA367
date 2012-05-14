@@ -30,4 +30,19 @@ public class Wall implements Tile {
 		return this.image;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+
+		if (this == obj) {
+			return true;
+		}
+		return obj != null && getClass() == obj.getClass();
+
+	}
+
+	@Override
+	public int hashCode() {
+		return image.hashCode() * 13;
+	}
+
 }
