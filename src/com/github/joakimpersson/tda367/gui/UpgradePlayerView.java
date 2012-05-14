@@ -7,6 +7,7 @@ import java.util.Map;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
+import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.player.Player;
@@ -43,7 +44,7 @@ public class UpgradePlayerView implements IUpgradePlayerView {
 	public void enter() {
 		players = model.getPlayers();
 		playerViews = new ArrayList<UpgradePlayerPanelView>();
-		int xDelta = GUIParameters.INSTANCE.getGameWidth() / players.size();
+		int xDelta = GUIUtils.getGameWidth() / players.size();
 		int x = POS_X;
 
 		for (Player p : players) {

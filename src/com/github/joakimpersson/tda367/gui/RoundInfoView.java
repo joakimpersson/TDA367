@@ -8,6 +8,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
@@ -43,7 +44,7 @@ public class RoundInfoView implements IView {
 	private void init() {
 		model = BombermanModel.getInstance();
 		try {
-			smlFont = GUIParameters.INSTANCE.getSmlFont();
+			smlFont = GUIUtils.getSmlFont();
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -51,8 +52,8 @@ public class RoundInfoView implements IView {
 
 	@Override
 	public void enter() {
-		startX = GUIParameters.INSTANCE.getGameWidth() / 2 - width / 2;
-		startY = GUIParameters.INSTANCE.getGameHeight() / 2 - height / 2;
+		startX = GUIUtils.getGameWidth() / 2 - width / 2;
+		startY = GUIUtils.getGameHeight() / 2 - height / 2;
 		players = model.getPlayers();
 	}
 

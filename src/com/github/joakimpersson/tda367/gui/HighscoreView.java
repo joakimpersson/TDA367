@@ -5,6 +5,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
+
 public class HighscoreView {
 
 	private HighscoreListView highscoreListView = null;
@@ -19,7 +21,7 @@ public class HighscoreView {
 		highscoreListView = new HighscoreListView(50, 100);
 		highscoreInfoView = new HighscoreInfoView(475, 100);
 		try {
-			bigFont = GUIParameters.INSTANCE.getBigFont();
+			bigFont = GUIUtils.getBigFont();
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -41,7 +43,7 @@ public class HighscoreView {
 
 	private void drawHeader(Graphics g) {
 		g.setFont(bigFont);
-		int panelWidth = GUIParameters.INSTANCE.getGameWidth();
+		int panelWidth = GUIUtils.getGameWidth();
 		int y = 25;
 		String str = "Highscores";
 		int strWidth = g.getFont().getWidth(str);

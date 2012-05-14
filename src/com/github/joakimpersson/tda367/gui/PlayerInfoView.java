@@ -7,6 +7,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.player.Player;
 
@@ -39,7 +40,7 @@ public class PlayerInfoView implements IView {
 	private void init() {
 		this.imgs = ImageLoader.getInstance();
 		try {
-			smlFont = GUIParameters.INSTANCE.getSmlFont();
+			smlFont = GUIUtils.getSmlFont();
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

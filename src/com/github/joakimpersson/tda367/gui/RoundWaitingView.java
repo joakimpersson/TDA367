@@ -6,6 +6,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
+
 /**
  * 
  * @author joakimpersson
@@ -30,7 +32,7 @@ public class RoundWaitingView implements IView {
 	 */
 	private void init() {
 		try {
-			bigFont = GUIParameters.INSTANCE.getBigFont();
+			bigFont = GUIUtils.getBigFont();
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -38,8 +40,8 @@ public class RoundWaitingView implements IView {
 
 	@Override
 	public void enter() {
-		startX = GUIParameters.INSTANCE.getGameWidth() / 2 - WIDTH / 2;
-		startY = GUIParameters.INSTANCE.getGameHeight() / 2 - HEIGHT / 2;
+		startX = GUIUtils.getGameWidth() / 2 - WIDTH / 2;
+		startY = GUIUtils.getGameHeight() / 2 - HEIGHT / 2;
 	}
 
 	@Override
@@ -59,8 +61,8 @@ public class RoundWaitingView implements IView {
 	 */
 	private void drawText(Graphics g) {
 		String str = "Press Proceed to start the game";
-		int x = getStrinCenterX(str, WIDTH, g) + startX;
-		int y = getStrinCenterY(str, HEIGHT, g) + startY;
+		int x = GUIUtils.getStrinCenterX(str, WIDTH, g) + startX;
+		int y = GUIUtils.getStrinCenterY(str, HEIGHT, g) + startY;
 		g.drawString(str, x, y);
 	}
 
@@ -77,35 +79,4 @@ public class RoundWaitingView implements IView {
 		g.drawRoundRect(startX, startY, WIDTH, HEIGHT, 25);
 	}
 
-	/**
-	 * A util method for centering the texts midpoint in the panel/container
-	 * 
-	 * @param str
-	 *            The text that needs to be centered
-	 * @param width
-	 *            The width of the panel/container
-	 * @param g
-	 *            The graphics context to render to
-	 * @return The x coordinate for the string to be draws from
-	 */
-	private int getStrinCenterX(String str, int width, Graphics g) {
-		int strWidth = g.getFont().getWidth(str);
-		return width / 2 - strWidth / 2;
-	}
-
-	/**
-	 * A util method for centering the texts midpoint in the panel/container
-	 * 
-	 * @param str
-	 *            The text that needs to be centered
-	 * @param height
-	 *            The height of the panel/container
-	 * @param g
-	 *            The graphics context to render to
-	 * @return The y coordinate for the string to be draws from
-	 */
-	private int getStrinCenterY(String str, int height, Graphics g) {
-		int strHeight = g.getFont().getHeight(str);
-		return height / 2 - strHeight / 2;
-	}
 }

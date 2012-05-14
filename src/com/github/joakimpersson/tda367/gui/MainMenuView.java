@@ -6,20 +6,24 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
+
 /**
  * 
  * @author joakimpersson
  * 
  */
-public class MainMenuView implements IView {
+public class MainMenuView {
 
 	private Font smlFont = null;
-
+	private final int WIDTH;
+	
 	/**
 	 * Creates a new view representing the main menu in the game
 	 */
 	public MainMenuView() {
 		init();
+		WIDTH = GUIUtils.getGameWidth();
 	}
 
 	/**
@@ -28,25 +32,21 @@ public class MainMenuView implements IView {
 	 */
 	private void init() {
 		try {
-			smlFont = GUIParameters.INSTANCE.getSmlFont();
+			smlFont = GUIUtils.getSmlFont();
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	@Override
-	public void enter() {
-
-	}
-
 	public void render(GameContainer container, Graphics g, int selection)
 			throws SlickException {
-		// TODO only used during developing
-		g.setFont(smlFont);
+		String title = "Bomberman";
 		int posY = 200;
-		int posX = container.getWidth() / 2 - 130;
+		int posX = GUIUtils.getStrinCenterX(title, WIDTH, g);
+		g.setFont(smlFont);
 		g.setColor(Color.green);
+		System.out.println(posX);
 		g.drawString("Bomberman", posX, posY);
 		posY += 40;
 		int i = 1;
@@ -68,13 +68,6 @@ public class MainMenuView implements IView {
 			}
 			i++;
 		}
-	}
-
-	@Override
-	public void render(GameContainer container, Graphics g)
-			throws SlickException {
-		// TODO Auto-generated method stub
-
 	}
 
 }

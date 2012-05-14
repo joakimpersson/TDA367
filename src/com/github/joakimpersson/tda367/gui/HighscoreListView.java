@@ -7,6 +7,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.Score;
@@ -129,25 +130,8 @@ public class HighscoreListView {
 	 */
 	private void drawEmptyListString(int x, int y, Graphics g) {
 		String str = "No Highscroes yet!";
-		x += getStrinCenterX(str, WIDTH, g);
+		x += GUIUtils.getStrinCenterX(str, WIDTH, g);
 		g.drawString(str, x, y);
-
-	}
-
-	/**
-	 * A util method for centering the texts midpoint in the panel/container
-	 * 
-	 * @param str
-	 *            The text that needs to be centered
-	 * @param width
-	 *            The width of the panel/container
-	 * @param g
-	 *            The games graphics object
-	 * @return The x coordinate for the string to be draws from
-	 */
-	private int getStrinCenterX(String str, int width, Graphics g) {
-		int strWidth = g.getFont().getWidth(str);
-		return width / 2 - strWidth / 2;
 	}
 
 }
