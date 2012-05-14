@@ -65,7 +65,7 @@ public class ScoreTest {
 		otherScore = new Score("Hobbe", otherPlayerPoints);
 
 		assertFalse(score.hashCode() == otherScore.hashCode());
-		
+
 	}
 
 	@Test
@@ -88,8 +88,14 @@ public class ScoreTest {
 
 	@Test
 	public void testEqualsObject() {
+
+		// Testing for self refrence and null
+		assertTrue(score.equals(score));
+		assertFalse(score.equals(null));
+
 		PlayerPoints otherPlayerPoints = new PlayerPoints();
 		Score otherScore = new Score("Hobbe", otherPlayerPoints);
+
 		assertThat(score, not(equalTo(otherScore)));
 
 		otherScore = new Score("Kalle", otherPlayerPoints);

@@ -63,7 +63,7 @@ public class BoxTest {
 		}
 		int ratio = sum / max;
 		int probability = (int) (Parameters.INSTANCE.getPowerUpProbabilityBox() * 100);
-		int delta = 2;
+		int delta = 3;
 		assertEquals(probability, ratio, delta);
 	}
 
