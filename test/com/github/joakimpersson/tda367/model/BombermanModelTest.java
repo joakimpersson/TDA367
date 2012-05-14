@@ -96,7 +96,7 @@ public class BombermanModelTest {
 		test2 = (prevPos.getX() == player.getGamePosition().getX() &&
 				prevPos.getY() == player.getGamePosition().getY());
 		
-		assertTrue(test1);
+		assertTrue(test1 && test2);
 		// TODO write more on this test depending on how we want move to work...
 	}
 
