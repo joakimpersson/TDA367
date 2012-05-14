@@ -1,10 +1,6 @@
 package com.github.joakimpersson.tda367.model.player;
 
-import static com.github.joakimpersson.tda367.model.constants.Attribute.BombPower;
-import static com.github.joakimpersson.tda367.model.constants.Attribute.BombRange;
-import static com.github.joakimpersson.tda367.model.constants.Attribute.BombStack;
-import static com.github.joakimpersson.tda367.model.constants.Attribute.Health;
-import static com.github.joakimpersson.tda367.model.constants.Attribute.Speed;
+
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -154,12 +150,12 @@ public class PlayerAttributes {
 	 */
 	private void initDefaultMatchValues() {
 
-		matchAttr.put(Speed, Parameters.INSTANCE.getInitSpeed());
-		matchAttr.put(BombStack, Parameters.INSTANCE.getStartingBombs());
-		matchAttr.put(Health, Parameters.INSTANCE.getInitHealth());
-		matchAttr.put(BombRange, Parameters.INSTANCE.getInitBombRange());
-		matchAttr.put(BombPower, Parameters.INSTANCE.getInitBombPower());
-
+		matchAttr.put(Attribute.Speed, Parameters.INSTANCE.getInitSpeed());
+		matchAttr.put(Attribute.BombStack, Parameters.INSTANCE.getStartingBombs());
+		matchAttr.put(Attribute.Health, Parameters.INSTANCE.getInitHealth());
+		matchAttr.put(Attribute.BombRange, Parameters.INSTANCE.getInitBombRange());
+		matchAttr.put(Attribute.BombPower, Parameters.INSTANCE.getInitBombPower());
+		matchAttr.put(Attribute.BombType, Parameters.INSTANCE.getInitBombType());
 	}
 
 	/**
@@ -167,20 +163,10 @@ public class PlayerAttributes {
 	 */
 	private void initDefaultRoundValues() {
 
-		roundAttr.put(Speed, 0);
-		roundAttr.put(BombStack, 0);
-		roundAttr.put(BombRange, 0);
+		roundAttr.put(Attribute.Speed, 0);
+		roundAttr.put(Attribute.BombStack, 0);
+		roundAttr.put(Attribute.BombRange, 0);
 
-	}
-
-	/**
-	 * Get the Map that is representing the players match attributes and its
-	 * corresponding values
-	 * 
-	 * @return The players Match Attributs Map
-	 */
-	public Map<Attribute, Integer> getMatchAttrs() {
-		return matchAttr;
 	}
 
 	/**
@@ -189,7 +175,7 @@ public class PlayerAttributes {
 	 * @return List of the players match attributes
 	 */
 	public List<Attribute> getAttributes() {
-		ArrayList<Attribute> tmp = new ArrayList<Attribute>();
+		List<Attribute> tmp = new ArrayList<Attribute>();
 		for (Attribute a : matchAttr.keySet()) {
 			tmp.add(a);
 		}

@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -129,6 +132,16 @@ public class PlayerAttributeTest {
 		oherPa.upgradeAttr(Attribute.Speed, UpgradeType.Round);
 
 		assertEquals(pa.hashCode(), oherPa.hashCode());
+	}
+
+	@Test
+	public void testGetAttributes() {
+		List<Attribute> expected = Arrays.asList(Attribute.values());
+		List<Attribute> actual = pa.getAttributes();
+
+		for (Attribute a : expected) {
+			assertTrue(actual.contains(a));
+		}
 	}
 
 	@After
