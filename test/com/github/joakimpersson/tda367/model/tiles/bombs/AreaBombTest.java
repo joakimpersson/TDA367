@@ -18,12 +18,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.github.joakimpersson.tda367.model.player.Player;
+import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Box;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Pillar;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Wall;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
-import com.github.joakimpersson.tda367.model.utils.Position;
 
 /**
  * 

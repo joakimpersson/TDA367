@@ -8,6 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.github.joakimpersson.tda367.model.positions.FPosition;
+
 public class FPositionTest {
 
 	private FPosition positionOne = null;

@@ -16,9 +16,9 @@ import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.player.Player;
+import com.github.joakimpersson.tda367.model.positions.FPosition;
+import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
-import com.github.joakimpersson.tda367.model.utils.FPosition;
-import com.github.joakimpersson.tda367.model.utils.Position;
 
 public class BombermanModelTest {
 

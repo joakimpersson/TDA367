@@ -10,9 +10,9 @@ import org.newdawn.slick.SlickException;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.player.Player;
+import com.github.joakimpersson.tda367.model.positions.FPosition;
+import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
-import com.github.joakimpersson.tda367.model.utils.FPosition;
-import com.github.joakimpersson.tda367.model.utils.Position;
 
 /**
  * 

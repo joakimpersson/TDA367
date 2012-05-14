@@ -11,9 +11,9 @@ import java.util.Timer;
 
 import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.player.Player;
+import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.Destroyable;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
-import com.github.joakimpersson.tda367.model.utils.Position;
 
 /**
  * Definition of a regular bomb.

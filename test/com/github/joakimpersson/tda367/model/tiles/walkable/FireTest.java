@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.player.Player;
-import com.github.joakimpersson.tda367.model.utils.Position;
+import com.github.joakimpersson.tda367.model.positions.Position;
 
 /**
  * 

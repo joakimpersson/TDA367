@@ -23,6 +23,8 @@ import com.github.joakimpersson.tda367.model.map.GameMap;
 import com.github.joakimpersson.tda367.model.map.IGameMap;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
+import com.github.joakimpersson.tda367.model.positions.FPosition;
+import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.Destroyable;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
@@ -31,8 +33,6 @@ import com.github.joakimpersson.tda367.model.tiles.bombs.Bomb;
 import com.github.joakimpersson.tda367.model.tiles.bombs.NormalBomb;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Fire;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
-import com.github.joakimpersson.tda367.model.utils.FPosition;
-import com.github.joakimpersson.tda367.model.utils.Position;
 
 /**
  * This class is responsible for connecting the players and

@@ -10,8 +10,8 @@ import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.constants.ResetType;
 import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
-import com.github.joakimpersson.tda367.model.utils.FPosition;
-import com.github.joakimpersson.tda367.model.utils.Position;
+import com.github.joakimpersson.tda367.model.positions.FPosition;
+import com.github.joakimpersson.tda367.model.positions.Position;
 
 /**
  * This class defines a Player in the bomberman-like game.

@@ -15,7 +15,7 @@ import com.github.joakimpersson.tda367.model.constants.BombermanRules;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.constants.ResetType;
 import com.github.joakimpersson.tda367.model.player.Player;
-import com.github.joakimpersson.tda367.model.utils.Position;
+import com.github.joakimpersson.tda367.model.positions.Position;
 
 /**
  * 

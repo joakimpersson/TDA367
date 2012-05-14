@@ -16,9 +16,9 @@ import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.constants.ResetType;
 import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
+import com.github.joakimpersson.tda367.model.positions.FPosition;
+import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Box;
-import com.github.joakimpersson.tda367.model.utils.FPosition;
-import com.github.joakimpersson.tda367.model.utils.Position;
 
 /**
  * 

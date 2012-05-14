@@ -9,6 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.github.joakimpersson.tda367.model.positions.Position;
+
 /**
  * 
  * @author joakimpersson

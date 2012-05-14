@@ -25,7 +25,7 @@ import com.github.joakimpersson.tda367.model.constants.EventType;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.player.Player;
-import com.github.joakimpersson.tda367.model.utils.Position;
+import com.github.joakimpersson.tda367.model.positions.Position;
 
 /**
  * Sets up the players

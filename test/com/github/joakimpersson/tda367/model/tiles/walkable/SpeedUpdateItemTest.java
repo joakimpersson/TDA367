@@ -14,9 +14,9 @@ import org.junit.Test;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.player.Player;
+import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.walkable.SpeedUpdateItem;
-import com.github.joakimpersson.tda367.model.utils.Position;
 
 /**
  * 

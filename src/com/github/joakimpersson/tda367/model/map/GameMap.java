@@ -3,8 +3,8 @@ package com.github.joakimpersson.tda367.model.map;
 import java.awt.Dimension;
 
 import com.github.joakimpersson.tda367.model.constants.Parameters;
+import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
-import com.github.joakimpersson.tda367.model.utils.Position;
 
 /**
  * 

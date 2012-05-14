@@ -1,4 +1,4 @@
-package com.github.joakimpersson.tda367.model.utils;
+package com.github.joakimpersson.tda367.model.positions;
 
 /**
  * Immutable class describing float 2D-points.
