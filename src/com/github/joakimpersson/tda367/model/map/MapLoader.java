@@ -12,6 +12,7 @@ import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.factory.MapTileFactory;
 import com.github.joakimpersson.tda367.model.utils.FileScanner;
+import com.github.joakimpersson.tda367.model.utils.Utils;
 
 public class MapLoader {
 
@@ -158,18 +159,6 @@ public class MapLoader {
 		}
 		Tile[][] tileMap = maps.get(index);
 
-		return copyMatrix(tileMap);
+		return Utils.copyGameMap(tileMap);
 	}
-
-	private Tile[][] copyMatrix(Tile[][] originalMatrix) {
-		Tile[][] tmpMatrixMap = new Tile[HEIGHT][WIDTH];
-
-		for (int i = 0; i < originalMatrix.length; i++) {
-			for (int j = 0; j < originalMatrix[0].length; j++) {
-				tmpMatrixMap[i][j] = originalMatrix[i][j];
-			}
-		}
-		return tmpMatrixMap;
-	}
-
 }

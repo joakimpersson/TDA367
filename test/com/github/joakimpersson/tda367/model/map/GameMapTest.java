@@ -19,6 +19,7 @@ import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Pillar;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Wall;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
 import com.github.joakimpersson.tda367.model.utils.Position;
+import com.github.joakimpersson.tda367.model.utils.Utils;
 
 /**
  * 
@@ -102,13 +103,13 @@ public class GameMapTest {
 
 	@Test
 	public void testReset() {
-		Tile[][] expected = copyMatrix(map.getMap());
+		Tile[][] expected = Utils.copyGameMap(map.getMap());
 
 		// modify the current map
 		modifyMap();
 
 		Tile[][] actual = map.getMap();
-		boolean result = matrixEquals(expected, actual);
+		boolean result = Utils.mapMatrixEquals(expected, actual);
 		assertFalse(result);
 
 		// reset the current map
@@ -117,40 +118,13 @@ public class GameMapTest {
 		actual = map.getMap();
 
 		// testing the all the tiles in the two maps are equal
-		result = matrixEquals(expected, actual);
+		result = Utils.mapMatrixEquals(expected, actual);
 		assertTrue(result);
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		map = null;
-	}
-
-	/*
-	 * Util methods TODO jocke move this to a utils class
-	 */
-	private Tile[][] copyMatrix(Tile[][] originalMatrix) {
-		Tile[][] tmpMatrixMap = new Tile[originalMatrix.length][originalMatrix[0].length];
-
-		for (int i = 0; i < originalMatrix.length; i++) {
-			for (int j = 0; j < originalMatrix[0].length; j++) {
-				tmpMatrixMap[i][j] = originalMatrix[i][j];
-			}
-		}
-		return tmpMatrixMap;
-	}
-
-	private boolean matrixEquals(Tile[][] expected, Tile[][] actual) {
-		for (int i = 0; i < expected.length; i++) {
-			for (int j = 0; j < expected[i].length; j++) {
-				Tile tmpTile = expected[i][j];
-				Tile otherTile = actual[i][j];
-				if (!(tmpTile.equals(otherTile))) {
-					return false;
-				}
-			}
-		}
-		return true;
 	}
 
 	private void modifyMap() {
