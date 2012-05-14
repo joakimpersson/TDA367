@@ -24,7 +24,7 @@ public class Floor implements WalkableTile, Destroyable {
 		this.toughness = 0;
 		Random rand = new Random();
 		this.floorNumber = rand.nextInt(5) + 1;
-		this.image = "floor" + this.floorNumber;
+		this.image = "floor";
 	}
 
 	@Override
@@ -70,11 +70,29 @@ public class Floor implements WalkableTile, Destroyable {
 
 	@Override
 	public String getTileType() {
-		return this.image;
+		return this.image + this.floorNumber;
 	}
-	
+
 	@Override
 	public PointGiver getPointGiver() {
 		return PointGiver.Floor;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+
+		if (this == obj) {
+			return true;
+		}
+		return obj != null && getClass() == obj.getClass();
+
+	}
+
+	@Override
+	public int hashCode() {
+		int sum = 0;
+		sum += image.hashCode() * 7;
+		sum += toughness * 13;
+		return sum;
 	}
 }

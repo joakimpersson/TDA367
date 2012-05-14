@@ -3,6 +3,7 @@ package com.github.joakimpersson.tda367.model.tiles.walkable;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -38,7 +39,7 @@ public class FloorTest {
 	@Test
 	public void testPlayerEnter() {
 		Position pos = new Position(1, 1);
-		Player player = new Player(1,"Kalle", pos);
+		Player player = new Player(1, "Kalle", pos);
 		Tile tile = floor.playerEnter(player);
 		assertThat(tile, is(instanceOf(Floor.class)));
 	}
@@ -46,6 +47,35 @@ public class FloorTest {
 	@Test
 	public void testIsWalkable() {
 		assertTrue(floor.isWalkable());
+	}
+
+	@Test
+	public void testEquals() {
+		Tile otherFloor = new Floor();
+		Tile otherTile = new BombStackUpdateItem();
+
+		// testing for null and self
+		assertTrue(floor.equals(floor));
+		assertFalse(floor.equals(null));
+
+		// should be true
+		assertTrue(floor.equals(otherFloor));
+
+		// should be false since an box is not an wall
+		assertFalse(floor.equals(otherTile));
+	}
+
+	@Test
+	public void testHashCode() {
+
+		Tile otherFloor = new Floor();
+		Tile otherTile = new BombStackUpdateItem();
+
+		// should be true
+		assertTrue(floor.hashCode() == otherFloor.hashCode());
+
+		// should be false since an box is not an wall
+		assertFalse(floor.hashCode() == otherTile.hashCode());
 	}
 
 	@After

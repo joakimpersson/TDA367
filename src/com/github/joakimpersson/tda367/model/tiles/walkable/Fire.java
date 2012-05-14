@@ -77,6 +77,31 @@ public class Fire implements WalkableTile {
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+
+		Fire other = (Fire) obj;
+		return this.direction.equals(other.direction)
+				&& this.fireOwner.equals(other.fireOwner);
+	}
+
+	@Override
+	public int hashCode() {
+		int sum = 0;
+		
+		sum += direction.hashCode() * 13;
+		sum += fireOwner.hashCode() * 17;
+
+		return sum;
+	}
+
+	@Override
 	public String getTileType() {
 		return this.image;
 	}

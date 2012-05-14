@@ -1,6 +1,7 @@
 package com.github.joakimpersson.tda367.model.tiles.walkable;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
@@ -11,8 +12,6 @@ import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.utils.Position;
 
-//TODO Fix the test for the new returntype: Map<Position, Direction>.
-
 /**
  * 
  * @author joakimpersson
@@ -21,10 +20,11 @@ import com.github.joakimpersson.tda367.model.utils.Position;
 public class FireTest {
 
 	private Fire fire;
+	private Player fireOwner;
 
 	@Before
 	public void setUp() throws Exception {
-		Player fireOwner = new Player(0, "Kalle", new Position(0, 0));
+		fireOwner = new Player(0, "Kalle", new Position(0, 0));
 		fire = new Fire(fireOwner, Direction.NONE);
 	}
 
@@ -43,8 +43,55 @@ public class FireTest {
 		assertEquals(expected, actual);
 	}
 
+	@Test
+	public void testEquals() {
+		Player otherFireOwner = new Player(1, "Hobbe", new Position(0, 2));
+		Fire otherFire = new Fire(otherFireOwner, Direction.NORTH);
+
+		// testing with self refrence and null
+		assertFalse(fire.equals(null));
+
+		assertTrue(fire.equals(fire));
+
+		assertFalse(fire.equals(otherFire));
+
+		otherFire = new Fire(otherFireOwner, Direction.NONE);
+
+		assertFalse(fire.equals(otherFire));
+
+		otherFire = new Fire(fireOwner, Direction.EAST);
+
+		assertFalse(fire.equals(otherFire));
+
+		otherFire = new Fire(fireOwner, Direction.NONE);
+
+		assertTrue(fire.equals(otherFire));
+	}
+
+	@Test
+	public void testHashCode() {
+
+		Player otherFireOwner = new Player(1, "Hobbe", new Position(0, 2));
+		Fire otherFire = new Fire(otherFireOwner, Direction.NORTH);
+
+		assertFalse(fire.hashCode() == otherFire.hashCode());
+
+		otherFire = new Fire(otherFireOwner, Direction.NONE);
+
+		assertFalse(fire.hashCode() == otherFire.hashCode());
+
+		otherFire = new Fire(fireOwner, Direction.EAST);
+
+		assertFalse(fire.hashCode() == otherFire.hashCode());
+
+		otherFire = new Fire(fireOwner, Direction.NONE);
+
+		assertTrue(fire.hashCode() == otherFire.hashCode());
+	}
+
 	@After
 	public void tearDown() throws Exception {
 		fire = null;
+		fireOwner = null;
 	}
 }
