@@ -2,9 +2,9 @@ package com.github.joakimpersson.tda367.model;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
@@ -50,8 +50,23 @@ public class ScoreTest {
 
 	@Test
 	public void testHashCode() {
-		fail("Not yet implemented");
-		// TODO jocke not sure how to implement
+		PlayerPoints otherPlayerPoints = new PlayerPoints();
+		Score otherScore = new Score("Hobbe", otherPlayerPoints);
+		assertFalse(score.hashCode() == otherScore.hashCode());
+
+		otherScore = new Score("Kalle", otherPlayerPoints);
+
+		assertFalse(score.hashCode() == otherScore.hashCode());
+
+		addPointGivers(otherPlayerPoints, 3);
+
+		assertTrue(score.hashCode() == otherScore.hashCode());
+
+		otherScore = new Score("Hobbe", otherPlayerPoints);
+
+		assertFalse(score.hashCode() == otherScore.hashCode());
+		
+//		fail("Not sure about this should be implemented");
 	}
 
 	@Test
