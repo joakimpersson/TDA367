@@ -25,7 +25,7 @@ import com.github.joakimpersson.tda367.model.utils.Position;
 public class GameControllerTest {
 
 	private List<Player> players;
-	private GameController gameController;
+	private IGameController gameController;
 
 	@Before
 	public void setUp() throws Exception {
@@ -68,7 +68,7 @@ public class GameControllerTest {
 		assertEquals(actual, expected);
 
 		// his number of rounds win in the GameController object should be 1
-		actual = gameController.getRoundsWin(winningPlayer);
+		actual = gameController.getRoundsWon(winningPlayer);
 		expected = 1;
 		assertEquals(expected, actual);
 
@@ -87,11 +87,11 @@ public class GameControllerTest {
 		gameController.roundOver();
 
 		// his number of rounds win should be 1
-		int actual = gameController.getRoundsWin(winningPlayer);
+		int actual = gameController.getRoundsWon(winningPlayer);
 		int expected = 1;
 		assertEquals(expected, actual);
 
-		actual = gameController.getRoundsWin(losingPlayer);
+		actual = gameController.getRoundsWon(losingPlayer);
 		expected = 0;
 		assertEquals(actual, expected);
 	}

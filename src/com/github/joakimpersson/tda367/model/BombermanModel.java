@@ -50,7 +50,7 @@ public class BombermanModel implements IBombermanModel {
 	private LinkedList<Map<Position, Tile>> waitingFirePositions;
 	private PropertyChangeSupport pcs;
 	private Highscore highscore = null;
-	private GameController gameController = null;
+	private IGameController gameController = null;
 
 	private BombermanModel() {
 		this.pcs = new PropertyChangeSupport(this);

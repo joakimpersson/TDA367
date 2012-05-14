@@ -11,7 +11,7 @@ import com.github.joakimpersson.tda367.model.player.Player;
  * @author joakimpersson
  * 
  */
-public class GameController {
+public class GameController implements IGameController {
 
 	private List<Player> players;
 	private int maxRoundsWon;
@@ -29,12 +29,7 @@ public class GameController {
 		this.maxRoundsWon = BombermanRules.INSTANCE.getNumberOfRounds();
 	}
 
-	/**
-	 * Is the current round over. The round is over when all players but one has
-	 * died
-	 * 
-	 * @return if the round is over
-	 */
+	@Override
 	public boolean isRoundOver() {
 
 		int alivePlayers = 0;
@@ -47,24 +42,15 @@ public class GameController {
 		return alivePlayers == 1;
 	}
 
-	/**
-	 * Increment the winning players number of rounds win and update his
-	 * PlayerPoints object
-	 */
+	@Override
 	public void roundOver() {
 		Player p = getRoundWinner();
 		p.updatePlayerPoints(PointGiver.RoundWon);
 		p.roundWon();
 	}
 
-	/**
-	 * Get how many rounds a player has win in the current match
-	 * 
-	 * @param player
-	 *            The player who round wins you want
-	 * @return How many rounds the player has win
-	 */
-	public int getRoundsWin(Player player) {
+	@Override
+	public int getRoundsWon(Player player) {
 		return player.getRoundsWon();
 	}
 
@@ -84,15 +70,10 @@ public class GameController {
 		return roundWinner;
 	}
 
-	/**
-	 * Gets the current match status if it is over or not. The match is over
-	 * when one player reaches the maxRoundWin limit
-	 * 
-	 * @return If the Match is over or not
-	 */
+	@Override
 	public boolean isMatchOver() {
 		for (Player player : players) {
-			int roundsWon = getRoundsWin(player);
+			int roundsWon = getRoundsWon(player);
 
 			if (roundsWon == maxRoundsWon) {
 				return true;
@@ -101,32 +82,21 @@ public class GameController {
 		return false;
 	}
 
-	/**
-	 * Handling the actions for when the match is over and makes sure that the
-	 * game is properly updated
-	 */
+	@Override
 	public void matchOver() {
 		Player p = getMatchWinner();
 		p.updatePlayerPoints(PointGiver.MatchWon);
 		p.matchWon();
 	}
 
-	/**
-	 * Reset every players rounds won stat to zero
-	 */
+	@Override
 	public void resetRoundStats() {
 		for (Player player : players) {
 			player.resetRoundsWon();
 		}
 	}
 
-	/**
-	 * Get how many matches a player has win in the current game
-	 * 
-	 * @param player
-	 *            The player whose matches win you want
-	 * @return How many matches a player has won
-	 */
+	@Override
 	public int getMatchsWon(Player player) {
 		return player.getMatchesWon();
 	}
@@ -139,7 +109,7 @@ public class GameController {
 	private Player getMatchWinner() {
 		Player matchWinner = null;
 		for (Player player : players) {
-			int roundsWon = getRoundsWin(player);
+			int roundsWon = getRoundsWon(player);
 
 			if (roundsWon == maxRoundsWon) {
 				matchWinner = player;
@@ -148,11 +118,7 @@ public class GameController {
 		return matchWinner;
 	}
 
-	/**
-	 * Get the status of the game
-	 * 
-	 * @return If the game if over or not
-	 */
+	@Override
 	public boolean isGameOver() {
 		for (Player player : players) {
 			int matchesWon = player.getMatchesWon();
@@ -164,9 +130,7 @@ public class GameController {
 
 	}
 
-	/**
-	 * Perform actions corresponding to that the game is over
-	 */
+	@Override
 	public void gameOver() {
 		Player player = getGameWinner();
 		player.updatePlayerPoints(PointGiver.GameWon);
