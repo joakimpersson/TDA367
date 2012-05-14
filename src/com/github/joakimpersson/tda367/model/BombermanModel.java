@@ -35,6 +35,8 @@ import com.github.joakimpersson.tda367.model.utils.FPosition;
 import com.github.joakimpersson.tda367.model.utils.Position;
 
 /**
+ * This class is responsible for connecting the players and
+ * the map together and handling the events between them.
  * 
  * @author Viktor Anderling
  * @modified Joakim Persson, Adrian Bjugård
@@ -190,6 +192,15 @@ public class BombermanModel implements IBombermanModel {
 	}
 
 	// TODO refactor
+	/**
+	 * Creates and returns a bomb corresponding to the player's bomb type.
+	 * 
+	 * @param player
+	 * 				The player that creates a bomb.
+	 * @param bombTimer
+	 * 				The timer that detonates the bomb.
+	 * @return A new bomb.
+	 */
 	private Bomb createBomb(Player player, Timer bombTimer) {
 
 		switch (player.getAttribute(Attribute.BombType)) {
@@ -233,6 +244,14 @@ public class BombermanModel implements IBombermanModel {
 		hitItems(bombOwner, positions);
 	}
 
+	/**
+	 * Damage the target player and gives points to the owner of the bomb.
+	 * 
+	 * @param bombOwner
+	 * 					The owner of the bomb.
+	 * @param targetPlayer
+	 * 					The player who is the target of the fire.
+	 */
 	private void hitPlayer(Player bombOwner, Player targetPlayer) {
 		List<PointGiver> pg = new ArrayList<PointGiver>();
 		if (!targetPlayer.isImmortal() && targetPlayer.isAlive()) {
@@ -247,6 +266,14 @@ public class BombermanModel implements IBombermanModel {
 		bombOwner.updatePlayerPoints(pg);
 	}
 
+	/**
+	 * Calls hit player for all players.
+	 * 
+	 * @param bombOwner
+	 * 					The owner of the bomb.
+	 * @param targetPlayer
+	 * 					The player who is the target of the fire.
+	 */
 	private void hitPlayers(Player bombOwner, List<Position> positions) {
 
 		for (Player p : players) {
@@ -256,7 +283,15 @@ public class BombermanModel implements IBombermanModel {
 			}
 		}
 	}
-
+	
+	/**
+	 * Hits all items and distributes points to the bomb-owner.
+	 * 
+	 * @param bombOwner
+	 * 					The owner of the bomb.
+	 * @param positions
+	 * 					A list of positions of potential items.
+	 */
 	private void hitItems(Player bombOwner, List<Position> positions) {
 		List<PointGiver> pg = new ArrayList<PointGiver>();
 		Tile tmpTile;
