@@ -99,6 +99,12 @@ public class Player {
 		roundReset();
 	}
 
+	/**
+	 * Method used to reset a players state for a new match or round.
+	 * 
+	 * @param type
+	 *            The state type that will be reset.
+	 */
 	public void reset(ResetType type) {
 		switch (type) {
 		case Match:
@@ -252,7 +258,6 @@ public class Player {
 
 	public void updatePlayerPoints(PointGiver pointGiver) {
 		this.points.update(pointGiver);
-
 	}
 
 	/**
@@ -291,10 +296,20 @@ public class Player {
 		return gamePos;
 	}
 
+	/**
+	 * Get the current facing direction of the player.
+	 * 
+	 * @return Which direction the player is facing.
+	 */
 	public Direction getDirection() {
 		return facingDirection;
 	}
 
+	/**
+	 * Returns the players name, position in the tilegrid and health.
+	 * 
+	 * @return A String includuing the players name, position in the tilegrid and health.
+	 */
 	@Override
 	public String toString() {
 		return "P[" + this.name + ", " + this.tilePos + ", " + this.health
@@ -329,26 +344,53 @@ public class Player {
 		return points.getDestroyedPointGiver(type);
 	}
 
+	/**
+	 * Method to kill the player.
+	 */
 	public void killPlayer() {
 		this.health = 0;
 	}
 
-	public String getImageString() {
+	/**
+	 * Get information of what image that will be showed.
+	 * 
+	 * @return A String with information of what image that should be showed.
+	 */
+	public String getImage() {
 		return "player/" + playerIndex + "/still-" + facingDirection;
 	}
 
+	/**
+	 * Get the players PlayerPoints object.
+	 * 
+	 * @return The players PlayerPoints object.
+	 */
 	public PlayerPoints getPoints() {
 		return points;
 	}
 
+	/**
+	 * Get the players index.
+	 * 
+	 * @return What index the player got.
+	 */
 	public int getIndex() {
 		return playerIndex;
 	}
 
+	/**
+	 * Resets the players health to hundred percent.
+	 */
 	private void reloadAttributes() {
 		health = getAttribute(Attribute.Health);
 	}
 
+	/**
+	 * Moves the player in the current direction.
+	 * 
+	 * @param direction
+	 *            What direction to move the player.
+	 */
 	public void adjustPosition(Direction direction) {
 		if (direction.equals(Direction.NORTH)
 				|| direction.equals(Direction.SOUTH)) {
@@ -417,16 +459,10 @@ public class Player {
 			return false;
 		}
 		Player other = (Player) obj;
-		
 		return this.name.equals(other.name) && this.attr.equals(other.attr)
 				&& this.points.equals(other.points)
 				&& this.tilePos.equals(other.tilePos)
 				&& this.playerIndex == other.playerIndex;
-
 	}
 
-
-	public Direction getFacingDirection() {
-		return this.facingDirection;
-	}
 }
