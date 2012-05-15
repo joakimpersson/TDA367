@@ -93,7 +93,7 @@ public class BombermanModelTest {
 	public void testUpdateGame() {
 		
 		Player player = model.getPlayers().get(0);
-		double stepSize = Parameters.INSTANCE.getPlayerStepSize();
+		double stepSize = player.getSpeededStepSize();
 		double pD = 0.2;
 		FPosition prevPos = new FPosition(0, 0);
 		boolean test1;
@@ -149,8 +149,10 @@ public class BombermanModelTest {
 		List<Player> pList = model.getPlayers();
 		boolean test1 = (pList.get(0).equals(p1) && pList.get(1).equals(p2));
 		
-		// TODO the players shouldn't be different.
-		assertTrue(test1);
+		pList.get(0).updatePlayerPoints(PointGiver.MatchWon);
+		boolean test2 = (!pList.get(0).equals(p1) && pList.get(1).equals(p2));
+		
+		assertTrue(test1 && test2);
 	}
 	
 	@Test
