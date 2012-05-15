@@ -32,6 +32,11 @@ public class MapLoader {
 		initMapsList();
 	}
 
+	/**
+	 * Gets the map object.
+	 * 
+	 * @return the map as a MapLoader object.
+	 */
 	public static MapLoader getInstance() {
 		if (instance == null) {
 			instance = new MapLoader();
@@ -39,6 +44,9 @@ public class MapLoader {
 		return instance;
 	}
 
+	/**
+	 * Initializes the map from a file.
+	 */
 	private void initMapsList() {
 		File[] files = FileScanner.readFilesFromFolder(mapsFolderPath);
 		for (File f : files) {
@@ -47,6 +55,9 @@ public class MapLoader {
 		}
 	}
 
+	/**
+	 * Initializes the Array with the different tile types.
+	 */
 	private void initTypeCharArray() {
 		chars.put('w', MapTileType.Wall);
 		chars.put('f', MapTileType.Floor);
@@ -54,14 +65,27 @@ public class MapLoader {
 		chars.put('p', MapTileType.Pillar);
 	}
 
+	/**
+	 * Creates a map from a file that contains information about how the map will look like.
+	 * 
+	 * @param file
+	 * 				Which file to create the map from.
+	 * @return The map as a matrix of tiles.
+	 */
 	private Tile[][] createMapFromTxt(File file) {
-
 		List<String> lines = FileScanner.readTextFromFile(file);
 		lines = removeWhiteSpace(lines);
 		validateTxt(lines);
 		return converToTileMatrix(lines);
 	}
 
+	/**
+	 * Removes all the whitespace in the the list of Strings.
+	 * 
+	 * @param lines
+	 * 				The List that get it's whitespace removed
+	 * @return The same list without the whitespace.
+	 */
 	private List<String> removeWhiteSpace(List<String> lines) {
 		List<String> tmpLines = new ArrayList<String>();
 		for (String line : lines) {
@@ -70,6 +94,13 @@ public class MapLoader {
 		return tmpLines;
 	}
 
+	/**
+	 * Checks if a String list got valid content and size.
+	 * 
+	 * @param lines
+	 * 				The list that will be checked
+	 * @throws IllegalArgumentException
+	 */
 	private void validateTxt(List<String> lines)
 			throws IllegalArgumentException {
 
@@ -78,6 +109,13 @@ public class MapLoader {
 
 	}
 
+	/**
+	 * Checks if a String List got valid content.
+	 * 
+	 * @param lines
+	 * 				The list that will be checked.
+	 * @throws IllegalArgumentException
+	 */
 	private void validateContent(List<String> lines)
 			throws IllegalArgumentException {
 		int row = 1;
@@ -89,6 +127,13 @@ public class MapLoader {
 		}
 	}
 
+	/**
+	 * Checks if a String List that represent the map got a valid size.
+	 * 
+	 * @param lines
+	 * 				The list that will be checked.
+	 * @throws IllegalArgumentException
+	 */
 	private void validateSize(List<String> lines)
 			throws IllegalArgumentException {
 		int height = this.HEIGHT;
@@ -107,6 +152,13 @@ public class MapLoader {
 
 	}
 
+	/**
+	 * Converts a String List into a matrix of tiles.
+	 * 
+	 * @param lines
+	 * 				The list that will be converted.
+	 * @return A matrix of tiles.
+	 */
 	private Tile[][] converToTileMatrix(List<String> lines) {
 		Tile[][] map = new Tile[this.HEIGHT][this.WIDTH];
 
@@ -117,6 +169,13 @@ public class MapLoader {
 		return map;
 	}
 
+	/**
+	 * Converts a String to an Array of tiles.
+	 * 
+	 * @param string
+	 * 				The String that will be converted.
+	 * @return An Array of tiles.
+	 */
 	private Tile[] convertToTileArray(String string) {
 		Tile[] tiles = new Tile[string.length()];
 		for (int i = 0; i < tiles.length; i++) {
@@ -125,11 +184,25 @@ public class MapLoader {
 		return tiles;
 	}
 
+	/**
+	 * Converts a character to a Tile.
+	 * 
+	 * @param charAt
+	 * 				The character that will be converted.
+	 * @return A Tile.
+	 */
 	private Tile converSymbolToTile(Character charAt) {
 		MapTileType type = chars.get(charAt);
 		return mapTileFactory.createObject(type);
 	}
 
+	/**
+	 * Checks if an Character Array contains correct symbols.
+	 * 
+	 * @param symbols
+	 * 				The Array that will be checked
+	 * @return A true if the Array is correct and false otherwise.
+	 */
 	private boolean correctSymbols(char[] symbols) {
 		Set<Character> legalCharacters = chars.keySet();
 		for (Character c : symbols) {
@@ -150,6 +223,11 @@ public class MapLoader {
 				+ " and got: " + actual);
 	}
 
+	/**
+	 * Gets a List of the maps as matrix of tiles.
+	 * 
+	 * @return The maplist.
+	 */
 	public List<Tile[][]> getMapList() {
 		List<Tile[][]> tmpList = new ArrayList<Tile[][]>();
 
@@ -161,6 +239,13 @@ public class MapLoader {
 		return tmpList;
 	}
 
+	/**
+	 * Gets a Map.
+	 * 
+	 * @param index
+	 * 				Selects which map to get.
+	 * @return The map with the selected index.
+	 */
 	public Tile[][] getMap(int index) {
 		if (index > maps.size() || index < 0) {
 			String msg = "There is no map with index: " + index;

@@ -66,10 +66,17 @@ public class Highscore {
 
 	}
 
+	/**
+	 * Save the highscorelist in a file.
+	 */
 	private void saveList() {
 		FileScanner.writeOjbect(fileName, playerList);
 	}
 
+	/**
+	 * Loads the Highscorelist file. 
+	 * If no file exist, it creates a Highscorelist object.
+	 */
 	@SuppressWarnings("unchecked")
 	private void loadList() {
 		Object object = FileScanner.readObject(fileName);
