@@ -62,7 +62,7 @@ public class PlayerInfoView implements IView {
 
 		// draw image of player
 //		drawImage(x+7F, y+13F, "player/"+player.getIndex()+"/still-east", g);
-		drawImage(x+7F, y+13F, player.getImageString(), g);
+		drawImage(x+7F, y+13F, player.getImage(), g);
 		
 		// set up text
 		g.setFont(smlFont);

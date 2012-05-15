@@ -79,7 +79,7 @@ public class GameFieldView implements IView {
 			if (p.isAlive()) {
 				FPosition pos = p.getGamePosition();
 				drawImage(pos.getX() - 0.5F, pos.getY() - 0.6F,
-						p.getImageString(), g);
+						p.getImage(), g);
 				if (p.isImmortal() && counter >= 10) {
 					drawImage(pos.getX() - 0.5F, pos.getY() - 0.6F, "player/overlay/still-"+p.getFacingDirection(), g);
 					if (counter >= 20) {
