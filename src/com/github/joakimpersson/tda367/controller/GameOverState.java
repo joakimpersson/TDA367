@@ -24,11 +24,16 @@ import com.github.joakimpersson.tda367.model.IBombermanModel;
  */
 public class GameOverState extends BasicGameState {
 
+	private enum STATE {
+		USED, NOT_USED;
+	}
+
 	private int stateID = -1;
 	private IBombermanModel model = null;
 	private InputManager inputManager = null;
 	private IView view = null;
-	
+	private STATE currentState = null;
+
 	public GameOverState(int stateID) {
 		this.stateID = stateID;
 	}
@@ -36,6 +41,7 @@ public class GameOverState extends BasicGameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
+		currentState = STATE.NOT_USED;
 		model = BombermanModel.getInstance();
 		inputManager = InputManager.getInstance();
 		view = new GameOverView();
@@ -45,7 +51,7 @@ public class GameOverState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		super.enter(container, game);
-
+		currentState = STATE.USED;
 		clearInputQueue(container.getInput());
 		view.enter();
 	}
@@ -53,7 +59,9 @@ public class GameOverState extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		view.render(container, g);
+		if (currentState != STATE.NOT_USED) {
+			view.render(container, g);
+		}
 	}
 
 	@Override
@@ -77,7 +85,9 @@ public class GameOverState extends BasicGameState {
 	public void leave(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		super.leave(container, game);
-
+		
+		currentState = STATE.NOT_USED;
+		
 		// clean up the model before the next game
 		resetGame();
 	}
@@ -85,8 +95,7 @@ public class GameOverState extends BasicGameState {
 	private void resetGame() {
 
 		inputManager.removeAllInputHandlers();
-		
-		
+
 		model.gameReset();
 	}
 
