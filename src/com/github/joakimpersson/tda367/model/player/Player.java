@@ -127,12 +127,16 @@ public class Player {
 	 *            The direction in which the player will move.
 	 */
 	public void move(Direction dir) {
-		double stepSize = Parameters.INSTANCE.getPlayerStepSize();
+		double stepSize = getSpeededStepSize();
 		double newFX = gamePos.getX() + stepSize * dir.getX();
 		double newFY = gamePos.getY() + stepSize * dir.getY();
 		gamePos = new FPosition((float) newFX, (float) newFY);
 		tilePos = new Position((int) newFX, (int) newFY);
 		this.facingDirection = dir;
+	}
+	
+	public double getSpeededStepSize() {
+		return Parameters.INSTANCE.getPlayerStepSize() + (0.015 * getAttribute(Attribute.Speed));
 	}
 
 	/**

@@ -104,7 +104,7 @@ public enum Parameters {
 	 * updated.
 	 */
 	public double getPlayerStepSize() {
-		return 0.2;
+		return 0.105;
 	}
 
 	/**
@@ -116,10 +116,20 @@ public enum Parameters {
 		return new Dimension(15, 13);
 	}
 
+	/**
+	 * Get the initial volume for the game's sound-effects.
+	 * 
+	 * @return The initial volume for the game's sound-effects.
+	 */
 	public float getInitSFXVolume() {
 		return 1;
 	}
 
+	/**
+	 * Get the initial volume for the game's background-music.
+	 * 
+	 * @return The initial volume for the game's background-music.
+	 */
 	public float getInitBGMVolume() {
 		return 1;
 	}

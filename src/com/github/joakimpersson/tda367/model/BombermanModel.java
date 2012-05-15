@@ -146,7 +146,7 @@ public class BombermanModel implements IBombermanModel {
 					- (int) decimalPos.getX(), decimalPos.getY()
 					- (int) decimalPos.getY());
 
-			double stepSize = Parameters.INSTANCE.getPlayerStepSize();
+			double stepSize = player.getSpeededStepSize();
 			double xStep = stepSize * direction.getX();
 			double yStep = stepSize * direction.getY();
 			// Adding the steps to the player's new position.
