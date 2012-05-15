@@ -81,7 +81,7 @@ public class GameFieldView implements IView {
 				drawImage(pos.getX() - 0.5F, pos.getY() - 0.6F,
 						p.getImage(), g);
 				if (p.isImmortal() && counter >= 10) {
-					drawImage(pos.getX() - 0.5F, pos.getY() - 0.6F, "player/overlay/still-"+p.getFacingDirection(), g);
+					drawImage(pos.getX() - 0.5F, pos.getY() - 0.6F, "player/overlay/still-"+p.getDirection(), g);
 					if (counter >= 20) {
 						counter = 0;
 					}
