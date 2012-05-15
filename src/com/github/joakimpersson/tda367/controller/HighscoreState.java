@@ -26,7 +26,7 @@ public class HighscoreState extends BasicGameState {
 	 * 
 	 */
 	private enum STATE {
-		ACTIVE, NOT_ACTIVE;
+		ACTIVE, NOT_ACTIVE, EMPTY_LIST;
 	}
 
 	private int stateID = -1;
@@ -64,7 +64,11 @@ public class HighscoreState extends BasicGameState {
 			throws SlickException {
 		super.enter(container, game);
 		clearInputQueue(container.getInput());
-		currentState = STATE.ACTIVE;
+		if (model.getHighscoreList().size() > 0) {
+			currentState = STATE.ACTIVE;
+		} else {
+			currentState = STATE.EMPTY_LIST;
+		}
 		view.enter();
 		pcs.firePropertyChange("play", null, EventType.TITLE_SCREEN);
 
@@ -88,8 +92,10 @@ public class HighscoreState extends BasicGameState {
 		case ACTIVE:
 			updateGame(container.getInput());
 			break;
+		case EMPTY_LIST:
+			// we do no updates as well
 		case NOT_ACTIVE:
-
+			// we do nothing
 			break;
 		default:
 			break;
