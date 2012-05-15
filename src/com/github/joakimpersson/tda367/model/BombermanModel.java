@@ -3,6 +3,7 @@ package com.github.joakimpersson.tda367.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -23,6 +24,7 @@ import com.github.joakimpersson.tda367.model.map.GameMap;
 import com.github.joakimpersson.tda367.model.map.IGameMap;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
+import com.github.joakimpersson.tda367.model.player.PlayerPoints;
 import com.github.joakimpersson.tda367.model.positions.FPosition;
 import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.Destroyable;
@@ -424,6 +426,23 @@ public class BombermanModel implements IBombermanModel {
 	@Override
 	public void resetRoundStats() {
 		gameController.resetRoundStats();
+	}
+
+	@Override
+	public List<Score> getGameOverSummary() {
+		List<Score> scores = new ArrayList<Score>();
+
+		for (Player player : players) {
+			PlayerPoints playerPoints = player.getPoints();
+			String playerName = player.getName();
+			Score tmpScore = new Score(playerName, playerPoints);
+			scores.add(tmpScore);
+		}
+
+		Collections.sort(scores);
+		Collections.reverse(scores);
+
+		return scores;
 	}
 
 	@Override

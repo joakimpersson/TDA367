@@ -125,6 +125,14 @@ public interface IBombermanModel {
 	 */
 	public void resetHighscoreList();
 
+	/**
+	 * Get a list of all the players stats as score objects, when the game is
+	 * over
+	 * 
+	 * @return A list of all the players as score objects
+	 */
+	public List<Score> getGameOverSummary();
+
 	public void addPropertyChangeListener(PropertyChangeListener pcl);
 
 }
