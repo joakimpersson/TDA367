@@ -48,6 +48,7 @@ import com.github.joakimpersson.tda367.model.utils.MapLoader;
 public class BombermanModel implements IBombermanModel {
 
 	private List<Player> players;
+	private List<Timer> bombTimers;
 	private IGameMap map;
 	private static BombermanModel instance = null;
 	private LinkedList<Map<Position, Tile>> waitingFirePositions;
@@ -83,6 +84,7 @@ public class BombermanModel implements IBombermanModel {
 		this.gameController = new GameController(players);
 		this.map = new GameMap(gameField);
 		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
+		this.bombTimers = new ArrayList<Timer>();
 	}
 
 	@Override
@@ -187,9 +189,10 @@ public class BombermanModel implements IBombermanModel {
 				&& map.getTile(player.getTilePosition()) instanceof Floor) {
 			Timer bombTimer = new Timer();
 			Bomb bomb = createBomb(player, bombTimer);// player.createBomb(bombTimer);
+
 			bombTimer.schedule(new BombTask(bomb),
 					Parameters.INSTANCE.getBombDetonationTime());
-
+			bombTimers.add(bombTimer);
 			map.setTile(bomb, player.getTilePosition());
 
 			pcs.firePropertyChange("play", null, EventType.BOMB_PLACED);
@@ -460,6 +463,7 @@ public class BombermanModel implements IBombermanModel {
 		this.players = null;
 		this.map = null;
 		this.gameController = null;
+		cancelRemaingingBombs();
 		waitingFirePositions.clear();
 	}
 
@@ -468,7 +472,18 @@ public class BombermanModel implements IBombermanModel {
 	 */
 	private void roundReset() {
 		resetPlayer(ResetType.Round);
+		cancelRemaingingBombs();
 		resetMap();
+	}
+
+	/**
+	 * Cancel all the remaining bomb timers in the model
+	 */
+	private void cancelRemaingingBombs() {
+		for (Timer timer : bombTimers) {
+			timer.cancel();
+		}
+		bombTimers.clear();
 	}
 
 	/**
