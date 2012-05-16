@@ -10,7 +10,7 @@ import org.newdawn.slick.SlickException;
 import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
-import com.github.joakimpersson.tda367.model.Score;
+import com.github.joakimpersson.tda367.model.highscore.Score;
 import com.github.joakimpersson.tda367.model.player.PlayerPoints;
 
 public class GameOverLosersView implements IView {

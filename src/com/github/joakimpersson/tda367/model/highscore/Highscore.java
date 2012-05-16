@@ -1,4 +1,4 @@
-package com.github.joakimpersson.tda367.model;
+package com.github.joakimpersson.tda367.model.highscore;
 
 import java.util.ArrayList;
 import java.util.Collections;
