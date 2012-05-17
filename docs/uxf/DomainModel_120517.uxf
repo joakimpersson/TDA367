@@ -33,7 +33,7 @@
       <w>168</w>
       <h>56</h>
     </coordinates>
-    <panel_attributes>GameController
+    <panel_attributes>GameLogic
 --</panel_attributes>
     <additional_attributes/>
   </element>
@@ -187,5 +187,31 @@ has</panel_attributes>
 m1=20
 has</panel_attributes>
     <additional_attributes>32;64;32;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>520</x>
+      <y>352</y>
+      <w>168</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Tiles
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>568</x>
+      <y>280</y>
+      <w>56</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=n
+has</panel_attributes>
+    <additional_attributes>32;72;32;24</additional_attributes>
   </element>
 </diagram>
