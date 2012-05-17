@@ -22,6 +22,7 @@ import com.github.joakimpersson.tda367.gui.GameplayView;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.constants.EventType;
+import com.github.joakimpersson.tda367.model.player.Player;
 
 /**
  * 
@@ -195,6 +196,10 @@ public class GameplayState extends BasicGameState {
 		if (model.isMatchOver()) {
 			model.matchOver();
 		}
+		
+		Player winningPlayer = model.getLastRoundWinner();
+		view.setRoundWinner(winningPlayer);
+		
 		currentState = STATE.ROUND_INFO_STATE;
 	}
 

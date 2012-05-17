@@ -28,7 +28,8 @@ public class RoundInfoView implements IView {
 	private List<Player> players = null;
 	private Font smlFont = null;
 	private Font bigFont = null;
-	private ImageLoader imgs = null;
+	private ImageLoader imageLoader = null;
+	private Player roundWinner = null;
 	private Animation textAnimation = null;
 	private Animation winningPlayerAnimation = null;
 
@@ -52,7 +53,7 @@ public class RoundInfoView implements IView {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		imgs = ImageLoader.getInstance();
+		imageLoader = ImageLoader.getInstance();
 	}
 
 	@Override
@@ -61,8 +62,9 @@ public class RoundInfoView implements IView {
 		startY = 65;
 		players = model.getPlayers();
 
-		Image[] textAnimationImgs = { imgs.getImage("info/winnerEffects1"),
-				imgs.getImage("info/winnerEffects2") };
+		Image[] textAnimationImgs = {
+				imageLoader.getImage("info/winnerEffects1"),
+				imageLoader.getImage("info/winnerEffects2") };
 		textAnimation = new Animation(textAnimationImgs, 300);
 	}
 
@@ -70,7 +72,7 @@ public class RoundInfoView implements IView {
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
 		g.setFont(smlFont);
-		g.drawImage(imgs.getImage("round-info/bg"), startX, startY);
+		g.drawImage(imageLoader.getImage("round-info/bg"), startX, startY);
 		int x = startX + 20;
 		int y = startY + 20;
 		int deltaX = 285 + 10;
@@ -78,14 +80,13 @@ public class RoundInfoView implements IView {
 		int index = 0;
 		for (Player p : players) {
 			if (players.size() < 3) {
-				drawPlayerStats(p, x, y + 92, g);
+				drawPlayer(p, x, y + 92, g);
 				x += deltaX;
 			} else {
 				if (index < 2) {
-					drawPlayerStats(p, x + (deltaX * index), y, g);
+					drawPlayer(p, x + (deltaX * index), y, g);
 				} else {
-					drawPlayerStats(p, x + (deltaX * (index - 2)), y + deltaY,
-							g);
+					drawPlayer(p, x + (deltaX * (index - 2)), y + deltaY, g);
 				}
 				index++;
 			}
@@ -93,12 +94,38 @@ public class RoundInfoView implements IView {
 	}
 
 	/**
-	 * Draws all the info about the Player and stats from his PlayerPoint object
-	 * onto the screen
+	 * Notify the view about who is the winning Player of the last played round
 	 * 
+	 * @param winningPlayer
+	 *            The player who won the last round
+	 */
+	public void setWinningPlayer(Player winningPlayer) {
+		if (this.roundWinner == null
+				|| !(this.roundWinner.equals(winningPlayer))) {
+			this.roundWinner = winningPlayer;
+			createPlayerAnimation();
+		}
+	}
+
+	/**
+	 * Create an simple animation based on two images
+	 */
+	private void createPlayerAnimation() {
+		Image imgOne = imageLoader.getImage(
+				"player/" + roundWinner.getIndex() + "/win1").getScaledCopy(2);
+		Image imgTwo = imageLoader.getImage(
+				"player/" + roundWinner.getIndex() + "/win2").getScaledCopy(2);
+		Image[] winningPlayerAnimationImgs = { imgOne, imgTwo };
+		winningPlayerAnimation = new Animation(winningPlayerAnimationImgs, 400);
+	}
+
+	/**
 	 * 
-	 * @param p
-	 *            The player holding the PlayerPoints object
+	 * Draw a player onto the screen including his name, image and if he won the
+	 * last round or not
+	 * 
+	 * @param player
+	 *            The player to be drawn onto the screen
 	 * @param x
 	 *            The starting coordinate in the x-axis
 	 * @param y
@@ -107,31 +134,23 @@ public class RoundInfoView implements IView {
 	 * @param g
 	 *            The games graphics object
 	 */
-	private void drawPlayerStats(Player p, int x, int y, Graphics g) {
-		boolean isWinner = (model.getLastRoundWinner() == p);
-		g.drawImage(imgs.getImage("round-info/overlay"), x, y);
+	private void drawPlayer(Player player, int x, int y, Graphics g) {
+		boolean isWinner = (model.getLastRoundWinner() == player);
+		Image img = imageLoader.getImage("round-info/overlay");
+		g.drawImage(img, x, y);
 
 		// draws scaled player image
-		// TODO jocke refactor this not good!
 		if (isWinner) {
-			if (winningPlayerAnimation == null) {
-				Image[] winningPlayerAnimationImgs = {
-						imgs.getImage("player/" + p.getIndex() + "/win1")
-								.getScaledCopy(2),
-						imgs.getImage("player/" + p.getIndex() + "/win2")
-								.getScaledCopy(2) };
-				winningPlayerAnimation = new Animation(
-						winningPlayerAnimationImgs, 400);
-			}
 			winningPlayerAnimation.draw(x, y + 7);
 		} else {
-			g.drawImage(imgs.getImage(p.getImage()).getScaledCopy(2), x, y + 7);
+			img = imageLoader.getImage(player.getImage()).getScaledCopy(2);
+			g.drawImage(img, x, y + 7);
 		}
 
 		// draw name
 		g.setFont(bigFont);
 		g.setColor(Color.white);
-		g.drawString(p.getName(), x + 100, y + 10);
+		g.drawString(player.getName(), x + 100, y + 10);
 
 		// draw winner string
 		g.setFont(smlFont);

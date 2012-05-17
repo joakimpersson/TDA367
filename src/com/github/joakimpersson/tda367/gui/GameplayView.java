@@ -4,6 +4,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import com.github.joakimpersson.tda367.model.player.Player;
+
 /**
  * 
  * @author joakimpersson
@@ -62,6 +64,17 @@ public class GameplayView implements IView {
 	public void showRoundStats(GameContainer container, Graphics g)
 			throws SlickException {
 		roundInfoView.render(container, g);
+	}
+
+	/**
+	 * Notify the view about who is the winning Player of the last played round
+	 * 
+	 * @param winningPlayer
+	 *            The player who won the last round
+	 */
+	public void setRoundWinner(Player winningPlayer) {
+		roundInfoView.setWinningPlayer(winningPlayer);
+
 	}
 
 	/**
