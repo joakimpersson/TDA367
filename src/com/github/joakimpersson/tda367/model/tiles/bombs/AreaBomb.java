@@ -38,14 +38,14 @@ public class AreaBomb extends Bomb {
 	}
 
 	@Override
-	public Map<Position, Direction> explode(Tile[][] map) {
+	public synchronized Map<Position, Direction> explode(Tile[][] map) {
 		int xPos = pos.getX();
 		int yPos = pos.getY();
 
 		for (int x = xPos - areaRange; x <= xPos + areaRange; x++) {
 			for (int y = yPos - areaRange; y <= yPos + areaRange; y++) {
 				Position firePos = new Position(x, y);
-				if (validPos(firePos) && tryBreak(map[y][x], power)) {
+				if (validPos(firePos) && canBreak(map[y][x], power)) {
 					fireList.put(firePos, null);
 				}
 			}

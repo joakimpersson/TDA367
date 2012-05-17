@@ -58,7 +58,7 @@ public abstract class Bomb implements Tile, Destroyable {
 	 *            The current power of the flame.
 	 * @return Whether the tile can be destroyed or not.
 	 */
-	protected boolean tryBreak(Tile tile, int power) {
+	protected boolean canBreak(Tile tile, int power) {
 		if (tile instanceof Destroyable) {
 			Destroyable tmp = (Destroyable)tile;
 			return power >= tmp.getToughness();
@@ -109,7 +109,7 @@ public abstract class Bomb implements Tile, Destroyable {
 		return new Floor();
 	}
 
-	protected void removeFromPlayer() {
+	protected synchronized void removeFromPlayer() {
 		if (!removedFromPlayer) {
 			this.player.decreaseBombsPlaced();
 			removedFromPlayer = true;

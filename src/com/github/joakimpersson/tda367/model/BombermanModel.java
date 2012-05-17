@@ -231,12 +231,13 @@ public class BombermanModel implements IBombermanModel {
 	 * @param bombOwner
 	 *            The player that placed the bomb.
 	 */
-	private void handleFire(Player bombOwner,
+	private synchronized void handleFire(Player bombOwner,
 			Map<Position, Direction> directedFirePositions) {
 		List<Position> list = new ArrayList<Position>(
 				directedFirePositions.keySet());
 		fireObjects(bombOwner, list);
 		setFire(bombOwner, directedFirePositions);
+		pcs.firePropertyChange("play", null, EventType.BOMB_EXPLODED);
 	}
 
 	/**
@@ -364,7 +365,7 @@ public class BombermanModel implements IBombermanModel {
 	 * This method is called when the fire is dying, witch causes it to be
 	 * replaced by the appropriate new tile.
 	 */
-	private void removeFirstFire() {
+	private synchronized void removeFirstFire() {
 
 		if (waitingFirePositions != null && waitingFirePositions.size() > 0) {
 			Map<Position, Tile> fireReplacers = waitingFirePositions.get(0);
@@ -554,7 +555,6 @@ public class BombermanModel implements IBombermanModel {
 		public void run() {
 			handleFire(bomb.getPlayer(), bomb.explode(map.getMap()));
 
-			pcs.firePropertyChange("play", null, EventType.BOMB_EXPLODED);
 		}
 	}
 

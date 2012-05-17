@@ -38,7 +38,7 @@ public class NormalBomb extends Bomb {
 	}
 
 	@Override
-	public Map<Position, Direction> explode(Tile[][] m) {
+	public synchronized Map<Position, Direction> explode(Tile[][] m) {
 		map = m;
 
 		directedFire(NORTH);
@@ -75,7 +75,7 @@ public class NormalBomb extends Bomb {
 				if (validPos(firePos)) {
 					Tile tile = map[firePos.getY()][firePos.getX()]; // inverted
 																		// >.<
-					if (tryBreak(tile, firePower)) {
+					if (canBreak(tile, firePower)) {
 						Destroyable destroyableTile = (Destroyable) tile;
 						firePower -= destroyableTile.getToughness();
 						fireList.put(firePos, dir);
