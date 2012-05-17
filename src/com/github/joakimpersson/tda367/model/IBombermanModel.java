@@ -135,5 +135,7 @@ public interface IBombermanModel {
 	public List<Score> getGameOverSummary();
 
 	public void addPropertyChangeListener(PropertyChangeListener pcl);
+	
+	public Player getLastPlayerAlive();
 
 }

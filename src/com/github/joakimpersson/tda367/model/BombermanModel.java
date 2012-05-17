@@ -59,6 +59,7 @@ public class BombermanModel implements IBombermanModel {
 	private PropertyChangeSupport pcs;
 	private Highscore highscore = null;
 	private IGameLogic gameController = null;
+	private Player lastPlayerAlive = null;
 
 	private BombermanModel() {
 		this.pcs = new PropertyChangeSupport(this);
@@ -400,7 +401,16 @@ public class BombermanModel implements IBombermanModel {
 
 	@Override
 	public boolean isRoundOver() {
-		return gameController.isRoundOver();
+		boolean result = gameController.isRoundOver();
+		if (result) {
+			lastPlayerAlive = null;
+			for (Player p : players) {
+				if (p.isAlive()) {
+					lastPlayerAlive = p;
+				}
+			}
+		}
+		return result;
 	}
 
 	@Override
@@ -533,6 +543,10 @@ public class BombermanModel implements IBombermanModel {
 		}
 		strBuilder.append(map.toString());
 		return strBuilder.toString();
+	}
+
+	public Player getLastPlayerAlive() {
+		return lastPlayerAlive;
 	}
 
 	/**
