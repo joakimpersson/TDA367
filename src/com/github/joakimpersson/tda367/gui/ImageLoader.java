@@ -17,16 +17,14 @@ public class ImageLoader {
 	}
 
 	private void loadImage(String s) {
-		try {
-			imageMap.put(s, new Image("res/images/" + s + ".png"));
-		} catch (SlickException e) {
-			System.out.println("File not found: " + s + ".png");
-		}
+		loadImage(s, s);
 	}
 
 	private void loadImage(String s, String f) {
 		try {
-			imageMap.put(s, new Image("res/images/" + f + ".png"));
+			Image image = new Image("res/images/" + f + ".png");
+			image.setFilter(Image.FILTER_NEAREST);
+			imageMap.put(s, image);
 		} catch (SlickException e) {
 			System.out.println("File not found: " + f + ".png");
 		}
@@ -36,6 +34,9 @@ public class ImageLoader {
 		// splash screen
 		loadImage("splash/bg");
 		loadImage("splash/text");
+		
+		// menu background
+		loadImage("bg");
 		
 		// floor tiles
 		loadImage("floor1");
@@ -93,6 +94,16 @@ public class ImageLoader {
 		loadImage("info/power3");
 		loadImage("info/speed");
 		loadImage("info/skull");
+		loadImage("info/winnerEffects1");
+		loadImage("info/winnerEffects2");
+		
+		// TODO: not final
+		loadImage("info/chevron");
+		loadImage("info/star");
+		
+		// round info view
+		loadImage("round-info/bg");
+		loadImage("round-info/overlay");
 	}
 
 	public static ImageLoader getInstance() {

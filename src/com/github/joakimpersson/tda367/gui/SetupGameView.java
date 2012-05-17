@@ -34,6 +34,7 @@ public class SetupGameView {
 	private TextField field;
 	private int index;
 	private List<String> names = null;
+	private ImageLoader imgs = null;
 
 	public SetupGameView(GameContainer container) {
 
@@ -51,6 +52,7 @@ public class SetupGameView {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+		imgs = ImageLoader.getInstance();
 	}
 
 	public void enter() {
@@ -60,6 +62,7 @@ public class SetupGameView {
 
 	public void render(GameContainer container, Graphics g, int selection)
 			throws SlickException {
+		g.drawImage(imgs.getImage("bg"), 0, 0);
 		int posX = container.getWidth() / 2 - 210;
 		int posY = 200;
 		g.setColor(white);

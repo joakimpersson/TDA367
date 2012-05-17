@@ -11,7 +11,6 @@ import org.newdawn.slick.SlickException;
 import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
-import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.player.Player;
 
 /**
@@ -21,13 +20,14 @@ import com.github.joakimpersson.tda367.model.player.Player;
  */
 public class RoundInfoView implements IView {
 
-	private static final int width = 850;
-	private static final int height = 550;
+//	private static final int width = 550;
+//	private static final int height = 440;
 	private int startX;
 	private int startY;
 	private IBombermanModel model = null;
 	private List<Player> players = null;
-	private Font smlFont;
+	private Font smlFont, bigFont;
+	private ImageLoader imgs = null;
 
 	/**
 	 * Creates a new view containing info about the players stats from the
@@ -45,15 +45,17 @@ public class RoundInfoView implements IView {
 		model = BombermanModel.getInstance();
 		try {
 			smlFont = GUIUtils.getSmlFont();
+			bigFont = GUIUtils.getBigFont();
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+		imgs = ImageLoader.getInstance();
 	}
 
 	@Override
 	public void enter() {
-		startX = GUIUtils.getGameWidth() / 2 - width / 2;
-		startY = GUIUtils.getGameHeight() / 2 - height / 2;
+		startX = 205 + 65;
+		startY = 65;
 		players = model.getPlayers();
 	}
 
@@ -61,54 +63,25 @@ public class RoundInfoView implements IView {
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
 		g.setFont(smlFont);
-		int x = startX + 50;
-		int deltaX = width / players.size();
-		int midX = startX + width / 2;
-
-		drawBackgroundContainer(g);
-
-		int y = startY + 40;
-		drawTitle(g, midX, y);
-
-		y += 60;
-
+		g.drawImage(imgs.getImage("round-info/bg"), startX, startY);
+		int x = startX + 20;
+		int y = startY + 20;
+		int deltaX = 285 + 10;
+		int deltaY = 225 + 10;
+		int index = 0;
 		for (Player p : players) {
-			drawPlayerStats(p, x, y, g);
-			x += deltaX;
+			if (players.size() < 3) {
+				drawPlayerStats(p, x, y+92, g);
+				x += deltaX;
+			} else {
+				if (index < 2) {
+					drawPlayerStats(p, x+(deltaX*index), y, g);
+				} else {
+					drawPlayerStats(p, x+(deltaX*(index-2)), y+deltaY, g);
+				}
+				index++;
+			}
 		}
-	}
-
-	/**
-	 * Draws the title of the view
-	 * 
-	 * @param g
-	 *            The games graphics object
-	 * @param x
-	 *            The starting coordinate in the x-axis
-	 * @param y
-	 *            The starting coordinate in the y-axis
-	 */
-	private void drawTitle(Graphics g, int x, int y) {
-		// should be template and say round over, matchover etc
-		String str = "Skumme dummy()";
-		int strWidth = g.getFont().getWidth(str);
-		g.drawString(str, x - strWidth / 2, y);
-
-	}
-
-	/**
-	 * Draws the background of the container
-	 * 
-	 * @param g
-	 *            The games graphics object
-	 */
-	private void drawBackgroundContainer(Graphics g) {
-		g.setColor(Color.black);
-
-		g.fillRoundRect(startX, startY, width, height, 25);
-		g.setColor(Color.white);
-		g.drawRoundRect(startX, startY, width, height, 25);
-
 	}
 
 	/**
@@ -127,43 +100,11 @@ public class RoundInfoView implements IView {
 	 *            The games graphics object
 	 */
 	private void drawPlayerStats(Player p, int x, int y, Graphics g) {
-		PointGiver[] pointGivers = PointGiver.values();
-
-		int yDelta = 40;
-
-		g.drawString(p.getName(), x, y);
-
-		y += yDelta;
-
-		g.drawString("Destroyed/Killed", x, y);
-
-		for (PointGiver pg : pointGivers) {
-			y += yDelta;
-
-			String str = getPlayerString(p, pg);
-
-			g.drawString(str, x, y);
-
-		}
-
-	}
-
-	/**
-	 * Formats a string including the pointgivers name and its corresponging
-	 * value in the PlayerPoint object
-	 * 
-	 * @param p
-	 *            The player holding the PlayerPoints object
-	 * @param pp
-	 *            The PointGiveres value in the PlayerPoints object
-	 * @return A string containing the name of the PointGiver and its value
-	 */
-	private String getPlayerString(Player p, PointGiver pg) {
-		StringBuilder strBuilder = new StringBuilder();
-		strBuilder.append(pg.name());
-		strBuilder.append(": ");
-		strBuilder.append(p.getDestroyedPointGiver(pg));
-		strBuilder.append(" st");
-		return strBuilder.toString();
+		g.drawImage(imgs.getImage("round-info/overlay"), x, y);
+		g.drawImage(imgs.getImage(p.getImage()), x + 5F, y + 5F);
+		
+		g.setFont(bigFont);
+		g.setColor(Color.white);
+		g.drawString(p.getName(), x + 55F, y + 7F);
 	}
 }
