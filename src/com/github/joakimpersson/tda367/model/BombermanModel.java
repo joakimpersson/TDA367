@@ -111,13 +111,17 @@ public class BombermanModel implements IBombermanModel {
 	 */
 	@Override
 	public void updateGame(Player player, PlayerAction action) {
+		double stepSize = player.getSpeededStepSize();
+		if(action.isDiagonal()) {
+			stepSize = stepSize * 0.7;
+		}
 		if (player.isAlive()) {
 			if (action.equals(PlayerAction.ACTION)) {
 				this.placeBomb(player);
 			} else {
 				for (Direction direction : action.getDirections()) {
 					if (direction != Direction.NONE) {
-						this.move(player, direction);
+						this.move(player, direction, stepSize);
 					}
 				}
 			}
@@ -134,8 +138,9 @@ public class BombermanModel implements IBombermanModel {
 	 *            The player to move.
 	 * @param direction
 	 *            The direction for the player to move
+	 * @param stepSize TODO
 	 */
-	private void move(Player player, Direction direction) {
+	private void move(Player player, Direction direction, double stepSize) {
 		Position prevPos = player.getTilePosition();
 		Tile tileAtDirection = map.getTile(new Position(prevPos.getX()
 				+ direction.getX(), prevPos.getY() + direction.getY()));
@@ -152,7 +157,6 @@ public class BombermanModel implements IBombermanModel {
 					- (int) decimalPos.getX(), decimalPos.getY()
 					- (int) decimalPos.getY());
 
-			double stepSize = player.getSpeededStepSize();
 			double xStep = stepSize * direction.getX();
 			double yStep = stepSize * direction.getY();
 			// Adding the steps to the player's new position.
