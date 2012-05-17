@@ -1,4 +1,4 @@
-package com.github.joakimpersson.tda367.model;
+package com.github.joakimpersson.tda367.model.gamelogic;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -14,6 +14,8 @@ import org.junit.Test;
 import com.github.joakimpersson.tda367.model.constants.BombermanRules;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.constants.ResetType;
+import com.github.joakimpersson.tda367.model.gamelogic.GameLogic;
+import com.github.joakimpersson.tda367.model.gamelogic.IGameLogic;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.positions.Position;
 
@@ -22,17 +24,17 @@ import com.github.joakimpersson.tda367.model.positions.Position;
  * @author joakimpersson
  * 
  */
-public class GameControllerTest {
+public class GameLogicTest {
 
 	private List<Player> players;
-	private IGameController gameController;
+	private IGameLogic gameController;
 
 	@Before
 	public void setUp() throws Exception {
 		players = new ArrayList<Player>();
 		players.add(new Player(0, "Kalle", new Position(0, 0)));
 		players.add(new Player(1, "Hobbe", new Position(10, 0)));
-		gameController = new GameController(players);
+		gameController = new GameLogic(players);
 	}
 
 	@Test

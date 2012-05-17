@@ -1,8 +1,8 @@
-package com.github.joakimpersson.tda367.model;
+package com.github.joakimpersson.tda367.model.gamelogic;
 
 import com.github.joakimpersson.tda367.model.player.Player;
 
-public interface IGameController {
+public interface IGameLogic {
 
 	/**
 	 * Is the current round over. The round is over when all players but one has

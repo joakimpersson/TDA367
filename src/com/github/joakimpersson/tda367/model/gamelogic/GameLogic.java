@@ -1,4 +1,4 @@
-package com.github.joakimpersson.tda367.model;
+package com.github.joakimpersson.tda367.model.gamelogic;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import com.github.joakimpersson.tda367.model.player.Player;
  * @author joakimpersson
  * 
  */
-public class GameController implements IGameController {
+public class GameLogic implements IGameLogic {
 
 	private List<Player> players;
 	private int maxRoundsWon;
@@ -23,7 +23,7 @@ public class GameController implements IGameController {
 	 * @param playersList
 	 *            A list of the active players in the current game
 	 */
-	public GameController(List<Player> playersList) {
+	public GameLogic(List<Player> playersList) {
 		this.players = playersList;
 		this.maxMatchesWon = BombermanRules.INSTANCE.getNumberOfMatches();
 		this.maxRoundsWon = BombermanRules.INSTANCE.getNumberOfRounds();

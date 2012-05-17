@@ -20,6 +20,8 @@ import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.constants.ResetType;
+import com.github.joakimpersson.tda367.model.gamelogic.GameLogic;
+import com.github.joakimpersson.tda367.model.gamelogic.IGameLogic;
 import com.github.joakimpersson.tda367.model.highscore.Highscore;
 import com.github.joakimpersson.tda367.model.highscore.Score;
 import com.github.joakimpersson.tda367.model.map.GameMap;
@@ -56,7 +58,7 @@ public class BombermanModel implements IBombermanModel {
 	private LinkedList<Map<Position, Tile>> waitingFirePositions;
 	private PropertyChangeSupport pcs;
 	private Highscore highscore = null;
-	private IGameController gameController = null;
+	private IGameLogic gameController = null;
 
 	private BombermanModel() {
 		this.pcs = new PropertyChangeSupport(this);
@@ -83,7 +85,7 @@ public class BombermanModel implements IBombermanModel {
 		MapLoader mapLoader = MapLoader.getInstance();
 		Tile[][] gameField = mapLoader.getMap(0);
 		this.players = players;
-		this.gameController = new GameController(players);
+		this.gameController = new GameLogic(players);
 		this.map = new GameMap(gameField);
 		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
 		this.bombTimers = new ArrayList<Timer>();
