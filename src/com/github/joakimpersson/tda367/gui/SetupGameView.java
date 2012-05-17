@@ -28,11 +28,11 @@ public class SetupGameView {
 	private int stage = -1;
 	private int possiblePlayers = -1;
 	private int playersSelected = -1;
+	private int index;
 
 	private Font bigFont = null;
 	private Font smlFont = null;
 	private TextField field;
-	private int index;
 	private List<String> names = null;
 	private ImageLoader imgs = null;
 

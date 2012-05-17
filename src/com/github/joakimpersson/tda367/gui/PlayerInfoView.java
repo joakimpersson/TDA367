@@ -68,7 +68,7 @@ public class PlayerInfoView implements IView {
 		
 		// draw number of wins
 		yDisp = 15;
-		for (int i=0; i<player.getRoundsWon()+2; i++) {
+		for (int i=0; i<player.getRoundsWon(); i++) {
 			drawImage(x+40, y+yDisp, "info/chevron", g);
 			yDisp += 4;
 		}
@@ -89,7 +89,7 @@ public class PlayerInfoView implements IView {
 		
 		// draw number of wins
 		xDisp = 59;
-		for (int i=0; i<player.getRoundsWon()+2; i++) {
+		for (int i=0; i<player.getMatchesWon(); i++) {
 			drawImage(x+xDisp, y+55, "info/star", g);
 			xDisp += 13;
 		}
