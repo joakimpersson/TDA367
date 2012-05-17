@@ -22,12 +22,12 @@ public class RoundInfoView implements IView {
 
 //	private static final int width = 550;
 //	private static final int height = 440;
-	private int startX;
-	private int startY;
+	private int startX, startY;
 	private IBombermanModel model = null;
 	private List<Player> players = null;
 	private Font smlFont, bigFont;
 	private ImageLoader imgs = null;
+	private int count = 0;
 
 	/**
 	 * Creates a new view containing info about the players stats from the
@@ -82,6 +82,9 @@ public class RoundInfoView implements IView {
 				index++;
 			}
 		}
+		count++;
+		if (count > 40)
+			count = 0;
 	}
 
 	/**
@@ -100,11 +103,35 @@ public class RoundInfoView implements IView {
 	 *            The games graphics object
 	 */
 	private void drawPlayerStats(Player p, int x, int y, Graphics g) {
+		boolean isWinner = (model.getLastPlayerAlive() == p);
 		g.drawImage(imgs.getImage("round-info/overlay"), x, y);
-		g.drawImage(imgs.getImage(p.getImage()), x + 5F, y + 5F);
 		
+		// draws scaled player image
+		g.drawImage(imgs.getImage(p.getImage()).getScaledCopy(2), x, y + 7);
+		
+		// draw name
 		g.setFont(bigFont);
 		g.setColor(Color.white);
-		g.drawString(p.getName(), x + 55F, y + 7F);
+		g.drawString(p.getName(), x + 100, y + 10);
+		
+		// draw winner string
+		g.setFont(smlFont);
+		g.setColor(Color.darkGray);
+		String winnerString = "LOSER";
+		int yDiff = 54;
+		int xDiff = 130;
+		if (isWinner) {
+			g.setFont(bigFont);
+			g.setColor(Color.yellow);
+			winnerString = "WINNER";
+			yDiff = 48;
+			xDiff = 105;
+			if (count > 20)
+				g.drawImage(imgs.getImage("info/winnerEffects1"), x + 94, y + 36);
+			else 
+				g.drawImage(imgs.getImage("info/winnerEffects2"), x + 94, y + 36);
+			
+		}
+		g.drawString(winnerString, x + xDiff, y + yDiff);
 	}
 }
