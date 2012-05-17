@@ -14,6 +14,7 @@ import com.github.joakimpersson.tda367.model.player.Player;
 public class GameLogic implements IGameLogic {
 
 	private List<Player> players;
+	private Player lastRoundWinner;
 	private int maxRoundsWon;
 	private int maxMatchesWon;
 
@@ -45,6 +46,7 @@ public class GameLogic implements IGameLogic {
 	@Override
 	public void roundOver() {
 		Player p = getRoundWinner();
+		lastRoundWinner = p;
 		p.updatePlayerPoints(PointGiver.RoundWon);
 		p.roundWon();
 	}
@@ -54,12 +56,6 @@ public class GameLogic implements IGameLogic {
 		return player.getRoundsWon();
 	}
 
-	/**
-	 * A method that gets the current round winner by looking at the one who is
-	 * last man standing
-	 * 
-	 * @return The player who wins the current round
-	 */
 	private Player getRoundWinner() {
 		Player roundWinner = null;
 		for (Player p : players) {
@@ -69,7 +65,12 @@ public class GameLogic implements IGameLogic {
 		}
 		return roundWinner;
 	}
-
+	
+	@Override
+	public Player getLastRoundWinner() {
+		return lastRoundWinner;
+	}
+	
 	@Override
 	public boolean isMatchOver() {
 		for (Player player : players) {

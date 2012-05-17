@@ -108,7 +108,7 @@ public class RoundInfoView implements IView {
 	 *            The games graphics object
 	 */
 	private void drawPlayerStats(Player p, int x, int y, Graphics g) {
-		boolean isWinner = (model.getLastPlayerAlive() == p);
+		boolean isWinner = (model.getLastRoundWinner() == p);
 		g.drawImage(imgs.getImage("round-info/overlay"), x, y);
 
 		// draws scaled player image

@@ -135,7 +135,12 @@ public interface IBombermanModel {
 	public List<Score> getGameOverSummary();
 
 	public void addPropertyChangeListener(PropertyChangeListener pcl);
-	
-	public Player getLastPlayerAlive();
+
+	/**
+	 * A method that gets the last round winner
+	 * 
+	 * @return The player who won the last played round
+	 */
+	public Player getLastRoundWinner();
 
 }

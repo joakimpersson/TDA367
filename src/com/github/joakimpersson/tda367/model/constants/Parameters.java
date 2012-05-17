@@ -20,10 +20,11 @@ public enum Parameters {
 		return 1000;
 	}
 
-	public int getPlayerLives() {
-		return 3;
-	}
-
+	/**
+	 * Get the starting health for a player
+	 * 
+	 * @return A players init health
+	 */
 	public int getInitHealth() {
 		return 3;
 	}

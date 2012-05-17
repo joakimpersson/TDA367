@@ -58,8 +58,7 @@ public class BombermanModel implements IBombermanModel {
 	private LinkedList<Map<Position, Tile>> waitingFirePositions;
 	private PropertyChangeSupport pcs;
 	private Highscore highscore = null;
-	private IGameLogic gameController = null;
-	private Player lastPlayerAlive = null;
+	private IGameLogic gameLogic = null;
 
 	private BombermanModel() {
 		this.pcs = new PropertyChangeSupport(this);
@@ -86,7 +85,7 @@ public class BombermanModel implements IBombermanModel {
 		MapLoader mapLoader = MapLoader.getInstance();
 		Tile[][] gameField = mapLoader.getMap(0);
 		this.players = players;
-		this.gameController = new GameLogic(players);
+		this.gameLogic = new GameLogic(players);
 		this.map = new GameMap(gameField);
 		this.waitingFirePositions = new LinkedList<Map<Position, Tile>>();
 		this.bombTimers = new ArrayList<Timer>();
@@ -401,44 +400,35 @@ public class BombermanModel implements IBombermanModel {
 
 	@Override
 	public boolean isRoundOver() {
-		boolean result = gameController.isRoundOver();
-		if (result) {
-			lastPlayerAlive = null;
-			for (Player p : players) {
-				if (p.isAlive()) {
-					lastPlayerAlive = p;
-				}
-			}
-		}
-		return result;
+		return gameLogic.isRoundOver();
 	}
 
 	@Override
 	public boolean isMatchOver() {
-		return gameController.isMatchOver();
+		return gameLogic.isMatchOver();
 	}
 
 	@Override
 	public boolean isGameOver() {
-		return gameController.isGameOver();
+		return gameLogic.isGameOver();
 	}
 
 	@Override
 	public void roundOver() {
-		gameController.roundOver();
+		gameLogic.roundOver();
 		roundReset();
 	}
 
 	@Override
 	public void matchOver() {
-		gameController.matchOver();
+		gameLogic.matchOver();
 		matchReset();
 	}
 
 	@Override
 	public void gameOver() {
 
-		gameController.gameOver();
+		gameLogic.gameOver();
 
 		// add the players to highscore list
 		highscore.update(players);
@@ -447,7 +437,7 @@ public class BombermanModel implements IBombermanModel {
 
 	@Override
 	public void resetRoundStats() {
-		gameController.resetRoundStats();
+		gameLogic.resetRoundStats();
 	}
 
 	@Override
@@ -481,11 +471,16 @@ public class BombermanModel implements IBombermanModel {
 	public void gameReset() {
 		this.players = null;
 		this.map = null;
-		this.gameController = null;
+		this.gameLogic = null;
 		cancelRemaingingBombs();
 		waitingFirePositions.clear();
 	}
 
+	@Override
+	public Player getLastRoundWinner() {
+		return gameLogic.getLastRoundWinner();
+	}
+	
 	/**
 	 * Reset the model after every round
 	 */
@@ -543,10 +538,6 @@ public class BombermanModel implements IBombermanModel {
 		}
 		strBuilder.append(map.toString());
 		return strBuilder.toString();
-	}
-
-	public Player getLastPlayerAlive() {
-		return lastPlayerAlive;
 	}
 
 	/**

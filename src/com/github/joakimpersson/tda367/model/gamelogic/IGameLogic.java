@@ -67,4 +67,12 @@ public interface IGameLogic {
 	 */
 	void gameOver();
 
+	/**
+	 * A method that gets the current round winner by looking at the one who is
+	 * last man standing
+	 * 
+	 * @return The player who wins the current round
+	 */
+	Player getLastRoundWinner();
+
 }
