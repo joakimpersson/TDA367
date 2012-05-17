@@ -163,10 +163,6 @@ public class Player {
 		this.bombsPlaced--;
 	}
 
-	public int getBombsAvailable() {
-		return getAttribute(Attribute.BombStack) - this.bombsPlaced;
-	}
-
 	/**
 	 * Upgrade either a round or match attribute with one level.
 	 * 
@@ -332,13 +328,6 @@ public class Player {
 	}
 
 	/**
-	 * Sets the players immortality to either true or false.
-	 */
-	public void removeImmortality() {
-		justHit = false;
-	}
-
-	/**
 	 * Returns the amount of certain destroyed PointGiver type by this player.
 	 * 
 	 * @param type
@@ -347,13 +336,6 @@ public class Player {
 	 */
 	public int getDestroyedPointGiver(PointGiver type) {
 		return points.getDestroyedPointGiver(type);
-	}
-
-	/**
-	 * Method to kill the player.
-	 */
-	public void killPlayer() {
-		this.health = 0;
 	}
 
 	/**

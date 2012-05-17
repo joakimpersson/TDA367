@@ -49,10 +49,9 @@ public class GameLogicTest {
 	}
 
 	private void killPlayer(Player p) {
-		// while (p.isAlive()) {
-		// p.playerHit();
-		// }
-		p.killPlayer();
+		while (p.isAlive()) {
+			p.playerHit();
+		}
 	}
 
 	@Test
@@ -105,12 +104,12 @@ public class GameLogicTest {
 
 		killPlayer(losingPlayer);
 		gameController.roundOver();
-		
+
 		assertEquals(0, losingPlayer.getRoundsWon());
 		assertEquals(1, winningPlayer.getRoundsWon());
-		
+
 		gameController.resetRoundStats();
-		
+
 		assertEquals(0, losingPlayer.getRoundsWon());
 		assertEquals(0, winningPlayer.getRoundsWon());
 	}
