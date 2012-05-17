@@ -18,6 +18,7 @@ public class MainMenuView {
 	private Font smlFont = null;
 	private Font bigFont = null;
 	private final int WIDTH;
+	private ImageLoader imgs = null;
 
 	/**
 	 * Creates a new view representing the main menu in the game
@@ -28,7 +29,7 @@ public class MainMenuView {
 	}
 
 	/**
-	 * Responsible for fetching instances ,info from the model and init fonts
+	 * Responsible for fetching instances, info from the model and init fonts
 	 * etc
 	 */
 	private void init() {
@@ -38,7 +39,7 @@ public class MainMenuView {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-
+		imgs  = ImageLoader.getInstance();
 	}
 
 	public void render(GameContainer container, Graphics g, int selection)
@@ -60,6 +61,7 @@ public class MainMenuView {
 	}
 
 	private void drawMenu(int x, int y, int selection, Graphics g) {
+		g.drawImage(imgs.getImage("bg"), 0, 0);
 		g.setColor(Color.white);
 		g.setFont(smlFont);
 
