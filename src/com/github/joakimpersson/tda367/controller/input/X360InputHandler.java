@@ -32,9 +32,17 @@ public class X360InputHandler implements InputHandler {
 
 		if (input.isControllerUp(controllerId)) {
 			lastAction = PlayerAction.MOVE_NORTH;
+			if (input.isControllerLeft(controllerId))
+				lastAction = PlayerAction.MOVE_NORTHWEST;
+			else if (input.isControllerRight(controllerId))
+				lastAction = PlayerAction.MOVE_NORTHEAST;
 			return true;
 		} else if (input.isControllerDown(controllerId)) {
 			lastAction = PlayerAction.MOVE_SOUTH;
+			if (input.isControllerLeft(controllerId))
+				lastAction = PlayerAction.MOVE_SOUTHWEST;
+			else if (input.isControllerRight(controllerId))
+				lastAction = PlayerAction.MOVE_SOUTHEAST;
 			return true;
 		} else if (input.isControllerLeft(controllerId)) {
 			lastAction = PlayerAction.MOVE_WEST;
