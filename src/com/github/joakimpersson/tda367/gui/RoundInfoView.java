@@ -2,10 +2,12 @@ package com.github.joakimpersson.tda367.gui;
 
 import java.util.List;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
@@ -20,15 +22,15 @@ import com.github.joakimpersson.tda367.model.player.Player;
  */
 public class RoundInfoView implements IView {
 
-//	private static final int width = 550;
-//	private static final int height = 440;
-	private int startX, startY;
+	private int startX;
+	private int startY;
 	private IBombermanModel model = null;
 	private List<Player> players = null;
-	private Font smlFont, bigFont;
+	private Font smlFont = null;
+	private Font bigFont = null;
 	private ImageLoader imgs = null;
-	private int effectsCount = 0;
-	private int playerAnimCount = 0;
+	private Animation textAnimation = null;
+	private Animation winningPlayerAnimation = null;
 
 	/**
 	 * Creates a new view containing info about the players stats from the
@@ -58,6 +60,10 @@ public class RoundInfoView implements IView {
 		startX = 205 + 65;
 		startY = 65;
 		players = model.getPlayers();
+
+		Image[] textAnimationImgs = { imgs.getImage("info/winnerEffects1"),
+				imgs.getImage("info/winnerEffects2") };
+		textAnimation = new Animation(textAnimationImgs, 300);
 	}
 
 	@Override
@@ -72,23 +78,18 @@ public class RoundInfoView implements IView {
 		int index = 0;
 		for (Player p : players) {
 			if (players.size() < 3) {
-				drawPlayerStats(p, x, y+92, g);
+				drawPlayerStats(p, x, y + 92, g);
 				x += deltaX;
 			} else {
 				if (index < 2) {
-					drawPlayerStats(p, x+(deltaX*index), y, g);
+					drawPlayerStats(p, x + (deltaX * index), y, g);
 				} else {
-					drawPlayerStats(p, x+(deltaX*(index-2)), y+deltaY, g);
+					drawPlayerStats(p, x + (deltaX * (index - 2)), y + deltaY,
+							g);
 				}
 				index++;
 			}
 		}
-		effectsCount++;
-		if (effectsCount > 40)
-			effectsCount = 0;
-		playerAnimCount++;
-		if (playerAnimCount > 60)
-			playerAnimCount = 0;
 	}
 
 	/**
@@ -109,40 +110,45 @@ public class RoundInfoView implements IView {
 	private void drawPlayerStats(Player p, int x, int y, Graphics g) {
 		boolean isWinner = (model.getLastPlayerAlive() == p);
 		g.drawImage(imgs.getImage("round-info/overlay"), x, y);
-		
+
 		// draws scaled player image
+		// TODO jocke refactor this not good!
 		if (isWinner) {
-			if (playerAnimCount > 30)
-				g.drawImage(imgs.getImage("player/"+p.getIndex()+"/win1").getScaledCopy(2), x, y + 7);
-			else
-				g.drawImage(imgs.getImage("player/"+p.getIndex()+"/win2").getScaledCopy(2), x, y + 7);
+			if (winningPlayerAnimation == null) {
+				Image[] winningPlayerAnimationImgs = {
+						imgs.getImage("player/" + p.getIndex() + "/win1")
+								.getScaledCopy(2),
+						imgs.getImage("player/" + p.getIndex() + "/win2")
+								.getScaledCopy(2) };
+				winningPlayerAnimation = new Animation(
+						winningPlayerAnimationImgs, 400);
+			}
+			winningPlayerAnimation.draw(x, y + 7);
 		} else {
 			g.drawImage(imgs.getImage(p.getImage()).getScaledCopy(2), x, y + 7);
 		}
-		
+
 		// draw name
 		g.setFont(bigFont);
 		g.setColor(Color.white);
 		g.drawString(p.getName(), x + 100, y + 10);
-		
+
 		// draw winner string
 		g.setFont(smlFont);
 		g.setColor(Color.darkGray);
-		String winnerString = "LOSER";
+		String gameStatusString = "LOSER";
 		int yDiff = 54;
 		int xDiff = 130;
 		if (isWinner) {
 			g.setFont(bigFont);
 			g.setColor(Color.yellow);
-			winnerString = "WINNER";
+			gameStatusString = "WINNER";
 			yDiff = 48;
 			xDiff = 105;
-			if (effectsCount > 20)
-				g.drawImage(imgs.getImage("info/winnerEffects1"), x + 94, y + 36);
-			else 
-				g.drawImage(imgs.getImage("info/winnerEffects2"), x + 94, y + 36);
-			
+
+			textAnimation.draw(x + 94, y + 36);
+
 		}
-		g.drawString(winnerString, x + xDiff, y + yDiff);
+		g.drawString(gameStatusString, x + xDiff, y + yDiff);
 	}
 }
