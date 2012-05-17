@@ -27,7 +27,8 @@ public class RoundInfoView implements IView {
 	private List<Player> players = null;
 	private Font smlFont, bigFont;
 	private ImageLoader imgs = null;
-	private int count = 0;
+	private int effectsCount = 0;
+	private int playerAnimCount = 0;
 
 	/**
 	 * Creates a new view containing info about the players stats from the
@@ -82,9 +83,12 @@ public class RoundInfoView implements IView {
 				index++;
 			}
 		}
-		count++;
-		if (count > 40)
-			count = 0;
+		effectsCount++;
+		if (effectsCount > 40)
+			effectsCount = 0;
+		playerAnimCount++;
+		if (playerAnimCount > 60)
+			playerAnimCount = 0;
 	}
 
 	/**
@@ -107,7 +111,14 @@ public class RoundInfoView implements IView {
 		g.drawImage(imgs.getImage("round-info/overlay"), x, y);
 		
 		// draws scaled player image
-		g.drawImage(imgs.getImage(p.getImage()).getScaledCopy(2), x, y + 7);
+		if (isWinner) {
+			if (playerAnimCount > 30)
+				g.drawImage(imgs.getImage("player/"+p.getIndex()+"/win1").getScaledCopy(2), x, y + 7);
+			else
+				g.drawImage(imgs.getImage("player/"+p.getIndex()+"/win2").getScaledCopy(2), x, y + 7);
+		} else {
+			g.drawImage(imgs.getImage(p.getImage()).getScaledCopy(2), x, y + 7);
+		}
 		
 		// draw name
 		g.setFont(bigFont);
@@ -126,7 +137,7 @@ public class RoundInfoView implements IView {
 			winnerString = "WINNER";
 			yDiff = 48;
 			xDiff = 105;
-			if (count > 20)
+			if (effectsCount > 20)
 				g.drawImage(imgs.getImage("info/winnerEffects1"), x + 94, y + 36);
 			else 
 				g.drawImage(imgs.getImage("info/winnerEffects2"), x + 94, y + 36);

@@ -80,6 +80,8 @@ public class ImageLoader {
 			loadImage("player/"+i+"/still-east");
 			loadImage("player/"+i+"/still-south");
 			loadImage("player/"+i+"/still-west");
+			loadImage("player/"+i+"/win1");
+			loadImage("player/"+i+"/win2");
 		}
 		loadImage("player/overlay/still-north");
 		loadImage("player/overlay/still-east");
