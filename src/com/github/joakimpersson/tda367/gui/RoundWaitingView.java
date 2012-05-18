@@ -5,7 +5,6 @@ import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.gui.TextField;
 
 import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
 

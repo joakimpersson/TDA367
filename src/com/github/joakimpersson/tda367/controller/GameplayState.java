@@ -166,12 +166,6 @@ public class GameplayState extends BasicGameState {
 				readyToStart = false;
 				countDownTimer = null;
 		}
-		
-//		boolean pressedProceed = inputManager.pressedProceed(input);
-//
-//		if (pressedProceed) {
-//			currentState = STATE.GAME_RUNNING;
-//		}
 	}
 
 	private void gameRunning(Input input, StateBasedGame game) {
@@ -300,6 +294,9 @@ public class GameplayState extends BasicGameState {
 		return stateID;
 	}
 	
+	/**
+	 * Keeps track of the count-down by lowering the index until it is complete.
+	 */
 	private class CountDownTask extends TimerTask {
 		private int countDown;
 		
