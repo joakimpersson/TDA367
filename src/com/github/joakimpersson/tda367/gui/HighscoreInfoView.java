@@ -92,7 +92,7 @@ public class HighscoreInfoView {
 
 		Score score = highscore.get(currentIndex);
 		String playerName = score.getPlayerName();
-		int midX = x + GUIUtils.getStrinCenterX(playerName, WIDTH, g);
+		int midX = x + GUIUtils.getStringCenterX(playerName, WIDTH, g);
 		g.drawString(playerName, midX, y);
 
 	}
@@ -183,7 +183,7 @@ public class HighscoreInfoView {
 	private void drawEmptyListString(int x, int y, Graphics g) {
 		g.setColor(Color.white);
 		String str = "Du vågar aldrig...";
-		x += GUIUtils.getStrinCenterX(str, WIDTH, g);
+		x += GUIUtils.getStringCenterX(str, WIDTH, g);
 		g.drawString(str, x, y);
 
 	}

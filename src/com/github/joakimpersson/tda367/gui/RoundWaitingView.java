@@ -78,8 +78,8 @@ public class RoundWaitingView implements IView {
 			str = "...";
 			break;
 		}
-		int x = GUIUtils.getStrinCenterX(str, WIDTH, g) + startX;
-		int y = GUIUtils.getStrinCenterY(str, HEIGHT, g) + startY;
+		int x = GUIUtils.getStringCenterX(str, WIDTH, g) + startX;
+		int y = GUIUtils.getStringCenterY(str, HEIGHT, g) + startY;
 		g.setColor(color);
 		g.drawString(str, x, y);
 	}

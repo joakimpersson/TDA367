@@ -65,7 +65,7 @@ public class GUIUtils {
 	 *            The games graphics object
 	 * @return The x coordinate for the string to be draws from
 	 */
-	public static int getStrinCenterX(String str, int width, Graphics g) {
+	public static int getStringCenterX(String str, int width, Graphics g) {
 		int strWidth = g.getFont().getWidth(str);
 		return (width / 2) - (strWidth / 2);
 	}
@@ -81,7 +81,7 @@ public class GUIUtils {
 	 *            The graphics context to render to
 	 * @return The y coordinate for the string to be draws from
 	 */
-	public static int getStrinCenterY(String str, int height, Graphics g) {
+	public static int getStringCenterY(String str, int height, Graphics g) {
 		int strHeight = g.getFont().getHeight(str);
 		return height / 2 - strHeight / 2;
 	}

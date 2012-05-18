@@ -44,29 +44,25 @@ public class MainMenuView {
 
 	public void render(GameContainer container, Graphics g, int selection)
 			throws SlickException {
-		int posX = 0;
+		g.drawImage(imgs.getImage("bg"), 0, 0);
 		int posY = 140;
-		drawTitle(posX, posY, g);
+		drawTitle(posY, g);
 		posY += 80;
-		drawMenu(posX, posY, selection, g);
+		drawMenu(posY, selection, g);
 	}
 
-	private void drawTitle(int x, int y, Graphics g) {
-		String title = "Bomberman";
+	private void drawTitle(int y, Graphics g) {
+		String title = "Pyromaniacs";
 		g.setFont(bigFont);
 		g.setColor(Color.cyan);
-		x += GUIUtils.getStrinCenterX(title, WIDTH, g);
-		g.drawString(title, x, y);
-
+		g.drawString(title, GUIUtils.getStringCenterX(title, WIDTH, g), y);
 	}
 
-	private void drawMenu(int x, int y, int selection, Graphics g) {
-		g.drawImage(imgs.getImage("bg"), 0, 0);
+	private void drawMenu(int y, int selection, Graphics g) {
 		g.setColor(Color.white);
 		g.setFont(smlFont);
 
-		int i = 1;
-		while (i < 4) {
+		for (int i = 0; i < 4; i++) {
 			if (selection == i) {
 				g.setColor(Color.cyan);
 			} else {
@@ -74,23 +70,20 @@ public class MainMenuView {
 			}
 			
 			if (i == 1) {
-				drawMenuItem("Start Game", x, y, g);
+				drawMenuItem("Start Game", y, g);
 				y += 40;
 			} else if (i == 2) {
-				drawMenuItem("Highscore View", x, y, g);
+				drawMenuItem("Highscore View", y, g);
 				y += 40;
 			} else if (i == 3) {
-				drawMenuItem("Exit Game", x, y, g);
+				drawMenuItem("Exit Game", y, g);
 				y += 40;
 			}
-			i++;
 		}
-
 	}
 
-	private void drawMenuItem(String str, int x, int y, Graphics g) {
-		int posX = x + GUIUtils.getStrinCenterX(str, WIDTH, g);
-		g.drawString(str, posX, y);
+	private void drawMenuItem(String str, int y, Graphics g) {
+		g.drawString(str, GUIUtils.getStringCenterX(str, WIDTH, g), y);
 
 	}
 }

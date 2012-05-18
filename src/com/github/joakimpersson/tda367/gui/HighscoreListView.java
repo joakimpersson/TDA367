@@ -130,7 +130,7 @@ public class HighscoreListView {
 	 */
 	private void drawEmptyListString(int x, int y, Graphics g) {
 		String str = "No Highscroes yet!";
-		x += GUIUtils.getStrinCenterX(str, WIDTH, g);
+		x += GUIUtils.getStringCenterX(str, WIDTH, g);
 		g.drawString(str, x, y);
 	}
 
