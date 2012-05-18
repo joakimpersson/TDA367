@@ -90,5 +90,14 @@ public class GameplayView implements IView {
 			throws SlickException {
 		roundWaitingView.render(container, g);
 	}
+	
+	/**
+	 * Sets the number that will be displayed for count-down.
+	 * 
+	 * @param countDown The number that will be displayed for count-down.
+	 */
+	public void setCountDown(int countDown) {
+		roundWaitingView.setCountDown(countDown);
+	}
 
 }

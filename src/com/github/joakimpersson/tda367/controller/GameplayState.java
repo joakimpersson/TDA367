@@ -3,6 +3,8 @@ package com.github.joakimpersson.tda367.controller;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -47,6 +49,8 @@ public class GameplayState extends BasicGameState {
 	private PropertyChangeSupport pcs;
 	private List<EventType> playlist;
 	private boolean playlistIsPlaying = false;
+	private Timer countDownTimer;
+	private boolean readyToStart;
 
 	/**
 	 * Create a new slick BasicGameState controller for the Gameplaystate
@@ -84,7 +88,6 @@ public class GameplayState extends BasicGameState {
 			throws SlickException {
 		super.enter(container, game);
 		clearInputQueue(container.getInput());
-		pcs.firePropertyChange("play", null, EventType.BATTLE_SCREEN);
 		currentState = STATE.GAME_WAITING;
 		view.enter();
 	}
@@ -150,12 +153,25 @@ public class GameplayState extends BasicGameState {
 	 *            latest action
 	 */
 	private void gameWaiting(Input input) {
-
-		boolean pressedProceed = inputManager.pressedProceed(input);
-
-		if (pressedProceed) {
-			currentState = STATE.GAME_RUNNING;
+		
+		if(countDownTimer == null) {
+			pcs.firePropertyChange("play", null, EventType.BATTLE_SCREEN);
+			readyToStart = false;
+			countDownTimer = new Timer();
+			view.setCountDown(3);
+			pcs.firePropertyChange("play", null, EventType.COUNT_DOWN);
+			countDownTimer.schedule(new CountDownTask(2), 700);
+		} else if(readyToStart) {
+				currentState = STATE.GAME_RUNNING;
+				readyToStart = false;
+				countDownTimer = null;
 		}
+		
+//		boolean pressedProceed = inputManager.pressedProceed(input);
+//
+//		if (pressedProceed) {
+//			currentState = STATE.GAME_RUNNING;
+//		}
 	}
 
 	private void gameRunning(Input input, StateBasedGame game) {
@@ -283,4 +299,29 @@ public class GameplayState extends BasicGameState {
 	public int getID() {
 		return stateID;
 	}
+	
+	private class CountDownTask extends TimerTask {
+		private int countDown;
+		
+		public CountDownTask(int countDown) {
+			this.countDown = countDown;
+		}
+		
+		@Override
+		public void run() {
+			if(countDown == 0) {
+				readyToStart = true;
+			} else {
+				view.setCountDown(countDown);
+				if(countDown == 1) {
+					pcs.firePropertyChange("play", null, EventType.BOMB_EXPLODED);
+				} else {
+					pcs.firePropertyChange("play", null, EventType.COUNT_DOWN);
+				}
+				countDownTimer.schedule(new CountDownTask(countDown - 1), 700);
+			}
+		}
+		
+	}
+	
 }
