@@ -40,6 +40,7 @@ public class SoundHandler {
 	private SoundEffect menuNavigate;
 	private SoundEffect menuAction;
 	private SoundEffect errorSound;
+	private SoundEffect countDown;
 	
 	/**
 	 * The music that is currently playing.
@@ -85,14 +86,15 @@ public class SoundHandler {
 	public void initiateSounds() {
 		try {
 			bombPlaced = new SoundEffect("res/sounds/PlaceBomb1.wav", 0.7f);
-			bombExplode = new SoundEffect("res/sounds/Bomb1.wav", 0.4f);
+			bombExplode = new SoundEffect("res/sounds/Bomb1.wav", 0.55f);
 			titleTheme = new BackgroundMusic("res/sounds/bg1.wav", 0.7f);
 			battleSong1 = new BackgroundMusic("res/sounds/BattleSong1.wav", 1.0f);
 			menuNavigate = new SoundEffect("res/sounds/MenuNavigate.wav", 0.75f);
-			menuAction = new SoundEffect("res/sounds/MenuAction.wav", 0.5f);
+			menuAction = new SoundEffect("res/sounds/MenuAction.wav", 0.75f);
 			errorSound = new SoundEffect("res/sounds/ErrorSound.wav", 0.6f);
 			preInterlude = new BackgroundMusic("res/sounds/PreInterlude.wav", 0.5f);
 			interlude = new BackgroundMusic("res/sounds/Interlude1.wav", 0.35f);
+			countDown = new SoundEffect("res/sounds/CountDown.wav", 0.25f);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -219,6 +221,8 @@ public class SoundHandler {
 			return preInterlude;
 		case UPGRADE_SCREEN:
 			return interlude;
+		case COUNT_DOWN:
+			return countDown;
 		default:
 			return null;
 		}
