@@ -57,86 +57,97 @@ public class PlayerInfoView implements IView {
 		int y = startY;
 		int xDisp = 0;
 		int yDisp = 0;
-		
+
 		// draw black frame
 		g.setColor(Color.black);
 		g.drawRect(x, y, width, height);
 
 		// draw image of player
-//		drawImage(x+7, y+13, "player/"+player.getIndex()+"/still-east", g);
-		drawImage(x+7, y+13, player.getImage(), g);
-		
+		// drawImage(x+7, y+13, "player/"+player.getIndex()+"/still-east", g);
+		drawImage(x + 7, y + 13, player.getImage(), g);
+
 		// draw number of wins
 		yDisp = 15;
-		for (int i=0; i<player.getRoundsWon(); i++) {
-			drawImage(x+40, y+yDisp, "info/chevron", g);
+		for (int i = 0; i < player.getRoundsWon(); i++) {
+			drawImage(x + 40, y + yDisp, "info/chevron", g);
 			yDisp += 4;
 		}
-		
+
 		// set up text
 		g.setFont(smlFont);
 		g.setColor(Color.white);
-		
+
 		// draw player name
-		g.drawString(player.getName(), x+60, y+15);
-		
+		g.drawString(player.getName(), x + 60, y + 15);
+
 		// draw pretty hearts
 		if (player.isAlive()) {
-			drawHearts(x+59, y+32, g);
+			drawHearts(x + 59, y + 32, g);
 		} else {
-			drawImage(x+59, y+32, "info/skull", g);
+			drawImage(x + 59, y + 32, "info/skull", g);
 		}
-		
+
 		// draw number of wins
 		xDisp = 59;
-		for (int i=0; i<player.getMatchesWon(); i++) {
-			drawImage(x+xDisp, y+55, "info/star", g);
+		for (int i = 0; i < player.getMatchesWon(); i++) {
+			drawImage(x + xDisp, y + 55, "info/star", g);
 			xDisp += 13;
 		}
 
 		// draw score
 		int score = player.getScore();
-		g.drawString("Score   " + score + "p", x+15, y+70);
-		
+		String zeros = leadingZeroes(score);
+		int scoreDisp = g.getFont().getWidth(zeros);
+		g.setColor(Color.darkGray);
+		g.drawString(zeros, x + 15, y + 70);
+		g.setColor(Color.white);
+		g.drawString(""+score, x + scoreDisp + 17, y + 70);
+
 		// draw powerups
 		xDisp = 145;
-		int textDisp = xDisp+40;
+		int textDisp = xDisp + 40;
 		g.setColor(Color.lightGray);
-		
+
 		// --speed--
 		yDisp = 0;
 		int pSpeed = player.getAttribute(Attribute.Speed);
-		drawImage(x+xDisp, y+yDisp, "info/speed", g);
-		drawAttributeValue(pSpeed, x+textDisp, y+yDisp+10, g);
-		
+		drawImage(x + xDisp, y + yDisp, "info/speed", g);
+		drawAttributeValue(pSpeed, x + textDisp, y + yDisp + 10, g);
+
 		// --range and power--
 		yDisp += 30;
 		int pRange = player.getAttribute(Attribute.BombRange);
 		int pPower = player.getAttribute(Attribute.BombPower);
-		drawImage(x+xDisp, y+yDisp, "info/fire", g);
-		drawAttributeValue(pRange, x+textDisp, y+yDisp+10, g);
+		drawImage(x + xDisp, y + yDisp, "info/fire", g);
+		drawAttributeValue(pRange, x + textDisp, y + yDisp + 10, g);
 		if (pPower > 1) {
 			if (pPower < 3) {
-				drawImage(x+xDisp+16, y+yDisp, "info/power2", g);
+				drawImage(x + xDisp + 16, y + yDisp, "info/power2", g);
 			} else {
-				drawImage(x+xDisp+16, y+yDisp, "info/power3", g);
+				drawImage(x + xDisp + 16, y + yDisp, "info/power3", g);
 			}
 		}
-		
+
 		// --bombs--
 		yDisp += 30;
 		int pBombs = player.getAttribute(Attribute.BombStack);
-		drawImage(x+xDisp, y+yDisp, "info/bomb", g);
-		drawAttributeValue(pBombs, x+textDisp, y+yDisp+10, g);
+		drawImage(x + xDisp, y + yDisp, "info/bomb", g);
+		drawAttributeValue(pBombs, x + textDisp, y + yDisp + 10, g);
 	}
 
-	private void drawAttributeValue(int i, float x, float y,
-			Graphics g) {
-//		System.out.println(Integer.decode(string));
+	private String leadingZeroes(int score) {
+		String out = "";
+		for (int i = 0; i < 11 - String.valueOf(score).length(); i++) {
+			out = out + 0;
+		}
+		return out;
+	}
+
+	private void drawAttributeValue(int i, float x, float y, Graphics g) {
 		if (i >= 10) {
-			g.drawString(""+i, x-5F, y);
+			g.drawString("" + i, x - 5F, y);
 		} else {
-			g.drawString(""+i, x, y);
+			g.drawString("" + i, x, y);
 		}
 	}
 
@@ -146,7 +157,7 @@ public class PlayerInfoView implements IView {
 		if (health < 4) {
 			xDelta = 27;
 		} else {
-			xDelta = (int)Math.floor(63/health);
+			xDelta = (int) Math.floor(63 / health);
 		}
 		for (int i = 0; i < health; i++) {
 			drawImage(x, y, "info/heart", g);
