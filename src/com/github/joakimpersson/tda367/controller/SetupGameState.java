@@ -133,7 +133,7 @@ public class SetupGameState extends BasicGameState {
 				players = selection;
 				view.startPlayerCreation(players);
 				stage++;
-			} else if (stage == 1 && view.nameFilledIn()) {
+			} else if (stage == 1 && view.verifyNameValidity()) {
 				createPlayer(view.getName(), view.getIndex());
 				view.playerCreated();
 				if (allPlayersCreated()) {
