@@ -1,5 +1,6 @@
 package com.github.joakimpersson.tda367.gui;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,104 +9,37 @@ import org.newdawn.slick.SlickException;
 
 public class ImageLoader {
 
+	private static final String PATH = "res/images/";
 	private static ImageLoader instance = null;
 
 	private Map<String, Image> imageMap = new HashMap<String, Image>();
 
 	private ImageLoader() {
-		initHashMap();
+		loadDirectory(PATH);
+	}
+
+	private void loadDirectory(String path) {
+		String directory = path.substring(PATH.length(), path.length());
+		File dir = new File(path);
+		for (File child : dir.listFiles()) {
+			if (".".equals(child.getName()) || "..".equals(child.getName())) {
+				continue;
+			} else if (child.isDirectory()) {
+				loadDirectory(path+child.getName()+"/");
+				continue;
+			}
+			loadImage(directory+child.getName());
+		}
 	}
 
 	private void loadImage(String s) {
-		loadImage(s, s);
-	}
-
-	private void loadImage(String s, String f) {
 		try {
-			Image image = new Image("res/images/" + f + ".png");
+			Image image = new Image("res/images/" + s);
 			image.setFilter(Image.FILTER_NEAREST);
-			imageMap.put(s, image);
+			imageMap.put(s.substring(0, s.length()-4), image);
 		} catch (SlickException e) {
-			System.out.println("File not found: " + f + ".png");
+			System.out.println("File not found: " + s);
 		}
-	}
-
-	private void initHashMap() {
-		// splash screen
-		loadImage("splash/bg");
-		loadImage("splash/text");
-		
-		// menu background
-		loadImage("bg");
-		
-		// floor tiles
-		loadImage("floor1");
-		loadImage("floor2");
-		loadImage("floor3");
-		loadImage("floor4");
-		loadImage("floor5");
-		loadImage("floor6");
-
-		// box tiles
-		loadImage("box1");
-		loadImage("box2");
-		loadImage("box3");
-		loadImage("box4");
-		loadImage("box5");
-
-		// misc tiles
-		loadImage("pillar");
-		loadImage("wall");
-
-		// bomb tiles
-		loadImage("bomb-area");
-		loadImage("bomb");
-
-		// fire tiles
-		loadImage("fire-column-north", "fire-column");
-		loadImage("fire-column-south", "fire-column");
-		loadImage("fire-column-west", "fire-row");
-		loadImage("fire-column-east", "fire-row");
-		loadImage("fire-column-none", "fire-mid");
-		loadImage("fire-area", "fire-mid");
-
-		// power ups
-		loadImage("rangeUpItem");
-		loadImage("speedUpItem");
-		loadImage("bombUpItem");
-
-		// player tiles
-		for (int i = 1; i <= 4; i++) {
-			loadImage("player/"+i+"/still-north");
-			loadImage("player/"+i+"/still-east");
-			loadImage("player/"+i+"/still-south");
-			loadImage("player/"+i+"/still-west");
-			loadImage("player/"+i+"/win1");
-			loadImage("player/"+i+"/win2");
-		}
-		loadImage("player/overlay/still-north");
-		loadImage("player/overlay/still-east");
-		loadImage("player/overlay/still-south");
-		loadImage("player/overlay/still-west");
-		
-		// info pane support images
-		loadImage("info/bomb");
-		loadImage("info/fire");
-		loadImage("info/heart");
-		loadImage("info/power2");
-		loadImage("info/power3");
-		loadImage("info/speed");
-		loadImage("info/skull");
-		loadImage("info/winnerEffects1");
-		loadImage("info/winnerEffects2");
-		
-		// TODO: not final
-		loadImage("info/chevron");
-		loadImage("info/star");
-		
-		// round info view
-		loadImage("round-info/bg");
-		loadImage("round-info/overlay");
 	}
 
 	public static ImageLoader getInstance() {

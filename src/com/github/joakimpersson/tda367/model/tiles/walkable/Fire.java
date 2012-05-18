@@ -16,17 +16,21 @@ import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
  * 
  */
 public class Fire implements WalkableTile {
-	private String image;
 	private Direction direction;
+	private String image;
 	private Player fireOwner;
 
 	public Fire(Player fireOwner, Direction direction) {
 		this.fireOwner = fireOwner;
 		this.direction = direction;
-		if (this.direction == null) {
-			this.image = "fire-area";
+		if (this.direction == Direction.NONE) {
+			this.image = "fire-mid";
+		} else if (this.direction.isHorizontal()) {
+			this.image = "fire-row";
+		} else if (this.direction.isVertical()) {
+			this.image = "fire-column";
 		} else {
-			this.image = "fire-column-" + direction;
+			this.image = "fire-area";
 		}
 	}
 
@@ -94,7 +98,7 @@ public class Fire implements WalkableTile {
 	@Override
 	public int hashCode() {
 		int sum = 0;
-		
+
 		sum += direction.hashCode() * 13;
 		sum += fireOwner.hashCode() * 17;
 

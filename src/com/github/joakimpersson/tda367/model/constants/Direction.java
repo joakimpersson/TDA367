@@ -7,20 +7,18 @@ package com.github.joakimpersson.tda367.model.constants;
  */
 public enum Direction {
 
-	NORTH(0, -1, "north", false),
-	EAST(1, 0, "east", false),
-	SOUTH(0, 1, "south", false),
-	WEST(-1, 0, "west", false),
-	NONE(0, 0, "none", false);
+	NORTH(0, -1),
+	EAST(1, 0),
+	SOUTH(0, 1),
+	WEST(-1, 0),
+	NONE(0, 0);
 
 	private final int x;
 	private final int y;
-	private final String s;
 
-	Direction(int x, int y, String s, boolean isDiagonal) {
+	Direction(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.s = s;
 	}
 
 	public int getX() {
@@ -30,9 +28,17 @@ public enum Direction {
 	public int getY() {
 		return y;
 	}
+	
+	public boolean isHorizontal() {
+		return this == EAST || this == WEST;
+	}
+	
+	public boolean isVertical() {
+		return this == NORTH || this == SOUTH;
+	}
 
 	@Override
 	public String toString() {
-		return s;
+		return this.name().toLowerCase();
 	}
 }
