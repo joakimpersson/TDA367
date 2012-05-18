@@ -113,15 +113,18 @@ public class SetupGameState extends BasicGameState {
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
 			game.enterState(BombermanGame.MAIN_MENU_STATE);
 		}
-
-		if (actions.contains(PlayerAction.MOVE_NORTH)) {
-			moveIndex(-1);
-			pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
-		}
-
-		if (actions.contains(PlayerAction.MOVE_SOUTH)) {
-			moveIndex(1);
-			pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
+		
+		for (PlayerAction action : actions) {
+			switch (action) {
+			case MOVE_NORTH:
+				moveIndex(-1);
+				pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
+				break;
+			case MOVE_SOUTH:
+				moveIndex(1);
+				pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
+				break;
+			}
 		}
 
 		boolean controllerProceed = validProceed(input);
