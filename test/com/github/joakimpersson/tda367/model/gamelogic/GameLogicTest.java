@@ -27,25 +27,25 @@ import com.github.joakimpersson.tda367.model.positions.Position;
 public class GameLogicTest {
 
 	private List<Player> players;
-	private IGameLogic gameController;
+	private IGameLogic gameLogic;
 
 	@Before
 	public void setUp() throws Exception {
 		players = new ArrayList<Player>();
 		players.add(new Player(0, "Kalle", new Position(0, 0)));
 		players.add(new Player(1, "Hobbe", new Position(10, 0)));
-		gameController = new GameLogic(players);
+		gameLogic = new GameLogic(players);
 	}
 
 	@Test
 	public void testIsRoundOver() {
-		// shold be false
-		assertFalse(gameController.isRoundOver());
+		// should be false
+		assertFalse(gameLogic.isRoundOver());
 
 		// kill one of the players
 		killPlayer(players.get(0));
 		// should now be true
-		assertTrue(gameController.isRoundOver());
+		assertTrue(gameLogic.isRoundOver());
 	}
 
 	private void killPlayer(Player p) {
@@ -61,7 +61,7 @@ public class GameLogicTest {
 
 		// the winner should be player2
 		Player winningPlayer = players.get(1);
-		gameController.roundOver();
+		gameLogic.roundOver();
 
 		int actual = winningPlayer.getRoundsWon();
 		int expected = 1;
@@ -69,7 +69,7 @@ public class GameLogicTest {
 		assertEquals(actual, expected);
 
 		// his number of rounds win in the GameController object should be 1
-		actual = gameController.getRoundsWon(winningPlayer);
+		actual = gameLogic.getRoundsWon(winningPlayer);
 		expected = 1;
 		assertEquals(expected, actual);
 
@@ -85,16 +85,33 @@ public class GameLogicTest {
 		killPlayer(losingPlayer);
 
 		// the round is over
-		gameController.roundOver();
+		gameLogic.roundOver();
 
 		// his number of rounds win should be 1
-		int actual = gameController.getRoundsWon(winningPlayer);
+		int actual = gameLogic.getRoundsWon(winningPlayer);
 		int expected = 1;
 		assertEquals(expected, actual);
 
-		actual = gameController.getRoundsWon(losingPlayer);
+		actual = gameLogic.getRoundsWon(losingPlayer);
 		expected = 0;
 		assertEquals(actual, expected);
+	}
+
+	@Test
+	public void testGetLastRoundWinner() {
+		Player losingPlayer = players.get(0);
+		// the winner should be player2
+		Player winningPlayer = players.get(1);
+
+		// first kill one of the player to simulate round over
+		killPlayer(losingPlayer);
+
+		// the round is over
+		gameLogic.roundOver();
+
+		// the winning player should be player 2
+		Player actual = gameLogic.getLastRoundWinner();
+		assertEquals(winningPlayer, actual);
 	}
 
 	@Test
@@ -103,12 +120,12 @@ public class GameLogicTest {
 		Player winningPlayer = players.get(1);
 
 		killPlayer(losingPlayer);
-		gameController.roundOver();
+		gameLogic.roundOver();
 
 		assertEquals(0, losingPlayer.getRoundsWon());
 		assertEquals(1, winningPlayer.getRoundsWon());
 
-		gameController.resetRoundStats();
+		gameLogic.resetRoundStats();
 
 		assertEquals(0, losingPlayer.getRoundsWon());
 		assertEquals(0, winningPlayer.getRoundsWon());
@@ -119,12 +136,12 @@ public class GameLogicTest {
 		Player losingPlayer = players.get(0);
 
 		// should be false
-		assertFalse(gameController.isMatchOver());
+		assertFalse(gameLogic.isMatchOver());
 
 		simulateMatchOver(losingPlayer);
 
 		// should be true
-		assertTrue(gameController.isMatchOver());
+		assertTrue(gameLogic.isMatchOver());
 
 	}
 
@@ -133,7 +150,7 @@ public class GameLogicTest {
 
 		for (int i = 0; i < maxRounds; i++) {
 			killPlayer(losingPlayer);
-			gameController.roundOver();
+			gameLogic.roundOver();
 			losingPlayer.reset(ResetType.Round);
 		}
 	}
@@ -144,7 +161,7 @@ public class GameLogicTest {
 		Player winningPlayer = players.get(1);
 		simulateMatchOver(losingPlayer);
 
-		gameController.matchOver();
+		gameLogic.matchOver();
 		// he's MatchWon in PlayerPoints should be equal to 1
 		int expected = 1;
 		int actual = winningPlayer.getMatchesWon();
@@ -158,7 +175,7 @@ public class GameLogicTest {
 		Player winningPlayer = players.get(1);
 
 		simulateMatchOver(losingPlayer);
-		gameController.matchOver();
+		gameLogic.matchOver();
 
 		assertEquals(0, losingPlayer.getMatchesWon());
 		assertEquals(1, winningPlayer.getMatchesWon());
@@ -169,21 +186,21 @@ public class GameLogicTest {
 		Player losingPlayer = players.get(0);
 
 		// should be false
-		assertFalse(gameController.isGameOver());
+		assertFalse(gameLogic.isGameOver());
 
 		simulateGameOver(losingPlayer);
 
 		// should be true
-		assertTrue(gameController.isGameOver());
+		assertTrue(gameLogic.isGameOver());
 	}
 
 	private void simulateGameOver(Player losingPlayer) {
 		int maxMatchesWon = BombermanRules.INSTANCE.getNumberOfMatches();
 		for (int i = 0; i < maxMatchesWon; i++) {
 			simulateMatchOver(losingPlayer);
-			gameController.matchOver();
+			gameLogic.matchOver();
 			losingPlayer.reset(ResetType.Match);
-			gameController.resetRoundStats();
+			gameLogic.resetRoundStats();
 		}
 	}
 
@@ -194,7 +211,7 @@ public class GameLogicTest {
 
 		simulateGameOver(losingPlayer);
 
-		gameController.gameOver();
+		gameLogic.gameOver();
 
 		// winningPlayers GameWon in PlayerPoints should be equal to 1
 		int expected = 1;
@@ -205,6 +222,6 @@ public class GameLogicTest {
 	@After
 	public void tearDown() throws Exception {
 		players = null;
-		gameController = null;
+		gameLogic = null;
 	}
 }
