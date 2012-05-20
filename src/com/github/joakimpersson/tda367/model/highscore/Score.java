@@ -21,16 +21,19 @@ public class Score implements Serializable, Comparable<Score> {
 	/**
 	 * Create a new score object using a player and his playerpoint object
 	 * 
-	 * @param playerName The name of the player
-	 * @param pp The players playerpoint object
+	 * @param playerName
+	 *            The name of the player
+	 * @param playerPoints
+	 *            The players playerpoint object
 	 */
-	public Score(String playerName, PlayerPoints pp) {
+	public Score(String playerName, PlayerPoints playerPoints) {
 		this.playerName = playerName;
-		this.playerPoints = pp;
+		this.playerPoints = new PlayerPoints(playerPoints);
 	}
 
 	/**
 	 * Get the name of the player
+	 * 
 	 * @return The player's name
 	 */
 	public String getPlayerName() {
@@ -38,11 +41,12 @@ public class Score implements Serializable, Comparable<Score> {
 	}
 
 	/**
-	 * Get the players playerpoint object
-	 * @return The player's playerpoint object
+	 * Get a copy of the playerpoint object
+	 * 
+	 * @return A copy of the playerpoint object
 	 */
 	public PlayerPoints getPlayerPoints() {
-		return playerPoints;
+		return new PlayerPoints(playerPoints);
 	}
 
 	@Override
