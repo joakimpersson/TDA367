@@ -100,8 +100,10 @@ public class RoundInfoView implements IView {
 	 *            The player who won the last round
 	 */
 	public void setWinningPlayer(Player winningPlayer) {
-		if (this.roundWinner == null
-				|| !(this.roundWinner.equals(winningPlayer))) {
+
+		if (winningPlayer != null
+				&& (this.roundWinner == null || !(this.roundWinner
+						.equals(winningPlayer)))) {
 			this.roundWinner = winningPlayer;
 			createPlayerAnimation();
 		}

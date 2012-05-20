@@ -49,6 +49,7 @@ public class GameLogicTest {
 	}
 
 	private void killPlayer(Player p) {
+
 		while (p.isAlive()) {
 			p.playerHit();
 		}
@@ -112,6 +113,24 @@ public class GameLogicTest {
 		// the winning player should be player 2
 		Player actual = gameLogic.getLastRoundWinner();
 		assertEquals(winningPlayer, actual);
+	}
+
+	@Test
+	public void testPlayersDieTogheter() {
+		Player losingPlayerOne = players.get(0);
+		Player losingPlayerTwo = players.get(1);
+
+		// kill both the players
+		killPlayer(losingPlayerOne);
+		killPlayer(losingPlayerTwo);
+
+		// the round should be over
+		assertTrue(gameLogic.isRoundOver());
+
+		gameLogic.roundOver();
+
+		// the winning player should be null
+		assertTrue(gameLogic.getLastRoundWinner() == null);
 	}
 
 	@Test

@@ -71,7 +71,8 @@ public interface IGameLogic {
 	 * A method that gets the current round winner by looking at the one who is
 	 * last man standing
 	 * 
-	 * @return The player who wins the current round
+	 * @return The player who wins the current round or null of there is no
+	 *         winner
 	 */
 	Player getLastRoundWinner();
 

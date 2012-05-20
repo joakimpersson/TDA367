@@ -17,6 +17,7 @@ public class GameLogic implements IGameLogic {
 	private Player lastRoundWinner;
 	private int maxRoundsWon;
 	private int maxMatchesWon;
+	private boolean noWinner;
 
 	/**
 	 * Create a new GameController instance with this games active players
@@ -40,15 +41,28 @@ public class GameLogic implements IGameLogic {
 				alivePlayers++;
 			}
 		}
+
+		if (alivePlayers == 0) {
+			noWinner = true;
+			return true;
+		}
+
 		return alivePlayers == 1;
 	}
 
 	@Override
 	public void roundOver() {
-		Player p = getRoundWinner();
-		lastRoundWinner = p;
-		p.updatePlayerPoints(PointGiver.RoundWon);
-		p.roundWon();
+
+		if (!noWinner) {
+
+			Player p = getRoundWinner();
+			lastRoundWinner = p;
+			p.updatePlayerPoints(PointGiver.RoundWon);
+			p.roundWon();
+
+		} else {
+			lastRoundWinner = null;
+		}
 	}
 
 	@Override
@@ -65,12 +79,12 @@ public class GameLogic implements IGameLogic {
 		}
 		return roundWinner;
 	}
-	
+
 	@Override
 	public Player getLastRoundWinner() {
 		return lastRoundWinner;
 	}
-	
+
 	@Override
 	public boolean isMatchOver() {
 		for (Player player : players) {
