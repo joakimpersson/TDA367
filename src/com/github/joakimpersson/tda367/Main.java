@@ -32,7 +32,7 @@ public class Main {
 				System.getProperty("org.lwjgl.librarypath"));
 		try {
 			AppGameContainer app = new AppGameContainer(new BombermanGame(
-					"Joakim e pung"));
+					"Bomberman"));
 
 			app.setDisplayMode(gameWidth, gameHeight, false);
 			// make sure that we are using the players screen

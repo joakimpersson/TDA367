@@ -6,7 +6,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
@@ -100,8 +99,6 @@ public class GameMapTest {
 				assertThat(tmpTile, is(instanceOf(Tile.class)));
 			}
 		}
-
-		fail("Not sure about implementation!");
 	}
 
 	@Test

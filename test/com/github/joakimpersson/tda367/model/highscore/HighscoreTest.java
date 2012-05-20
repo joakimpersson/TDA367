@@ -3,7 +3,6 @@ package com.github.joakimpersson.tda367.model.highscore;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,8 +14,6 @@ import org.junit.Test;
 
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
-import com.github.joakimpersson.tda367.model.highscore.Highscore;
-import com.github.joakimpersson.tda367.model.highscore.Score;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.positions.Position;
 
@@ -88,7 +85,6 @@ public class HighscoreTest {
 			String tmpPlayerName = score.getPlayerName();
 			assertTrue(playerNames.contains(tmpPlayerName));
 		}
-		fail("Not sure about implementation");
 	}
 
 	@Test

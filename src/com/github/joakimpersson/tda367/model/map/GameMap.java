@@ -81,21 +81,4 @@ public class GameMap implements IGameMap {
 		map = Utils.copyGameMap(originalMap);
 
 	}
-
-	/**
-	 * Returns a text based version of the map
-	 */
-	@Override
-	public String toString() {
-		StringBuilder strBuilder = new StringBuilder();
-		for (int i = 0; i < HEIGHT; i++) {
-			for (int j = 0; j < WIDTH; j++) {
-				Tile tmpTile = map[i][j];
-				strBuilder.append(tmpTile.toString());
-				strBuilder.append("\t");
-			}
-			strBuilder.append("\n");
-		}
-		return strBuilder.toString();
-	}
 }
