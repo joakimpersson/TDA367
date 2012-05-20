@@ -80,13 +80,13 @@ public class RoundInfoView implements IView {
 		int index = 0;
 		for (Player p : players) {
 			if (players.size() < 3) {
-				drawPlayer(p, x, y + 92, g);
+				drawPlayerInfo(p, x, y + 92, g);
 				x += deltaX;
 			} else {
 				if (index < 2) {
-					drawPlayer(p, x + (deltaX * index), y, g);
+					drawPlayerInfo(p, x + (deltaX * index), y, g);
 				} else {
-					drawPlayer(p, x + (deltaX * (index - 2)), y + deltaY, g);
+					drawPlayerInfo(p, x + (deltaX * (index - 2)), y + deltaY, g);
 				}
 				index++;
 			}
@@ -136,7 +136,7 @@ public class RoundInfoView implements IView {
 	 * @param g
 	 *            The games graphics object
 	 */
-	private void drawPlayer(Player player, int x, int y, Graphics g) {
+	private void drawPlayerInfo(Player player, int x, int y, Graphics g) {
 		boolean isWinner = (model.getLastRoundWinner() == player);
 		Image img = imageLoader.getImage("round-info/overlay");
 		g.drawImage(img, x, y);

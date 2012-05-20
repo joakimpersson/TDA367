@@ -53,24 +53,24 @@ public class PlayerInfoView implements IView {
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
-		int x = startX;
-		int y = startY;
-		int xDisp = 0;
-		int yDisp = 0;
+		int xPos = startX;
+		int yPos = startY;
+		int x = 0;
+		int y = 0;
 
 		// draw black frame
 		g.setColor(Color.black);
-		g.drawRect(x, y, width, height);
+		g.drawRect(xPos, yPos, width, height);
 
 		// draw image of player
 		// drawImage(x+7, y+13, "player/"+player.getIndex()+"/still-east", g);
-		drawImage(x + 7, y + 13, player.getImage(), g);
+		drawImage(xPos + 7, yPos + 13, player.getImage(), g);
 
 		// draw number of wins
-		yDisp = 15;
+		y = 15;
 		for (int i = 0; i < player.getRoundsWon(); i++) {
-			drawImage(x + 40, y + yDisp, "info/chevron", g);
-			yDisp += 4;
+			drawImage(xPos + 40, yPos + y, "info/chevron", g);
+			y += 4;
 		}
 
 		// set up text
@@ -78,20 +78,20 @@ public class PlayerInfoView implements IView {
 		g.setColor(Color.white);
 
 		// draw player name
-		g.drawString(player.getName(), x + 60, y + 15);
+		g.drawString(player.getName(), xPos + 60, yPos + 15);
 
 		// draw pretty hearts
 		if (player.isAlive()) {
-			drawHearts(x + 59, y + 32, g);
+			drawHearts(xPos + 59, yPos + 32, g);
 		} else {
-			drawImage(x + 59, y + 32, "info/skull", g);
+			drawImage(xPos + 59, yPos + 32, "info/skull", g);
 		}
 
 		// draw number of wins
-		xDisp = 59;
+		x = 59;
 		for (int i = 0; i < player.getMatchesWon(); i++) {
-			drawImage(x + xDisp, y + 55, "info/star", g);
-			xDisp += 13;
+			drawImage(xPos + x, yPos + 55, "info/star", g);
+			x += 13;
 		}
 
 		// draw score
@@ -99,40 +99,40 @@ public class PlayerInfoView implements IView {
 		String zeros = leadingZeroes(score);
 		int scoreDisp = g.getFont().getWidth(zeros);
 		g.setColor(Color.darkGray);
-		g.drawString(zeros, x + 15, y + 70);
+		g.drawString(zeros, xPos + 15, yPos + 70);
 		g.setColor(Color.white);
-		g.drawString(""+score, x + scoreDisp + 17, y + 70);
+		g.drawString(""+score, xPos + scoreDisp + 17, yPos + 70);
 
 		// draw powerups
-		xDisp = 145;
-		int textDisp = xDisp + 40;
+		x = 145;
+		int textDisp = x + 40;
 		g.setColor(Color.lightGray);
 
 		// --speed--
-		yDisp = 0;
+		y = 0;
 		int pSpeed = player.getAttribute(Attribute.Speed);
-		drawImage(x + xDisp, y + yDisp, "info/speed", g);
-		drawAttributeValue(pSpeed, x + textDisp, y + yDisp + 10, g);
+		drawImage(xPos + x, yPos + y, "info/speed", g);
+		drawAttributeValue(pSpeed, xPos + textDisp, yPos + y + 10, g);
 
 		// --range and power--
-		yDisp += 30;
+		y += 30;
 		int pRange = player.getAttribute(Attribute.BombRange);
 		int pPower = player.getAttribute(Attribute.BombPower);
-		drawImage(x + xDisp, y + yDisp, "info/fire", g);
-		drawAttributeValue(pRange, x + textDisp, y + yDisp + 10, g);
+		drawImage(xPos + x, yPos + y, "info/fire", g);
+		drawAttributeValue(pRange, xPos + textDisp, yPos + y + 10, g);
 		if (pPower > 1) {
 			if (pPower < 3) {
-				drawImage(x + xDisp + 16, y + yDisp, "info/power2", g);
+				drawImage(xPos + x + 16, yPos + y, "info/power2", g);
 			} else {
-				drawImage(x + xDisp + 16, y + yDisp, "info/power3", g);
+				drawImage(xPos + x + 16, yPos + y, "info/power3", g);
 			}
 		}
 
 		// --bombs--
-		yDisp += 30;
+		y += 30;
 		int pBombs = player.getAttribute(Attribute.BombStack);
-		drawImage(x + xDisp, y + yDisp, "info/bomb", g);
-		drawAttributeValue(pBombs, x + textDisp, y + yDisp + 10, g);
+		drawImage(xPos + x, yPos + y, "info/bomb", g);
+		drawAttributeValue(pBombs, xPos + textDisp, yPos + y + 10, g);
 	}
 
 	private String leadingZeroes(int score) {
