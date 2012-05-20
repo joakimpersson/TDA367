@@ -354,11 +354,11 @@ public class PlayerPointsTest {
 	public void testEquals() {
 		PlayerPoints otherPlayerPoints = new PlayerPoints();
 
-		//testing against itself and null
+		// testing against itself and null
 		assertTrue(playerPoint.equals(playerPoint));
-		
+
 		assertFalse(playerPoint.equals(null));
-		
+
 		// They should be equal when created
 		assertTrue(playerPoint.equals(otherPlayerPoints));
 
@@ -380,6 +380,24 @@ public class PlayerPointsTest {
 		// no equal anymore
 		assertFalse(playerPoint.equals(otherPlayerPoints));
 
+	}
+
+	@Test
+	public void testCopyConstructor() {
+		PlayerPoints playerPointsCopy = new PlayerPoints(playerPoint);
+
+		// They should be equal and have same hashCode
+		assertTrue(playerPoint.equals(playerPointsCopy));
+		assertTrue(playerPoint.hashCode() == playerPointsCopy.hashCode());
+
+		// testing the copy class when the playerpoint has been upgraded
+		playerPoint.update(PointGiver.Bomb);
+
+		playerPointsCopy = new PlayerPoints(playerPoint);
+
+		// They should still be equal and have same hashCode
+		assertTrue(playerPoint.equals(playerPointsCopy));
+		assertTrue(playerPoint.hashCode() == playerPointsCopy.hashCode());
 	}
 
 	@After

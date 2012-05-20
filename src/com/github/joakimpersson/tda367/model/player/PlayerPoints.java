@@ -34,6 +34,18 @@ public class PlayerPoints implements Serializable, Comparable<PlayerPoints> {
 	}
 
 	/**
+	 * Create a new PlayerPoints object as an copy of another PlayerPoint object
+	 * 
+	 * @param other
+	 *            The PlayerPoint to be copied
+	 */
+	public PlayerPoints(PlayerPoints other) {
+		this.totalScore = other.totalScore;
+		this.credits = other.credits;
+		this.pointGivers = new EnumMap<PointGiver, Integer>(other.pointGivers);
+	}
+
+	/**
 	 * Create a new map of all the possible PointGivers and set their starting
 	 * value to zero
 	 */
@@ -185,6 +197,7 @@ public class PlayerPoints implements Serializable, Comparable<PlayerPoints> {
 			return false;
 		}
 		PlayerPoints other = (PlayerPoints) obj;
+
 		return this.totalScore == other.totalScore
 				&& this.credits == other.credits
 				&& this.pointGivers.equals(other.pointGivers);
