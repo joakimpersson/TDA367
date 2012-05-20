@@ -11,6 +11,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.github.joakimpersson.tda367.audio.AudioEventListener;
 import com.github.joakimpersson.tda367.controller.input.InputManager;
+import com.github.joakimpersson.tda367.controller.utils.ControllerUtils;
 import com.github.joakimpersson.tda367.gui.IView;
 import com.github.joakimpersson.tda367.gui.SplashView;
 import com.github.joakimpersson.tda367.model.constants.EventType;
@@ -30,7 +31,7 @@ public class SplashState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		view = new SplashView();
-		inputManager  = InputManager.getInstance();
+		inputManager = InputManager.getInstance();
 		this.pcs = new PropertyChangeSupport(this);
 		this.pcs.addPropertyChangeListener(AudioEventListener.getInstance());
 	}
@@ -40,7 +41,7 @@ public class SplashState extends BasicGameState {
 			throws SlickException {
 		view.render(container, g);
 	}
-	
+
 	@Override
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
@@ -52,7 +53,8 @@ public class SplashState extends BasicGameState {
 			throws SlickException {
 		Input input = container.getInput();
 		if (inputManager.pressedProceed(input)) {
-			game.enterState(BombermanGame.MAIN_MENU_STATE);
+			int newState = BombermanGame.MAIN_MENU_STATE;
+			ControllerUtils.changeState(game, newState);
 		}
 
 	}

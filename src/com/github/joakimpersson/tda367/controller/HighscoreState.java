@@ -13,6 +13,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import com.github.joakimpersson.tda367.audio.AudioEventListener;
 import com.github.joakimpersson.tda367.controller.input.InputData;
 import com.github.joakimpersson.tda367.controller.input.InputManager;
+import com.github.joakimpersson.tda367.controller.utils.ControllerUtils;
 import com.github.joakimpersson.tda367.gui.HighscoreView;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
@@ -63,12 +64,15 @@ public class HighscoreState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		super.enter(container, game);
-		clearInputQueue(container.getInput());
+		
+		ControllerUtils.clearInputQueue(container.getInput());
+		
 		if (model.getHighscoreList().size() > 0) {
 			currentState = STATE.ACTIVE;
 		} else {
 			currentState = STATE.EMPTY_LIST;
 		}
+		
 		view.enter();
 		pcs.firePropertyChange("play", null, EventType.TITLE_SCREEN);
 
@@ -133,19 +137,6 @@ public class HighscoreState extends BasicGameState {
 			}
 		}
 
-	}
-
-	/**
-	 * Clear everything in the input queue from previous states
-	 * 
-	 * @param input
-	 *            The input method used by the slick framework that contains the
-	 *            latest action
-	 */
-	private void clearInputQueue(Input input) {
-		input.clearControlPressedRecord();
-		input.clearKeyPressedRecord();
-		input.clearMousePressedRecord();
 	}
 
 	/**

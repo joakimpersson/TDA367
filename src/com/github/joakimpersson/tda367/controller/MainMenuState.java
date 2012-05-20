@@ -4,20 +4,17 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
-import org.newdawn.slick.state.transition.Transition;
 
 import com.github.joakimpersson.tda367.audio.AudioEventListener;
 import com.github.joakimpersson.tda367.controller.input.InputData;
 import com.github.joakimpersson.tda367.controller.input.InputManager;
+import com.github.joakimpersson.tda367.controller.utils.ControllerUtils;
 import com.github.joakimpersson.tda367.gui.MainMenuView;
 import com.github.joakimpersson.tda367.model.constants.EventType;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
@@ -43,7 +40,7 @@ public class MainMenuState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		super.enter(container, game);
-		clearInputQueue(container.getInput());
+		ControllerUtils.clearInputQueue(container.getInput());
 		pcs.firePropertyChange("play", null, EventType.TITLE_SCREEN);
 
 	}
@@ -81,7 +78,7 @@ public class MainMenuState extends BasicGameState {
 		List<PlayerAction> actions = defaultInput(input);
 
 		int newState = -1;
-		// TODO jocke only used during development
+		// TODO only used during development
 		if (input.isKeyPressed(Input.KEY_ESCAPE)
 				|| input.isKeyPressed(Input.KEY_Q)) {
 			container.exit();
@@ -109,7 +106,7 @@ public class MainMenuState extends BasicGameState {
 		}
 
 		if (newState != -1) {
-			changeState(game, newState);
+			ControllerUtils.changeState(game, newState);
 		}
 	}
 
@@ -126,31 +123,7 @@ public class MainMenuState extends BasicGameState {
 
 	}
 
-	/**
-	 * Responsible for changing into an new state
-	 * 
-	 * @param game
-	 *            The Bomberman game container
-	 * @param newState
-	 */
-	private void changeState(StateBasedGame game, int newState) {
-		Transition fadeIn = new FadeInTransition(Color.cyan, 500);
-		Transition fadeOut = new FadeOutTransition(Color.cyan, 500);
-		game.enterState(newState, fadeOut, fadeIn);
-	}
 
-	/**
-	 * Clear everything in the input queue from previous states
-	 * 
-	 * @param input
-	 *            The input method used by the slick framework that contains the
-	 *            latest action
-	 */
-	private void clearInputQueue(Input input) {
-		input.clearControlPressedRecord();
-		input.clearKeyPressedRecord();
-		input.clearMousePressedRecord();
-	}
 
 	@Override
 	public int getID() {

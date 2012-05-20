@@ -6,20 +6,17 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
-import org.newdawn.slick.state.transition.Transition;
 
 import com.github.joakimpersson.tda367.audio.AudioEventListener;
 import com.github.joakimpersson.tda367.controller.input.InputData;
 import com.github.joakimpersson.tda367.controller.input.InputManager;
+import com.github.joakimpersson.tda367.controller.utils.ControllerUtils;
 import com.github.joakimpersson.tda367.gui.GameplayView;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
@@ -87,7 +84,7 @@ public class GameplayState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		super.enter(container, game);
-		clearInputQueue(container.getInput());
+		ControllerUtils.clearInputQueue(container.getInput());
 		currentState = STATE.GAME_WAITING;
 		view.enter();
 	}
@@ -248,7 +245,7 @@ public class GameplayState extends BasicGameState {
 			currentState = STATE.GAME_OVER;
 		} else {
 			int newState = BombermanGame.UPGRADE_PLAYER_STATE;
-			changeState(game, newState);
+			ControllerUtils.changeState(game, newState);
 		}
 		model.resetRoundStats();
 	}
@@ -256,37 +253,8 @@ public class GameplayState extends BasicGameState {
 	private void gameOver(StateBasedGame game) {
 
 		int newState = BombermanGame.GAMEOVER_STATE;
-		changeState(game, newState);
+		ControllerUtils.changeState(game, newState);
 
-	}
-
-	/**
-	 * Clear everything in the input queue from previous states
-	 * 
-	 * @param input
-	 *            The input method used by the slick framework that contains the
-	 *            latest action
-	 */
-	private void clearInputQueue(Input input) {
-		input.clearControlPressedRecord();
-		input.clearKeyPressedRecord();
-		input.clearMousePressedRecord();
-	}
-
-	/**
-	 * 
-	 * Responsible for change the current game state into another using a
-	 * fadein/out transition
-	 * 
-	 * @param game
-	 *            The game holding this state
-	 * @param newState
-	 *            The new state to change to
-	 */
-	private void changeState(StateBasedGame game, int newState) {
-		Transition fadeIn = new FadeInTransition(Color.cyan, 300);
-		Transition fadeOut = new FadeOutTransition(Color.cyan, 300);
-		game.enterState(newState, fadeOut, fadeIn);
 	}
 
 	@Override

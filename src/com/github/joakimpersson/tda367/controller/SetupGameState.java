@@ -18,6 +18,7 @@ import com.github.joakimpersson.tda367.controller.input.InputHandler;
 import com.github.joakimpersson.tda367.controller.input.InputManager;
 import com.github.joakimpersson.tda367.controller.input.KeyBoardInputHandler;
 import com.github.joakimpersson.tda367.controller.input.X360InputHandler;
+import com.github.joakimpersson.tda367.controller.utils.ControllerUtils;
 import com.github.joakimpersson.tda367.gui.SetupGameView;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
@@ -68,7 +69,6 @@ public class SetupGameState extends BasicGameState {
 		if (possiblePlayers > 4) {
 			possiblePlayers = 4;
 		}
-		
 
 		selection = 2;
 		view.setPossiblePlayers(possiblePlayers);
@@ -79,7 +79,7 @@ public class SetupGameState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 
-		clearInputQueue(container.getInput());
+		ControllerUtils.clearInputQueue(container.getInput());
 
 		this.pcs = new PropertyChangeSupport(this);
 		this.pcs.addPropertyChangeListener(AudioEventListener.getInstance());
@@ -113,7 +113,7 @@ public class SetupGameState extends BasicGameState {
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
 			game.enterState(BombermanGame.MAIN_MENU_STATE);
 		}
-		
+
 		for (PlayerAction action : actions) {
 			switch (action) {
 			case MOVE_NORTH:
@@ -145,8 +145,8 @@ public class SetupGameState extends BasicGameState {
 		} else if (stage == 2 && controllerProceed) {
 			assignPlayer(controllerUsed(input), view.getIndex());
 			if (allPlayersAssigned()) {
-
-				game.enterState(BombermanGame.GAMEPLAY_STATE);
+				int newState = BombermanGame.GAMEPLAY_STATE;
+				ControllerUtils.changeState(game, newState);
 			}
 			view.incIndex();
 		}
@@ -247,19 +247,6 @@ public class SetupGameState extends BasicGameState {
 		}
 
 		selection = newIndex;
-	}
-
-	/**
-	 * Clear everything in the input queue from previous states
-	 * 
-	 * @param input
-	 *            The input method used by the slick framework that contains the
-	 *            latest action
-	 */
-	private void clearInputQueue(Input input) {
-		input.clearControlPressedRecord();
-		input.clearKeyPressedRecord();
-		input.clearMousePressedRecord();
 	}
 
 	@Override

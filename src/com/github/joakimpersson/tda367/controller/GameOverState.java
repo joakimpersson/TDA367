@@ -1,17 +1,14 @@
 package com.github.joakimpersson.tda367.controller;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
-import org.newdawn.slick.state.transition.Transition;
 
 import com.github.joakimpersson.tda367.controller.input.InputManager;
+import com.github.joakimpersson.tda367.controller.utils.ControllerUtils;
 import com.github.joakimpersson.tda367.gui.GameOverView;
 import com.github.joakimpersson.tda367.gui.IView;
 import com.github.joakimpersson.tda367.model.BombermanModel;
@@ -52,7 +49,7 @@ public class GameOverState extends BasicGameState {
 			throws SlickException {
 		super.enter(container, game);
 		currentState = STATE.USED;
-		clearInputQueue(container.getInput());
+		ControllerUtils.clearInputQueue(container.getInput());
 		view.enter();
 	}
 
@@ -73,7 +70,7 @@ public class GameOverState extends BasicGameState {
 
 		if (pressedProcced) {
 			int newState = BombermanGame.MAIN_MENU_STATE;
-			changeState(game, newState);
+			ControllerUtils.changeState(game, newState);
 		}
 
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
@@ -97,35 +94,6 @@ public class GameOverState extends BasicGameState {
 		inputManager.removeAllInputHandlers();
 
 		model.gameReset();
-	}
-
-	/**
-	 * 
-	 * Responsible for change the current game state into another using a
-	 * fadein/out transition
-	 * 
-	 * @param game
-	 *            The game holding this state
-	 * @param newState
-	 *            The new state to change to
-	 */
-	private void changeState(StateBasedGame game, int newState) {
-		Transition fadeIn = new FadeInTransition(Color.cyan, 300);
-		Transition fadeOut = new FadeOutTransition(Color.cyan, 300);
-		game.enterState(newState, fadeOut, fadeIn);
-	}
-
-	/**
-	 * Clear everything in the input queue from previous states
-	 * 
-	 * @param input
-	 *            The input method used by the slick framework that contains the
-	 *            latest action
-	 */
-	private void clearInputQueue(Input input) {
-		input.clearControlPressedRecord();
-		input.clearKeyPressedRecord();
-		input.clearMousePressedRecord();
 	}
 
 	@Override

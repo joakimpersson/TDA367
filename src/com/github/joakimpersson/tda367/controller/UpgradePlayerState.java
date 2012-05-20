@@ -5,20 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
-import org.newdawn.slick.state.transition.Transition;
 
 import com.github.joakimpersson.tda367.audio.AudioEventListener;
 import com.github.joakimpersson.tda367.controller.input.InputData;
 import com.github.joakimpersson.tda367.controller.input.InputManager;
+import com.github.joakimpersson.tda367.controller.utils.ControllerUtils;
 import com.github.joakimpersson.tda367.gui.UpgradePlayerView;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
@@ -83,7 +80,7 @@ public class UpgradePlayerState extends BasicGameState {
 			throws SlickException {
 		super.enter(container, game);
 
-		clearInputQueue(container.getInput());
+		ControllerUtils.clearInputQueue(container.getInput());
 
 		playersIndex = new HashMap<Integer, Integer>();
 		attributes = model.getPlayers().get(0).getPermanentAttributes();
@@ -130,19 +127,6 @@ public class UpgradePlayerState extends BasicGameState {
 	}
 
 	/**
-	 * Clear everything in the input queue from previous states
-	 * 
-	 * @param input
-	 *            The input method used by the slick framework that contains the
-	 *            latest action
-	 */
-	private void clearInputQueue(Input input) {
-		input.clearControlPressedRecord();
-		input.clearKeyPressedRecord();
-		input.clearMousePressedRecord();
-	}
-
-	/**
 	 * Responsible for change the current game state into another using a
 	 * fadein/out transition
 	 * 
@@ -150,11 +134,9 @@ public class UpgradePlayerState extends BasicGameState {
 	 *            The game holding this state
 	 */
 	private void upgradeDone(StateBasedGame game) {
-		Transition fadeIn = new FadeInTransition(Color.cyan, 500);
-		Transition fadeOut = new FadeOutTransition(Color.cyan, 500);
-		game.enterState(BombermanGame.GAMEPLAY_STATE, fadeOut, fadeIn);
+		int newState = BombermanGame.GAMEPLAY_STATE;
+		ControllerUtils.changeState(game, newState);
 		currentState = STATE.NOT_USED;
-
 	}
 
 	/**
@@ -181,7 +163,8 @@ public class UpgradePlayerState extends BasicGameState {
 				pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
 				break;
 			case ACTION:
-				model.upgradePlayer(p, attributes.get(playersIndex.get(p.getIndex())));
+				model.upgradePlayer(p,
+						attributes.get(playersIndex.get(p.getIndex())));
 				break;
 			default:
 				break;
@@ -192,7 +175,7 @@ public class UpgradePlayerState extends BasicGameState {
 			currentState = STATE.UPGRADE_DONE;
 		}
 
-		// jocke TODO really bad solution
+		// TODO really bad solution
 		try {
 			Thread.sleep(80);
 		} catch (InterruptedException e) {
