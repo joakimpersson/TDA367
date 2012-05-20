@@ -46,16 +46,16 @@ import com.github.joakimpersson.tda367.model.utils.MapLoader;
  * handling the events between them.
  * 
  * @author Viktor Anderling
- * @modified Joakim Persson, Adrian Bjugård
+ * @modified joakimpersson, Adrian Bjugård
  * 
  */
 public class BombermanModel implements IBombermanModel {
 
+	private static BombermanModel instance = null;
 	private List<Player> players;
 	private List<Timer> bombTimers;
-	private IGameMap map;
-	private static BombermanModel instance = null;
 	private LinkedList<Map<Position, Tile>> waitingFirePositions;
+	private IGameMap map = null;
 	private PropertyChangeSupport pcs;
 	private Highscore highscore = null;
 	private IGameLogic gameLogic = null;
@@ -114,7 +114,7 @@ public class BombermanModel implements IBombermanModel {
 	@Override
 	public void updateGame(Player player, PlayerAction action) {
 		double stepSize = player.getSpeededStepSize();
-		if(action.isDiagonal()) {
+		if (action.isDiagonal()) {
 			stepSize = stepSize * 0.7;
 		}
 		if (player.isAlive()) {
@@ -140,7 +140,8 @@ public class BombermanModel implements IBombermanModel {
 	 *            The player to move.
 	 * @param direction
 	 *            The direction for the player to move
-	 * @param stepSize TODO
+	 * @param stepSize
+	 *            TODO
 	 */
 	private void move(Player player, Direction direction, double stepSize) {
 		Position prevPos = player.getTilePosition();
@@ -196,7 +197,7 @@ public class BombermanModel implements IBombermanModel {
 		if (player.canPlaceBomb()
 				&& map.getTile(player.getTilePosition()) instanceof Floor) {
 			Timer bombTimer = new Timer();
-			Bomb bomb = createBomb(player, bombTimer);// player.createBomb(bombTimer);
+			Bomb bomb = createBomb(player, bombTimer);
 
 			bombTimer.schedule(new BombTask(bomb),
 					Parameters.INSTANCE.getBombDetonationTime());
@@ -270,17 +271,17 @@ public class BombermanModel implements IBombermanModel {
 	 *            The player who is the target of the fire.
 	 */
 	private void hitPlayer(Player bombOwner, Player targetPlayer) {
-		List<PointGiver> pg = new ArrayList<PointGiver>();
+		List<PointGiver> earnedPointGivers = new ArrayList<PointGiver>();
 		if (!targetPlayer.isImmortal() && targetPlayer.isAlive()) {
 			targetPlayer.playerHit();
 			if (!bombOwner.equals(targetPlayer)) {
-				pg.add(PointGiver.PlayerHit);
+				earnedPointGivers.add(PointGiver.PlayerHit);
 				if (!targetPlayer.isAlive()) {
-					pg.add(PointGiver.KillPlayer);
+					earnedPointGivers.add(PointGiver.KillPlayer);
 				}
 			}
 		}
-		bombOwner.updatePlayerPoints(pg);
+		bombOwner.updatePlayerPoints(earnedPointGivers);
 	}
 
 	/**
@@ -293,10 +294,10 @@ public class BombermanModel implements IBombermanModel {
 	 */
 	private void hitPlayers(Player bombOwner, List<Position> positions) {
 
-		for (Player p : players) {
-			Position playerPos = p.getTilePosition();
+		for (Player player : players) {
+			Position playerPos = player.getTilePosition();
 			if (positions.contains(playerPos)) {
-				hitPlayer(bombOwner, p);
+				hitPlayer(bombOwner, player);
 			}
 		}
 	}
@@ -310,26 +311,29 @@ public class BombermanModel implements IBombermanModel {
 	 *            A list of positions of potential items.
 	 */
 	private void hitItems(Player bombOwner, List<Position> positions) {
-		List<PointGiver> pg = new ArrayList<PointGiver>();
-		Tile tmpTile;
+		List<PointGiver> earnedPointGivers = new ArrayList<PointGiver>();
+		Tile tile = null;
 
 		for (Position pos : positions) {
 
-			tmpTile = map.getTile(pos);
-			if (tmpTile instanceof Destroyable) {
-				Destroyable destroyableTile = (Destroyable) tmpTile;
-				if (tmpTile instanceof Bomb) {
-					if (!bombOwner.equals(((Bomb) tmpTile).getPlayer())) {
-						destroyableTile = (Destroyable) tmpTile;
-						pg.add(destroyableTile.getPointGiver());
-					}
-				} else {
-					destroyableTile = (Destroyable) tmpTile;
-					pg.add(destroyableTile.getPointGiver());
+			tile = map.getTile(pos);
+
+			if (tile instanceof Bomb) {
+				Bomb bomb = (Bomb) tile;
+				if (!bombOwner.equals(bomb.getPlayer())) {
+					earnedPointGivers.add(bomb.getPointGiver());
 				}
 			}
+
+			if (tile instanceof Destroyable) {
+
+				Destroyable destroyableTile = (Destroyable) tile;
+				destroyableTile = (Destroyable) tile;
+				earnedPointGivers.add(destroyableTile.getPointGiver());
+			}
+
 		}
-		bombOwner.updatePlayerPoints(pg);
+		bombOwner.updatePlayerPoints(earnedPointGivers);
 	}
 
 	/**
@@ -480,7 +484,7 @@ public class BombermanModel implements IBombermanModel {
 	public Player getLastRoundWinner() {
 		return gameLogic.getLastRoundWinner();
 	}
-	
+
 	/**
 	 * Reset the model after every round
 	 */
