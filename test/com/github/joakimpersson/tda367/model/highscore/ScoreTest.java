@@ -22,25 +22,29 @@ import com.github.joakimpersson.tda367.model.player.PlayerPoints;
 public class ScoreTest {
 
 	private Score score;
-	private PlayerPoints playerPoints;
-	private String playerName;
 
 	@Before
 	public void setUp() throws Exception {
-		playerName = "Kalle";
-		playerPoints = new PlayerPoints();
+		String playerName = "Kalle";
+		PlayerPoints playerPoints = new PlayerPoints();
 		addPointGivers(playerPoints, 3);
 		score = new Score(playerName, playerPoints);
 	}
 
 	@Test
 	public void testGetPlayerName() {
-		assertTrue(playerName.equals(score.getPlayerName()));
+		String expected = "Kalle";
+		String actual = score.getPlayerName();
+		assertTrue(expected.equals(actual));
 	}
 
 	@Test
 	public void testGetPlayerPoints() {
-		assertTrue(playerPoints.equals(score.getPlayerPoints()));
+		PlayerPoints expected = new PlayerPoints();
+		addPointGivers(expected, 3);
+		PlayerPoints actual = score.getPlayerPoints();
+
+		assertTrue(expected.equals(actual));
 	}
 
 	@Test
