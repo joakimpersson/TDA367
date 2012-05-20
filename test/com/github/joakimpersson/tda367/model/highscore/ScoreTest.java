@@ -33,20 +33,14 @@ public class ScoreTest {
 		score = new Score(playerName, playerPoints);
 	}
 
-	private void addPointGivers(PlayerPoints playerPoints, int nbrOfRoundsWon) {
-		for (int i = 0; i < nbrOfRoundsWon; i++) {
-			playerPoints.update(PointGiver.RoundWon);
-		}
-	}
-
 	@Test
 	public void testGetPlayerName() {
-		assertTrue(playerName == score.getPlayerName());
+		assertTrue(playerName.equals(score.getPlayerName()));
 	}
 
 	@Test
 	public void testGetPlayerPoints() {
-		assertTrue(playerPoints == score.getPlayerPoints());
+		assertTrue(playerPoints.equals(score.getPlayerPoints()));
 	}
 
 	@Test
@@ -60,6 +54,7 @@ public class ScoreTest {
 		assertFalse(score.hashCode() == otherScore.hashCode());
 
 		addPointGivers(otherPlayerPoints, 3);
+		otherScore = new Score("Kalle", otherPlayerPoints);
 
 		assertTrue(score.hashCode() == otherScore.hashCode());
 
@@ -79,32 +74,34 @@ public class ScoreTest {
 
 		addPointGivers(otherPlayerPoints, 3);
 
+		otherScore = new Score("Kalle", otherPlayerPoints);
 		assertTrue(score.compareTo(otherScore) == 0);
 
 		addPointGivers(otherPlayerPoints, 1);
 
+		otherScore = new Score("Kalle", otherPlayerPoints);
 		assertTrue(score.compareTo(otherScore) < 0);
 
 	}
 
 	@Test
-	public void testEqualsObject() {
+	public void testEquals() {
 
 		// Testing for self refrence and null
 		assertTrue(score.equals(score));
 		assertFalse(score.equals(null));
 
 		PlayerPoints otherPlayerPoints = new PlayerPoints();
-		Score otherScore = new Score("Hobbe", otherPlayerPoints);
 
+		Score otherScore = new Score("Hobbe", otherPlayerPoints);
 		assertThat(score, not(equalTo(otherScore)));
 
 		otherScore = new Score("Kalle", otherPlayerPoints);
-
 		assertThat(score, not(equalTo(otherScore)));
 
 		addPointGivers(otherPlayerPoints, 3);
 
+		otherScore = new Score("Kalle", otherPlayerPoints);
 		assertThat(score, equalTo(otherScore));
 
 		otherScore = new Score("Hobbe", otherPlayerPoints);
@@ -115,5 +112,11 @@ public class ScoreTest {
 	@After
 	public void tearDown() throws Exception {
 		score = null;
+	}
+
+	private void addPointGivers(PlayerPoints playerPoints, int nbrOfRoundsWon) {
+		for (int i = 0; i < nbrOfRoundsWon; i++) {
+			playerPoints.update(PointGiver.RoundWon);
+		}
 	}
 }
