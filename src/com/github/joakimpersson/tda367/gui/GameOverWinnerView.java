@@ -96,22 +96,22 @@ public class GameOverWinnerView implements IView {
 		int xDelta = 400;
 		int yDelta = 70;
 		String str = "Players Killed: "
-				+ playerPoints.getDestroyedPointGiver(PointGiver.KillPlayer);
+				+ playerPoints.getEarnedPointGiver(PointGiver.KillPlayer);
 		g.drawString(str, x, y);
 		y += yDelta;
 		str = "Destroyed Boxs: "
-				+ playerPoints.getDestroyedPointGiver(PointGiver.Box);
+				+ playerPoints.getEarnedPointGiver(PointGiver.Box);
 		g.drawString(str, x, y);
 
 		x += xDelta;
 		y = posY;
 
 		str = "Players Hit: "
-				+ playerPoints.getDestroyedPointGiver(PointGiver.PlayerHit);
+				+ playerPoints.getEarnedPointGiver(PointGiver.PlayerHit);
 		g.drawString(str, x, y);
 		y += yDelta;
 		str = "Destroyed Pillars: "
-				+ playerPoints.getDestroyedPointGiver(PointGiver.Pillar);
+				+ playerPoints.getEarnedPointGiver(PointGiver.Pillar);
 		g.drawString(str, x, y);
 	}
 

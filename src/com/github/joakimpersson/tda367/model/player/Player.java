@@ -335,7 +335,7 @@ public class Player {
 	 * @return The number of destroyed tile type in PointGiver
 	 */
 	public int getDestroyedPointGiver(PointGiver type) {
-		return points.getDestroyedPointGiver(type);
+		return points.getEarnedPointGiver(type);
 	}
 
 	/**

@@ -49,16 +49,16 @@ public interface IBombermanModel {
 	public void upgradePlayer(Player player, Attribute attr);
 
 	/**
-	 * Returns a list of the current active players in the game
+	 * Returns a copy of the list of the current active players in the game
 	 * 
-	 * @return A list of players
+	 * @return A copy of the list of players
 	 */
 	public List<Player> getPlayers();
 
 	/**
 	 * Returns a copy of the matrix representing the game map
 	 * 
-	 * @return The game map matrix
+	 * @return A copy of the game map matrix
 	 */
 	public Tile[][] getMap();
 

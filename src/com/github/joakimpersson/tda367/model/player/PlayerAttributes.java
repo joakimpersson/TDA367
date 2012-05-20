@@ -1,7 +1,5 @@
 package com.github.joakimpersson.tda367.model.player;
 
-
-
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -111,7 +109,7 @@ public class PlayerAttributes {
 	/**
 	 * 
 	 * After either a round or a match reset the players attribute to its
-	 * standrad values
+	 * standard values
 	 * 
 	 * @param type
 	 *            What kind of reset of the attribute is it
@@ -151,11 +149,15 @@ public class PlayerAttributes {
 	private void initDefaultMatchValues() {
 
 		matchAttr.put(Attribute.Speed, Parameters.INSTANCE.getInitSpeed());
-		matchAttr.put(Attribute.BombStack, Parameters.INSTANCE.getStartingBombs());
+		matchAttr.put(Attribute.BombStack,
+				Parameters.INSTANCE.getStartingBombs());
 		matchAttr.put(Attribute.Health, Parameters.INSTANCE.getInitHealth());
-		matchAttr.put(Attribute.BombRange, Parameters.INSTANCE.getInitBombRange());
-		matchAttr.put(Attribute.BombPower, Parameters.INSTANCE.getInitBombPower());
-		matchAttr.put(Attribute.BombType, Parameters.INSTANCE.getInitBombType());
+		matchAttr.put(Attribute.BombRange,
+				Parameters.INSTANCE.getInitBombRange());
+		matchAttr.put(Attribute.BombPower,
+				Parameters.INSTANCE.getInitBombPower());
+		matchAttr
+				.put(Attribute.BombType, Parameters.INSTANCE.getInitBombType());
 	}
 
 	/**

@@ -123,7 +123,7 @@ public class PlayerPoints implements Serializable, Comparable<PlayerPoints> {
 	 *            type of PointGiver tile
 	 * @return The number of destroyed tile type in PointGiver
 	 */
-	public int getDestroyedPointGiver(PointGiver type) {
+	public int getEarnedPointGiver(PointGiver type) {
 		return this.pointGivers.get(type);
 	}
 

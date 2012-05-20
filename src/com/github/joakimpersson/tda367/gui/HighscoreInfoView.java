@@ -165,7 +165,7 @@ public class HighscoreInfoView {
 		StringBuilder strBuilder = new StringBuilder();
 		strBuilder.append(pg.name());
 		strBuilder.append(": ");
-		strBuilder.append(pp.getDestroyedPointGiver(pg));
+		strBuilder.append(pp.getEarnedPointGiver(pg));
 		strBuilder.append(" st");
 		return strBuilder.toString();
 	}

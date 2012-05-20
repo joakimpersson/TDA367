@@ -390,7 +390,7 @@ public class BombermanModel implements IBombermanModel {
 
 	@Override
 	public List<Player> getPlayers() {
-		return players;
+		return new ArrayList<Player>(players);
 	}
 
 	@Override

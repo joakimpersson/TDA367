@@ -35,7 +35,7 @@ public class GameMap implements IGameMap {
 
 	@Override
 	public Tile[][] getMap() {
-		return map;
+		return Utils.copyGameMap(map);
 	}
 
 	@Override
