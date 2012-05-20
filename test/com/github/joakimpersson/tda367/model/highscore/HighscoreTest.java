@@ -19,11 +19,11 @@ import com.github.joakimpersson.tda367.model.positions.Position;
 
 public class HighscoreTest {
 
-	private Highscore hs;
+	private Highscore highScore;
 
 	@Before
 	public void setUp() throws Exception {
-		hs = new Highscore();
+		highScore = new Highscore();
 	}
 
 	@Test
@@ -33,10 +33,10 @@ public class HighscoreTest {
 
 		updatePlayersScore(players);
 
-		hs.update(players);
+		highScore.update(players);
 
 		List<Score> expected = simulateHighScore(players);
-		List<Score> actual = hs.getList();
+		List<Score> actual = highScore.getList();
 
 		assertEquals(expected.size(), actual.size());
 
@@ -51,10 +51,10 @@ public class HighscoreTest {
 
 		updatePlayersScore(players);
 
-		hs.update(players);
+		highScore.update(players);
 
 		List<Score> expected = simulateHighScore(players);
-		List<Score> actual = hs.getList();
+		List<Score> actual = highScore.getList();
 		// Since the expected list is one score object bigger than the expected
 		// the last entry should not be in the highscore list
 		Score expectedMissingPlayer = expected.remove(size - 1);
@@ -77,11 +77,11 @@ public class HighscoreTest {
 			playerNames.add(p.getName());
 		}
 
-		hs.update(players);
+		highScore.update(players);
 
-		assertEquals(size, hs.getSize());
+		assertEquals(size, highScore.getSize());
 
-		for (Score score : hs.getList()) {
+		for (Score score : highScore.getList()) {
 			String tmpPlayerName = score.getPlayerName();
 			assertTrue(playerNames.contains(tmpPlayerName));
 		}
@@ -92,11 +92,11 @@ public class HighscoreTest {
 		int size = 5;
 		List<Player> players = createListOfPlayer(size);
 
-		assertTrue(hs.getSize() == 0);
+		assertTrue(highScore.getSize() == 0);
 
-		hs.update(players);
+		highScore.update(players);
 
-		assertEquals(size, hs.getSize());
+		assertEquals(size, highScore.getSize());
 	}
 
 	@Test
@@ -104,19 +104,19 @@ public class HighscoreTest {
 		int size = 5;
 		List<Player> players = createListOfPlayer(size);
 
-		hs.update(players);
+		highScore.update(players);
 
-		assertTrue(hs.getSize() > 0);
+		assertTrue(highScore.getSize() > 0);
 
-		hs.reset();
+		highScore.reset();
 
-		assertTrue(hs.getSize() == 0);
+		assertTrue(highScore.getSize() == 0);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		hs.reset();
-		hs = null;
+		highScore.reset();
+		highScore = null;
 	}
 
 	/**

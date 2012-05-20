@@ -74,8 +74,8 @@ public class Highscore {
 	}
 
 	/**
-	 * Loads the Highscorelist file. 
-	 * If no file exist, it creates a Highscorelist object.
+	 * Loads the Highscorelist file. If no file exist, it creates a
+	 * Highscorelist object.
 	 */
 	@SuppressWarnings("unchecked")
 	private void loadList() {
@@ -86,13 +86,13 @@ public class Highscore {
 	}
 
 	/**
-	 * Get the HighScore list
+	 * Get a copy the HighScore list
 	 * 
-	 * @return The list of score objects in descending order
+	 * @return A copy of the list of score objects in descending order
 	 */
 	public List<Score> getList() {
 		this.loadList();
-		return playerList;
+		return new ArrayList<Score>(playerList);
 	}
 
 	/**
