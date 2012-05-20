@@ -58,14 +58,26 @@ public class UpgradePlayerPanelView implements IUpgradePlayerView {
 
 	@Override
 	public void render(GameContainer container, Graphics g,
-			Map<Integer, Integer> playerAttrIndex) {
+			Map<Integer, Integer> playerAttrIndex,
+			Map<Integer, Boolean> playerReadyness,
+			Map<Integer, Integer> playerCredits,
+			Map<Integer, Map<Attribute, Integer>> upgradeMap) {
 		g.setFont(smlFont);
 		int posX = X;
 		int posY = Y;
+		
+		boolean playerReady = playerReadyness.get(player.getIndex());
+		
+		Color color;
+		if (!playerReady) {
+			color = Color.white;
+		} else {
+			color = Color.lightGray;
+		}
+			
+		g.setColor(color);
 
-		g.setColor(Color.white);
-
-		String str = formatHeaderString();
+		String str = formatHeaderString(playerCredits.get(player.getIndex()));
 		g.drawString(str, posX, posY);
 
 		posY += 25;
@@ -76,13 +88,15 @@ public class UpgradePlayerPanelView implements IUpgradePlayerView {
 		for (Attribute a : player.getPermanentAttributes()) {
 			posY += yDelta;
 
-			if (index == playerAttrIndex.get(player.getIndex())) {
+			if (index == playerAttrIndex.get(player.getIndex()) && !playerReady) {
 				g.setColor(Color.cyan);
+			} else {
+				g.setColor(color);
 			}
-			str = formatAttrString(a);
+			str = formatAttrString(a, upgradeMap.get(player.getIndex()).get(a));
 			g.drawString(str, posX, posY);
 			// make sure that is is always white
-			g.setColor(Color.white);
+			g.setColor(color);
 			index++;
 		}
 	}
@@ -90,14 +104,15 @@ public class UpgradePlayerPanelView implements IUpgradePlayerView {
 	/**
 	 * Formats a header string for a player containing its name and its credits
 	 * to spend
+	 * @param credits 
 	 * 
 	 * @return A string containing the players name and credits
 	 */
-	private String formatHeaderString() {
+	private String formatHeaderString(Integer credits) {
 		StringBuilder str = new StringBuilder();
 
 		str.append(player.getName() + " (");
-		str.append(player.getCredits());
+		str.append(credits);
 		str.append("$)");
 
 		return str.toString();
@@ -108,15 +123,15 @@ public class UpgradePlayerPanelView implements IUpgradePlayerView {
 	 * 
 	 * @param a
 	 *            The Attribute to draw info about
+	 * @param value 
 	 * @return A string containing the attributes name and cost
 	 */
-	private String formatAttrString(Attribute a) {
+	private String formatAttrString(Attribute a, Integer value) {
 		StringBuilder str = new StringBuilder();
 
 		str.append(a.name() + "(");
-		str.append(player.getAttribute(a) + ") \t");
+		str.append(value + ") \t");
 		str.append(a.getCost() + "$");
 		return str.toString();
 	}
-
 }

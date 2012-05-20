@@ -42,12 +42,15 @@ public class UpgradePlayerState extends BasicGameState {
 	private int stateID = -1;
 	private UpgradePlayerView view = null;
 	private IBombermanModel model = null;
+	private List<Attribute> attributes = null;
 	/**
 	 * TODO tmp solution Indexing on the players index, since the player object
 	 * is mutable but not his index its non-mutable
 	 */
 	private Map<Integer, Integer> playersIndex = null;
-	private List<Attribute> attributes = null;
+	private Map<Integer, Boolean> playerReadyness = null;
+	private Map<Integer, Integer> playerCredits = null;
+	private Map<Integer, Map<Attribute, Integer>> upgradeMap = null;
 	private InputManager inputManager = null;
 	private PropertyChangeSupport pcs;
 	private STATE currentState;
@@ -79,14 +82,25 @@ public class UpgradePlayerState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		super.enter(container, game);
-
+		
 		ControllerUtils.clearInputQueue(container.getInput());
-
-		playersIndex = new HashMap<Integer, Integer>();
 		attributes = model.getPlayers().get(0).getPermanentAttributes();
 
+		playersIndex = new HashMap<Integer, Integer>();
+		playerReadyness = new HashMap<Integer, Boolean>();
+		playerCredits = new HashMap<Integer, Integer>();
+		upgradeMap = new HashMap<Integer, Map<Attribute, Integer>>();
+
 		for (Player p : model.getPlayers()) {
+			// TODO bad code
+			Map<Attribute, Integer> attributeMap = new HashMap<Attribute, Integer>();
+			for (Attribute a : attributes) {
+				attributeMap.put(a, p.getAttribute(a));
+			}
 			playersIndex.put(p.getIndex(), 0);
+			playerReadyness.put(p.getIndex(), false);
+			playerCredits.put(p.getIndex(), p.getCredits());
+			upgradeMap.put(p.getIndex(), attributeMap);
 		}
 		view.enter();
 		currentState = STATE.USED;
@@ -96,7 +110,8 @@ public class UpgradePlayerState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 		if (currentState != STATE.NOT_USED) {
-			view.render(container, g, playersIndex);
+			view.render(container, g, playersIndex, playerReadyness,
+					playerCredits, upgradeMap);
 		}
 	}
 
@@ -106,7 +121,6 @@ public class UpgradePlayerState extends BasicGameState {
 		Input input = container.getInput();
 
 		switch (currentState) {
-
 		case USED:
 			updateGame(container.getInput());
 			break;
@@ -152,26 +166,55 @@ public class UpgradePlayerState extends BasicGameState {
 
 		for (InputData d : data) {
 			PlayerAction action = d.getAction();
+
 			Player p = d.getPlayer();
-			switch (action) {
-			case MOVE_NORTH:
-				moveIndex(p, -1);
-				pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
-				break;
-			case MOVE_SOUTH:
-				moveIndex(p, 1);
-				pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
-				break;
-			case ACTION:
-				model.upgradePlayer(p,
-						attributes.get(playersIndex.get(p.getIndex())));
-				break;
-			default:
-				break;
+			Attribute attr = attributes.get(playersIndex.get(p.getIndex()));
+			int value = upgradeMap.get(p.getIndex()).get(attr);
+			int credits = playerCredits.get(p.getIndex());
+			boolean playerReady = playerReadyness.get(p.getIndex());
+
+			if (action == PlayerAction.ACTION) {
+				playerReadyness.put(p.getIndex(), !playerReady);
+			} else if (!playerReady) {
+				switch (action) {
+				case MOVE_NORTH:
+					moveIndex(p, -1);
+					pcs.firePropertyChange("play", null,
+							EventType.MENU_NAVIGATE);
+					break;
+				case MOVE_SOUTH:
+					moveIndex(p, 1);
+					pcs.firePropertyChange("play", null,
+							EventType.MENU_NAVIGATE);
+					break;
+				case MOVE_EAST:
+					if (credits >= attr.getCost()) {
+						value++;
+						credits -= attr.getCost();
+						upgradeMap.get(p.getIndex()).put(attr, value);
+						playerCredits.put(p.getIndex(), credits);
+						pcs.firePropertyChange("play", null,
+								EventType.MENU_NAVIGATE);
+					}
+					break;
+				case MOVE_WEST:
+					if (value > p.getAttribute(attr)) {
+						value--;
+						credits += attr.getCost();
+						upgradeMap.get(p.getIndex()).put(attr, value);
+						playerCredits.put(p.getIndex(), credits);
+					}
+					pcs.firePropertyChange("play", null,
+							EventType.MENU_NAVIGATE);
+					break;
+				default:
+					break;
+				}
 			}
 		}
 
-		if (inputManager.pressedProceed(input)) {
+		if (!playerReadyness.containsValue(false)) {
+			performUpgrades();
 			currentState = STATE.UPGRADE_DONE;
 		}
 
@@ -182,6 +225,18 @@ public class UpgradePlayerState extends BasicGameState {
 			e.printStackTrace();
 		}
 
+	}
+
+	private void performUpgrades() {
+		for (Player p : model.getPlayers()) {
+			for (Attribute a : attributes) {
+				int oldValue = p.getAttribute(a);
+				for (int i = 0; i < upgradeMap.get(p.getIndex()).get(a)
+						- oldValue; i++) {
+					model.upgradePlayer(p, a);
+				}
+			}
+		}
 	}
 
 	/**

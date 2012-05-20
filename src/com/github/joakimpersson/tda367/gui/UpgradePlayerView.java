@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 
 import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
 import com.github.joakimpersson.tda367.model.BombermanModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
+import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.player.Player;
 
 /**
@@ -59,10 +62,21 @@ public class UpgradePlayerView implements IUpgradePlayerView {
 
 	@Override
 	public void render(GameContainer container, Graphics g,
-			Map<Integer, Integer> playerAttrIndex) {
-
+			Map<Integer, Integer> playerAttrIndex,
+			Map<Integer, Boolean> playerReadyness,
+			Map<Integer, Integer> playerCredits,
+			Map<Integer, Map<Attribute, Integer>> upgradeMap) {
+		try {
+			g.setFont(GUIUtils.getSmlFont());
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		
+		g.setColor(Color.cyan);
+		g.drawString("Do your stuff and then press action!", 20, 20);
+		
 		for (UpgradePlayerPanelView view : playerViews) {
-			view.render(container, g, playerAttrIndex);
+			view.render(container, g, playerAttrIndex, playerReadyness, playerCredits, upgradeMap);
 		}
 	}
 
