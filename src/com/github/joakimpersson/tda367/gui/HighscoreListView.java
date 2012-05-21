@@ -8,7 +8,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
-import com.github.joakimpersson.tda367.model.BombermanModel;
+import com.github.joakimpersson.tda367.model.PyromaniacModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.highscore.Score;
 
@@ -45,7 +45,7 @@ public class HighscoreListView {
 	 * etc
 	 */
 	private void init() {
-		model = BombermanModel.getInstance();
+		model = PyromaniacModel.getInstance();
 	}
 
 	public void enter() {

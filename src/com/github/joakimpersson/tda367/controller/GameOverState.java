@@ -11,7 +11,7 @@ import com.github.joakimpersson.tda367.controller.input.InputManager;
 import com.github.joakimpersson.tda367.controller.utils.ControllerUtils;
 import com.github.joakimpersson.tda367.gui.GameOverView;
 import com.github.joakimpersson.tda367.gui.IView;
-import com.github.joakimpersson.tda367.model.BombermanModel;
+import com.github.joakimpersson.tda367.model.PyromaniacModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 
 /**
@@ -39,7 +39,7 @@ public class GameOverState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		currentState = STATE.NOT_USED;
-		model = BombermanModel.getInstance();
+		model = PyromaniacModel.getInstance();
 		inputManager = InputManager.getInstance();
 		view = new GameOverView();
 	}

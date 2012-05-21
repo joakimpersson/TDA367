@@ -8,7 +8,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import com.github.joakimpersson.tda367.model.BombermanModel;
+import com.github.joakimpersson.tda367.model.PyromaniacModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.player.Player;
 
@@ -43,7 +43,7 @@ public class PlayerInfoContainerView implements IView {
 	 * etc
 	 */
 	private void init() {
-		model = BombermanModel.getInstance();
+		model = PyromaniacModel.getInstance();
 	}
 
 	@Override

@@ -17,7 +17,7 @@ import com.github.joakimpersson.tda367.controller.input.InputData;
 import com.github.joakimpersson.tda367.controller.input.InputManager;
 import com.github.joakimpersson.tda367.controller.utils.ControllerUtils;
 import com.github.joakimpersson.tda367.gui.UpgradePlayerView;
-import com.github.joakimpersson.tda367.model.BombermanModel;
+import com.github.joakimpersson.tda367.model.PyromaniacModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.EventType;
@@ -69,7 +69,7 @@ public class UpgradePlayerState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		view = new UpgradePlayerView();
-		model = BombermanModel.getInstance();
+		model = PyromaniacModel.getInstance();
 		inputManager = InputManager.getInstance();
 
 		this.pcs = new PropertyChangeSupport(this);

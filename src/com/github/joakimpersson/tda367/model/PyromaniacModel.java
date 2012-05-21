@@ -48,9 +48,9 @@ import com.github.joakimpersson.tda367.model.utils.MapLoader;
  * @modified joakimpersson, Adrian Bjugård
  * 
  */
-public class BombermanModel implements IBombermanModel {
+public class PyromaniacModel implements IBombermanModel {
 
-	private static BombermanModel instance = null;
+	private static PyromaniacModel instance = null;
 	private List<Player> players;
 	private List<Timer> bombTimers;
 	private LinkedList<Map<Position, Tile>> waitingFirePositions;
@@ -59,7 +59,7 @@ public class BombermanModel implements IBombermanModel {
 	private Highscore highscore = null;
 	private IGameLogic gameLogic = null;
 
-	private BombermanModel() {
+	private PyromaniacModel() {
 		this.pcs = new PropertyChangeSupport(this);
 		highscore = new Highscore();
 	}
@@ -67,9 +67,9 @@ public class BombermanModel implements IBombermanModel {
 	/**
 	 * @return The instance of this bombermanModel.
 	 */
-	public static BombermanModel getInstance() {
+	public static PyromaniacModel getInstance() {
 		if (instance == null) {
-			instance = new BombermanModel();
+			instance = new PyromaniacModel();
 		}
 		return instance;
 	}

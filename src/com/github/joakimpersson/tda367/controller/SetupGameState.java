@@ -21,7 +21,7 @@ import com.github.joakimpersson.tda367.controller.input.KeyBoardInputHandler;
 import com.github.joakimpersson.tda367.controller.input.X360InputHandler;
 import com.github.joakimpersson.tda367.controller.utils.ControllerUtils;
 import com.github.joakimpersson.tda367.gui.SetupGameView;
-import com.github.joakimpersson.tda367.model.BombermanModel;
+import com.github.joakimpersson.tda367.model.PyromaniacModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.constants.EventType;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
@@ -85,7 +85,7 @@ public class SetupGameState extends BasicGameState {
 		this.pcs = new PropertyChangeSupport(this);
 		this.pcs.addPropertyChangeListener(AudioEventListener.getInstance());
 
-		model = BombermanModel.getInstance();
+		model = PyromaniacModel.getInstance();
 		inputManager = InputManager.getInstance();
 		view = new SetupGameView(container);
 	}

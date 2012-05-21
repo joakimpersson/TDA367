@@ -18,7 +18,7 @@ import com.github.joakimpersson.tda367.controller.input.InputData;
 import com.github.joakimpersson.tda367.controller.input.InputManager;
 import com.github.joakimpersson.tda367.controller.utils.ControllerUtils;
 import com.github.joakimpersson.tda367.gui.GameplayView;
-import com.github.joakimpersson.tda367.model.BombermanModel;
+import com.github.joakimpersson.tda367.model.PyromaniacModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.constants.EventType;
 import com.github.joakimpersson.tda367.model.player.Player;
@@ -65,7 +65,7 @@ public class GameplayState extends BasicGameState {
 		pcs = new PropertyChangeSupport(this);
 		AudioEventListener audioEL = AudioEventListener.getInstance();
 		pcs.addPropertyChangeListener(audioEL);
-		model = BombermanModel.getInstance();
+		model = PyromaniacModel.getInstance();
 
 		this.playlist = new ArrayList<EventType>();
 		playlist.add(EventType.ROUND_ENDED);

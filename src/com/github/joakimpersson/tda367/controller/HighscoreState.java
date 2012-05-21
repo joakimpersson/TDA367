@@ -15,7 +15,7 @@ import com.github.joakimpersson.tda367.controller.input.InputData;
 import com.github.joakimpersson.tda367.controller.input.InputManager;
 import com.github.joakimpersson.tda367.controller.utils.ControllerUtils;
 import com.github.joakimpersson.tda367.gui.HighscoreView;
-import com.github.joakimpersson.tda367.model.BombermanModel;
+import com.github.joakimpersson.tda367.model.PyromaniacModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.constants.EventType;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
@@ -53,7 +53,7 @@ public class HighscoreState extends BasicGameState {
 			throws SlickException {
 
 		this.currentState = STATE.NOT_ACTIVE;
-		this.model = BombermanModel.getInstance();
+		this.model = PyromaniacModel.getInstance();
 		this.view = new HighscoreView();
 		this.inputManager = InputManager.getInstance();
 		this.pcs = new PropertyChangeSupport(this);

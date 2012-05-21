@@ -27,7 +27,7 @@ import com.github.joakimpersson.tda367.model.positions.FPosition;
 import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 
-public class BombermanModelTest {
+public class PyromaniacModelTest {
 
 	private IBombermanModel model;
 	private IGameLogic gameLogic;
@@ -35,7 +35,7 @@ public class BombermanModelTest {
 
 	@Before
 	public void setUp() throws Exception {
-		model = BombermanModel.getInstance();
+		model = PyromaniacModel.getInstance();
 		players = new ArrayList<Player>();
 		Dimension mapD = Parameters.INSTANCE.getMapSize();
 		players.add(new Player(1, "testPlayer1", new Position(1, 1)));

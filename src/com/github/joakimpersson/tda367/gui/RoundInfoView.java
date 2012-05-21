@@ -11,7 +11,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
-import com.github.joakimpersson.tda367.model.BombermanModel;
+import com.github.joakimpersson.tda367.model.PyromaniacModel;
 import com.github.joakimpersson.tda367.model.IBombermanModel;
 import com.github.joakimpersson.tda367.model.player.Player;
 
@@ -46,7 +46,7 @@ public class RoundInfoView implements IView {
 	 * etc
 	 */
 	private void init() {
-		model = BombermanModel.getInstance();
+		model = PyromaniacModel.getInstance();
 		try {
 			smlFont = GUIUtils.getSmlFont();
 			bigFont = GUIUtils.getBigFont();
