@@ -9,7 +9,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import com.github.joakimpersson.tda367.model.PyromaniacModel;
-import com.github.joakimpersson.tda367.model.IBombermanModel;
+import com.github.joakimpersson.tda367.model.IPyromaniacModel;
 import com.github.joakimpersson.tda367.model.player.Player;
 
 /**
@@ -21,7 +21,7 @@ public class PlayerInfoContainerView implements IView {
 	private int startX;
 	private int startY;
 	private static final int panelWidth = 200;
-	private IBombermanModel model = null;
+	private IPyromaniacModel model = null;
 	private List<PlayerInfoView> playersInfo = null;
 
 	/**

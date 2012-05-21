@@ -9,7 +9,7 @@ import org.newdawn.slick.SlickException;
 
 import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
 import com.github.joakimpersson.tda367.model.PyromaniacModel;
-import com.github.joakimpersson.tda367.model.IBombermanModel;
+import com.github.joakimpersson.tda367.model.IPyromaniacModel;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.highscore.Score;
 import com.github.joakimpersson.tda367.model.player.PlayerPoints;
@@ -24,7 +24,7 @@ public class HighscoreInfoView {
 	private final int X;
 	private final int Y;
 	private final static int WIDTH = 400;
-	private IBombermanModel model = null;
+	private IPyromaniacModel model = null;
 	private List<Score> highscore = null;
 
 	/**

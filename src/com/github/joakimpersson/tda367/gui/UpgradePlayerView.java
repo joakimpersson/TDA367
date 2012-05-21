@@ -11,7 +11,7 @@ import org.newdawn.slick.SlickException;
 
 import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
 import com.github.joakimpersson.tda367.model.PyromaniacModel;
-import com.github.joakimpersson.tda367.model.IBombermanModel;
+import com.github.joakimpersson.tda367.model.IPyromaniacModel;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.player.Player;
 
@@ -22,7 +22,7 @@ import com.github.joakimpersson.tda367.model.player.Player;
  */
 public class UpgradePlayerView implements IUpgradePlayerView {
 
-	private IBombermanModel model = null;
+	private IPyromaniacModel model = null;
 	private List<Player> players = null;
 	private List<UpgradePlayerPanelView> playerViews = null;
 	private static final int POS_Y = 50;

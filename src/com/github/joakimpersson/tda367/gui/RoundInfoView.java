@@ -12,7 +12,7 @@ import org.newdawn.slick.SlickException;
 
 import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
 import com.github.joakimpersson.tda367.model.PyromaniacModel;
-import com.github.joakimpersson.tda367.model.IBombermanModel;
+import com.github.joakimpersson.tda367.model.IPyromaniacModel;
 import com.github.joakimpersson.tda367.model.player.Player;
 
 /**
@@ -24,7 +24,7 @@ public class RoundInfoView implements IView {
 
 	private int startX;
 	private int startY;
-	private IBombermanModel model = null;
+	private IPyromaniacModel model = null;
 	private List<Player> players = null;
 	private Font smlFont = null;
 	private Font bigFont = null;

@@ -8,7 +8,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import com.github.joakimpersson.tda367.model.PyromaniacModel;
-import com.github.joakimpersson.tda367.model.IBombermanModel;
+import com.github.joakimpersson.tda367.model.IPyromaniacModel;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.positions.FPosition;
 import com.github.joakimpersson.tda367.model.positions.Position;
@@ -21,7 +21,7 @@ import com.github.joakimpersson.tda367.model.tiles.Tile;
  */
 public class GameFieldView implements IView {
 
-	private IBombermanModel model = null;
+	private IPyromaniacModel model = null;
 
 	private static final int blockSide = 50;
 	private int startY;

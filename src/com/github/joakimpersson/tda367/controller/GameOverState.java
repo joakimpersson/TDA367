@@ -12,7 +12,7 @@ import com.github.joakimpersson.tda367.controller.utils.ControllerUtils;
 import com.github.joakimpersson.tda367.gui.GameOverView;
 import com.github.joakimpersson.tda367.gui.IView;
 import com.github.joakimpersson.tda367.model.PyromaniacModel;
-import com.github.joakimpersson.tda367.model.IBombermanModel;
+import com.github.joakimpersson.tda367.model.IPyromaniacModel;
 
 /**
  * 
@@ -26,7 +26,7 @@ public class GameOverState extends BasicGameState {
 	}
 
 	private int stateID = -1;
-	private IBombermanModel model = null;
+	private IPyromaniacModel model = null;
 	private InputManager inputManager = null;
 	private IView view = null;
 	private STATE currentState = null;

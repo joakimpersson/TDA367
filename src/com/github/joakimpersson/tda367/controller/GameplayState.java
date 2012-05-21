@@ -19,7 +19,7 @@ import com.github.joakimpersson.tda367.controller.input.InputManager;
 import com.github.joakimpersson.tda367.controller.utils.ControllerUtils;
 import com.github.joakimpersson.tda367.gui.GameplayView;
 import com.github.joakimpersson.tda367.model.PyromaniacModel;
-import com.github.joakimpersson.tda367.model.IBombermanModel;
+import com.github.joakimpersson.tda367.model.IPyromaniacModel;
 import com.github.joakimpersson.tda367.model.constants.EventType;
 import com.github.joakimpersson.tda367.model.player.Player;
 
@@ -39,7 +39,7 @@ public class GameplayState extends BasicGameState {
 	}
 
 	private int stateID = -1;
-	private IBombermanModel model = null;
+	private IPyromaniacModel model = null;
 	private GameplayView view = null;
 	private STATE currentState = null;
 	private InputManager inputManager = null;

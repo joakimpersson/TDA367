@@ -48,7 +48,7 @@ import com.github.joakimpersson.tda367.model.utils.MapLoader;
  * @modified joakimpersson, Adrian Bjugård
  * 
  */
-public class PyromaniacModel implements IBombermanModel {
+public class PyromaniacModel implements IPyromaniacModel {
 
 	private static PyromaniacModel instance = null;
 	private List<Player> players;

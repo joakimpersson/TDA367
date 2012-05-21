@@ -17,7 +17,7 @@ import com.github.joakimpersson.tda367.model.tiles.Tile;
  * @modified Viktor Anderling
  * 
  */
-public interface IBombermanModel {
+public interface IPyromaniacModel {
 
 	/**
 	 * Starts a new game of BombermanModel with the supplied players

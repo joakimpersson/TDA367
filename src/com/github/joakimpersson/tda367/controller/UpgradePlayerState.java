@@ -18,7 +18,7 @@ import com.github.joakimpersson.tda367.controller.input.InputManager;
 import com.github.joakimpersson.tda367.controller.utils.ControllerUtils;
 import com.github.joakimpersson.tda367.gui.UpgradePlayerView;
 import com.github.joakimpersson.tda367.model.PyromaniacModel;
-import com.github.joakimpersson.tda367.model.IBombermanModel;
+import com.github.joakimpersson.tda367.model.IPyromaniacModel;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.EventType;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
@@ -41,7 +41,7 @@ public class UpgradePlayerState extends BasicGameState {
 
 	private int stateID = -1;
 	private UpgradePlayerView view = null;
-	private IBombermanModel model = null;
+	private IPyromaniacModel model = null;
 	private List<Attribute> attributes = null;
 	/**
 	 * TODO tmp solution Indexing on the players index, since the player object

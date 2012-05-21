@@ -29,7 +29,7 @@ import com.github.joakimpersson.tda367.model.tiles.Tile;
 
 public class PyromaniacModelTest {
 
-	private IBombermanModel model;
+	private IPyromaniacModel model;
 	private IGameLogic gameLogic;
 	private List<Player> players;
 

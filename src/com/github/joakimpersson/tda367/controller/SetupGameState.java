@@ -22,7 +22,7 @@ import com.github.joakimpersson.tda367.controller.input.X360InputHandler;
 import com.github.joakimpersson.tda367.controller.utils.ControllerUtils;
 import com.github.joakimpersson.tda367.gui.SetupGameView;
 import com.github.joakimpersson.tda367.model.PyromaniacModel;
-import com.github.joakimpersson.tda367.model.IBombermanModel;
+import com.github.joakimpersson.tda367.model.IPyromaniacModel;
 import com.github.joakimpersson.tda367.model.constants.EventType;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
@@ -38,7 +38,7 @@ import com.github.joakimpersson.tda367.model.positions.Position;
 public class SetupGameState extends BasicGameState {
 
 	private SetupGameView view = null;
-	private IBombermanModel model = null;
+	private IPyromaniacModel model = null;
 	private int stateID = -1;
 	private int selection = 0;
 	private int stage = 0;
