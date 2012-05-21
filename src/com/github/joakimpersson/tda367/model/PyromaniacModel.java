@@ -120,7 +120,7 @@ public class PyromaniacModel implements IPyromaniacModel {
 			stepSize = stepSize * 0.7;
 		}
 		if (player.isAlive()) {
-			if (action.equals(PlayerAction.ACTION)) {
+			if (action.equals(PlayerAction.PRIMARY_ACTION)) {
 				this.placeBomb(player);
 			} else {
 				for (Direction direction : action.getDirections()) {

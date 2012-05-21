@@ -173,7 +173,7 @@ public class UpgradePlayerState extends BasicGameState {
 			int credits = playerCredits.get(p.getIndex());
 			boolean playerReady = playerReadyness.get(p.getIndex());
 
-			if (action == PlayerAction.ACTION) {
+			if (action == PlayerAction.PRIMARY_ACTION) {
 				playerReadyness.put(p.getIndex(), !playerReady);
 			} else if (!playerReady) {
 				switch (action) {

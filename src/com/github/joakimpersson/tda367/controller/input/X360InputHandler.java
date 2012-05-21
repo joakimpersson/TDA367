@@ -8,7 +8,7 @@ import com.github.joakimpersson.tda367.model.player.Player;
 
 public class X360InputHandler implements InputHandler {
 	public final static int PROCEED_BUTTON = X360OsDep.getProceed();
-	public final static int ACTION_BUTTON = X360OsDep.getAction();
+	public final static int PRIMARY_ACTION = X360OsDep.getPrimaryAction();
 
 	private PlayerAction currentAction = null;
 	private Player player = null;
@@ -25,8 +25,8 @@ public class X360InputHandler implements InputHandler {
 
 	@Override
 	public boolean hasKey(Input input) {
-		if (input.isButtonPressed(ACTION_BUTTON, controllerId)) {
-			currentAction = PlayerAction.ACTION;
+		if (input.isButtonPressed(PRIMARY_ACTION, controllerId)) {
+			currentAction = PlayerAction.PRIMARY_ACTION;
 			return true;
 		}
 
@@ -76,8 +76,8 @@ public class X360InputHandler implements InputHandler {
 
 	@Override
 	public InputData getMenuInputData(Input input) {
-		if (input.isButtonPressed(ACTION_BUTTON, controllerId)) {
-			return new InputData(player, PlayerAction.ACTION);
+		if (input.isButtonPressed(PRIMARY_ACTION, controllerId)) {
+			return new InputData(player, PlayerAction.PRIMARY_ACTION);
 		}
 		String buttonPressed = X360OsDep.getDPadButtonPressed(input, controllerId);
 		if (!buttonPressed.equals("none")) {
