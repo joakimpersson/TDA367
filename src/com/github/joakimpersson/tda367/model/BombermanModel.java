@@ -490,7 +490,7 @@ public class BombermanModel implements IBombermanModel {
 	 * Reset the model after every round
 	 */
 	private void roundReset() {
-		resetPlayer(ResetType.Round);
+		resetPlayers(ResetType.Round);
 		cancelRemaingingBombs();
 		resetMap();
 	}
@@ -509,7 +509,7 @@ public class BombermanModel implements IBombermanModel {
 	 * Reset the model after every match
 	 */
 	private void matchReset() {
-		resetPlayer(ResetType.Match);
+		resetPlayers(ResetType.Match);
 		resetMap();
 	}
 
@@ -519,7 +519,7 @@ public class BombermanModel implements IBombermanModel {
 	 * @param type
 	 *            What kind of reset
 	 */
-	private void resetPlayer(ResetType type) {
+	private void resetPlayers(ResetType type) {
 		for (Player p : players) {
 			p.reset(type);
 		}
