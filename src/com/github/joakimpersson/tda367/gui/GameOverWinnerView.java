@@ -99,7 +99,7 @@ public class GameOverWinnerView implements IView {
 				+ playerPoints.getEarnedPointGiver(PointGiver.KillPlayer);
 		g.drawString(str, x, y);
 		y += yDelta;
-		str = "Destroyed Boxs: "
+		str = "Destroyed Boxes: "
 				+ playerPoints.getEarnedPointGiver(PointGiver.Box);
 		g.drawString(str, x, y);
 
