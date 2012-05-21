@@ -151,7 +151,7 @@ public class BombermanModel implements IBombermanModel {
 
 		// TODO fix bug where player walks into blocks.
 		if (tileAtDirection.isWalkable()) {
-			player.move(direction);
+			player.move(direction, stepSize);
 		} else {
 			FPosition decimalPos = player.getGamePosition();
 			// Removes the integer part of the players position, leaving only
@@ -173,7 +173,7 @@ public class BombermanModel implements IBombermanModel {
 					|| (direction == Direction.SOUTH && decimalPos.getY() <= 1 - pD)
 					|| (direction == Direction.WEST && decimalPos.getX() >= pD)
 					|| (direction == Direction.EAST && decimalPos.getX() <= 1 - pD)) {
-				player.move(direction);
+				player.move(direction, stepSize);
 			}
 		}
 

@@ -126,8 +126,7 @@ public class Player {
 	 * @param dir
 	 *            The direction in which the player will move.
 	 */
-	public void move(Direction dir) {
-		double stepSize = getSpeededStepSize();
+	public void move(Direction dir, double stepSize) {
 		double newFX = gamePos.getX() + stepSize * dir.getX();
 		double newFY = gamePos.getY() + stepSize * dir.getY();
 		gamePos = new FPosition((float) newFX, (float) newFY);
