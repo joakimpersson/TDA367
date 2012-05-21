@@ -15,7 +15,7 @@ import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
-import com.github.joakimpersson.tda367.model.constants.ResetType;
+import com.github.joakimpersson.tda367.model.constants.GameModeType;
 import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.model.positions.FPosition;
 import com.github.joakimpersson.tda367.model.positions.Position;
@@ -50,7 +50,7 @@ public class PlayerTest {
 	@Test
 	public void testResetRound() {
 		player.upgradeAttr(Attribute.BombRange, UpgradeType.Round);
-		player.reset(ResetType.Round);
+		player.reset(GameModeType.Round);
 
 		int expected = Parameters.INSTANCE.getInitBombRange();
 		int actual = player.getAttribute(Attribute.BombRange);
@@ -61,7 +61,7 @@ public class PlayerTest {
 	@Test
 	public void testMatchReset() {
 		player.upgradeAttr(Attribute.BombRange, UpgradeType.Match);
-		player.reset(ResetType.Match);
+		player.reset(GameModeType.Match);
 
 		int expected = Parameters.INSTANCE.getInitBombRange();
 		int actual = player.getAttribute(Attribute.BombRange);

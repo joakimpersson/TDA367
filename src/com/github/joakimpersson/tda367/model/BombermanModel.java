@@ -19,7 +19,7 @@ import com.github.joakimpersson.tda367.model.constants.EventType;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
-import com.github.joakimpersson.tda367.model.constants.ResetType;
+import com.github.joakimpersson.tda367.model.constants.GameModeType;
 import com.github.joakimpersson.tda367.model.gamelogic.GameLogic;
 import com.github.joakimpersson.tda367.model.gamelogic.IGameLogic;
 import com.github.joakimpersson.tda367.model.highscore.Highscore;
@@ -493,7 +493,7 @@ public class BombermanModel implements IBombermanModel {
 	 * Reset the model after every round
 	 */
 	private void roundReset() {
-		resetPlayers(ResetType.Round);
+		resetPlayers(GameModeType.Round);
 		cancelRemaingingBombs();
 		resetMap();
 	}
@@ -512,7 +512,7 @@ public class BombermanModel implements IBombermanModel {
 	 * Reset the model after every match
 	 */
 	private void matchReset() {
-		resetPlayers(ResetType.Match);
+		resetPlayers(GameModeType.Match);
 		resetMap();
 	}
 
@@ -522,7 +522,7 @@ public class BombermanModel implements IBombermanModel {
 	 * @param type
 	 *            What kind of reset
 	 */
-	private void resetPlayers(ResetType type) {
+	private void resetPlayers(GameModeType type) {
 		for (Player p : players) {
 			p.reset(type);
 		}

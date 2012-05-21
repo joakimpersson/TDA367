@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import com.github.joakimpersson.tda367.model.constants.BombermanRules;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
-import com.github.joakimpersson.tda367.model.constants.ResetType;
+import com.github.joakimpersson.tda367.model.constants.GameModeType;
 import com.github.joakimpersson.tda367.model.gamelogic.GameLogic;
 import com.github.joakimpersson.tda367.model.gamelogic.IGameLogic;
 import com.github.joakimpersson.tda367.model.player.Player;
@@ -183,7 +183,7 @@ public class GameLogicTest {
 		for (int i = 0; i < maxRounds; i++) {
 			killPlayer(losingPlayer);
 			gameLogic.roundOver();
-			losingPlayer.reset(ResetType.Round);
+			losingPlayer.reset(GameModeType.Round);
 		}
 	}
 
@@ -237,7 +237,7 @@ public class GameLogicTest {
 		for (int i = 0; i < maxMatchesWon; i++) {
 			simulateMatchOver(losingPlayer);
 			gameLogic.matchOver();
-			losingPlayer.reset(ResetType.Match);
+			losingPlayer.reset(GameModeType.Match);
 			gameLogic.resetRoundStats();
 		}
 	}

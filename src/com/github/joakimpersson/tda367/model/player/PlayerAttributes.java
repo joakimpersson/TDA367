@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.github.joakimpersson.tda367.model.constants.Attribute;
+import com.github.joakimpersson.tda367.model.constants.GameModeType;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 
 /**
@@ -14,15 +15,6 @@ import com.github.joakimpersson.tda367.model.constants.Parameters;
  * 
  */
 public class PlayerAttributes {
-
-	/**
-	 * A simple Enum that is representing the two different types of available
-	 * upgrades. You use of of the two the specify what kind of update you want
-	 * either match duration upgrade or round base upgrade
-	 */
-	public enum UpgradeType {
-		Round, Match;
-	}
 
 	/** Every Attribute is associated with an integer or level */
 	private Map<Attribute, Integer> matchAttr;
@@ -49,7 +41,7 @@ public class PlayerAttributes {
 	 * @param type
 	 *            The type of the upgrade
 	 */
-	public void upgradeAttr(Attribute attr, UpgradeType type) {
+	public void upgradeAttr(Attribute attr, GameModeType type) {
 		switch (type) {
 		case Round:
 			updateRoundAttr(attr);
@@ -114,7 +106,7 @@ public class PlayerAttributes {
 	 * @param type
 	 *            What kind of reset of the attribute is it
 	 */
-	public void resetAttr(UpgradeType type) {
+	public void resetAttr(GameModeType type) {
 		switch (type) {
 		case Match:
 			resetMatchAttr();

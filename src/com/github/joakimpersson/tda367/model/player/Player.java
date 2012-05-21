@@ -9,7 +9,7 @@ import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
-import com.github.joakimpersson.tda367.model.constants.ResetType;
+import com.github.joakimpersson.tda367.model.constants.GameModeType;
 import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.model.positions.FPosition;
 import com.github.joakimpersson.tda367.model.positions.Position;
@@ -91,7 +91,7 @@ public class Player {
 	 * @param type
 	 *            The state type that will be reset.
 	 */
-	public void reset(ResetType type) {
+	public void reset(GameModeType type) {
 		switch (type) {
 		case Match:
 			matchReset();
