@@ -295,7 +295,10 @@ public class BombermanModelTest {
 	
 	@Test
 	public void testGetGameOverSummary() {
-		fail("not yet implemented");
+		List<Score> list1 = model.getGameOverSummary();
+		assertTrue(list1.size() == 2);
+		players.get(0).updatePlayerPoints(PointGiver.MatchWon);
+		assertTrue(!list1.equals(model.getGameOverSummary()));
 	}
 	
 	@Test
