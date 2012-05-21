@@ -14,12 +14,12 @@ import com.github.joakimpersson.tda367.model.tiles.walkable.PowerUpFactory;
  */
 public class Pillar implements Tile, Destroyable {
 
-	private int toughness;
-	private String image;
+	private final int toughness;
+	private final String imageString;
 
 	public Pillar() {
 		this.toughness = 2;
-		this.image = "pillar";
+		this.imageString = "pillar";
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class Pillar implements Tile, Destroyable {
 	 */
 	@Override
 	public Tile onFire() {
-		if (getRandomNbr()) {
+		if (isContainingPowerUp()) {
 			PowerUpFactory factory = new PowerUpFactory();
 			return factory.createObject();
 		} else {
@@ -51,11 +51,11 @@ public class Pillar implements Tile, Destroyable {
 	 * 
 	 * @return Randomly chooses between true or false
 	 */
-	private boolean getRandomNbr() {
-		double a = Math.random();
+	private boolean isContainingPowerUp() {
+		double randomNumber = Math.random();
 		double probability = Parameters.INSTANCE.getPowerUpProbabilityPillar();
 
-		return Double.compare(probability, a) >= 0;
+		return Double.compare(probability, randomNumber) >= 0;
 	}
 
 	@Override
@@ -64,13 +64,8 @@ public class Pillar implements Tile, Destroyable {
 	}
 
 	@Override
-	public String toString() {
-		return "Pillar";
-	}
-
-	@Override
 	public String getTileType() {
-		return this.image;
+		return imageString;
 	}
 
 	@Override
@@ -91,7 +86,7 @@ public class Pillar implements Tile, Destroyable {
 	@Override
 	public int hashCode() {
 		int sum = 0;
-		sum += image.hashCode() * 7;
+		sum += imageString.hashCode() * 7;
 		sum += toughness * 13;
 		return sum;
 	}

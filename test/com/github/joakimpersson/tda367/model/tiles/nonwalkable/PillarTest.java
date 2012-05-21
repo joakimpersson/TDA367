@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.joakimpersson.tda367.model.constants.Parameters;
+import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.tiles.Destroyable;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
@@ -28,9 +29,7 @@ public class PillarTest {
 
 	@Before
 	public void setUp() throws Exception {
-
 		pillar = new Pillar();
-
 	}
 
 	@Test
@@ -99,6 +98,20 @@ public class PillarTest {
 
 		// should be false since an box is not an wall
 		assertFalse(pillar.hashCode() == otherWall.hashCode());
+	}
+
+	@Test
+	public void testGetPointGiver() {
+		PointGiver expected = PointGiver.Pillar;
+		PointGiver actual = pillar.getPointGiver();
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testGetImage() {
+		String expected = "pillar";
+		String actual = pillar.getTileType();
+		assertEquals(expected, actual);
 	}
 
 	@After
