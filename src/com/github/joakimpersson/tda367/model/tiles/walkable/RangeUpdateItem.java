@@ -3,18 +3,20 @@ package com.github.joakimpersson.tda367.model.tiles.walkable;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 
 /**
+ * An object representing a RangeUpdateItem Tile.
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class RangeUpdateItem extends PowerupItem {
 
-	private String image;
+	private String imageType;
 	private Attribute attribute;
 
 	public RangeUpdateItem() {
 		super();
-		this.image = "rangeUpItem";
+		this.imageType = "rangeUpItem";
 		this.attribute = Attribute.BombRange;
 	}
 
@@ -25,7 +27,7 @@ public class RangeUpdateItem extends PowerupItem {
 
 	@Override
 	public String getTileType() {
-		return this.image;
+		return imageType;
 	}
 
 	@Override

@@ -20,39 +20,47 @@ import com.github.joakimpersson.tda367.model.tiles.Tile;
 /**
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class RangeUpdateItemTest {
 
-	private RangeUpdateItem item;
+	private RangeUpdateItem rangeItem;
 
 	@Before
 	public void setUp() throws Exception {
 
-		item = new RangeUpdateItem();
+		rangeItem = new RangeUpdateItem();
 	}
 
 	@Test
 	public void testGetToughness() {
-		int tougness = item.getToughness();
+		int tougness = rangeItem.getToughness();
 		assertEquals(0, tougness);
 	}
 
 	@Test
 	public void testOnFire() {
-		Tile tile = item.onFire();
+		Tile tile = rangeItem.onFire();
 		assertThat(tile, is(instanceOf(Floor.class)));
 	}
 
 	@Test
 	public void testIsWalkable() {
-		assertTrue(item.isWalkable());
+		assertTrue(rangeItem.isWalkable());
+	}
+
+	@Test
+	public void testGetTileType() {
+		String expected = "rangeUpItem";
+		String actual = rangeItem.getTileType();
+		assertEquals(expected, actual);
 	}
 
 	@Test
 	public void testPlayerEnter() {
 		Player player = new Player(1, "Kalle", new Position(0, 0));
-		Tile tile = item.playerEnter(player);
+		Tile tile = rangeItem.playerEnter(player);
 		assertThat(tile, is(instanceOf(Floor.class)));
 
 		int actual = player.getAttribute(Attribute.BombRange);
@@ -62,7 +70,7 @@ public class RangeUpdateItemTest {
 
 	@Test
 	public void testGetAttr() {
-		Attribute attr = item.getAttr();
+		Attribute attr = rangeItem.getAttr();
 		assertEquals(Attribute.BombRange, attr);
 	}
 
@@ -72,14 +80,14 @@ public class RangeUpdateItemTest {
 		Tile otherAttrTile = new SpeedUpdateItem();
 
 		// testing for null and self
-		assertTrue(item.equals(item));
-		assertFalse(item.equals(null));
+		assertTrue(rangeItem.equals(rangeItem));
+		assertFalse(rangeItem.equals(null));
 
 		// should be true
-		assertTrue(item.equals(otherItem));
+		assertTrue(rangeItem.equals(otherItem));
 
 		// should be false since an box is not an wall
-		assertFalse(item.equals(otherAttrTile));
+		assertFalse(rangeItem.equals(otherAttrTile));
 	}
 
 	@Test
@@ -89,15 +97,15 @@ public class RangeUpdateItemTest {
 		Tile otherAttrTile = new SpeedUpdateItem();
 
 		// should be true
-		assertTrue(item.hashCode() == otherItem.hashCode());
+		assertTrue(rangeItem.hashCode() == otherItem.hashCode());
 
 		// should be false since an box is not an wall
-		assertFalse(item.hashCode() == otherAttrTile.hashCode());
+		assertFalse(rangeItem.hashCode() == otherAttrTile.hashCode());
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		item = null;
+		rangeItem = null;
 	}
 
 }
