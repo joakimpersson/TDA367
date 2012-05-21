@@ -3,6 +3,7 @@ package com.github.joakimpersson.tda367.controller;
 import java.awt.Dimension;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.newdawn.slick.GameContainer;
@@ -45,7 +46,7 @@ public class SetupGameState extends BasicGameState {
 	private int possiblePlayers;
 	private int players;
 	private List<Player> playerList;
-	private List<String> controllersBound;
+	private LinkedList<String> controllersBound;
 	private InputManager inputManager = null;
 	private PropertyChangeSupport pcs;
 
@@ -60,7 +61,7 @@ public class SetupGameState extends BasicGameState {
 
 		pcs.firePropertyChange("play", null, EventType.TITLE_SCREEN);
 		playerList = new ArrayList<Player>();
-		controllersBound = new ArrayList<String>();
+		controllersBound = new LinkedList<String>();
 
 		stage = 0;
 		controllerCount = container.getInput().getControllerCount();
@@ -119,13 +120,15 @@ public class SetupGameState extends BasicGameState {
 			case MOVE_NORTH:
 				moveIndex(-1);
 				if (stage != 1) {
-					pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
+					pcs.firePropertyChange("play", null,
+							EventType.MENU_NAVIGATE);
 				}
 				break;
 			case MOVE_SOUTH:
 				moveIndex(1);
 				if (stage != 1) {
-					pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
+					pcs.firePropertyChange("play", null,
+							EventType.MENU_NAVIGATE);
 				}
 				break;
 			}
@@ -151,7 +154,7 @@ public class SetupGameState extends BasicGameState {
 				}
 			}
 		} else if (stage == 2 && controllerProceed) {
-			assignPlayer(controllerUsed(input), view.getIndex());
+			assignPlayer(controllersBound.getLast(), view.getIndex());
 			if (allPlayersAssigned()) {
 				int newState = BombermanGame.GAMEPLAY_STATE;
 				ControllerUtils.changeState(game, newState);
@@ -166,37 +169,27 @@ public class SetupGameState extends BasicGameState {
 
 	private void assignPlayer(String controllerUsed, int i) {
 		inputManager.addInputObject(controllerFactory(playerList.get(i - 1),
-				controllerUsed));
+				controllersBound.getLast()));
 	}
 
 	private boolean validProceed(Input input) {
-		if ((input.isKeyDown(Input.KEY_SPACE) && !controllersBound
-				.contains("k0"))
-				^ (input.isKeyDown(Input.KEY_F) && !controllersBound
-						.contains("k1"))) {
+		if (input.isKeyDown(Input.KEY_SPACE)
+				&& !controllersBound.contains("k0")) {
+			controllersBound.add("k0");
+			return true;
+		} else if (input.isKeyDown(Input.KEY_F)
+				&& !controllersBound.contains("k1")) {
+			controllersBound.add("k1");
 			return true;
 		}
 		for (int i = 0; i < controllerCount; i++) {
 			if (input.isButtonPressed(X360InputHandler.PROCEED_BUTTON, i)
-					&& !controllersBound.contains("x" + i))
+					&& !controllersBound.contains("x" + i)) {
+				controllersBound.add("x" + i);
 				return true;
-		}
-		return false;
-	}
-
-	private String controllerUsed(Input input) {
-		String controller = null; // this should never stay null
-		for (int i = 0; i < controllerCount; i++) {
-			if (input.isButtonPressed(X360InputHandler.PROCEED_BUTTON, i)) {
-				controller = "x" + i;
 			}
 		}
-		if (input.isKeyDown(Input.KEY_SPACE)) {
-			controller = "k" + 0;
-		} else if (input.isKeyDown(Input.KEY_F))
-			controller = "k" + 1;
-		controllersBound.add(controller);
-		return controller;
+		return false;
 	}
 
 	private void createPlayer(String name, int playerIndex) {
