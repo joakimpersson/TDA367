@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.joakimpersson.tda367.model.constants.Parameters;
+import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.tiles.Destroyable;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
@@ -66,6 +67,20 @@ public class BoxTest {
 		int probability = (int) (Parameters.INSTANCE.getPowerUpProbabilityBox() * 100);
 		int delta = 3;
 		assertEquals(probability, ratio, delta);
+	}
+
+	@Test
+	public void testGetTileType() {
+		String expected = "box";
+		String actual = box.getTileType();
+		assertTrue(actual.startsWith(expected));
+	}
+
+	@Test
+	public void testGetPointGiver() {
+		PointGiver expected = PointGiver.Box;
+		PointGiver actual = box.getPointGiver();
+		assertEquals(expected, actual);
 	}
 
 	@Test

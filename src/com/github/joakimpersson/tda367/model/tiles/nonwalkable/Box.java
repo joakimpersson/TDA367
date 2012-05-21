@@ -16,15 +16,15 @@ import com.github.joakimpersson.tda367.model.tiles.walkable.PowerUpFactory;
  */
 public class Box implements Tile, Destroyable {
 
-	private int toughness;
-	private String image;
-	private int boxImageNumber;
+	private final int toughness;
+	private final String imageType;
+	private final int boxImageNumber;
 
 	public Box() {
 		this.toughness = 1;
 		Random rand = new Random();
 		this.boxImageNumber = rand.nextInt(5) + 1;
-		this.image = "box";
+		this.imageType = "box";
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class Box implements Tile, Destroyable {
 	 */
 	@Override
 	public Tile onFire() {
-		if (getRandomNbr()) {
+		if (isContainingPowerUp()) {
 			PowerUpFactory facctory = new PowerUpFactory();
 			return facctory.createObject();
 		} else {
@@ -56,11 +56,11 @@ public class Box implements Tile, Destroyable {
 	 * 
 	 * @return Randomly chooses between true or false
 	 */
-	private boolean getRandomNbr() {
-		double a = Math.random();
+	private boolean isContainingPowerUp() {
+		double randomNumber = Math.random();
 		double probability = Parameters.INSTANCE.getPowerUpProbabilityBox();
 
-		return probability >= a;
+		return probability >= randomNumber;
 
 	}
 
@@ -70,13 +70,8 @@ public class Box implements Tile, Destroyable {
 	}
 
 	@Override
-	public String toString() {
-		return "Box";
-	}
-
-	@Override
 	public String getTileType() {
-		return this.image +  + this.boxImageNumber;
+		return imageType + boxImageNumber;
 	}
 
 	@Override
@@ -96,7 +91,7 @@ public class Box implements Tile, Destroyable {
 	@Override
 	public int hashCode() {
 		int sum = 0;
-		sum += image.hashCode() * 7;
+		sum += imageType.hashCode() * 7;
 		sum += toughness * 13;
 		return sum;
 	}
