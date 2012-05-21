@@ -19,6 +19,7 @@ public class Floor implements WalkableTile, Destroyable {
 
 	private final int toughness;
 	private final String imageType;
+	private final int floorNumber;
 
 	/**
 	 * Creating a Floor Tile.
@@ -27,6 +28,8 @@ public class Floor implements WalkableTile, Destroyable {
 		// should be ignored by the fire and skipped
 		this.toughness = 0;
 		this.imageType = "floor";
+		Random rand = new Random();
+		this.floorNumber = rand.nextInt(5) + 1;
 	}
 
 	@Override
@@ -65,8 +68,6 @@ public class Floor implements WalkableTile, Destroyable {
 
 	@Override
 	public String getTileType() {
-		Random rand = new Random();
-		int floorNumber = rand.nextInt(5) + 1;
 		return imageType + floorNumber;
 	}
 
