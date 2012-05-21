@@ -7,8 +7,8 @@ package com.github.joakimpersson.tda367.model.constants;
  */
 public enum Attribute {
 	Speed("Speed", 100), Health("Health", 100), BombRange("Bomb range", 100), BombStack(
-			"Bomb stack", 100), BombPower("Bomb power", 100), BombType(
-			"Bomb type", 100);
+			"Bomb stack", 100), BombPower("Bomb power", 100), AreaBombs(
+			"Area bombs", 100);
 
 	private int cost;
 	private String name;

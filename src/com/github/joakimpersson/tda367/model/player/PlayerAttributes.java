@@ -153,7 +153,7 @@ public class PlayerAttributes {
 		matchAttr.put(Attribute.BombPower,
 				Parameters.INSTANCE.getInitBombPower());
 		matchAttr
-				.put(Attribute.BombType, Parameters.INSTANCE.getInitBombType());
+				.put(Attribute.AreaBombs, Parameters.INSTANCE.getInitBombType());
 	}
 
 	/**

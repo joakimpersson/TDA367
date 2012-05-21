@@ -94,14 +94,19 @@ public class PlayerInfoView implements IView {
 			x += 13;
 		}
 
+		int areaBombsAvailable = player.getAreaBombsAvailable();
 		// draw score
 		int score = player.getScore();
-		String zeros = leadingZeroes(score);
+		int scoreLength = 11;
+		if (areaBombsAvailable > 0) {
+			scoreLength = 8;
+		}
+		String zeros = leadingZeroes(score, scoreLength);
 		int scoreDisp = g.getFont().getWidth(zeros);
 		g.setColor(Color.darkGray);
 		g.drawString(zeros, xPos + 15, yPos + 70);
 		g.setColor(Color.white);
-		g.drawString(""+score, xPos + scoreDisp + 17, yPos + 70);
+		g.drawString("" + score, xPos + scoreDisp + 17, yPos + 70);
 
 		// draw powerups
 		x = 145;
@@ -133,11 +138,19 @@ public class PlayerInfoView implements IView {
 		int pBombs = player.getAttribute(Attribute.BombStack);
 		drawImage(xPos + x, yPos + y, "info/bomb", g);
 		drawAttributeValue(pBombs, xPos + textDisp, yPos + y + 10, g);
+
+		// --area bombs, if available--
+		if (areaBombsAvailable > 0) {
+			drawImage(xPos + x - 35, yPos + y, "info/bomb-area", g);
+			g.setColor(Color.white);
+			drawAttributeValue(areaBombsAvailable, xPos + x - 25, yPos
+					+ y + 10, g);
+		}
 	}
 
-	private String leadingZeroes(int score) {
+	private String leadingZeroes(int score, int zeros) {
 		String out = "";
-		for (int i = 0; i < 11 - String.valueOf(score).length(); i++) {
+		for (int i = 0; i < zeros - String.valueOf(score).length(); i++) {
 			out = out + 0;
 		}
 		return out;

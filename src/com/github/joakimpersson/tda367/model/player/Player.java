@@ -35,6 +35,7 @@ public class Player {
 
 	private int rounsdWon;
 	private int matchesWon;
+	private int areaBombsPlaced;
 
 	/**
 	 * Creates a player with a pre-defined position and name.
@@ -73,6 +74,7 @@ public class Player {
 		this.gamePos = new FPosition(initialPosition.getX() + 0.5F,
 				initialPosition.getY() + 0.5F);
 		this.bombsPlaced = 0;
+		this.areaBombsPlaced = 0;
 		this.justHit = false;
 	}
 
@@ -136,6 +138,16 @@ public class Player {
 	 */
 	public boolean canPlaceBomb() {
 		if (getAttribute(Attribute.BombStack) > this.bombsPlaced) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @return If a player can place an area bomb or not.
+	 */
+	public boolean canPlaceAreaBomb() {
+		if (getAttribute(Attribute.AreaBombs) > this.areaBombsPlaced) {
 			return true;
 		}
 		return false;
@@ -406,6 +418,14 @@ public class Player {
 	 */
 	public int getMatchesWon() {
 		return matchesWon;
+	}
+	
+	public void increaseAreaBombsPlaced() {
+		this.areaBombsPlaced++;
+	}
+
+	public int getAreaBombsAvailable() {
+		return getAttribute(Attribute.AreaBombs) - this.areaBombsPlaced;
 	}
 
 	@Override

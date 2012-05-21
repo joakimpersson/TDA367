@@ -122,6 +122,8 @@ public class PyromaniacModel implements IPyromaniacModel {
 		if (player.isAlive()) {
 			if (action.equals(PlayerAction.PRIMARY_ACTION)) {
 				this.placeBomb(player);
+			} else if (action.equals(PlayerAction.SECONDARY_ACTION)) {
+				this.placeAreaBomb(player);
 			} else {
 				for (Direction direction : action.getDirections()) {
 					if (direction != Direction.NONE) {
@@ -199,7 +201,29 @@ public class PyromaniacModel implements IPyromaniacModel {
 		if (player.canPlaceBomb()
 				&& map.getTile(player.getTilePosition()) instanceof Floor) {
 			Timer bombTimer = new Timer();
-			Bomb bomb = createBomb(player, bombTimer);
+			Bomb bomb = createBomb(player, bombTimer, "NormalBomb");
+
+			bombTimer.schedule(new BombTask(bomb),
+					Parameters.INSTANCE.getBombDetonationTime());
+			bombTimers.add(bombTimer);
+			map.setTile(bomb, player.getTilePosition());
+
+			pcs.firePropertyChange("play", null, EventType.BOMB_PLACED);
+		}
+	}
+
+	/**
+	 * This method tells a player to create a bomb, and starts a timer for that
+	 * bomb.
+	 * 
+	 * @param player
+	 *            The player that places the bomb.
+	 */
+	private void placeAreaBomb(Player player) {
+		if (player.canPlaceAreaBomb()
+				&& map.getTile(player.getTilePosition()) instanceof Floor) {
+			Timer bombTimer = new Timer();
+			Bomb bomb = createBomb(player, bombTimer, "AreaBomb");
 
 			bombTimer.schedule(new BombTask(bomb),
 					Parameters.INSTANCE.getBombDetonationTime());
@@ -220,13 +244,12 @@ public class PyromaniacModel implements IPyromaniacModel {
 	 *            The timer that detonates the bomb.
 	 * @return A new bomb.
 	 */
-	private Bomb createBomb(Player player, Timer bombTimer) {
+	private Bomb createBomb(Player player, Timer bombTimer, String type) {
 
-		switch (player.getAttribute(Attribute.BombType)) {
-		case 1:
-			return new AreaBomb(player, bombTimer);
-		default:
+		if (type.equals("NormalBomb")) {
 			return new NormalBomb(player, bombTimer);
+		} else {
+			return new AreaBomb(player, bombTimer);
 		}
 	}
 
@@ -242,7 +265,8 @@ public class PyromaniacModel implements IPyromaniacModel {
 	 */
 	private synchronized void handleFire(Bomb bomb) {
 		Player bombOwner = bomb.getPlayer();
-		Map<Position, Direction> directedFirePositions = bomb.explode(map.getMap());
+		Map<Position, Direction> directedFirePositions = bomb.explode(map
+				.getMap());
 		List<Position> list = new ArrayList<Position>(
 				directedFirePositions.keySet());
 		fireObjects(bombOwner, list);
