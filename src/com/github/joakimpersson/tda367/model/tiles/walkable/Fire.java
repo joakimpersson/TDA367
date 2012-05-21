@@ -23,14 +23,14 @@ public class Fire implements WalkableTile {
 	public Fire(Player fireOwner, Direction direction) {
 		this.fireOwner = fireOwner;
 		this.direction = direction;
-		if (this.direction == Direction.NONE) {
+		if (this.direction == null) {
+			this.image = "fire-area";
+		} else if (this.direction == Direction.NONE) {
 			this.image = "fire-mid";
 		} else if (this.direction.isHorizontal()) {
 			this.image = "fire-row";
 		} else if (this.direction.isVertical()) {
 			this.image = "fire-column";
-		} else {
-			this.image = "fire-area";
 		}
 	}
 
