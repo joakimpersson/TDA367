@@ -3,6 +3,8 @@ package com.github.joakimpersson.tda367.model.tiles;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
 
 /**
+ * An interface for the game tiles used on the gamefield that are supposed to be
+ * Destroyable by bombs
  * 
  * @author joakimpersson
  * 
