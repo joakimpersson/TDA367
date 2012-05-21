@@ -15,7 +15,12 @@ import com.github.joakimpersson.tda367.model.constants.BombermanRules;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
+import com.github.joakimpersson.tda367.model.constants.ResetType;
+import com.github.joakimpersson.tda367.model.gamelogic.GameLogic;
+import com.github.joakimpersson.tda367.model.gamelogic.IGameLogic;
+import com.github.joakimpersson.tda367.model.highscore.Score;
 import com.github.joakimpersson.tda367.model.player.Player;
+import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.model.positions.FPosition;
 import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
@@ -23,15 +28,18 @@ import com.github.joakimpersson.tda367.model.tiles.Tile;
 public class BombermanModelTest {
 
 	private IBombermanModel model;
+	private IGameLogic gameLogic;
+	private List<Player> players;
 
 	@Before
 	public void setUp() throws Exception {
 		model = BombermanModel.getInstance();
-		List<Player> players = new ArrayList<Player>();
+		players = new ArrayList<Player>();
 		Dimension mapD = Parameters.INSTANCE.getMapSize();
 		players.add(new Player(1, "testPlayer1", new Position(1, 1)));
 		players.add(new Player(2, "testPlayer2", new Position((int) (mapD
 				.getWidth()) - 2, (int) (mapD.getHeight()) - 2)));
+		gameLogic = new GameLogic(players);
 		model.startGame(players);
 	}
 
@@ -43,16 +51,15 @@ public class BombermanModelTest {
 
 		test1 = model.isRoundOver();
 
-		List<Player> playerList = model.getPlayers();
-		for (Player p : playerList) {
+		for (Player p : players) {
 			while (p.getHealth() > 1) {
 				p.playerHit();
 			}
 		}
 		test2 = model.isRoundOver();
 
-		for (int i = 1; i < playerList.size(); i++) {
-			Player p = playerList.get(i);
+		for (int i = 1; i < players.size(); i++) {
+			Player p = players.get(i);
 			while (p.isAlive()) {
 				p.playerHit();
 			}
@@ -68,7 +75,7 @@ public class BombermanModelTest {
 		boolean test1;
 		boolean test2;
 		boolean test3;
-		Player p = model.getPlayers().get(0);
+		Player p = players.get(0);
 
 		test1 = model.isMatchOver();
 
@@ -90,8 +97,16 @@ public class BombermanModelTest {
 	}
 	
 	@Test
-	public void isGameOver() {
-		fail("not yet implemented");
+	public void testIsGameOver() {
+		Player losingPlayer = players.get(0);
+
+		// should be false
+		assertFalse(model.isGameOver());
+
+		simulateGameOver(losingPlayer);
+
+		// should be true
+		assertTrue(model.isGameOver());
 	}
 
 	@Test
@@ -102,7 +117,7 @@ public class BombermanModelTest {
 	@Test
 	public void testUpdateGame() {
 
-		Player player = model.getPlayers().get(0);
+		Player player = players.get(0);
 		double stepSize = player.getSpeededStepSize();
 		double pD = 0.2;
 		FPosition prevPos = new FPosition(0, 0);
@@ -133,7 +148,7 @@ public class BombermanModelTest {
 	@Test
 	public void testUpgradePlayer() {
 
-		Player player = model.getPlayers().get(0);
+		Player player = players.get(0);
 		List<PointGiver> pointGivers = new ArrayList<PointGiver>();
 
 		for (int i = 0; i < 20; i++) {
@@ -157,11 +172,10 @@ public class BombermanModelTest {
 		Player p1 = new Player(1, "testPlayer1", new Position(1, 1));
 		Player p2 = new Player(2, "testPlayer2", new Position(
 				(int) (mapD.getWidth()) - 2, (int) (mapD.getHeight()) - 2));
-		List<Player> pList = model.getPlayers();
-		boolean test1 = (pList.get(0).equals(p1) && pList.get(1).equals(p2));
+		boolean test1 = (players.get(0).equals(p1) && players.get(1).equals(p2));
 		
-		pList.get(0).updatePlayerPoints(PointGiver.MatchWon);
-		boolean test2 = (!pList.get(0).equals(p1) && pList.get(1).equals(p2));
+		players.get(0).updatePlayerPoints(PointGiver.MatchWon);
+		boolean test2 = (!players.get(0).equals(p1) && players.get(1).equals(p2));
 		
 		assertTrue(test1 && test2);
 	}
@@ -171,7 +185,7 @@ public class BombermanModelTest {
 		boolean test1 = true;
 		boolean test2 = true;
 		Tile[][] map1 = model.getMap();
-		model.updateGame(model.getPlayers().get(0), PlayerAction.MOVE_SOUTH);
+		model.updateGame(players.get(0), PlayerAction.MOVE_SOUTH);
 		Tile[][] map2 = model.getMap();
 
 		for (int i = 0; i < map1.length; i++) {
@@ -182,7 +196,7 @@ public class BombermanModelTest {
 			}
 		}
 
-		model.updateGame(model.getPlayers().get(0), PlayerAction.ACTION);
+		model.updateGame(players.get(0), PlayerAction.ACTION);
 		map2 = model.getMap();
 
 		for (int i = 0; i < map1.length; i++) {
@@ -198,22 +212,85 @@ public class BombermanModelTest {
 	
 	@Test
 	public void testRoundOver() {
-		fail("not yet implemented");
+		// first kill one of the player to simulate round over
+		killPlayer(players.get(0));
+
+		// the winner should be player2
+		Player winningPlayer = players.get(1);
+		gameLogic.roundOver();
+
+		int actual = winningPlayer.getRoundsWon();
+		int expected = 1;
+		// he should now have 1 in roundwon
+		assertEquals(actual, expected);
+
+		// his number of rounds win in the GameController object should be 1
+		actual = gameLogic.getRoundsWon(winningPlayer);
+		expected = 1;
+		assertEquals(expected, actual);
+		
+		Player p = players.get(0);
+		p.upgradeAttr(Attribute.Speed, UpgradeType.Round);
+		p.upgradeAttr(Attribute.Speed, UpgradeType.Match);
+		model.roundOver();
+		assertTrue(p.getAttribute(Attribute.Speed) == 2);
+		
+		// TODO Check these.
+//		cancelRemaingingBombs();
+//		resetMap();
 	}
 	
 	@Test
 	public void testMatchOver() {
-		fail("not yet implemented");
+		Player losingPlayer = players.get(0);
+		Player winningPlayer = players.get(1);
+		simulateMatchOver(losingPlayer);
+
+		model.matchOver();
+		// he's MatchWon in PlayerPoints should be equal to 1
+		int expected = 1;
+		int actual = winningPlayer.getMatchesWon();
+		assertEquals(expected, actual);
+		
+		// TODO kolla detta.
+		// matchReset();
 	}
 	
 	@Test
 	public void testGameOver() {
-		fail("not yet implemented");
+		Player losingPlayer = players.get(0);
+		Player winningPlayer = players.get(1);
+
+		simulateGameOver(losingPlayer);
+
+		model.gameOver();
+
+		// winningPlayers GameWon in PlayerPoints should be equal to 1
+		int expected = 1;
+		int actual = winningPlayer.getDestroyedPointGiver(PointGiver.GameWon);
+		assertEquals(expected, actual);
+		
+		
+		// TODO Check this.
+//		// add the players to highscore list
+//		highscore.update(players);
 	}
 	
 	@Test
 	public void testResetRoundStats() {
-		fail("not yet implemented");
+		Player losingPlayer = players.get(0);
+		Player winningPlayer = players.get(1);
+
+		killPlayer(losingPlayer);
+		gameLogic.roundOver();
+
+		assertEquals(0, losingPlayer.getRoundsWon());
+		assertEquals(1, winningPlayer.getRoundsWon());
+
+		model.resetRoundStats();
+
+		assertEquals(0, losingPlayer.getRoundsWon());
+		assertEquals(0, winningPlayer.getRoundsWon());
 	}
 	
 	@Test
@@ -223,12 +300,24 @@ public class BombermanModelTest {
 	
 	@Test
 	public void testGetHighscoreList() {
-		fail("not yet implemented");
+		model.resetHighscoreList();
+		List<Score> list1 = model.getHighscoreList();
+		Player p = players.get(0);
+		p.updatePlayerPoints(PointGiver.GameWon);
+		model.gameOver();
+		List<Score> list2 = model.getHighscoreList();
+		assertTrue(!list1.equals(list2));
 	}
 	
 	@Test
 	public void testResetHighscoreList() {
-		fail("not yet implemented");
+		model.resetHighscoreList();
+		List<Score> list1 = model.getHighscoreList();
+		Player p = players.get(0);
+		p.updatePlayerPoints(PointGiver.MatchWon);
+		model.gameOver();
+		model.resetHighscoreList();
+		assertTrue(list1.equals(model.getHighscoreList()));
 	}
 	
 	@Test
@@ -238,12 +327,52 @@ public class BombermanModelTest {
 	
 	@Test
 	public void testGetLastRoundWinner() {
-		fail("not yet implemented");
+		Player losingPlayer = players.get(0);
+		// the winner should be player2
+		Player winningPlayer = players.get(1);
+
+		// first kill one of the player to simulate round over
+		killPlayer(losingPlayer);
+
+		// the round is over
+		model.roundOver();
+
+		// the winning player should be player 2
+		Player actual = model.getLastRoundWinner();
+		assertEquals(winningPlayer, actual);
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		model.gameReset();
 		model = null;
+		gameLogic = null;
+	}
+	
+	private void simulateGameOver(Player losingPlayer) {
+		int maxMatchesWon = BombermanRules.INSTANCE.getNumberOfMatches();
+		for (int i = 0; i < maxMatchesWon; i++) {
+			simulateMatchOver(losingPlayer);
+			gameLogic.matchOver();
+			losingPlayer.reset(ResetType.Match);
+			gameLogic.resetRoundStats();
+		}
+	}
+	
+	private void simulateMatchOver(Player losingPlayer) {
+		int maxRounds = BombermanRules.INSTANCE.getNumberOfRounds();
+
+		for (int i = 0; i < maxRounds; i++) {
+			killPlayer(losingPlayer);
+			gameLogic.roundOver();
+			losingPlayer.reset(ResetType.Round);
+		}
+	}
+	
+	private void killPlayer(Player p) {
+
+		while (p.isAlive()) {
+			p.playerHit();
+		}
 	}
 }
