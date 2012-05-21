@@ -5,6 +5,7 @@ import java.awt.Dimension;
 /**
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public enum Parameters {
@@ -17,7 +18,7 @@ public enum Parameters {
 	 * @return The time it takes for a bomb to explode in milliseconds
 	 */
 	public int getBombDetonationTime() {
-		return 1000;
+		return 1500;
 	}
 
 	/**
