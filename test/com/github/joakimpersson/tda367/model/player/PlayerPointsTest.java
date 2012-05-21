@@ -64,7 +64,7 @@ public class PlayerPointsTest {
 	}
 
 	@Test
-	public void testReduceCredits() {
+	public void testUseCredits() {
 
 		List<PointGiver> list = new ArrayList<PointGiver>();
 
@@ -137,7 +137,7 @@ public class PlayerPointsTest {
 	}
 
 	@Test
-	public void testGetHitPlayers() {
+	public void testGetEarnedPointGiver() {
 
 		List<PointGiver> list = new ArrayList<PointGiver>();
 
@@ -153,128 +153,18 @@ public class PlayerPointsTest {
 
 		playerPoint.update(list);
 
-		int tmpHitPlayer = playerPoint
-				.getEarnedPointGiver(PointGiver.PlayerHit);
+		int expected = 1;
+		int actual = playerPoint.getEarnedPointGiver(hitPoint);
+		assertEquals(expected, actual);
 
-		list.clear();
+		actual = playerPoint.getEarnedPointGiver(killPoint);
+		assertEquals(expected, actual);
 
-		PointGiver hitPoint2 = PointGiver.PlayerHit;
-		PointGiver hitPoint3 = PointGiver.PlayerHit;
+		actual = playerPoint.getEarnedPointGiver(boxPoint);
+		assertEquals(expected, actual);
 
-		list.add(hitPoint2);
-		list.add(hitPoint3);
-
-		playerPoint.update(list);
-
-		assertEquals(playerPoint.getEarnedPointGiver(PointGiver.PlayerHit),
-				tmpHitPlayer + 2);
-
-	}
-
-	@Test
-	public void testGetKilledPlayers() {
-
-		PlayerPoints pp = new PlayerPoints();
-		List<PointGiver> list = new ArrayList<PointGiver>();
-
-		PointGiver pillarPoint = PointGiver.Pillar;
-		PointGiver boxPoint = PointGiver.Box;
-		PointGiver killPoint = PointGiver.KillPlayer;
-		PointGiver hitPoint = PointGiver.PlayerHit;
-
-		list.add(pillarPoint);
-
-		list.add(boxPoint);
-		list.add(killPoint);
-		list.add(hitPoint);
-
-		pp.update(list);
-
-		int tmpKilledPlayer = pp.getEarnedPointGiver(PointGiver.KillPlayer);
-
-		list.clear();
-
-		PointGiver killPoint2 = PointGiver.KillPlayer;
-		PointGiver killPoint3 = PointGiver.KillPlayer;
-
-		list.add(killPoint2);
-		list.add(killPoint3);
-
-		pp.update(list);
-
-		assertEquals(pp.getEarnedPointGiver(PointGiver.KillPlayer),
-				tmpKilledPlayer + 2);
-
-	}
-
-	@Test
-	public void testGetDestroyedPillars() {
-
-		PlayerPoints pp = new PlayerPoints();
-		List<PointGiver> list = new ArrayList<PointGiver>();
-
-		PointGiver pillarPoint = PointGiver.Pillar;
-		PointGiver boxPoint = PointGiver.Box;
-		PointGiver killPoint = PointGiver.KillPlayer;
-		PointGiver hitPoint = PointGiver.PlayerHit;
-
-		list.add(pillarPoint);
-		list.add(boxPoint);
-		list.add(killPoint);
-		list.add(hitPoint);
-
-		pp.update(list);
-
-		int tmpDestPillarPoints = pp.getEarnedPointGiver(PointGiver.Pillar);
-
-		list.clear();
-
-		PointGiver destPillarPoint2 = PointGiver.Pillar;
-		PointGiver destPillarPoint3 = PointGiver.Pillar;
-
-		list.add(destPillarPoint2);
-		list.add(destPillarPoint3);
-
-		pp.update(list);
-
-		assertEquals(pp.getEarnedPointGiver(PointGiver.Pillar),
-				tmpDestPillarPoints + 2);
-
-	}
-
-	@Test
-	public void testGetDestroyedBoxes() {
-
-		List<PointGiver> list = new ArrayList<PointGiver>();
-
-		PointGiver pillarPoint = PointGiver.Pillar;
-		PointGiver boxPoint = PointGiver.Box;
-		PointGiver killPoint = PointGiver.KillPlayer;
-		PointGiver hitPoint = PointGiver.PlayerHit;
-
-		list.add(pillarPoint);
-		list.add(boxPoint);
-		list.add(killPoint);
-		list.add(hitPoint);
-
-		playerPoint.update(list);
-
-		int tmpDestBoxPoints = playerPoint
-				.getEarnedPointGiver(PointGiver.Box);
-
-		list.clear();
-
-		PointGiver destBoxPoint2 = PointGiver.Box;
-		PointGiver destBoxPoint3 = PointGiver.Box;
-
-		list.add(destBoxPoint2);
-		list.add(destBoxPoint3);
-
-		playerPoint.update(list);
-		// TODO do not follow the correct syntax rolen!
-		assertEquals(tmpDestBoxPoints + 2,
-				playerPoint.getEarnedPointGiver(PointGiver.Box));
-
+		actual = playerPoint.getEarnedPointGiver(pillarPoint);
+		assertEquals(expected, actual);
 	}
 
 	@Test

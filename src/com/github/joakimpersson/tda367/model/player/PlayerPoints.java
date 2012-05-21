@@ -8,6 +8,8 @@ import java.util.Map;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
 
 /**
+ * A class handling the players score and credits.
+ * 
  * @author Andreas Rolen
  * @modified joakimpersson
  * 
@@ -64,12 +66,11 @@ public class PlayerPoints implements Serializable, Comparable<PlayerPoints> {
 	 *            A list of PointGivers that the player has received
 	 */
 	public void update(List<PointGiver> list) {
-
-		for (PointGiver p : list) {
-			this.totalScore += p.getScore();
-			this.credits += p.getScore();
-			int prevValue = pointGivers.get(p);
-			pointGivers.put(p, prevValue + 1);
+		for (PointGiver pointGiver : list) {
+			this.totalScore += pointGiver.getScore();
+			this.credits += pointGiver.getScore();
+			int prevValue = pointGivers.get(pointGiver);
+			pointGivers.put(pointGiver, prevValue + 1);
 		}
 	}
 
@@ -95,7 +96,7 @@ public class PlayerPoints implements Serializable, Comparable<PlayerPoints> {
 	 *            The cost for the item that is bought.
 	 */
 	public void useCredits(int cost) {
-		this.credits = this.credits - cost;
+		credits -= cost;
 	}
 
 	/**
@@ -104,7 +105,7 @@ public class PlayerPoints implements Serializable, Comparable<PlayerPoints> {
 	 * @return Integer
 	 */
 	public int getScore() {
-		return this.totalScore;
+		return totalScore;
 	}
 
 	/**
@@ -113,7 +114,7 @@ public class PlayerPoints implements Serializable, Comparable<PlayerPoints> {
 	 * @return Integer
 	 */
 	public int getCredits() {
-		return this.credits;
+		return credits;
 	}
 
 	/**
@@ -124,67 +125,71 @@ public class PlayerPoints implements Serializable, Comparable<PlayerPoints> {
 	 * @return The number of destroyed tile type in PointGiver
 	 */
 	public int getEarnedPointGiver(PointGiver type) {
-		return this.pointGivers.get(type);
+		return pointGivers.get(type);
 	}
 
 	/**
 	 * Resets the players score and credits to zero
 	 */
 	public void reset() {
-		this.totalScore = 0;
-		this.credits = 0;
+		totalScore = 0;
+		credits = 0;
 		pointGivers.clear();
 		initPointGiverMaps();
 	}
 
 	@Override
-	public int compareTo(PlayerPoints pp) {
-		int sum = this.totalScore - pp.getScore();
+	public int compareTo(PlayerPoints playerPoints) {
+		int sum = this.totalScore - playerPoints.getScore();
 
 		if (sum != 0) {
 			return sum;
 		}
 
 		sum = this.pointGivers.get(PointGiver.MatchWon)
-				- pp.pointGivers.get(PointGiver.MatchWon);
+				- playerPoints.pointGivers.get(PointGiver.MatchWon);
 
 		if (sum != 0) {
 			return sum;
 		}
 
 		sum = this.pointGivers.get(PointGiver.RoundWon)
-				- pp.pointGivers.get(PointGiver.RoundWon);
+				- playerPoints.pointGivers.get(PointGiver.RoundWon);
 
 		if (sum != 0) {
 			return sum;
 		}
 
 		sum = this.pointGivers.get(PointGiver.KillPlayer)
-				- pp.pointGivers.get(PointGiver.KillPlayer);
+				- playerPoints.pointGivers.get(PointGiver.KillPlayer);
 
 		if (sum != 0) {
 			return sum;
 		}
 
 		sum = this.pointGivers.get(PointGiver.PlayerHit)
-				- pp.pointGivers.get(PointGiver.PlayerHit);
+				- playerPoints.pointGivers.get(PointGiver.PlayerHit);
+
+		if (sum != 0) {
+			return sum;
+		}
 
 		sum = this.pointGivers.get(PointGiver.Bomb)
-				- pp.pointGivers.get(PointGiver.Bomb);
+				- playerPoints.pointGivers.get(PointGiver.Bomb);
 
 		if (sum != 0) {
 			return sum;
 		}
 
 		sum = this.pointGivers.get(PointGiver.Box)
-				- pp.pointGivers.get(PointGiver.Box);
+				- playerPoints.pointGivers.get(PointGiver.Box);
 
 		if (sum != 0) {
 			return sum;
 		}
 
 		return this.pointGivers.get(PointGiver.Pillar)
-				- pp.pointGivers.get(PointGiver.Pillar);
+				- playerPoints.pointGivers.get(PointGiver.Pillar);
 
 	}
 
