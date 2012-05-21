@@ -161,7 +161,7 @@ public class SetupGameState extends BasicGameState {
 	}
 
 	private boolean allPlayersAssigned() {
-		return controllersBound.size() == players;
+		return inputManager.getAssignedControllers() == players;
 	}
 
 	private void assignPlayer(String controllerUsed, int i) {

@@ -170,4 +170,12 @@ public class InputManager {
 		inputHandlers.clear();
 		createDeafaultInputs();
 	}
+
+	public int getAssignedControllers() {
+		if (defaultEnabled) {
+			return inputHandlers.size() - 6;
+		} else {
+			return inputHandlers.size();
+		}
+	}
 }
