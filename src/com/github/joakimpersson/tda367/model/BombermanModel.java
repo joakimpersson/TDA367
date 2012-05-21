@@ -113,6 +113,7 @@ public class BombermanModel implements IBombermanModel {
 	 */
 	@Override
 	public void updateGame(Player player, PlayerAction action) {
+		// TODO Action == do nothing?
 		double stepSize = player.getSpeededStepSize();
 		if (action.isDiagonal()) {
 			stepSize = stepSize * 0.7;
