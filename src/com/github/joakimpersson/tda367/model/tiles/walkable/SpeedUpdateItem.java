@@ -3,18 +3,20 @@ package com.github.joakimpersson.tda367.model.tiles.walkable;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 
 /**
+ * A object rrepresenting a SpeedUpdateItem Tile.
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class SpeedUpdateItem extends PowerupItem {
 
-	private String image;
-	private Attribute attribute;
+	private final String imageType;
+	private final Attribute attribute;
 
 	public SpeedUpdateItem() {
 		super();
-		this.image = "speedUpItem";
+		this.imageType = "speedUpItem";
 		this.attribute = Attribute.Speed;
 	}
 
@@ -25,7 +27,7 @@ public class SpeedUpdateItem extends PowerupItem {
 
 	@Override
 	public String getTileType() {
-		return this.image;
+		return imageType;
 	}
 
 	@Override
