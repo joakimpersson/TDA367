@@ -24,6 +24,7 @@ import com.github.joakimpersson.tda367.model.utils.Utils;
 /**
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class GameMapTest {
@@ -32,7 +33,7 @@ public class GameMapTest {
 	@Before
 	public void setUp() throws Exception {
 		MapLoader mapLoader = MapLoader.getInstance();
-		Tile[][]gameField = mapLoader.getMap(0);
+		Tile[][] gameField = mapLoader.getMap(0);
 		map = new GameMap(gameField);
 
 	}
@@ -127,6 +128,9 @@ public class GameMapTest {
 		map = null;
 	}
 
+	/**
+	 * Modifies the map by adding three tiles to the map
+	 */
 	private void modifyMap() {
 		Position pos = new Position(5, 3);
 		map.setTile(new Pillar(), pos);

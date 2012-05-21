@@ -8,8 +8,10 @@ import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.utils.Utils;
 
 /**
+ * A class that handle all the map logic
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class GameMap implements IGameMap {

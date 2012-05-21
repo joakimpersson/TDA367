@@ -4,8 +4,10 @@ import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 
 /**
+ * An interface handling the map logic
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public interface IGameMap {
