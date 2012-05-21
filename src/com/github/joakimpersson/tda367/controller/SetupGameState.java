@@ -170,9 +170,9 @@ public class SetupGameState extends BasicGameState {
 	}
 
 	private boolean validProceed(Input input) {
-		if ((input.isKeyPressed(Input.KEY_SPACE) && !controllersBound
+		if ((input.isKeyDown(Input.KEY_SPACE) && !controllersBound
 				.contains("k0"))
-				|| (input.isKeyPressed(Input.KEY_F) && !controllersBound
+				^ (input.isKeyDown(Input.KEY_F) && !controllersBound
 						.contains("k1"))) {
 			return true;
 		}
