@@ -9,7 +9,7 @@ import com.github.joakimpersson.tda367.model.tiles.Tile;
  */
 public class Wall implements Tile {
 
-	private String image;
+	private final String image;
 
 	public Wall() {
 		this.image = "wall";
@@ -21,13 +21,8 @@ public class Wall implements Tile {
 	}
 
 	@Override
-	public String toString() {
-		return "Wall";
-	}
-
-	@Override
 	public String getTileType() {
-		return this.image;
+		return image;
 	}
 
 	@Override

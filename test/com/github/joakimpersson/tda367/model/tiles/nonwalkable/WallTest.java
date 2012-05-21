@@ -1,5 +1,6 @@
 package com.github.joakimpersson.tda367.model.tiles.nonwalkable;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -26,6 +27,13 @@ public class WallTest {
 	@Test
 	public void testIsWalkable() {
 		assertFalse(wall.isWalkable());
+	}
+
+	@Test
+	public void testGetTileType() {
+		String expected = "wall";
+		String actual = wall.getTileType();
+		assertEquals(expected, actual);
 	}
 
 	@Test
