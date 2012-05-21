@@ -61,11 +61,6 @@ public class Floor implements WalkableTile, Destroyable {
 	}
 
 	@Override
-	public String toString() {
-		return "Floor";
-	}
-
-	@Override
 	public String getTileType() {
 		Random rand = new Random();
 		int floorNumber = rand.nextInt(5) + 1;
