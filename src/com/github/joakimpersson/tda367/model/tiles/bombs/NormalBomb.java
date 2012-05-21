@@ -14,6 +14,7 @@ import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.Destroyable;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
+import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
 
 /**
  * Definition of a regular bomb.
@@ -24,6 +25,7 @@ import com.github.joakimpersson.tda367.model.tiles.Tile;
  */
 public class NormalBomb extends Bomb {
 	private Tile[][] map;
+	protected boolean removedFromPlayer = false;
 
 	/**
 	 * Creates a regular bomb.
@@ -35,6 +37,7 @@ public class NormalBomb extends Bomb {
 	 */
 	public NormalBomb(Player player, Timer timer) {
 		super(player, timer);
+		this.player.increaseBombsPlaced();
 	}
 
 	@Override
@@ -65,11 +68,7 @@ public class NormalBomb extends Bomb {
 
 		int firePower = power;
 
-		for (int i = 1; i <= range; i++) { // TODO should the range be regarded
-											// as including the position of the
-											// bomb? i.e. range of 2 means
-											// player can hit only directly
-											// adjacent tiles
+		for (int i = 1; i <= range; i++) {
 			if (firePower > 0) {
 				Position firePos = new Position(x + (dir.getX() * i), y + (dir.getY() * i));
 				if (validPos(firePos)) {
@@ -90,5 +89,19 @@ public class NormalBomb extends Bomb {
 	@Override
 	public String getTileType() {
 		return "bomb";
+	}
+	
+	@Override
+	public Tile onFire() {
+		removeFromPlayer();
+		this.timer.cancel();
+		return new Floor();
+	}
+
+	protected synchronized void removeFromPlayer() {
+		if (!removedFromPlayer) {
+			this.player.decreaseBombsPlaced();
+			removedFromPlayer = true;
+		}
 	}
 }

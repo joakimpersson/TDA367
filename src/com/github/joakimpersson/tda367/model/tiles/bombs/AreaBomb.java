@@ -7,6 +7,7 @@ import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
+import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
 
 /**
  * Definition of an area-bomb.
@@ -27,6 +28,7 @@ public class AreaBomb extends Bomb {
 	 */
 	public AreaBomb(Player player, Timer timer) {
 		super(player, timer);
+		player.increaseAreaBombsPlaced();
 		
 		if (range > 5) {
 			this.areaRange = 3;
@@ -50,14 +52,18 @@ public class AreaBomb extends Bomb {
 				}
 			}
 		}
-
-		removeFromPlayer();
 		return fireList;
 	}
 
 	@Override
 	public String getTileType() {
 		return "bomb-area";
+	}
+	
+	@Override
+	public Tile onFire() {
+		this.timer.cancel();
+		return new Floor();
 	}
 
 }

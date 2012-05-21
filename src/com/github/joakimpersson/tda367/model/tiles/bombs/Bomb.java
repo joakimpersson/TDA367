@@ -13,7 +13,6 @@ import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.Destroyable;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
-import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
 
 /**
  * This class defines a Bomb in the bomberman-like game.
@@ -29,7 +28,6 @@ public abstract class Bomb implements Tile, Destroyable {
 	protected final Player player;
 	protected final Position pos;
 	protected Map<Position, Direction> fireList = new HashMap<Position, Direction>();
-	protected boolean removedFromPlayer = false;
 
 	/**
 	 * Creates an abstract Bomb.
@@ -46,7 +44,6 @@ public abstract class Bomb implements Tile, Destroyable {
 		this.range = player.getAttribute(Attribute.BombRange);
 		this.power = player.getAttribute(Attribute.BombPower);
 		this.timer = timer;
-		this.player.increaseBombsPlaced();
 	}
 
 	/**
@@ -60,7 +57,7 @@ public abstract class Bomb implements Tile, Destroyable {
 	 */
 	protected boolean canBreak(Tile tile, int power) {
 		if (tile instanceof Destroyable) {
-			Destroyable tmp = (Destroyable)tile;
+			Destroyable tmp = (Destroyable) tile;
 			return power >= tmp.getToughness();
 		}
 		return false;
@@ -103,18 +100,7 @@ public abstract class Bomb implements Tile, Destroyable {
 	}
 
 	@Override
-	public Tile onFire() {
-		removeFromPlayer();
-		this.timer.cancel();
-		return new Floor();
-	}
-
-	protected synchronized void removeFromPlayer() {
-		if (!removedFromPlayer) {
-			this.player.decreaseBombsPlaced();
-			removedFromPlayer = true;
-		}
-	}
+	public abstract Tile onFire();
 
 	@Override
 	public boolean isWalkable() {
@@ -125,6 +111,5 @@ public abstract class Bomb implements Tile, Destroyable {
 	public PointGiver getPointGiver() {
 		return PointGiver.Bomb;
 	}
-	
-	
+
 }
