@@ -118,11 +118,15 @@ public class SetupGameState extends BasicGameState {
 			switch (action) {
 			case MOVE_NORTH:
 				moveIndex(-1);
-				pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
+				if (stage != 1) {
+					pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
+				}
 				break;
 			case MOVE_SOUTH:
 				moveIndex(1);
-				pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
+				if (stage != 1) {
+					pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
+				}
 				break;
 			}
 		}
@@ -133,15 +137,19 @@ public class SetupGameState extends BasicGameState {
 				players = selection;
 				view.startPlayerCreation(players);
 				stage++;
-			} else if (stage == 1 && view.verifyNameValidity()) {
-				createPlayer(view.getName(), view.getIndex());
-				view.playerCreated();
-				if (allPlayersCreated()) {
-					view.assignControllers();
-					stage++;
+			} else if (stage == 1) {
+				if (view.verifyNameValidity()) {
+					createPlayer(view.getName(), view.getIndex());
+					view.playerCreated();
+					if (allPlayersCreated()) {
+						view.assignControllers();
+						stage++;
+					}
+					pcs.firePropertyChange("play", null, EventType.MENU_ACTION);
+				} else {
+					pcs.firePropertyChange("play", null, EventType.ERROR);
 				}
 			}
-			pcs.firePropertyChange("play", null, EventType.MENU_ACTION);
 		} else if (stage == 2 && controllerProceed) {
 			assignPlayer(controllerUsed(input), view.getIndex());
 			if (allPlayersAssigned()) {

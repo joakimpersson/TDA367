@@ -91,7 +91,7 @@ public class SoundHandler {
 			battleSong1 = new BackgroundMusic("res/sounds/BattleSong1.wav", 1.0f);
 			menuNavigate = new SoundEffect("res/sounds/MenuNavigate.wav", 0.75f);
 			menuAction = new SoundEffect("res/sounds/MenuAction.wav", 0.75f);
-			errorSound = new SoundEffect("res/sounds/ErrorSound.wav", 0.6f);
+			errorSound = new SoundEffect("res/sounds/ErrorSound.wav", 0.7f);
 			preInterlude = new BackgroundMusic("res/sounds/PreInterlude.wav", 0.5f);
 			interlude = new BackgroundMusic("res/sounds/Interlude1.wav", 0.35f);
 			countDown = new SoundEffect("res/sounds/CountDown.wav", 0.25f);
