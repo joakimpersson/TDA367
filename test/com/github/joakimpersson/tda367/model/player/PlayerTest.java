@@ -3,6 +3,7 @@ package com.github.joakimpersson.tda367.model.player;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +78,9 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void testKillPlayer() {
+	public void testIsAlive() {
+		assertTrue(player.isAlive());
+		// kill the player
 		while (player.getHealth() > 0) {
 			player.playerHit();
 		}
@@ -144,16 +147,104 @@ public class PlayerTest {
 	}
 
 	@Test
+	public void testGetDirection() {
+		// Starting direction is south
+		Direction expected = Direction.SOUTH;
+		Direction actual = player.getDirection();
+
+		assertTrue(expected.equals(actual));
+
+		// change the direction to north
+
+		expected = Direction.NORTH;
+		player.move(expected, 0.2);
+
+		actual = player.getDirection();
+
+		assertTrue(expected.equals(actual));
+	}
+
+	@Test
+	public void testIsImmortal() {
+		fail("Not implemented");
+	}
+
+	@Test
+	public void testGetEarnedPointGiver() {
+		PointGiver pointGiver = PointGiver.Box;
+
+		int expected = 0;
+		int actual = player.getEarnedPointGiver(pointGiver);
+
+		assertEquals(expected, actual);
+
+		player.updatePlayerPoints(pointGiver);
+
+		expected = 1;
+		actual = player.getEarnedPointGiver(pointGiver);
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testGetImage() {
+		int expectedPlayerIndex = 0;
+		Direction expectedDirection = Direction.SOUTH;
+		String expected = "player/" + expectedPlayerIndex + "/still-"
+				+ expectedDirection;
+		String actual = player.getImage();
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testGetIndex() {
+		int expected = 0;
+		int actual = player.getIndex();
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void adjustPosition() {
+		fail("Not yet implemented!");
+	}
+
+	@Test
+	public void useCredits() {
+		// add credits to the player
+		player.updatePlayerPoints(PointGiver.GameWon);
+
+		// he should have 500 credits
+		int expected = PointGiver.GameWon.getScore();
+		int actual = player.getCredits();
+
+		assertEquals(expected, actual);
+
+		// buy something
+
+		Attribute boughtAttribute = Attribute.BombStack;
+		int cost = boughtAttribute.getCost();
+
+		expected -= cost;
+		player.useCredits(cost);
+		actual = player.getCredits();
+		
+		assertEquals(expected, actual);
+
+	}
+
+	@Test
 	public void testEquals() {
 		int otherIndex = 1;
 		String otherPlayerName = "Kalle";
 		Position otherPos = new Position(5, 10);
 		Player otherPlayer = new Player(otherIndex, otherPlayerName, otherPos);
 
-		//testing for self refrence and null
+		// testing for self refrence and null
 		assertTrue(player.equals(player));
 		assertFalse(player.equals(null));
-		
+
 		assertFalse(player.equals(otherPlayer));
 
 		// now slowly change other players params so they become equal
