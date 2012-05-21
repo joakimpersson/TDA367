@@ -12,6 +12,7 @@ public enum PlayerAction {
 	MOVE_WEST(new Direction[] {Direction.WEST}, false),
 	MOVE_EAST(new Direction[] {Direction.EAST}, false),
 	PRIMARY_ACTION(new Direction[] {Direction.NONE}, false),
+	SECONDARY_ACTION(new Direction[] {Direction.NONE}, false),
 	MOVE_NORTHEAST(new Direction[] {Direction.NORTH, Direction.EAST}, true),
 	MOVE_SOUTHEAST(new Direction[] {Direction.SOUTH, Direction.EAST}, true),
 	MOVE_SOUTHWEST(new Direction[] {Direction.SOUTH, Direction.WEST}, true),

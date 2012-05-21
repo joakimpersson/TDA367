@@ -14,6 +14,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.github.joakimpersson.tda367.audio.AudioEventListener;
+import com.github.joakimpersson.tda367.controller.input.DefaultKeyMappings;
 import com.github.joakimpersson.tda367.controller.input.InputData;
 import com.github.joakimpersson.tda367.controller.input.InputHandler;
 import com.github.joakimpersson.tda367.controller.input.InputManager;
@@ -173,11 +174,11 @@ public class SetupGameState extends BasicGameState {
 	}
 
 	private boolean validProceed(Input input) {
-		if (input.isKeyDown(Input.KEY_SPACE)
+		if (input.isKeyDown(DefaultKeyMappings.getInstance().getActionButton(0))
 				&& !controllersBound.contains("k0")) {
 			controllersBound.add("k0");
 			return true;
-		} else if (input.isKeyDown(Input.KEY_F)
+		} else if (input.isKeyDown(DefaultKeyMappings.getInstance().getActionButton(1))
 				&& !controllersBound.contains("k1")) {
 			controllersBound.add("k1");
 			return true;

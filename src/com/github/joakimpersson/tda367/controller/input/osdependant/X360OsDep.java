@@ -10,16 +10,21 @@ public class X360OsDep {
 	public static int getProceed() {
 		if (platform.equals(MAC)) {
 			return 4;
-		}
-		return 7;
+		} else return 7;
 	}
 	
 	// should be mapped to A
-	public static int getAction() {
+	public static int getPrimaryAction() {
 		if (platform.equals(MAC)) {
 			return 11;
-		}
-		return 0;
+		} else return 0;
+	}
+	
+	// should be mapped to X
+	public static int getSecondaryAction() {
+		if (platform.equals(MAC)) {
+			return 13;
+		} else return 2;
 	}
 	
 	public static String getDPadButtonPressed(Input input, int controllerId) {
