@@ -20,38 +20,39 @@ import com.github.joakimpersson.tda367.model.tiles.Tile;
 /**
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class BombStackUpdateItemTest {
 
-	private BombStackUpdateItem item;
+	private BombStackUpdateItem bombItem;
 
 	@Before
 	public void setUp() throws Exception {
-		item = new BombStackUpdateItem();
+		bombItem = new BombStackUpdateItem();
 	}
 
 	@Test
 	public void testGetToughness() {
-		int tougness = item.getToughness();
+		int tougness = bombItem.getToughness();
 		assertEquals(0, tougness);
 	}
 
 	@Test
 	public void testOnFire() {
-		Tile tile = item.onFire();
+		Tile tile = bombItem.onFire();
 		assertThat(tile, is(instanceOf(Floor.class)));
 	}
 
 	@Test
 	public void testIsWalkable() {
-		assertTrue(item.isWalkable());
+		assertTrue(bombItem.isWalkable());
 	}
 
 	@Test
 	public void testPlayerEnter() {
 		Player player = new Player(1, "Kalle", new Position(0, 0));
-		Tile tile = item.playerEnter(player);
+		Tile tile = bombItem.playerEnter(player);
 		assertThat(tile, is(instanceOf(Floor.class)));
 
 		int actual = player.getAttribute(Attribute.BombStack);
@@ -61,8 +62,15 @@ public class BombStackUpdateItemTest {
 
 	@Test
 	public void testGetAttr() {
-		Attribute attr = item.getAttr();
+		Attribute attr = bombItem.getAttr();
 		assertEquals(Attribute.BombStack, attr);
+	}
+
+	@Test
+	public void testGetTileType() {
+		String expected = "bombUpItem";
+		String actual = bombItem.getTileType();
+		assertEquals(expected, actual);
 	}
 
 	@Test
@@ -71,14 +79,14 @@ public class BombStackUpdateItemTest {
 		Tile otherAttrTile = new SpeedUpdateItem();
 
 		// testing for null and self
-		assertTrue(item.equals(item));
-		assertFalse(item.equals(null));
+		assertTrue(bombItem.equals(bombItem));
+		assertFalse(bombItem.equals(null));
 
 		// should be true
-		assertTrue(item.equals(otherItem));
+		assertTrue(bombItem.equals(otherItem));
 
 		// should be false since an box is not an wall
-		assertFalse(item.equals(otherAttrTile));
+		assertFalse(bombItem.equals(otherAttrTile));
 	}
 
 	@Test
@@ -88,16 +96,15 @@ public class BombStackUpdateItemTest {
 		Tile otherAttrTile = new SpeedUpdateItem();
 
 		// should be true
-		assertTrue(item.hashCode() == otherItem.hashCode());
+		assertTrue(bombItem.hashCode() == otherItem.hashCode());
 
 		// should be false since an box is not an wall
-		assertFalse(item.hashCode() == otherAttrTile.hashCode());
+		assertFalse(bombItem.hashCode() == otherAttrTile.hashCode());
 	}
 
 	@After
 	public void tearDown() throws Exception {
-
-		item = null;
+		bombItem = null;
 	}
 
 }

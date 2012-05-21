@@ -3,18 +3,20 @@ package com.github.joakimpersson.tda367.model.tiles.walkable;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 
 /**
+ * An object representing a BombStackUpdateItem Tile.
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class BombStackUpdateItem extends PowerupItem {
 
-	private String image;
+	private String imageType;
 	private Attribute attribute;
 
 	public BombStackUpdateItem() {
 		super();
-		this.image = "bombUpItem";
+		this.imageType = "bombUpItem";
 		attribute = Attribute.BombStack;
 	}
 
@@ -25,7 +27,7 @@ public class BombStackUpdateItem extends PowerupItem {
 
 	@Override
 	public String getTileType() {
-		return this.image;
+		return imageType;
 	}
 
 	@Override
