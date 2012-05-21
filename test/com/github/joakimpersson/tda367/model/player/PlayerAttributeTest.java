@@ -21,46 +21,46 @@ import com.github.joakimpersson.tda367.model.constants.Parameters;
  * 
  */
 public class PlayerAttributeTest {
-	private PlayerAttributes pa;
+	private PlayerAttributes playerAttributes;
 
 	@Before
 	public void setUp() throws Exception {
-		pa = new PlayerAttributes();
+		playerAttributes= new PlayerAttributes();
 	}
 
 	@Test
 	public void testUpdateMatchAttr() {
 		int speedDefault = Parameters.INSTANCE.getInitSpeed();
-		pa.upgradeAttr(Attribute.Speed, GameModeType.Match);
-		assertEquals(pa.getAttrValue(Attribute.Speed), speedDefault + 1);
+		playerAttributes.upgradeAttr(Attribute.Speed, GameModeType.Match);
+		assertEquals(playerAttributes.getAttrValue(Attribute.Speed), speedDefault + 1);
 	}
 
 	@Test
 	public void testUpdateRoundAttr() {
 		int bombRangeDefault = Parameters.INSTANCE.getInitBombRange();
-		pa.upgradeAttr(Attribute.BombRange, GameModeType.Round);
-		assertEquals(pa.getAttrValue(Attribute.BombRange), bombRangeDefault + 1);
+		playerAttributes.upgradeAttr(Attribute.BombRange, GameModeType.Round);
+		assertEquals(playerAttributes.getAttrValue(Attribute.BombRange), bombRangeDefault + 1);
 	}
 
 	@Test
 	public void testUpdateMatchRoundAttr() {
 		int bombRangeDefault = Parameters.INSTANCE.getInitBombRange();
 
-		pa.upgradeAttr(Attribute.BombRange, GameModeType.Match);
-		pa.upgradeAttr(Attribute.BombRange, GameModeType.Round);
+		playerAttributes.upgradeAttr(Attribute.BombRange, GameModeType.Match);
+		playerAttributes.upgradeAttr(Attribute.BombRange, GameModeType.Round);
 
-		assertEquals(pa.getAttrValue(Attribute.BombRange), bombRangeDefault + 2);
+		assertEquals(playerAttributes.getAttrValue(Attribute.BombRange), bombRangeDefault + 2);
 	}
 
 	@Test
 	public void testAddUpgradeAttribute() {
-		Attribute attr = Attribute.BombPower;
+		Attribute attribute = Attribute.BombPower;
 
-		assertEquals(1, pa.getAttrValue(attr));
+		assertEquals(1, playerAttributes.getAttrValue(attribute));
 
-		pa.upgradeAttr(attr, GameModeType.Match);
+		playerAttributes.upgradeAttr(attribute, GameModeType.Match);
 
-		assertEquals(2, pa.getAttrValue(attr));
+		assertEquals(2, playerAttributes.getAttrValue(attribute));
 
 	}
 
@@ -68,84 +68,84 @@ public class PlayerAttributeTest {
 	public void testResetMatchAttr() {
 		int bombRangeDefault = Parameters.INSTANCE.getInitBombRange();
 
-		pa.upgradeAttr(Attribute.BombRange, GameModeType.Match);
-		pa.upgradeAttr(Attribute.BombRange, GameModeType.Match);
+		playerAttributes.upgradeAttr(Attribute.BombRange, GameModeType.Match);
+		playerAttributes.upgradeAttr(Attribute.BombRange, GameModeType.Match);
 
-		pa.resetAttr(GameModeType.Match);
+		playerAttributes.resetAttr(GameModeType.Match);
 
-		assertEquals(pa.getAttrValue(Attribute.BombRange), bombRangeDefault);
+		assertEquals(playerAttributes.getAttrValue(Attribute.BombRange), bombRangeDefault);
 	}
 
 	@Test
 	public void testResetTurnAttr() {
 		int bombRangeDefault = Parameters.INSTANCE.getInitBombRange();
 
-		pa.upgradeAttr(Attribute.BombRange, GameModeType.Round);
-		pa.upgradeAttr(Attribute.BombRange, GameModeType.Round);
+		playerAttributes.upgradeAttr(Attribute.BombRange, GameModeType.Round);
+		playerAttributes.upgradeAttr(Attribute.BombRange, GameModeType.Round);
 
-		pa.resetAttr(GameModeType.Round);
+		playerAttributes.resetAttr(GameModeType.Round);
 
-		assertEquals(pa.getAttrValue(Attribute.BombRange), bombRangeDefault);
+		assertEquals(playerAttributes.getAttrValue(Attribute.BombRange), bombRangeDefault);
 	}
 
 	@Test
 	public void testEquals() {
-		PlayerAttributes oherPa = new PlayerAttributes();
+		PlayerAttributes oherPlayerAttribute = new PlayerAttributes();
 
 		// Testing equals against null
-		assertFalse(oherPa.equals(null));
+		assertFalse(oherPlayerAttribute.equals(null));
 
 		// Testing equals against itself
-		assertTrue(pa.equals(pa));
+		assertTrue(playerAttributes.equals(playerAttributes));
 
-		assertTrue(pa.equals(oherPa));
+		assertTrue(playerAttributes.equals(oherPlayerAttribute));
 
-		oherPa.upgradeAttr(Attribute.BombPower, GameModeType.Match);
+		oherPlayerAttribute.upgradeAttr(Attribute.BombPower, GameModeType.Match);
 
-		assertFalse(pa.equals(oherPa));
+		assertFalse(playerAttributes.equals(oherPlayerAttribute));
 
-		pa.upgradeAttr(Attribute.BombPower, GameModeType.Match);
+		playerAttributes.upgradeAttr(Attribute.BombPower, GameModeType.Match);
 
-		assertTrue(pa.equals(oherPa));
+		assertTrue(playerAttributes.equals(oherPlayerAttribute));
 
-		pa.upgradeAttr(Attribute.Speed, GameModeType.Round);
-		oherPa.upgradeAttr(Attribute.Speed, GameModeType.Round);
+		playerAttributes.upgradeAttr(Attribute.Speed, GameModeType.Round);
+		oherPlayerAttribute.upgradeAttr(Attribute.Speed, GameModeType.Round);
 
-		assertTrue(pa.equals(oherPa));
+		assertTrue(playerAttributes.equals(oherPlayerAttribute));
 	}
 
 	@Test
 	public void testHashCode() {
-		PlayerAttributes oherPa = new PlayerAttributes();
+		PlayerAttributes oherPlayerAttribute = new PlayerAttributes();
 
-		assertEquals(pa.hashCode(), oherPa.hashCode());
+		assertEquals(playerAttributes.hashCode(), oherPlayerAttribute.hashCode());
 
-		oherPa.upgradeAttr(Attribute.BombPower, GameModeType.Match);
+		oherPlayerAttribute.upgradeAttr(Attribute.BombPower, GameModeType.Match);
 
-		assertFalse(pa.hashCode() == oherPa.hashCode());
+		assertFalse(playerAttributes.hashCode() == oherPlayerAttribute.hashCode());
 
-		pa.upgradeAttr(Attribute.BombPower, GameModeType.Match);
+		playerAttributes.upgradeAttr(Attribute.BombPower, GameModeType.Match);
 
-		assertEquals(pa.hashCode(), oherPa.hashCode());
+		assertEquals(playerAttributes.hashCode(), oherPlayerAttribute.hashCode());
 
-		pa.upgradeAttr(Attribute.Speed, GameModeType.Round);
-		oherPa.upgradeAttr(Attribute.Speed, GameModeType.Round);
+		playerAttributes.upgradeAttr(Attribute.Speed, GameModeType.Round);
+		oherPlayerAttribute.upgradeAttr(Attribute.Speed, GameModeType.Round);
 
-		assertEquals(pa.hashCode(), oherPa.hashCode());
+		assertEquals(playerAttributes.hashCode(), oherPlayerAttribute.hashCode());
 	}
 
 	@Test
 	public void testGetAttributes() {
 		List<Attribute> expected = Arrays.asList(Attribute.values());
-		List<Attribute> actual = pa.getAttributes();
+		List<Attribute> actual = playerAttributes.getAttributes();
 
-		for (Attribute a : expected) {
-			assertTrue(actual.contains(a));
+		for (Attribute attribute : expected) {
+			assertTrue(actual.contains(attribute));
 		}
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		pa = null;
+		playerAttributes = null;
 	}
 }
