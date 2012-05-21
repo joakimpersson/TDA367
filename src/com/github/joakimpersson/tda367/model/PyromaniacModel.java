@@ -458,12 +458,10 @@ public class PyromaniacModel implements IPyromaniacModel {
 
 	@Override
 	public void gameOver() {
-
 		gameLogic.gameOver();
 
 		// add the players to highscore list
 		highscore.update(players);
-
 	}
 
 	@Override

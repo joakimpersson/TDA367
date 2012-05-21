@@ -236,16 +236,14 @@ public class PyromaniacModelTest {
 		p.upgradeAttr(Attribute.Speed, GameModeType.Match);
 		model.roundOver();
 		assertTrue(p.getAttribute(Attribute.Speed) == 2);
-		
-		// TODO Check these.
-//		cancelRemaingingBombs();
-//		resetMap();
 	}
 	
 	@Test
 	public void testMatchOver() {
 		Player losingPlayer = players.get(0);
 		Player winningPlayer = players.get(1);
+		int attributeValue = winningPlayer.getAttribute(Attribute.Speed);
+		winningPlayer.upgradeAttr(Attribute.Speed, GameModeType.Match);
 		simulateMatchOver(losingPlayer);
 
 		model.matchOver();
@@ -254,12 +252,12 @@ public class PyromaniacModelTest {
 		int actual = winningPlayer.getMatchesWon();
 		assertEquals(expected, actual);
 		
-		// TODO kolla detta.
-		// matchReset();
+		assertEquals(attributeValue, winningPlayer.getAttribute(Attribute.Speed));
 	}
 	
 	@Test
 	public void testGameOver() {
+		List<Score> scoreList = model.getHighscoreList();
 		Player losingPlayer = players.get(0);
 		Player winningPlayer = players.get(1);
 
@@ -272,10 +270,7 @@ public class PyromaniacModelTest {
 		int actual = winningPlayer.getEarnedPointGiver(PointGiver.GameWon);
 		assertEquals(expected, actual);
 		
-		
-		// TODO Check this.
-//		// add the players to highscore list
-//		highscore.update(players);
+		assertFalse(scoreList.equals(model.getHighscoreList()));
 	}
 	
 	@Test
@@ -309,9 +304,10 @@ public class PyromaniacModelTest {
 		List<Score> list1 = model.getHighscoreList();
 		Player p = players.get(0);
 		p.updatePlayerPoints(PointGiver.GameWon);
+		simulateGameOver(players.get(1));
 		model.gameOver();
 		List<Score> list2 = model.getHighscoreList();
-		assertTrue(!list1.equals(list2));
+		assertFalse(list1.equals(list2));
 	}
 	
 	@Test
@@ -320,14 +316,22 @@ public class PyromaniacModelTest {
 		List<Score> list1 = model.getHighscoreList();
 		Player p = players.get(0);
 		p.updatePlayerPoints(PointGiver.MatchWon);
+		simulateGameOver(players.get(1));
 		model.gameOver();
 		model.resetHighscoreList();
 		assertTrue(list1.equals(model.getHighscoreList()));
 	}
 	
-	@Test
-	public void testGameReset() {
-		fail("not yet implemented");
+	@Test(expected = NullPointerException.class)
+	public void testGameReset1() {
+		model.gameReset();
+		model.getPlayers();
+	}
+	
+	@Test(expected = NullPointerException.class)
+	public void testGameReset2() {
+		model.gameReset();
+		model.getMap();
 	}
 	
 	@Test
@@ -358,9 +362,8 @@ public class PyromaniacModelTest {
 		int maxMatchesWon = BombermanRules.INSTANCE.getNumberOfMatches();
 		for (int i = 0; i < maxMatchesWon; i++) {
 			simulateMatchOver(losingPlayer);
-			gameLogic.matchOver();
-			losingPlayer.reset(GameModeType.Match);
-			gameLogic.resetRoundStats();
+			model.matchOver();
+			model.resetRoundStats();
 		}
 	}
 	
@@ -369,8 +372,7 @@ public class PyromaniacModelTest {
 
 		for (int i = 0; i < maxRounds; i++) {
 			killPlayer(losingPlayer);
-			gameLogic.roundOver();
-			losingPlayer.reset(GameModeType.Round);
+			model.roundOver();
 		}
 	}
 	
