@@ -20,6 +20,9 @@ public class Floor implements WalkableTile, Destroyable {
 	private final int toughness;
 	private final String imageType;
 
+	/**
+	 * Creating a Floor Tile.
+	 */
 	public Floor() {
 		// should be ignored by the fire and skipped
 		this.toughness = 0;

@@ -54,7 +54,7 @@ public class FloorTest {
 	public void testGetTileType() {
 		String expected = "floor";
 		String actual = floor.getTileType();
-		assertTrue(actual.startsWith(expected));
+		assertEquals(expected, actual);
 	}
 
 	@Test

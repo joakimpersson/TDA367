@@ -11,9 +11,12 @@ import com.github.joakimpersson.tda367.model.constants.Attribute;
  */
 public class RangeUpdateItem extends PowerupItem {
 
-	private String imageType;
-	private Attribute attribute;
+	private final String imageType;
+	private final Attribute attribute;
 
+	/**
+	 * Creating a RangeUpdateItem Tile.
+	 */
 	public RangeUpdateItem() {
 		super();
 		this.imageType = "rangeUpItem";

@@ -10,28 +10,29 @@ import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
 
 /**
+ * An object representing a Fire Tile
  * 
  * @author joakimpersson
- * @modified Viktor Anderling
+ * @modified Viktor Anderling, adderollen
  * 
  */
 public class Fire implements WalkableTile {
-	private Direction direction;
-	private String image;
-	private Player fireOwner;
+	private final Direction direction;
+	private String imageType;
+	private final Player fireOwner;
 
+	/**
+	 * Creating a Fire tile.
+	 * 
+	 * @param fireOwner
+	 *            The Player who created the Tile.
+	 * @param direction
+	 *            The Direction the fire will exploade at.
+	 */
 	public Fire(Player fireOwner, Direction direction) {
 		this.fireOwner = fireOwner;
 		this.direction = direction;
-		if (this.direction == null) {
-			this.image = "fire-area";
-		} else if (this.direction == Direction.NONE) {
-			this.image = "fire-mid";
-		} else if (this.direction.isHorizontal()) {
-			this.image = "fire-row";
-		} else if (this.direction.isVertical()) {
-			this.image = "fire-column";
-		}
+		setTileType();
 	}
 
 	/**
@@ -57,15 +58,15 @@ public class Fire implements WalkableTile {
 	 *            The player that walked into the fire
 	 */
 	private void distributePlayerPoints(Player targetPlayer) {
-		List<PointGiver> pg = new ArrayList<PointGiver>();
+		List<PointGiver> pointGiver = new ArrayList<PointGiver>();
 		if (!targetPlayer.isImmortal() && targetPlayer.isAlive()) {
 			targetPlayer.playerHit();
 			if (!fireOwner.equals(targetPlayer)) {
-				pg.add(PointGiver.PlayerHit);
+				pointGiver.add(PointGiver.PlayerHit);
 				if (!targetPlayer.isAlive()) {
-					pg.add(PointGiver.KillPlayer);
+					pointGiver.add(PointGiver.KillPlayer);
 				}
-				fireOwner.updatePlayerPoints(pg);
+				fireOwner.updatePlayerPoints(pointGiver);
 			}
 		}
 	}
@@ -76,8 +77,8 @@ public class Fire implements WalkableTile {
 	}
 
 	@Override
-	public String toString() {
-		return "Fire";
+	public String getTileType() {
+		return imageType;
 	}
 
 	@Override
@@ -105,8 +106,19 @@ public class Fire implements WalkableTile {
 		return sum;
 	}
 
-	@Override
-	public String getTileType() {
-		return this.image;
+	/**
+	 * Sets the tileType depending on what direction the fire got.
+	 */
+	private void setTileType() {
+		if (direction == null) {
+			imageType = "fire-area";
+		} else if (direction == Direction.NONE) {
+			imageType = "fire-mid";
+		} else if (direction.isHorizontal()) {
+			imageType = "fire-row";
+		} else if (direction.isVertical()) {
+			imageType = "fire-column";
+		}
 	}
+
 }

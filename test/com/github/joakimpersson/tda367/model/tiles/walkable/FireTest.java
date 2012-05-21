@@ -19,28 +19,35 @@ import com.github.joakimpersson.tda367.model.positions.Position;
  */
 public class FireTest {
 
-	private Fire fire;
+	private Fire fireTile;
 	private Player fireOwner;
 
 	@Before
 	public void setUp() throws Exception {
 		fireOwner = new Player(0, "Kalle", new Position(0, 0));
-		fire = new Fire(fireOwner, Direction.NONE);
+		fireTile = new Fire(fireOwner, Direction.NONE);
 	}
 
 	@Test
 	public void testIsWalkable() {
-		assertTrue(fire.isWalkable());
+		assertTrue(fireTile.isWalkable());
 	}
 
 	@Test
 	public void testPlayerEnter() {
-		Position pos = new Position(0, 0);
-		Player player = new Player(1, "Kalle", pos);
+		Position position = new Position(0, 0);
+		Player player = new Player(1, "Kalle", position);
 		int expected = player.getHealth() - 1;
-		fire.playerEnter(player);
+		fireTile.playerEnter(player);
 		int actual = player.getHealth();
 		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testGetTileType() {
+		String expected = "fire";
+		String actual = fireTile.getTileType();
+		assertTrue(actual.startsWith(expected));
 	}
 
 	@Test
@@ -49,23 +56,23 @@ public class FireTest {
 		Fire otherFire = new Fire(otherFireOwner, Direction.NORTH);
 
 		// testing with self refrence and null
-		assertFalse(fire.equals(null));
+		assertFalse(fireTile.equals(null));
 
-		assertTrue(fire.equals(fire));
+		assertTrue(fireTile.equals(fireTile));
 
-		assertFalse(fire.equals(otherFire));
+		assertFalse(fireTile.equals(otherFire));
 
 		otherFire = new Fire(otherFireOwner, Direction.NONE);
 
-		assertFalse(fire.equals(otherFire));
+		assertFalse(fireTile.equals(otherFire));
 
 		otherFire = new Fire(fireOwner, Direction.EAST);
 
-		assertFalse(fire.equals(otherFire));
+		assertFalse(fireTile.equals(otherFire));
 
 		otherFire = new Fire(fireOwner, Direction.NONE);
 
-		assertTrue(fire.equals(otherFire));
+		assertTrue(fireTile.equals(otherFire));
 	}
 
 	@Test
@@ -74,24 +81,24 @@ public class FireTest {
 		Player otherFireOwner = new Player(1, "Hobbe", new Position(0, 2));
 		Fire otherFire = new Fire(otherFireOwner, Direction.NORTH);
 
-		assertFalse(fire.hashCode() == otherFire.hashCode());
+		assertFalse(fireTile.hashCode() == otherFire.hashCode());
 
 		otherFire = new Fire(otherFireOwner, Direction.NONE);
 
-		assertFalse(fire.hashCode() == otherFire.hashCode());
+		assertFalse(fireTile.hashCode() == otherFire.hashCode());
 
 		otherFire = new Fire(fireOwner, Direction.EAST);
 
-		assertFalse(fire.hashCode() == otherFire.hashCode());
+		assertFalse(fireTile.hashCode() == otherFire.hashCode());
 
 		otherFire = new Fire(fireOwner, Direction.NONE);
 
-		assertTrue(fire.hashCode() == otherFire.hashCode());
+		assertTrue(fireTile.hashCode() == otherFire.hashCode());
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		fire = null;
+		fireTile = null;
 		fireOwner = null;
 	}
 }
