@@ -5,8 +5,10 @@ import java.io.Serializable;
 import com.github.joakimpersson.tda367.model.player.PlayerPoints;
 
 /**
+ * An object that associate the players name with his PlayerPoints object.
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class Score implements Serializable, Comparable<Score> {
@@ -15,8 +17,8 @@ public class Score implements Serializable, Comparable<Score> {
 	 * Auto generated serial
 	 */
 	private static final long serialVersionUID = -7241270636215740757L;
-	private String playerName;
-	private PlayerPoints playerPoints;
+	private final String playerName;
+	private final PlayerPoints playerPoints;
 
 	/**
 	 * Create a new score object using a player and his playerpoint object
@@ -55,7 +57,7 @@ public class Score implements Serializable, Comparable<Score> {
 	}
 
 	@Override
-	public boolean equals(final Object obj) {
+	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
 		}

@@ -17,6 +17,7 @@ import com.github.joakimpersson.tda367.model.player.PlayerPoints;
 /**
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class ScoreTest {
@@ -118,6 +119,14 @@ public class ScoreTest {
 		score = null;
 	}
 
+	/**
+	 * Updates the given PlayerPoints object with a given amount of RoundWon.
+	 * 
+	 * @param playerPoints
+	 *            The object to update.
+	 * @param nbrOfRoundsWon
+	 *            The number of RoundWon to update the PlayerPoints object with.
+	 */
 	private void addPointGivers(PlayerPoints playerPoints, int nbrOfRoundsWon) {
 		for (int i = 0; i < nbrOfRoundsWon; i++) {
 			playerPoints.update(PointGiver.RoundWon);
