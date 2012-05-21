@@ -134,8 +134,6 @@ public class SetupGameState extends BasicGameState {
 				break;
 			}
 		}
-
-		boolean controllerProceed = validProceed(input);
 		if (stage < 2 && inputManager.pressedProceed(input)) {
 			if (stage == 0) {
 				players = selection;
@@ -154,7 +152,7 @@ public class SetupGameState extends BasicGameState {
 					pcs.firePropertyChange("play", null, EventType.ERROR);
 				}
 			}
-		} else if (stage == 2 && controllerProceed) {
+		} else if (stage == 2 && validProceed(input)) {
 			assignPlayer(controllersBound.getLast(), view.getIndex());
 			if (allPlayersAssigned()) {
 				int newState = BombermanGame.GAMEPLAY_STATE;
