@@ -14,7 +14,7 @@ import com.github.joakimpersson.tda367.model.positions.Position;
 /**
  * 
  * @author joakimpersson
- *
+ * 
  */
 public class PositionTest {
 
@@ -62,7 +62,18 @@ public class PositionTest {
 	}
 
 	@Test
-	public void testEqualsObject() {
+	public void testEquals() {
+
+		// testing for self refrence and null
+		assertThat(positionOne, equalTo(positionOne));
+		assertThat(positionOne, not(equalTo(null)));
+
+		assertThat(positionTwo, equalTo(positionTwo));
+		assertThat(positionTwo, not(equalTo(null)));
+		
+		assertThat(positionThree, equalTo(positionThree));
+		assertThat(positionThree, not(equalTo(null)));
+		
 		// positionOne and positionTwo should not be equal
 		assertThat(positionOne, not(equalTo(positionTwo)));
 
