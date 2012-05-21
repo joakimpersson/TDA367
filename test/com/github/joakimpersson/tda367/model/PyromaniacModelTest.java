@@ -198,7 +198,7 @@ public class PyromaniacModelTest {
 			}
 		}
 
-		model.updateGame(players.get(0), PlayerAction.ACTION);
+		model.updateGame(players.get(0), PlayerAction.PRIMARY_ACTION);
 		map2 = model.getMap();
 
 		for (int i = 0; i < map1.length; i++) {
