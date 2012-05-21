@@ -15,7 +15,8 @@ public enum PlayerAction {
 	MOVE_NORTHEAST(new Direction[] {Direction.NORTH, Direction.EAST}, true),
 	MOVE_SOUTHEAST(new Direction[] {Direction.SOUTH, Direction.EAST}, true),
 	MOVE_SOUTHWEST(new Direction[] {Direction.SOUTH, Direction.WEST}, true),
-	MOVE_NORTHWEST(new Direction[] {Direction.NORTH, Direction.WEST}, true);
+	MOVE_NORTHWEST(new Direction[] {Direction.NORTH, Direction.WEST}, true),
+	DO_NOTHING(new Direction[] {Direction.NONE}, false);
 	
 	private final Direction[] direction;
 	private final boolean isDiagonal;
