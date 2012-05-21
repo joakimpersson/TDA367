@@ -121,7 +121,7 @@ public class HighscoreState extends BasicGameState {
 	 *            latest action
 	 */
 	private void updateGame(Input input) {
-		List<InputData> data = inputManager.getData(input);
+		List<InputData> data = inputManager.getMenuInputData(input);
 
 		for (InputData d : data) {
 			PlayerAction action = d.getAction();
