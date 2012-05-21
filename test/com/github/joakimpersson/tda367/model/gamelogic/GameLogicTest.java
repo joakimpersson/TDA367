@@ -22,6 +22,7 @@ import com.github.joakimpersson.tda367.model.positions.Position;
 /**
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class GameLogicTest {
@@ -48,10 +49,16 @@ public class GameLogicTest {
 		assertTrue(gameLogic.isRoundOver());
 	}
 
-	private void killPlayer(Player p) {
+	/**
+	 * Util method used to kill a player.
+	 * 
+	 * @param player
+	 *            A Player that will be killed if alive.
+	 */
+	private void killPlayer(Player player) {
 
-		while (p.isAlive()) {
-			p.playerHit();
+		while (player.isAlive()) {
+			player.playerHit();
 		}
 	}
 
@@ -164,6 +171,12 @@ public class GameLogicTest {
 
 	}
 
+	/**
+	 * Simulates a match ending.
+	 * 
+	 * @param losingPlayer
+	 *            The Player that loses the match.
+	 */
 	private void simulateMatchOver(Player losingPlayer) {
 		int maxRounds = BombermanRules.INSTANCE.getNumberOfRounds();
 
@@ -213,6 +226,12 @@ public class GameLogicTest {
 		assertTrue(gameLogic.isGameOver());
 	}
 
+	/**
+	 * Simulates a game ending.
+	 * 
+	 * @param losingPlayer
+	 *            The Player that loses the game.
+	 */
 	private void simulateGameOver(Player losingPlayer) {
 		int maxMatchesWon = BombermanRules.INSTANCE.getNumberOfMatches();
 		for (int i = 0; i < maxMatchesWon; i++) {

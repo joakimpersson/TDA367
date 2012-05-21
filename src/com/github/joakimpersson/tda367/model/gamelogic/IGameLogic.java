@@ -2,11 +2,16 @@ package com.github.joakimpersson.tda367.model.gamelogic;
 
 import com.github.joakimpersson.tda367.model.player.Player;
 
+/**
+ * An interface containing the logic about the round ending, matchwinner etc.
+ * 
+ * @author adderollen
+ * 
+ */
 public interface IGameLogic {
 
 	/**
-	 * Is the current round over. The round is over when all players but one has
-	 * died
+	 * Is the current round over. 
 	 * 
 	 * @return if the round is over
 	 */
@@ -42,7 +47,7 @@ public interface IGameLogic {
 	void matchOver();
 
 	/**
-	 * Reset every players rounds won stat to zero
+	 * Reset all the players amount of rounds won to zero
 	 */
 	void resetRoundStats();
 

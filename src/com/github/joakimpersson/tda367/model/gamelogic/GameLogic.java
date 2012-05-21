@@ -7,8 +7,11 @@ import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.player.Player;
 
 /**
+ * A class that handle all logic about when a round, match or game is over and
+ * not.
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class GameLogic implements IGameLogic {
@@ -31,13 +34,16 @@ public class GameLogic implements IGameLogic {
 		this.maxRoundsWon = BombermanRules.INSTANCE.getNumberOfRounds();
 	}
 
+	/**
+	 * The round is over when all players but one has died.
+	 */
 	@Override
 	public boolean isRoundOver() {
 
 		int alivePlayers = 0;
-		for (Player p : players) {
+		for (Player player : players) {
 
-			if (p.isAlive()) {
+			if (player.isAlive()) {
 				alivePlayers++;
 			}
 		}
@@ -55,10 +61,10 @@ public class GameLogic implements IGameLogic {
 
 		if (!noWinner) {
 
-			Player p = getRoundWinner();
-			lastRoundWinner = p;
-			p.updatePlayerPoints(PointGiver.RoundWon);
-			p.roundWon();
+			Player player = getRoundWinner();
+			lastRoundWinner = player;
+			player.updatePlayerPoints(PointGiver.RoundWon);
+			player.roundWon();
 
 		} else {
 			lastRoundWinner = null;
@@ -72,9 +78,9 @@ public class GameLogic implements IGameLogic {
 
 	private Player getRoundWinner() {
 		Player roundWinner = null;
-		for (Player p : players) {
-			if (p.isAlive()) {
-				roundWinner = p;
+		for (Player player : players) {
+			if (player.isAlive()) {
+				roundWinner = player;
 			}
 		}
 		return roundWinner;
@@ -99,9 +105,9 @@ public class GameLogic implements IGameLogic {
 
 	@Override
 	public void matchOver() {
-		Player p = getMatchWinner();
-		p.updatePlayerPoints(PointGiver.MatchWon);
-		p.matchWon();
+		Player player = getMatchWinner();
+		player.updatePlayerPoints(PointGiver.MatchWon);
+		player.matchWon();
 	}
 
 	@Override
