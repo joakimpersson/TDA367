@@ -17,6 +17,11 @@ import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.positions.Position;
 
+/**
+ * 
+ * @author joakimpersson
+ * 
+ */
 public class HighscoreTest {
 
 	private Highscore highScore;
@@ -24,12 +29,13 @@ public class HighscoreTest {
 	@Before
 	public void setUp() throws Exception {
 		highScore = new Highscore();
+		highScore.reset();
 	}
 
 	@Test
 	public void testUpdate() {
 		int size = 5;
-		List<Player> players = createListOfPlayer(size);
+		List<Player> players = createListOfPlayers(size);
 
 		updatePlayersScore(players);
 
@@ -47,7 +53,7 @@ public class HighscoreTest {
 	public void testListTrimming() {
 		int listMaxSize = Parameters.INSTANCE.getHighscoreMaxSize();
 		int size = listMaxSize + 1;
-		List<Player> players = createListOfPlayer(size);
+		List<Player> players = createListOfPlayers(size);
 
 		updatePlayersScore(players);
 
@@ -70,11 +76,11 @@ public class HighscoreTest {
 	public void testGetList() {
 
 		int size = 2;
-		List<Player> players = createListOfPlayer(size);
+		List<Player> players = createListOfPlayers(size);
 		List<String> playerNames = new ArrayList<String>();
 
-		for (Player p : players) {
-			playerNames.add(p.getName());
+		for (Player player : players) {
+			playerNames.add(player.getName());
 		}
 
 		highScore.update(players);
@@ -90,7 +96,7 @@ public class HighscoreTest {
 	@Test
 	public void testGetSize() {
 		int size = 5;
-		List<Player> players = createListOfPlayer(size);
+		List<Player> players = createListOfPlayers(size);
 
 		assertTrue(highScore.getSize() == 0);
 
@@ -102,7 +108,7 @@ public class HighscoreTest {
 	@Test
 	public void testReset() {
 		int size = 5;
-		List<Player> players = createListOfPlayer(size);
+		List<Player> players = createListOfPlayers(size);
 
 		highScore.update(players);
 
@@ -115,7 +121,6 @@ public class HighscoreTest {
 
 	@After
 	public void tearDown() throws Exception {
-		highScore.reset();
 		highScore = null;
 	}
 
@@ -126,14 +131,14 @@ public class HighscoreTest {
 	 *            The size of the list
 	 * @return A list of players
 	 */
-	private List<Player> createListOfPlayer(int size) {
+	private List<Player> createListOfPlayers(int size) {
 		List<Player> players = new ArrayList<Player>();
 
 		Position defaultPos = new Position(0, 0);
 
 		for (int i = 0; i < size; i++) {
-			Player p = new Player(i, "Hobbe-" + i, defaultPos);
-			players.add(p);
+			Player player = new Player(i, "Hobbe-" + i, defaultPos);
+			players.add(player);
 		}
 
 		return players;
@@ -164,13 +169,14 @@ public class HighscoreTest {
 	 */
 	private void updatePlayerScore(Player player, int iterations) {
 		List<PointGiver> pointGivers = new ArrayList<PointGiver>();
-		pointGivers.add(PointGiver.PlayerHit);
-		pointGivers.add(PointGiver.Pillar);
-		pointGivers.add(PointGiver.RoundWon);
 
 		for (int i = 0; i < iterations; i++) {
-
+			pointGivers.add(PointGiver.PlayerHit);
+			pointGivers.add(PointGiver.Pillar);
+			pointGivers.add(PointGiver.RoundWon);
 		}
+
+		player.updatePlayerPoints(pointGivers);
 	}
 
 	/**

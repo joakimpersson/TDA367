@@ -8,9 +8,15 @@ import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.utils.FileScanner;
 
+/**
+ * A class handling the applications highscore logic
+ * 
+ * @author joakimpersson
+ * @modified adderollen
+ */
 public class Highscore {
 
-	private String fileName;
+	private final String fileName;
 	private List<Score> playerList;
 	private final int maxSize;
 
@@ -20,7 +26,7 @@ public class Highscore {
 	 */
 	public Highscore() {
 		playerList = new ArrayList<Score>();
-		fileName = "highScore.data";
+		fileName = "gen/highScore.data";
 		maxSize = Parameters.INSTANCE.getHighscoreMaxSize();
 		loadList();
 	}
@@ -32,8 +38,8 @@ public class Highscore {
 	 *            A list of the players that have completed a game
 	 */
 	public void update(List<Player> players) {
-		for (Player p : players) {
-			Score score = new Score(p.getName(), p.getPoints());
+		for (Player player : players) {
+			Score score = new Score(player.getName(), player.getPoints());
 			playerList.add(score);
 		}
 
