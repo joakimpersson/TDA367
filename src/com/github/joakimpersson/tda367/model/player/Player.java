@@ -1,5 +1,6 @@
 package com.github.joakimpersson.tda367.model.player;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -20,33 +21,17 @@ import com.github.joakimpersson.tda367.model.positions.Position;
  * @modified Viktor Anderling, Joakim Persson
  */
 public class Player {
-	/**
-	 * TimerTask initiated getFireDuration()-milliseconds after player has been
-	 * hit by fire.
-	 */
-	private class HitTask extends TimerTask {
-		/**
-		 * Initiated when player is hit.
-		 */
-		public HitTask() {
-			health--;
-			justHit = true;
-		}
-
-		@Override
-		public void run() {
-			justHit = false;
-		}
-	}
 
 	private final String name;
 	private final Position initialPosition;
 	private Position tilePos;
 	private FPosition gamePos;
-	private PlayerAttributes attr;
-	private PlayerPoints points;
+	private PlayerAttributes playerAttribute;
+	private PlayerPoints playerPoints;
 	private Direction facingDirection;
-	private int bombsPlaced, health, playerIndex;
+	private int bombsPlaced;
+	private int health;
+	private int playerIndex;
 	private boolean justHit;
 
 	private int rounsdWon;
@@ -65,15 +50,16 @@ public class Player {
 		this.name = name;
 		this.initialPosition = pos;
 		this.rounsdWon = 0;
+		this.matchesWon = 0;
 		initPlayer();
 	}
 
 	/**
-	 * Method for initialising a player.
+	 * Method for initializing a player.
 	 */
 	private void initPlayer() {
-		this.attr = new PlayerAttributes();
-		this.points = new PlayerPoints();
+		this.playerAttribute = new PlayerAttributes();
+		this.playerPoints = new PlayerPoints();
 		roundReset();
 	}
 
@@ -81,7 +67,7 @@ public class Player {
 	 * Method used to reset a players state for a new round.
 	 */
 	private void roundReset() {
-		this.attr.resetAttr(UpgradeType.Round);
+		this.playerAttribute.resetAttr(UpgradeType.Round);
 		this.health = getAttribute(Attribute.Health);
 		this.tilePos = initialPosition;
 		this.facingDirection = Direction.SOUTH;
@@ -95,7 +81,7 @@ public class Player {
 	 * Method used to reset a players state for a new match (3 rounds).
 	 */
 	private void matchReset() {
-		this.attr.resetAttr(UpgradeType.Match);
+		this.playerAttribute.resetAttr(UpgradeType.Match);
 		roundReset();
 	}
 
@@ -114,8 +100,6 @@ public class Player {
 			roundReset();
 			break;
 		default:
-			// TODO nothing should happen here
-			// it is possible that the game type falls through
 			break;
 		}
 	}
@@ -123,22 +107,32 @@ public class Player {
 	/**
 	 * Moves a player in specified direction.
 	 * 
-	 * @param dir
+	 * @param direction
 	 *            The direction in which the player will move.
+	 * @param stepSize
+	 *            How big steps the player will move.
 	 */
-	public void move(Direction dir, double stepSize) {
-		double newFX = gamePos.getX() + stepSize * dir.getX();
-		double newFY = gamePos.getY() + stepSize * dir.getY();
+	public void move(Direction direction, double stepSize) {
+		double newFX = gamePos.getX() + stepSize * direction.getX();
+		double newFY = gamePos.getY() + stepSize * direction.getY();
 		gamePos = new FPosition((float) newFX, (float) newFY);
 		tilePos = new Position((int) newFX, (int) newFY);
-		this.facingDirection = dir;
-	}
-	
-	public double getSpeededStepSize() {
-		return Parameters.INSTANCE.getBaseStepSize() + (0.015 * getAttribute(Attribute.Speed));
+		this.facingDirection = direction;
 	}
 
 	/**
+	 * Get how big steps the player moves.
+	 * 
+	 * @return How big steps the player moves.
+	 */
+	public double getSpeededStepSize() {
+		return Parameters.INSTANCE.getBaseStepSize()
+				+ (0.015 * getAttribute(Attribute.Speed));
+	}
+
+	/**
+	 * Checks if the player can place a bomb or not.
+	 * 
 	 * @return If a player can place a bomb or not.
 	 */
 	public boolean canPlaceBomb() {
@@ -171,7 +165,7 @@ public class Player {
 	 *            The type of the upgrade
 	 */
 	public void upgradeAttr(Attribute attr, UpgradeType type) {
-		this.attr.upgradeAttr(attr, type);
+		this.playerAttribute.upgradeAttr(attr, type);
 		if (type.equals(UpgradeType.Match)) {
 			this.reloadAttributes();
 		}
@@ -183,7 +177,7 @@ public class Player {
 	 * @return A players list of attributes.
 	 */
 	public List<Attribute> getPermanentAttributes() {
-		return this.attr.getAttributes();
+		return new ArrayList<Attribute>(playerAttribute.getAttributes());
 	}
 
 	/**
@@ -194,17 +188,17 @@ public class Player {
 	 * @return The value of the attribute requested.
 	 */
 	public int getAttribute(Attribute attr) {
-		return this.attr.getAttrValue(attr);
+		return playerAttribute.getAttrValue(attr);
 	}
 
 	/**
 	 * Method called when player is hurt by fire.
 	 */
 	public void playerHit() {
-		if (this.justHit == false) {
+		if (!justHit) {
 			Timer justHitTimer = new Timer();
-			justHitTimer.schedule(new HitTask(),
-					Parameters.INSTANCE.getFireDuration());
+			int duration = Parameters.INSTANCE.getFireDuration();
+			justHitTimer.schedule(new HitTask(), duration);
 		}
 	}
 
@@ -214,7 +208,7 @@ public class Player {
 	 * @return Player's vitals.
 	 */
 	public boolean isAlive() {
-		return this.health > 0;
+		return health > 0;
 	}
 
 	/**
@@ -223,7 +217,7 @@ public class Player {
 	 * @return The players score.
 	 */
 	public int getScore() {
-		return points.getScore();
+		return playerPoints.getScore();
 	}
 
 	/**
@@ -232,7 +226,7 @@ public class Player {
 	 * @return The players available credits.
 	 */
 	public int getCredits() {
-		return points.getCredits();
+		return playerPoints.getCredits();
 	}
 
 	/**
@@ -242,7 +236,7 @@ public class Player {
 	 *            Amount of credits used.
 	 */
 	public void useCredits(int cost) {
-		this.points.useCredits(cost);
+		playerPoints.useCredits(cost);
 	}
 
 	/**
@@ -252,11 +246,11 @@ public class Player {
 	 *            List containing PointGiver's.
 	 */
 	public void updatePlayerPoints(List<PointGiver> pointGivers) {
-		this.points.update(pointGivers);
+		playerPoints.update(pointGivers);
 	}
 
 	public void updatePlayerPoints(PointGiver pointGiver) {
-		this.points.update(pointGiver);
+		playerPoints.update(pointGiver);
 	}
 
 	/**
@@ -274,7 +268,8 @@ public class Player {
 	 * @return Current health of the player.
 	 */
 	public int getHealth() {
-		//TODO Fix so there's not only 1 heart showed when u got like 20HP
+		// TODO Adrian, fix so there's not only 1 heart showed when u got like
+		// 20HP
 		return health;
 	}
 
@@ -306,17 +301,6 @@ public class Player {
 	}
 
 	/**
-	 * Returns the players name, position in the tilegrid and health.
-	 * 
-	 * @return A String includuing the players name, position in the tilegrid and health.
-	 */
-	@Override
-	public String toString() {
-		return "P[" + this.name + ", " + this.tilePos + ", " + this.health
-				+ " HP]";
-	}
-
-	/**
 	 * Get the players current status whether is has been hit by an exploded
 	 * bomb or not
 	 * 
@@ -333,8 +317,8 @@ public class Player {
 	 *            type of PointGiver tile
 	 * @return The number of destroyed tile type in PointGiver
 	 */
-	public int getDestroyedPointGiver(PointGiver type) {
-		return points.getEarnedPointGiver(type);
+	public int getEarnedPointGiver(PointGiver type) {
+		return playerPoints.getEarnedPointGiver(type);
 	}
 
 	/**
@@ -352,7 +336,7 @@ public class Player {
 	 * @return The players PlayerPoints object.
 	 */
 	public PlayerPoints getPoints() {
-		return points;
+		return playerPoints;
 	}
 
 	/**
@@ -390,7 +374,7 @@ public class Player {
 	 * Increase the number of rounds a player has win in the current match
 	 */
 	public void roundWon() {
-		this.rounsdWon += 1;
+		rounsdWon += 1;
 	}
 
 	/**
@@ -406,14 +390,14 @@ public class Player {
 	 * Reset how many rounds a player has win
 	 */
 	public void resetRoundsWon() {
-		this.rounsdWon = 0;
+		rounsdWon = 0;
 	}
 
 	/**
 	 * Increase number of matches a player has win
 	 */
 	public void matchWon() {
-		this.matchesWon += 1;
+		matchesWon += 1;
 	}
 
 	/**
@@ -428,11 +412,11 @@ public class Player {
 	@Override
 	public int hashCode() {
 		int sum = 0;
-		sum += this.playerIndex * 5;
-		sum += this.name.hashCode() * 7;
-		sum += this.attr.hashCode() * 13;
-		sum += this.tilePos.hashCode() * 17;
-		sum += this.points.hashCode() * 19;
+		sum += playerIndex * 5;
+		sum += name.hashCode() * 7;
+		sum += playerAttribute.hashCode() * 13;
+		sum += tilePos.hashCode() * 17;
+		sum += playerPoints.hashCode() * 19;
 		return sum;
 	}
 
@@ -445,10 +429,42 @@ public class Player {
 			return false;
 		}
 		Player other = (Player) obj;
-		return this.name.equals(other.name) && this.attr.equals(other.attr)
-				&& this.points.equals(other.points)
+		return this.name.equals(other.name)
+				&& this.playerAttribute.equals(other.playerAttribute)
+				&& this.playerPoints.equals(other.playerPoints)
 				&& this.tilePos.equals(other.tilePos)
 				&& this.playerIndex == other.playerIndex;
+	}
+
+	/**
+	 * Returns the players name, position in the tilegrid and health.
+	 * 
+	 * @return A String includuing the players name, position in the tilegrid
+	 *         and health.
+	 */
+	@Override
+	public String toString() {
+		return "P[" + this.name + ", " + this.tilePos + ", " + this.health
+				+ " HP]";
+	}
+
+	/**
+	 * TimerTask initiated getFireDuration()-milliseconds after player has been
+	 * hit by fire.
+	 */
+	private class HitTask extends TimerTask {
+		/**
+		 * Initiated when player is hit.
+		 */
+		public HitTask() {
+			health--;
+			justHit = true;
+		}
+
+		@Override
+		public void run() {
+			justHit = false;
+		}
 	}
 
 }

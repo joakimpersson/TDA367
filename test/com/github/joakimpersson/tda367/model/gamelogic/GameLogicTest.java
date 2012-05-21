@@ -253,7 +253,7 @@ public class GameLogicTest {
 
 		// winningPlayers GameWon in PlayerPoints should be equal to 1
 		int expected = 1;
-		int actual = winningPlayer.getDestroyedPointGiver(PointGiver.GameWon);
+		int actual = winningPlayer.getEarnedPointGiver(PointGiver.GameWon);
 		assertEquals(expected, actual);
 	}
 

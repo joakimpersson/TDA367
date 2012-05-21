@@ -41,7 +41,7 @@ public class PlayerTest {
 		double stepSize = Parameters.INSTANCE.getBaseStepSize();
 		player.move(Direction.EAST, stepSize);
 
-		FPosition expected = new FPosition(0.5f + (float)stepSize, 0.5F);
+		FPosition expected = new FPosition(0.5f + (float) stepSize, 0.5F);
 		FPosition actual = player.getGamePosition();
 
 		assertEquals(expected, actual);
@@ -88,9 +88,9 @@ public class PlayerTest {
 
 	@Test
 	public void testGetScore() {
-		List<PointGiver> l = new ArrayList<PointGiver>();
-		l.add(new Box().getPointGiver());
-		player.updatePlayerPoints(l);
+		List<PointGiver> list = new ArrayList<PointGiver>();
+		list.add(new Box().getPointGiver());
+		player.updatePlayerPoints(list);
 
 		int expected = new Box().getPointGiver().getScore();
 		int actual = player.getScore();
@@ -100,9 +100,9 @@ public class PlayerTest {
 
 	@Test
 	public void testGetCredits() {
-		List<PointGiver> l = new ArrayList<PointGiver>();
-		l.add(new Box().getPointGiver());
-		player.updatePlayerPoints(l);
+		List<PointGiver> list = new ArrayList<PointGiver>();
+		list.add(new Box().getPointGiver());
+		player.updatePlayerPoints(list);
 
 		int expected = new Box().getPointGiver().getScore();
 		int actual = player.getCredits();
@@ -133,13 +133,13 @@ public class PlayerTest {
 
 	@Test
 	public void getPlayerPoints() {
-		PlayerPoints pp = player.getPoints();
+		PlayerPoints playerPoints = player.getPoints();
 		List<PointGiver> l = new ArrayList<PointGiver>();
 		l.add(new Box().getPointGiver());
 		player.updatePlayerPoints(l);
 
 		int expected = new Box().getPointGiver().getScore();
-		int actual = pp.getScore();
+		int actual = playerPoints.getScore();
 
 		assertEquals(expected, actual);
 	}
@@ -151,6 +151,10 @@ public class PlayerTest {
 		Position otherPos = new Position(5, 10);
 		Player otherPlayer = new Player(otherIndex, otherPlayerName, otherPos);
 
+		//testing for self refrence and null
+		assertTrue(player.equals(player));
+		assertFalse(player.equals(null));
+		
 		assertFalse(player.equals(otherPlayer));
 
 		// now slowly change other players params so they become equal
