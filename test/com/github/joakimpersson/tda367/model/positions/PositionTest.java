@@ -1,4 +1,4 @@
-package com.github.joakimpersson.tda367.model.utils;
+package com.github.joakimpersson.tda367.model.positions;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;

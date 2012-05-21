@@ -4,6 +4,7 @@ package com.github.joakimpersson.tda367.model.positions;
  * Immutable class describing integer 2D-points.
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class Position {
@@ -22,14 +23,14 @@ public class Position {
 	 * @return The x value of the coordinate.
 	 */
 	public int getX() {
-		return this.x;
+		return x;
 	}
 
 	/**
 	 * @return The x value of the coordinate.
 	 */
 	public int getY() {
-		return this.y;
+		return y;
 	}
 
 	@Override
@@ -38,7 +39,7 @@ public class Position {
 	}
 
 	@Override
-	public boolean equals(final Object obj) {
+	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
 		}

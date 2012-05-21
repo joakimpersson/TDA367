@@ -1,4 +1,4 @@
-package com.github.joakimpersson.tda367.model.utils;
+package com.github.joakimpersson.tda367.model.positions;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
@@ -10,6 +10,12 @@ import org.junit.Test;
 
 import com.github.joakimpersson.tda367.model.positions.FPosition;
 
+/**
+ * 
+ * @author joakimpersson
+ * @modified adderollen
+ * 
+ */
 public class FPositionTest {
 
 	private FPosition positionOne = null;

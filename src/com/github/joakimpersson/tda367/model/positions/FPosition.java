@@ -4,6 +4,7 @@ package com.github.joakimpersson.tda367.model.positions;
  * Immutable class describing float 2D-points.
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class FPosition {
@@ -22,26 +23,26 @@ public class FPosition {
 	 * @return The x value of the coordinate.
 	 */
 	public float getX() {
-		return this.x;
+		return x;
 	}
 
 	/**
 	 * @return The x value of the coordinate.
 	 */
 	public float getY() {
-		return this.y;
+		return y;
 	}
 
 	@Override
 	public int hashCode() {
 		int sum = 0;
-		sum += 23456789 * Float.floatToIntBits(this.x);
-		sum += 56789123 * Float.floatToIntBits(this.y);
+		sum += 23456789 * Float.floatToIntBits(x);
+		sum += 56789123 * Float.floatToIntBits(y);
 		return sum;
 	}
 
 	@Override
-	public boolean equals(final Object obj) {
+	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
 		}
