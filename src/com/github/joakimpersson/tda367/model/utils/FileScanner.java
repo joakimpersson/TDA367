@@ -15,6 +15,7 @@ import java.util.Scanner;
 /**
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class FileScanner {
@@ -41,6 +42,10 @@ public class FileScanner {
 					"Object must implement Serializable");
 		}
 
+		if (!foldersExits(path)) {
+			createFolders(path);
+		}
+
 		File file = new File(path);
 		try {
 			FileOutputStream outFile = new FileOutputStream(file);
@@ -60,6 +65,43 @@ public class FileScanner {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Create a folder out of a given path.
+	 * 
+	 * @param path
+	 *            The path that will be created
+	 */
+	private static void createFolders(String path) {
+		String[] str = path.split("/");
+
+		for (int i = 0; i < str.length - 1; i++) {
+			File dir = new File(str[i]);
+			if (!dir.exists()) {
+				dir.mkdir();
+			}
+		}
+
+	}
+
+	/**
+	 * Checks if a folder at a given path exists.
+	 * 
+	 * @param path
+	 *            The path that will be checked.
+	 * @return True if the folder exist and false otherwise.
+	 */
+	private static boolean foldersExits(String path) {
+		String[] str = path.split("/");
+
+		for (int i = 0; i < str.length - 1; i++) {
+			File dir = new File(str[i]);
+			if (!dir.exists()) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**
