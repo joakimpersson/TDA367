@@ -71,7 +71,7 @@ public class KeyBoardInputHandler implements InputHandler {
 
 			return new InputData(player, action);
 		}
-		return null;
+		return new InputData(player, PlayerAction.DO_NOTHING);
 	}
 
 	@Override
@@ -113,5 +113,15 @@ public class KeyBoardInputHandler implements InputHandler {
 		sum += player.hashCode() * 5;
 		
 		return sum;
+	}
+
+	@Override
+	public InputData getMenuInputData(Input input) {
+		for (Integer i : keyActionMap.keySet()) {
+			if (input.isKeyPressed(i)) {
+				return new InputData(player, keyActionMap.get(i));
+			}
+		}
+		return new InputData(player, PlayerAction.DO_NOTHING);
 	}
 }

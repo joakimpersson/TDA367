@@ -162,7 +162,7 @@ public class UpgradePlayerState extends BasicGameState {
 	 *            latest action
 	 */
 	private void updateGame(Input input) {
-		List<InputData> data = inputManager.getData(input);
+		List<InputData> data = inputManager.getMenuInputData(input);
 
 		for (InputData d : data) {
 			PlayerAction action = d.getAction();
@@ -217,14 +217,6 @@ public class UpgradePlayerState extends BasicGameState {
 			performUpgrades();
 			currentState = STATE.UPGRADE_DONE;
 		}
-
-		// TODO really bad solution
-		try {
-			Thread.sleep(80);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
 	}
 
 	private void performUpgrades() {

@@ -63,7 +63,7 @@ public class MainMenuState extends BasicGameState {
 	}
 
 	private List<PlayerAction> defaultInput(Input input) {
-		List<InputData> dataList = inputManager.getData(input);
+		List<InputData> dataList = inputManager.getMenuInputData(input);
 		List<PlayerAction> actions = new ArrayList<PlayerAction>();
 		for (InputData data : dataList) {
 			actions.add(data.getAction());

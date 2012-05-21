@@ -53,4 +53,6 @@ public interface InputHandler {
 	 *         false otherwise
 	 */
 	boolean pressedProceed(Input input);
+
+	InputData getMenuInputData(Input input);
 }

@@ -10,7 +10,7 @@ public class X360InputHandler implements InputHandler {
 	public final static int PROCEED_BUTTON = X360OsDep.getProceed();
 	public final static int ACTION_BUTTON = X360OsDep.getAction();
 
-	private PlayerAction lastAction = null;
+	private PlayerAction currentAction = null;
 	private Player player = null;
 	private int controllerId;
 	
@@ -26,29 +26,29 @@ public class X360InputHandler implements InputHandler {
 	@Override
 	public boolean hasKey(Input input) {
 		if (input.isButtonPressed(ACTION_BUTTON, controllerId)) {
-			lastAction = PlayerAction.ACTION;
+			currentAction = PlayerAction.ACTION;
 			return true;
 		}
 
 		if (input.isControllerUp(controllerId)) {
-			lastAction = PlayerAction.MOVE_NORTH;
+			currentAction = PlayerAction.MOVE_NORTH;
 			if (input.isControllerLeft(controllerId))
-				lastAction = PlayerAction.MOVE_NORTHWEST;
+				currentAction = PlayerAction.MOVE_NORTHWEST;
 			else if (input.isControllerRight(controllerId))
-				lastAction = PlayerAction.MOVE_NORTHEAST;
+				currentAction = PlayerAction.MOVE_NORTHEAST;
 			return true;
 		} else if (input.isControllerDown(controllerId)) {
-			lastAction = PlayerAction.MOVE_SOUTH;
+			currentAction = PlayerAction.MOVE_SOUTH;
 			if (input.isControllerLeft(controllerId))
-				lastAction = PlayerAction.MOVE_SOUTHWEST;
+				currentAction = PlayerAction.MOVE_SOUTHWEST;
 			else if (input.isControllerRight(controllerId))
-				lastAction = PlayerAction.MOVE_SOUTHEAST;
+				currentAction = PlayerAction.MOVE_SOUTHEAST;
 			return true;
 		} else if (input.isControllerLeft(controllerId)) {
-			lastAction = PlayerAction.MOVE_WEST;
+			currentAction = PlayerAction.MOVE_WEST;
 			return true;
 		} else if (input.isControllerRight(controllerId)) {
-			lastAction = PlayerAction.MOVE_EAST;
+			currentAction = PlayerAction.MOVE_EAST;
 			return true;
 		}
 		return false;
@@ -57,11 +57,11 @@ public class X360InputHandler implements InputHandler {
 	@Override
 	public InputData getData(Input input) {
 		if (hasKey(input)) {
-			PlayerAction action = lastAction;
+			PlayerAction action = currentAction;
 
 			return new InputData(player, action);
 		}
-		return null;
+		return new InputData(player, PlayerAction.DO_NOTHING);
 	}
 
 	@Override
@@ -72,5 +72,24 @@ public class X360InputHandler implements InputHandler {
 	@Override
 	public boolean pressedProceed(Input input) {
 		return input.isButtonPressed(PROCEED_BUTTON, controllerId);
+	}
+
+	@Override
+	public InputData getMenuInputData(Input input) {
+		if (input.isButtonPressed(ACTION_BUTTON, controllerId)) {
+			return new InputData(player, PlayerAction.ACTION);
+		}
+		String buttonPressed = X360OsDep.getDPadButtonPressed(input, controllerId);
+		if (!buttonPressed.equals("none")) {
+			if (buttonPressed.equals("up"))
+				return new InputData(player, PlayerAction.MOVE_NORTH);
+			else if (buttonPressed.equals("down"))
+				return new InputData(player, PlayerAction.MOVE_SOUTH);
+			else if (buttonPressed.equals("left"))
+				return new InputData(player, PlayerAction.MOVE_WEST);
+			else if (buttonPressed.equals("right"))
+				return new InputData(player, PlayerAction.MOVE_EAST);
+		}
+		return new InputData(player, PlayerAction.DO_NOTHING);
 	}
 }

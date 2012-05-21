@@ -138,6 +138,16 @@ public class InputManager {
 		return dataList;
 	}
 
+	public List<InputData> getMenuInputData(Input input) {
+		List<InputData> dataList = new ArrayList<InputData>();
+		for (InputHandler handler : inputHandlers) {
+			InputData data = handler.getMenuInputData(input);
+
+			dataList.add(data);
+		}
+		return dataList;
+	}
+
 	/**
 	 * Checks if one of the players has pressed their proceed button
 	 * 
