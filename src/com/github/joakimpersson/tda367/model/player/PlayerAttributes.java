@@ -10,8 +10,10 @@ import com.github.joakimpersson.tda367.model.constants.GameModeType;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 
 /**
+ * A class handling all the attributes for a player.
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class PlayerAttributes {
@@ -36,18 +38,18 @@ public class PlayerAttributes {
 	/**
 	 * Upgrade either an round or match attribute with one level
 	 * 
-	 * @param attr
+	 * @param attribute
 	 *            The attribute to be upgraded
 	 * @param type
 	 *            The type of the upgrade
 	 */
-	public void upgradeAttr(Attribute attr, GameModeType type) {
+	public void upgradeAttr(Attribute attribute, GameModeType type) {
 		switch (type) {
 		case Round:
-			updateRoundAttr(attr);
+			updateRoundAttr(attribute);
 			break;
 		case Match:
-			updateMatchAttr(attr);
+			updateMatchAttr(attribute);
 			break;
 		default:
 			// Should not happen!
@@ -58,44 +60,46 @@ public class PlayerAttributes {
 	/**
 	 * Upgraded an match attribute with one level
 	 * 
-	 * @param attr
+	 * @param attribute
 	 *            The attribute to be upgraded
 	 */
-	private void updateMatchAttr(Attribute attr) {
-		if (matchAttr.containsKey(attr)) {
-			int tmp = matchAttr.get(attr) + 1;
-			matchAttr.put(attr, tmp);
+	private void updateMatchAttr(Attribute attribute) {
+		if (matchAttr.containsKey(attribute)) {
+			int value = matchAttr.get(attribute) + 1;
+			matchAttr.put(attribute, value);
 
 		} else {
-			matchAttr.put(attr, 1);
+			matchAttr.put(attribute, 1);
 		}
 	}
 
 	/**
 	 * Upgraded an round attribute with one level
 	 * 
-	 * @param attr
+	 * @param attribute
 	 *            The attribute to be upgraded
 	 */
-	private void updateRoundAttr(Attribute attr) {
-		int tmp = roundAttr.get(attr) + 1;
-		roundAttr.put(attr, tmp);
+	private void updateRoundAttr(Attribute attribute) {
+		int value = roundAttr.get(attribute) + 1;
+		roundAttr.put(attribute, value);
 	}
 
 	/**
 	 * Get an attributes level, higher is better
 	 * 
-	 * @param attr
+	 * @param attribute
 	 *            The attribute which value you want
 	 * @return The attributes level or 0 if the specified attribute is not
 	 *         activated
 	 */
-	public int getAttrValue(Attribute attr) {
+	public int getAttrValue(Attribute attribute) {
 
-		int rAttr = roundAttr.get(attr) == null ? 0 : roundAttr.get(attr);
-		int mAttr = matchAttr.get(attr) == null ? 0 : matchAttr.get(attr);
+		int roundAttributeValue = roundAttr.get(attribute) == null ? 0
+				: roundAttr.get(attribute);
+		int matchAttributeValue = matchAttr.get(attribute) == null ? 0
+				: matchAttr.get(attribute);
 
-		return mAttr + rAttr;
+		return matchAttributeValue + roundAttributeValue;
 	}
 
 	/**
@@ -125,14 +129,14 @@ public class PlayerAttributes {
 	 * Reset the match map to its standard values
 	 */
 	private void resetMatchAttr() {
-		this.initDefaultMatchValues();
+		initDefaultMatchValues();
 	}
 
 	/**
 	 * Reset the round map to its standard values
 	 */
 	private void resetRoundAttr() {
-		this.initDefaultRoundValues();
+		initDefaultRoundValues();
 	}
 
 	/**
@@ -169,11 +173,11 @@ public class PlayerAttributes {
 	 * @return List of the players match attributes
 	 */
 	public List<Attribute> getAttributes() {
-		List<Attribute> tmp = new ArrayList<Attribute>();
-		for (Attribute a : matchAttr.keySet()) {
-			tmp.add(a);
+		List<Attribute> attributeList = new ArrayList<Attribute>();
+		for (Attribute attribute : matchAttr.keySet()) {
+			attributeList.add(attribute);
 		}
-		return tmp;
+		return new ArrayList<Attribute>(attributeList);
 	}
 
 	@Override
@@ -193,12 +197,12 @@ public class PlayerAttributes {
 	public int hashCode() {
 		int sum = 0;
 
-		for (Attribute a : matchAttr.keySet()) {
-			sum += matchAttr.get(a) * 5;
+		for (Attribute attribute : matchAttr.keySet()) {
+			sum += matchAttr.get(attribute) * 5;
 		}
 
-		for (Attribute a : roundAttr.keySet()) {
-			sum += roundAttr.get(a) * 7;
+		for (Attribute attribute : roundAttr.keySet()) {
+			sum += roundAttr.get(attribute) * 7;
 		}
 		return sum;
 	}
