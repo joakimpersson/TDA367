@@ -88,6 +88,11 @@ public class BombermanModelTest {
 
 		assertTrue(!test1 && !test2 && test3);
 	}
+	
+	@Test
+	public void isGameOver() {
+		fail("not yet implemented");
+	}
 
 	@Test
 	public void testStartGame() {
@@ -190,6 +195,51 @@ public class BombermanModelTest {
 
 		assertTrue(test1 && test2);
 
+	}
+	
+	@Test
+	public void testRoundOver() {
+		fail("not yet implemented");
+	}
+	
+	@Test
+	public void testMatchOver() {
+		fail("not yet implemented");
+	}
+	
+	@Test
+	public void testGameOver() {
+		fail("not yet implemented");
+	}
+	
+	@Test
+	public void testResetRoundStats() {
+		fail("not yet implemented");
+	}
+	
+	@Test
+	public void testGetGameOverSummary() {
+		fail("not yet implemented");
+	}
+	
+	@Test
+	public void testGetHighscoreList() {
+		fail("not yet implemented");
+	}
+	
+	@Test
+	public void testResetHighscoreList() {
+		fail("not yet implemented");
+	}
+	
+	@Test
+	public void testGameReset() {
+		fail("not yet implemented");
+	}
+	
+	@Test
+	public void testGetLastRoundWinner() {
+		fail("not yet implemented");
 	}
 
 	@After
