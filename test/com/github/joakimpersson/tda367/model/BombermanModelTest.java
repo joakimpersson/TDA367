@@ -192,8 +192,7 @@ public class BombermanModelTest {
 				}
 			}
 		}
-
-		assertTrue(test1 && test2);
+		assertTrue(test1 && !test2);
 
 	}
 	
