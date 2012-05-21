@@ -9,16 +9,18 @@ import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
 
 /**
+ * An abstract class representing an PowerupItem.
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public abstract class PowerupItem implements WalkableTile, Destroyable {
 
-	private static int toughness = 0;
+	private final int toughness;
 
 	public PowerupItem() {
-
+		this.toughness = 0;
 	}
 
 	@Override
