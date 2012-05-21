@@ -238,8 +238,9 @@ public class BombermanModel implements IBombermanModel {
 	 * @param bombOwner
 	 *            The player that placed the bomb.
 	 */
-	private synchronized void handleFire(Player bombOwner,
-			Map<Position, Direction> directedFirePositions) {
+	private synchronized void handleFire(Bomb bomb) {
+		Player bombOwner = bomb.getPlayer();
+		Map<Position, Direction> directedFirePositions = bomb.explode(map.getMap());
 		List<Position> list = new ArrayList<Position>(
 				directedFirePositions.keySet());
 		fireObjects(bombOwner, list);
@@ -568,7 +569,7 @@ public class BombermanModel implements IBombermanModel {
 
 		@Override
 		public void run() {
-			handleFire(bomb.getPlayer(), bomb.explode(map.getMap()));
+			handleFire(bomb);
 
 		}
 	}
