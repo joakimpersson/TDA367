@@ -1,5 +1,7 @@
 package com.github.joakimpersson.tda367.controller.input;
 
+import java.util.Arrays;
+
 import org.newdawn.slick.Input;
 
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
@@ -150,7 +152,7 @@ public class KeyBoardInputHandler implements InputHandler {
 
 		KeyBoardInputHandler other = (KeyBoardInputHandler) obj;
 		return this.player.equals(other.player)
-				&& this.keyMap.equals(other.keyMap);
+				&& Arrays.equals(this.keyMap, other.keyMap);
 	}
 
 	@Override
