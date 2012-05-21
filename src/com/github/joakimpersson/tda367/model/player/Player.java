@@ -135,7 +135,7 @@ public class Player {
 	}
 	
 	public double getSpeededStepSize() {
-		return Parameters.INSTANCE.getPlayerStepSize() + (0.015 * getAttribute(Attribute.Speed));
+		return Parameters.INSTANCE.getBaseStepSize() + (0.015 * getAttribute(Attribute.Speed));
 	}
 
 	/**

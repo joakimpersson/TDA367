@@ -38,9 +38,10 @@ public class PlayerTest {
 
 	@Test
 	public void testMove() {
-		player.move(Direction.EAST);
+		double stepSize = Parameters.INSTANCE.getBaseStepSize();
+		player.move(Direction.EAST, stepSize);
 
-		FPosition expected = new FPosition(0.7F, 0.5F);
+		FPosition expected = new FPosition(0.5f + (float)stepSize, 0.5F);
 		FPosition actual = player.getGamePosition();
 
 		assertEquals(expected, actual);

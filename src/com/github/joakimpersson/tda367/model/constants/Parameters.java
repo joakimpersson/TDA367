@@ -104,7 +104,7 @@ public enum Parameters {
 	 * smaller than 0.2. The step size affects how fast the game must be
 	 * updated.
 	 */
-	public double getPlayerStepSize() {
+	public double getBaseStepSize() {
 		return 0.105;
 	}
 
