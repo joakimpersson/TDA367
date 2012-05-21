@@ -1,9 +1,9 @@
 package com.github.joakimpersson.tda367.model.tiles.walkable;
 
 import com.github.joakimpersson.tda367.model.constants.Attribute;
+import com.github.joakimpersson.tda367.model.constants.GameModeType;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.player.Player;
-import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.model.tiles.Destroyable;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
@@ -23,7 +23,7 @@ public abstract class PowerupItem implements WalkableTile, Destroyable {
 
 	@Override
 	public Tile playerEnter(Player player) {
-		player.upgradeAttr(this.getAttr(), UpgradeType.Round);
+		player.upgradeAttr(this.getAttr(), GameModeType.Round);
 		return new Floor();
 	}
 

@@ -7,10 +7,9 @@ import java.util.TimerTask;
 
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.Direction;
+import com.github.joakimpersson.tda367.model.constants.GameModeType;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
-import com.github.joakimpersson.tda367.model.constants.GameModeType;
-import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.model.positions.FPosition;
 import com.github.joakimpersson.tda367.model.positions.Position;
 
@@ -67,7 +66,7 @@ public class Player {
 	 * Method used to reset a players state for a new round.
 	 */
 	private void roundReset() {
-		this.playerAttribute.resetAttr(UpgradeType.Round);
+		this.playerAttribute.resetAttr(GameModeType.Round);
 		this.health = getAttribute(Attribute.Health);
 		this.tilePos = initialPosition;
 		this.facingDirection = Direction.SOUTH;
@@ -81,7 +80,7 @@ public class Player {
 	 * Method used to reset a players state for a new match (3 rounds).
 	 */
 	private void matchReset() {
-		this.playerAttribute.resetAttr(UpgradeType.Match);
+		this.playerAttribute.resetAttr(GameModeType.Match);
 		roundReset();
 	}
 
@@ -164,9 +163,9 @@ public class Player {
 	 * @param type
 	 *            The type of the upgrade
 	 */
-	public void upgradeAttr(Attribute attr, UpgradeType type) {
+	public void upgradeAttr(Attribute attr, GameModeType type) {
 		this.playerAttribute.upgradeAttr(attr, type);
-		if (type.equals(UpgradeType.Match)) {
+		if (type.equals(GameModeType.Match)) {
 			this.reloadAttributes();
 		}
 	}

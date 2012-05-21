@@ -12,8 +12,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.joakimpersson.tda367.model.constants.Attribute;
+import com.github.joakimpersson.tda367.model.constants.GameModeType;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
-import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
 
 /**
  * 
@@ -31,14 +31,14 @@ public class PlayerAttributeTest {
 	@Test
 	public void testUpdateMatchAttr() {
 		int speedDefault = Parameters.INSTANCE.getInitSpeed();
-		pa.upgradeAttr(Attribute.Speed, UpgradeType.Match);
+		pa.upgradeAttr(Attribute.Speed, GameModeType.Match);
 		assertEquals(pa.getAttrValue(Attribute.Speed), speedDefault + 1);
 	}
 
 	@Test
 	public void testUpdateRoundAttr() {
 		int bombRangeDefault = Parameters.INSTANCE.getInitBombRange();
-		pa.upgradeAttr(Attribute.BombRange, UpgradeType.Round);
+		pa.upgradeAttr(Attribute.BombRange, GameModeType.Round);
 		assertEquals(pa.getAttrValue(Attribute.BombRange), bombRangeDefault + 1);
 	}
 
@@ -46,8 +46,8 @@ public class PlayerAttributeTest {
 	public void testUpdateMatchRoundAttr() {
 		int bombRangeDefault = Parameters.INSTANCE.getInitBombRange();
 
-		pa.upgradeAttr(Attribute.BombRange, UpgradeType.Match);
-		pa.upgradeAttr(Attribute.BombRange, UpgradeType.Round);
+		pa.upgradeAttr(Attribute.BombRange, GameModeType.Match);
+		pa.upgradeAttr(Attribute.BombRange, GameModeType.Round);
 
 		assertEquals(pa.getAttrValue(Attribute.BombRange), bombRangeDefault + 2);
 	}
@@ -58,7 +58,7 @@ public class PlayerAttributeTest {
 
 		assertEquals(1, pa.getAttrValue(attr));
 
-		pa.upgradeAttr(attr, UpgradeType.Match);
+		pa.upgradeAttr(attr, GameModeType.Match);
 
 		assertEquals(2, pa.getAttrValue(attr));
 
@@ -68,10 +68,10 @@ public class PlayerAttributeTest {
 	public void testResetMatchAttr() {
 		int bombRangeDefault = Parameters.INSTANCE.getInitBombRange();
 
-		pa.upgradeAttr(Attribute.BombRange, UpgradeType.Match);
-		pa.upgradeAttr(Attribute.BombRange, UpgradeType.Match);
+		pa.upgradeAttr(Attribute.BombRange, GameModeType.Match);
+		pa.upgradeAttr(Attribute.BombRange, GameModeType.Match);
 
-		pa.resetAttr(UpgradeType.Match);
+		pa.resetAttr(GameModeType.Match);
 
 		assertEquals(pa.getAttrValue(Attribute.BombRange), bombRangeDefault);
 	}
@@ -80,10 +80,10 @@ public class PlayerAttributeTest {
 	public void testResetTurnAttr() {
 		int bombRangeDefault = Parameters.INSTANCE.getInitBombRange();
 
-		pa.upgradeAttr(Attribute.BombRange, UpgradeType.Round);
-		pa.upgradeAttr(Attribute.BombRange, UpgradeType.Round);
+		pa.upgradeAttr(Attribute.BombRange, GameModeType.Round);
+		pa.upgradeAttr(Attribute.BombRange, GameModeType.Round);
 
-		pa.resetAttr(UpgradeType.Round);
+		pa.resetAttr(GameModeType.Round);
 
 		assertEquals(pa.getAttrValue(Attribute.BombRange), bombRangeDefault);
 	}
@@ -100,16 +100,16 @@ public class PlayerAttributeTest {
 
 		assertTrue(pa.equals(oherPa));
 
-		oherPa.upgradeAttr(Attribute.BombPower, UpgradeType.Match);
+		oherPa.upgradeAttr(Attribute.BombPower, GameModeType.Match);
 
 		assertFalse(pa.equals(oherPa));
 
-		pa.upgradeAttr(Attribute.BombPower, UpgradeType.Match);
+		pa.upgradeAttr(Attribute.BombPower, GameModeType.Match);
 
 		assertTrue(pa.equals(oherPa));
 
-		pa.upgradeAttr(Attribute.Speed, UpgradeType.Round);
-		oherPa.upgradeAttr(Attribute.Speed, UpgradeType.Round);
+		pa.upgradeAttr(Attribute.Speed, GameModeType.Round);
+		oherPa.upgradeAttr(Attribute.Speed, GameModeType.Round);
 
 		assertTrue(pa.equals(oherPa));
 	}
@@ -120,16 +120,16 @@ public class PlayerAttributeTest {
 
 		assertEquals(pa.hashCode(), oherPa.hashCode());
 
-		oherPa.upgradeAttr(Attribute.BombPower, UpgradeType.Match);
+		oherPa.upgradeAttr(Attribute.BombPower, GameModeType.Match);
 
 		assertFalse(pa.hashCode() == oherPa.hashCode());
 
-		pa.upgradeAttr(Attribute.BombPower, UpgradeType.Match);
+		pa.upgradeAttr(Attribute.BombPower, GameModeType.Match);
 
 		assertEquals(pa.hashCode(), oherPa.hashCode());
 
-		pa.upgradeAttr(Attribute.Speed, UpgradeType.Round);
-		oherPa.upgradeAttr(Attribute.Speed, UpgradeType.Round);
+		pa.upgradeAttr(Attribute.Speed, GameModeType.Round);
+		oherPa.upgradeAttr(Attribute.Speed, GameModeType.Round);
 
 		assertEquals(pa.hashCode(), oherPa.hashCode());
 	}

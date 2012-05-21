@@ -13,10 +13,9 @@ import org.junit.Test;
 
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.Direction;
+import com.github.joakimpersson.tda367.model.constants.GameModeType;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
-import com.github.joakimpersson.tda367.model.constants.GameModeType;
-import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.model.positions.FPosition;
 import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Box;
@@ -49,7 +48,7 @@ public class PlayerTest {
 
 	@Test
 	public void testResetRound() {
-		player.upgradeAttr(Attribute.BombRange, UpgradeType.Round);
+		player.upgradeAttr(Attribute.BombRange, GameModeType.Round);
 		player.reset(GameModeType.Round);
 
 		int expected = Parameters.INSTANCE.getInitBombRange();
@@ -60,7 +59,7 @@ public class PlayerTest {
 
 	@Test
 	public void testMatchReset() {
-		player.upgradeAttr(Attribute.BombRange, UpgradeType.Match);
+		player.upgradeAttr(Attribute.BombRange, GameModeType.Match);
 		player.reset(GameModeType.Match);
 
 		int expected = Parameters.INSTANCE.getInitBombRange();
@@ -174,12 +173,12 @@ public class PlayerTest {
 		// Update the player attributes and playerpoints object
 		// which mean they should not be equal anymore
 		player.updatePlayerPoints(PointGiver.MatchWon);
-		player.upgradeAttr(Attribute.BombRange, UpgradeType.Match);
+		player.upgradeAttr(Attribute.BombRange, GameModeType.Match);
 
 		assertFalse(player.equals(otherPlayer));
 
 		otherPlayer.updatePlayerPoints(PointGiver.MatchWon);
-		otherPlayer.upgradeAttr(Attribute.BombRange, UpgradeType.Match);
+		otherPlayer.upgradeAttr(Attribute.BombRange, GameModeType.Match);
 
 		assertTrue(player.equals(otherPlayer));
 
@@ -211,12 +210,12 @@ public class PlayerTest {
 		// Update the player attributes and playerpoints object
 		// which mean they should not be equal anymore
 		player.updatePlayerPoints(PointGiver.MatchWon);
-		player.upgradeAttr(Attribute.BombRange, UpgradeType.Match);
+		player.upgradeAttr(Attribute.BombRange, GameModeType.Match);
 
 		assertFalse(player.hashCode() == otherPlayer.hashCode());
 
 		otherPlayer.updatePlayerPoints(PointGiver.MatchWon);
-		otherPlayer.upgradeAttr(Attribute.BombRange, UpgradeType.Match);
+		otherPlayer.upgradeAttr(Attribute.BombRange, GameModeType.Match);
 
 		assertTrue(player.hashCode() == otherPlayer.hashCode());
 	}

@@ -16,10 +16,10 @@ import java.util.TimerTask;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.constants.EventType;
+import com.github.joakimpersson.tda367.model.constants.GameModeType;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
-import com.github.joakimpersson.tda367.model.constants.GameModeType;
 import com.github.joakimpersson.tda367.model.gamelogic.GameLogic;
 import com.github.joakimpersson.tda367.model.gamelogic.IGameLogic;
 import com.github.joakimpersson.tda367.model.highscore.Highscore;
@@ -27,7 +27,6 @@ import com.github.joakimpersson.tda367.model.highscore.Score;
 import com.github.joakimpersson.tda367.model.map.GameMap;
 import com.github.joakimpersson.tda367.model.map.IGameMap;
 import com.github.joakimpersson.tda367.model.player.Player;
-import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.model.player.PlayerPoints;
 import com.github.joakimpersson.tda367.model.positions.FPosition;
 import com.github.joakimpersson.tda367.model.positions.Position;
@@ -94,7 +93,7 @@ public class BombermanModel implements IBombermanModel {
 	@Override
 	public void upgradePlayer(Player player, Attribute attr) {
 		if (player.getCredits() >= attr.getCost()) {
-			player.upgradeAttr(attr, UpgradeType.Match);
+			player.upgradeAttr(attr, GameModeType.Match);
 			player.useCredits(attr.getCost());
 
 			pcs.firePropertyChange("play", null, EventType.MENU_ACTION);

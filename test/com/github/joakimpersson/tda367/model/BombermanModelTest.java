@@ -1,6 +1,9 @@
 package com.github.joakimpersson.tda367.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -12,15 +15,14 @@ import org.junit.Test;
 
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.BombermanRules;
+import com.github.joakimpersson.tda367.model.constants.GameModeType;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
-import com.github.joakimpersson.tda367.model.constants.GameModeType;
 import com.github.joakimpersson.tda367.model.gamelogic.GameLogic;
 import com.github.joakimpersson.tda367.model.gamelogic.IGameLogic;
 import com.github.joakimpersson.tda367.model.highscore.Score;
 import com.github.joakimpersson.tda367.model.player.Player;
-import com.github.joakimpersson.tda367.model.player.PlayerAttributes.UpgradeType;
 import com.github.joakimpersson.tda367.model.positions.FPosition;
 import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
@@ -230,8 +232,8 @@ public class BombermanModelTest {
 		assertEquals(expected, actual);
 		
 		Player p = players.get(0);
-		p.upgradeAttr(Attribute.Speed, UpgradeType.Round);
-		p.upgradeAttr(Attribute.Speed, UpgradeType.Match);
+		p.upgradeAttr(Attribute.Speed, GameModeType.Round);
+		p.upgradeAttr(Attribute.Speed, GameModeType.Match);
 		model.roundOver();
 		assertTrue(p.getAttribute(Attribute.Speed) == 2);
 		
@@ -267,7 +269,7 @@ public class BombermanModelTest {
 
 		// winningPlayers GameWon in PlayerPoints should be equal to 1
 		int expected = 1;
-		int actual = winningPlayer.getDestroyedPointGiver(PointGiver.GameWon);
+		int actual = winningPlayer.getEarnedPointGiver(PointGiver.GameWon);
 		assertEquals(expected, actual);
 		
 		
