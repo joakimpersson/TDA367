@@ -11,6 +11,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
@@ -47,6 +48,20 @@ public class FloorTest {
 	@Test
 	public void testIsWalkable() {
 		assertTrue(floor.isWalkable());
+	}
+
+	@Test
+	public void testGetTileType() {
+		String expected = "floor";
+		String actual = floor.getTileType();
+		assertTrue(actual.startsWith(expected));
+	}
+
+	@Test
+	public void testGetPointGiver() {
+		PointGiver expected = PointGiver.Floor;
+		PointGiver actual = floor.getPointGiver();
+		assertEquals(expected, actual);
 	}
 
 	@Test

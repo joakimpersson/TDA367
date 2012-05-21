@@ -9,27 +9,25 @@ import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
 
 /**
+ * An object representing a Floor tile.
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class Floor implements WalkableTile, Destroyable {
 
-	private int toughness;
-	private String image;
-	private int floorNumber;
+	private final int toughness;
+	private final String imageType;
 
 	public Floor() {
 		// should be ignored by the fire and skipped
 		this.toughness = 0;
-		Random rand = new Random();
-		this.floorNumber = rand.nextInt(5) + 1;
-		this.image = "floor";
+		this.imageType = "floor";
 	}
 
 	@Override
 	public int getToughness() {
-
 		return toughness;
 	}
 
@@ -42,7 +40,6 @@ public class Floor implements WalkableTile, Destroyable {
 	 */
 	@Override
 	public Tile onFire() {
-
 		return this;
 	}
 
@@ -70,7 +67,9 @@ public class Floor implements WalkableTile, Destroyable {
 
 	@Override
 	public String getTileType() {
-		return this.image + this.floorNumber;
+		Random rand = new Random();
+		int floorNumber = rand.nextInt(5) + 1;
+		return imageType + floorNumber;
 	}
 
 	@Override
@@ -91,7 +90,7 @@ public class Floor implements WalkableTile, Destroyable {
 	@Override
 	public int hashCode() {
 		int sum = 0;
-		sum += image.hashCode() * 7;
+		sum += imageType.hashCode() * 7;
 		sum += toughness * 13;
 		return sum;
 	}
