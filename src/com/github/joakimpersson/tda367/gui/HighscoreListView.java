@@ -19,7 +19,7 @@ import com.github.joakimpersson.tda367.model.highscore.Score;
  * @modified adderollen
  * 
  */
-public class HighscoreListView {
+public class HighscoreListView implements INavigateableView {
 
 	private final int X;
 	private final int Y;
@@ -50,25 +50,14 @@ public class HighscoreListView {
 		model = PyromaniacModel.getInstance();
 	}
 
-	/**
-	 * Notification that we've entered this game state
-	 */
+	@Override
 	public void enter() {
 		if (model.getHighscoreList().size() > 0) {
 			highscore = model.getHighscoreList();
 		}
 	}
 
-	/**
-	 * Render this view to the game's graphics context
-	 * 
-	 * @param container
-	 *            The container holding the game
-	 * @param g
-	 *            The graphics context to render to
-	 * @throws SlickException
-	 *             Indicates a failure to render an gui object
-	 */
+	@Override
 	public void render(GameContainer container, Graphics g, int currentIndex)
 			throws SlickException {
 		int x = X;

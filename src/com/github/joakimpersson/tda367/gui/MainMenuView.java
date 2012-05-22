@@ -15,7 +15,7 @@ import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
  * @modified adderollen
  * 
  */
-public class MainMenuView {
+public class MainMenuView implements INavigateableView{
 
 	private Font smlFont = null;
 	private Font bigFont = null;
@@ -44,6 +44,11 @@ public class MainMenuView {
 		imageLoader = ImageLoader.getInstance();
 	}
 
+	@Override
+	public void enter() {
+		//not needed in this class
+	}
+	
 	/**
 	 * Render this view to the game's graphics context
 	 * 
@@ -56,6 +61,7 @@ public class MainMenuView {
 	 * @throws SlickException
 	 *             Indicates a failure to render an gui object
 	 */
+	@Override
 	public void render(GameContainer container, Graphics g, int selection)
 			throws SlickException {
 		g.drawImage(imageLoader.getImage("bg"), 0, 0);
@@ -64,7 +70,9 @@ public class MainMenuView {
 		posY += 80;
 		drawMenu(posY, selection, g);
 	}
+	
 
+	
 	/**
 	 * Draw the title of the game at a given y-postion.
 	 * 

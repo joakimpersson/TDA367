@@ -13,7 +13,7 @@ import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
  * @author joakimpersson
  * 
  */
-public class HighscoreView {
+public class HighscoreView implements INavigateableView {
 
 	private HighscoreListView highscoreListView = null;
 	private HighscoreInfoView highscoreInfoView = null;
@@ -39,26 +39,13 @@ public class HighscoreView {
 		}
 	}
 
-	/**
-	 * Notification that we've entered this game state
-	 */
+	@Override
 	public void enter() {
 		highscoreInfoView.enter();
 		highscoreListView.enter();
 	}
 
-	/**
-	 * Render this view to the game's graphics context
-	 * 
-	 * @param container
-	 *            The container holding the game
-	 * @param g
-	 *            The graphics context to render to
-	 * @param currentIndex
-	 *            The current selected index in the game
-	 * @throws SlickException
-	 *             Indicates a failure to render an gui object
-	 */
+	@Override
 	public void render(GameContainer container, Graphics g, int currentIndex)
 			throws SlickException {
 
