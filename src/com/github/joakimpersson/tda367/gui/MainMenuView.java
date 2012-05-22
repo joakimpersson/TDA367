@@ -15,12 +15,11 @@ import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
  * @modified adderollen
  * 
  */
-public class MainMenuView implements INavigateableView{
+public class MainMenuView implements INavigateableView {
 
 	private Font smlFont = null;
 	private Font bigFont = null;
 	private final int WIDTH;
-	private ImageLoader imageLoader = null;
 
 	/**
 	 * Creates a new view representing the main menu in the game
@@ -41,14 +40,13 @@ public class MainMenuView implements INavigateableView{
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		imageLoader = ImageLoader.getInstance();
 	}
 
 	@Override
 	public void enter() {
-		//not needed in this class
+		// not needed in this class
 	}
-	
+
 	/**
 	 * Render this view to the game's graphics context
 	 * 
@@ -64,15 +62,13 @@ public class MainMenuView implements INavigateableView{
 	@Override
 	public void render(GameContainer container, Graphics g, int selection)
 			throws SlickException {
-		g.drawImage(imageLoader.getImage("bg"), 0, 0);
+		GUIUtils.drawImage(0, 0, "bg", g);
 		int posY = 140;
 		drawTitle(posY, g);
 		posY += 80;
 		drawMenu(posY, selection, g);
 	}
-	
 
-	
 	/**
 	 * Draw the title of the game at a given y-postion.
 	 * 
