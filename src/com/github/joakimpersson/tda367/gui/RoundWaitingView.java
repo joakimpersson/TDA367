@@ -9,8 +9,10 @@ import org.newdawn.slick.SlickException;
 import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
 
 /**
+ * A view displaying a count down before a turn starts.
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class RoundWaitingView implements IView {
@@ -63,7 +65,7 @@ public class RoundWaitingView implements IView {
 	private void drawText(Graphics g) {
 		String str;
 		Color color = Color.white;
-		switch(countDown) {
+		switch (countDown) {
 		case 3:
 			str = "READY";
 			break;
@@ -93,15 +95,17 @@ public class RoundWaitingView implements IView {
 	private void drawBackgroundContainer(Graphics g) {
 		int border = 6;
 		g.setColor(Color.red);
-		g.fillRoundRect(startX - border, startY - border, WIDTH + 2*border, HEIGHT + 2*border, 12);
+		g.fillRoundRect(startX - border, startY - border, WIDTH + 2 * border,
+				HEIGHT + 2 * border, 12);
 		g.setColor(Color.black);
 		g.fillRoundRect(startX, startY, WIDTH, HEIGHT, 12);
 	}
-	
+
 	/**
 	 * Sets the number that will be displayed for count-down.
 	 * 
-	 * @param countDown The number that will be displayed for count-down.
+	 * @param countDown
+	 *            The number that will be displayed for count-down.
 	 */
 	public void setCountDown(int countDown) {
 		this.countDown = countDown;
