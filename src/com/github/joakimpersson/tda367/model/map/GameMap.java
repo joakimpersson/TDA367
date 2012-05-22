@@ -57,19 +57,9 @@ public class GameMap implements IGameMap {
 	private void isOutOfBounds(Position pos) {
 		if (pos.getX() < 0 || pos.getX() >= WIDTH || pos.getY() < 0
 				|| pos.getY() >= HEIGHT) {
-			errorMsg("The supplied position doesnt exist on the map: "
+			Utils.errorMsg("The supplied position doesnt exist on the map: "
 					+ pos.toString());
 		}
-	}
-
-	/**
-	 * A private util method used when errors occurs in the class
-	 * 
-	 * @param msg
-	 *            The message that describes the error
-	 */
-	private void errorMsg(String msg) {
-		throw new IllegalArgumentException(msg);
 	}
 
 	@Override
