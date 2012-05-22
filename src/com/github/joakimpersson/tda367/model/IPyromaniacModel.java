@@ -14,7 +14,7 @@ import com.github.joakimpersson.tda367.model.tiles.Tile;
  * to communicate with the rest of the model
  * 
  * @author joakimpersson
- * @modified Viktor Anderling
+ * @modified Viktor Anderling, Andreas Rolén
  * 
  */
 public interface IPyromaniacModel {
@@ -43,10 +43,10 @@ public interface IPyromaniacModel {
 	 * 
 	 * @param player
 	 *            The player to receive an attribute upgrade
-	 * @param attr
+	 * @param attribute
 	 *            The attribute to be upgraded or added
 	 */
-	public void upgradePlayer(Player player, Attribute attr);
+	public void upgradePlayer(Player player, Attribute attribute);
 
 	/**
 	 * Returns a copy of the list of the current active players in the game
@@ -104,7 +104,7 @@ public interface IPyromaniacModel {
 	 */
 	public void gameOver();
 
-	/*
+	/**
 	 * Reset all the stats that has been upgraded during the past match
 	 */
 	public void resetRoundStats();
@@ -134,6 +134,7 @@ public interface IPyromaniacModel {
 	 */
 	public List<Score> getGameOverSummary();
 
+	// TODO Natan, add javadoc.
 	public void addPropertyChangeListener(PropertyChangeListener pcl);
 
 	/**
