@@ -31,18 +31,18 @@ public class Main {
 		System.setProperty("net.java.games.input.librarypath",
 				System.getProperty("org.lwjgl.librarypath"));
 		try {
-			AppGameContainer app = new AppGameContainer(new BombermanGame(
-					"Bomberman"));
+			AppGameContainer application = new AppGameContainer(
+					new BombermanGame("Pyromaniacs"));
 
-			app.setDisplayMode(gameWidth, gameHeight, false);
+			application.setDisplayMode(gameWidth, gameHeight, false);
 			// make sure that we are using the players screen
-			app.setVSync(true);
+			application.setVSync(true);
 
 			// remove the fps meter
-			app.setShowFPS(false);
+			application.setShowFPS(false);
 
 			// launch the game
-			app.start();
+			application.start();
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
