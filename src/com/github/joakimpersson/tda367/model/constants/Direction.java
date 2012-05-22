@@ -13,20 +13,20 @@ public enum Direction {
 	WEST(-1, 0),
 	NONE(0, 0);
 
-	private final int x;
-	private final int y;
+	private final int X;
+	private final int Y;
 
 	Direction(int x, int y) {
-		this.x = x;
-		this.y = y;
+		this.X = x;
+		this.Y = y;
 	}
 
 	public int getX() {
-		return x;
+		return X;
 	}
 
 	public int getY() {
-		return y;
+		return Y;
 	}
 	
 	public boolean isHorizontal() {

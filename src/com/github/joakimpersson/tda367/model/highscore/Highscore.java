@@ -16,9 +16,9 @@ import com.github.joakimpersson.tda367.model.utils.FileScanner;
  */
 public class Highscore {
 
-	private final String fileName;
+	private final String FILE_NAME;
 	private List<Score> playerList;
-	private final int maxSize;
+	private final int MAX_SIZE;
 
 	/**
 	 * Create a new HighScore object responsible for managing the games score
@@ -26,8 +26,8 @@ public class Highscore {
 	 */
 	public Highscore() {
 		playerList = new ArrayList<Score>();
-		fileName = "gen/highScore.data";
-		maxSize = Parameters.INSTANCE.getHighscoreMaxSize();
+		FILE_NAME = "gen/highScore.data";
+		MAX_SIZE = Parameters.INSTANCE.getHighscoreMaxSize();
 		loadList();
 	}
 
@@ -65,7 +65,7 @@ public class Highscore {
 	 */
 	private void trimeHighScoreList() {
 		int index = playerList.size() - 1;
-		while (playerList.size() > maxSize) {
+		while (playerList.size() > MAX_SIZE) {
 			playerList.remove(index);
 			index--;
 		}
@@ -76,7 +76,7 @@ public class Highscore {
 	 * Save the highscorelist in a file.
 	 */
 	private void saveList() {
-		FileScanner.writeOjbect(fileName, playerList);
+		FileScanner.writeOjbect(FILE_NAME, playerList);
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class Highscore {
 	 */
 	@SuppressWarnings("unchecked")
 	private void loadList() {
-		Object object = FileScanner.readObject(fileName);
+		Object object = FileScanner.readObject(FILE_NAME);
 		if (object != null) {
 			playerList = (List<Score>) object;
 		}// otherwise it should overwrite itself

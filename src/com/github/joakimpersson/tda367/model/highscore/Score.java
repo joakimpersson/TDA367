@@ -17,8 +17,8 @@ public class Score implements Serializable, Comparable<Score> {
 	 * Auto generated serial
 	 */
 	private static final long serialVersionUID = -7241270636215740757L;
-	private final String playerName;
-	private final PlayerPoints playerPoints;
+	private String playerName;
+	private PlayerPoints playerPoints;
 
 	/**
 	 * Create a new score object using a player and his playerpoint object

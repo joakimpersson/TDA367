@@ -21,8 +21,8 @@ import com.github.joakimpersson.tda367.model.positions.Position;
  */
 public class Player {
 
-	private final String name;
-	private final Position initialPosition;
+	private String name;
+	private Position initialPosition;
 	private Position tilePos;
 	private FPosition gamePos;
 	private PlayerAttributes playerAttribute;
