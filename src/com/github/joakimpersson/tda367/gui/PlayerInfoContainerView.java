@@ -13,6 +13,7 @@ import com.github.joakimpersson.tda367.model.IPyromaniacModel;
 import com.github.joakimpersson.tda367.model.player.Player;
 
 /**
+ * An container view for PlayerInfoviews
  * 
  * @author joakimpersson
  * 
@@ -20,7 +21,8 @@ import com.github.joakimpersson.tda367.model.player.Player;
 public class PlayerInfoContainerView implements IView {
 	private int startX;
 	private int startY;
-	private static final int panelWidth = 200;
+	private int panelWidth;
+	private int panelHeight;
 	private IPyromaniacModel model = null;
 	private List<PlayerInfoView> playersInfo = null;
 
@@ -35,6 +37,8 @@ public class PlayerInfoContainerView implements IView {
 	public PlayerInfoContainerView(int startX, int startY) {
 		this.startX = startX;
 		this.startY = startY;
+		this.panelWidth = 200;
+		this.panelHeight = 102;
 		init();
 	}
 
@@ -50,7 +54,6 @@ public class PlayerInfoContainerView implements IView {
 	public void enter() {
 		playersInfo = new ArrayList<PlayerInfoView>();
 		List<Player> players = model.getPlayers();
-		int panelHeight = 102;
 		int x = 0;
 		int y = 0;
 		for (Player p : players) {
