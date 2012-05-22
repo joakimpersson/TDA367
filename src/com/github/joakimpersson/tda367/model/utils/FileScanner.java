@@ -49,15 +49,15 @@ public class FileScanner {
 		File file = new File(path);
 		try {
 			FileOutputStream outFile = new FileOutputStream(file);
-			ObjectOutputStream dest = new ObjectOutputStream(outFile);
+			ObjectOutputStream destination = new ObjectOutputStream(outFile);
 
 			try {
-				dest.writeObject(object);
+				destination.writeObject(object);
 			} catch (IOException e) {
 				e.printStackTrace();
 			} finally {
 				try {
-					dest.close();
+					destination.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -74,12 +74,12 @@ public class FileScanner {
 	 *            The path that will be created
 	 */
 	private static void createFolders(String path) {
-		String[] str = path.split("/");
+		String[] pathString = path.split("/");
 
-		for (int i = 0; i < str.length - 1; i++) {
-			File dir = new File(str[i]);
-			if (!dir.exists()) {
-				dir.mkdir();
+		for (int i = 0; i < pathString.length - 1; i++) {
+			File direction = new File(pathString[i]);
+			if (!direction.exists()) {
+				direction.mkdir();
 			}
 		}
 
@@ -93,11 +93,11 @@ public class FileScanner {
 	 * @return True if the folder exist and false otherwise.
 	 */
 	private static boolean foldersExits(String path) {
-		String[] str = path.split("/");
+		String[] pathString = path.split("/");
 
-		for (int i = 0; i < str.length - 1; i++) {
-			File dir = new File(str[i]);
-			if (!dir.exists()) {
+		for (int i = 0; i < pathString.length - 1; i++) {
+			File direction = new File(pathString[i]);
+			if (!direction.exists()) {
 				return false;
 			}
 		}
