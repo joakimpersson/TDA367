@@ -25,6 +25,8 @@ import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.positions.FPosition;
 import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
+import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Box;
+import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
 
 public class PyromaniacModelTest {
 
@@ -129,7 +131,9 @@ public class PyromaniacModelTest {
 		FPosition prevPos = new FPosition(0, 0);
 		boolean test1;
 		boolean test2;
+		boolean test3;
 
+		// Testing moving a player.
 		// Test 1.
 		prevPos = player.getGamePosition();
 		model.updateGame(player, PlayerAction.MOVE_WEST);
@@ -146,8 +150,45 @@ public class PyromaniacModelTest {
 		model.updateGame(player, PlayerAction.MOVE_WEST);
 		test2 = (prevPos.getX() == player.getGamePosition().getX() && prevPos
 				.getY() == player.getGamePosition().getY());
-
-		assertTrue(test1 && test2);
+		
+		// Testing to move diagonal.
+		// TODO test moving diagonal.
+		prevPos = player.getGamePosition();
+		model.updateGame(player, PlayerAction.MOVE_SOUTHEAST);
+		test3 = Math.abs(prevPos.getX() + (stepSize * 0.7)
+				- player.getGamePosition().getX()) < 0.01
+				&& Math.abs(prevPos.getY() + (stepSize * 0.7) - player.getGamePosition().getY()) < 0.01;
+		
+		
+		assertTrue(test1 && test2 && test3);
+		
+		
+		// Testing the bombs and fire.
+		if(model.getMap()[player.getTilePosition().getY()]
+				[player.getTilePosition().getX()] instanceof Floor) {
+		}
+		player.upgradeAttr(Attribute.AreaBombs, GameModeType.Match);
+		
+		// Moving next to a box.
+		while(!(model.getMap()[player.getTilePosition().getY() + 1]
+				[player.getTilePosition().getX()] instanceof Box)) {
+			model.updateGame(player, PlayerAction.MOVE_SOUTH);
+		}
+		int healthBefore = player.getHealth();
+			
+		model.updateGame(player, PlayerAction.PRIMARY_ACTION);
+		while(!(model.getMap()[player.getTilePosition().getY()]
+				[player.getTilePosition().getX()] instanceof Floor)) {
+			; // Do nothing/waiting for fire to be removed.
+		}
+		model.updateGame(player, PlayerAction.SECONDARY_ACTION);
+		while(!(model.getMap()[player.getTilePosition().getY()]
+				[player.getTilePosition().getX()] instanceof Floor)) {
+			; // Do nothing/waiting for fire to be removed.
+		}
+		
+		assertEquals(healthBefore, player.getHealth() + 2);
+		
 		// TODO write more on this test depending on how we want move to work...
 	}
 
