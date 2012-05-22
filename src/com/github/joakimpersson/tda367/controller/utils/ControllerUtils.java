@@ -8,6 +8,7 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.state.transition.Transition;
 
 /**
+ * A simple class for util methods in the controller package
  * 
  * @author joakimpersson
  * 
@@ -15,7 +16,7 @@ import org.newdawn.slick.state.transition.Transition;
 public class ControllerUtils {
 	private ControllerUtils() {
 	}
-	
+
 	/**
 	 * Responsible for changing into an new state
 	 * 
