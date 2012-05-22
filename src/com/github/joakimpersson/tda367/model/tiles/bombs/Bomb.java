@@ -18,15 +18,17 @@ import com.github.joakimpersson.tda367.model.tiles.Tile;
  * This class defines a Bomb in the bomberman-like game.
  * 
  * @author rekoil
- * @modified Viktor Anderling, Joakim Persson
+ * @modified Viktor Anderling, Joakim Persson, Andreas Rolén
  * 
  */
 public abstract class Bomb implements Tile, Destroyable {
 
-	protected final int toughness, power, range;
+	protected final int toughness;
+	protected final int power;
+	protected final int range;
 	protected final Timer timer;
 	protected final Player player;
-	protected final Position pos;
+	protected final Position position;
 	protected Map<Position, Direction> fireList = new HashMap<Position, Direction>();
 
 	/**
@@ -38,9 +40,9 @@ public abstract class Bomb implements Tile, Destroyable {
 	 *            The timer which will detonate the bomb.
 	 */
 	public Bomb(Player player, Timer timer) {
-		this.pos = player.getTilePosition();
+		this.position = player.getTilePosition();
 		this.player = player;
-		this.toughness = 1; // TODO perhaps define this in Parameters?
+		this.toughness = 1;
 		this.range = player.getAttribute(Attribute.BombRange);
 		this.power = player.getAttribute(Attribute.BombPower);
 		this.timer = timer;
@@ -57,8 +59,8 @@ public abstract class Bomb implements Tile, Destroyable {
 	 */
 	protected boolean canBreak(Tile tile, int power) {
 		if (tile instanceof Destroyable) {
-			Destroyable tmp = (Destroyable) tile;
-			return power >= tmp.getToughness();
+			Destroyable destroyableTile = (Destroyable) tile;
+			return power >= destroyableTile.getToughness();
 		}
 		return false;
 	}
@@ -71,9 +73,9 @@ public abstract class Bomb implements Tile, Destroyable {
 	 * @return Whether a Position is able to contain fire or not.
 	 */
 	protected boolean validPos(Position firePos) {
-		Dimension d = Parameters.INSTANCE.getMapSize();
-		return firePos.getX() >= 0 && firePos.getX() < d.width
-				&& firePos.getY() >= 0 && firePos.getY() < d.height;
+		Dimension dimension = Parameters.INSTANCE.getMapSize();
+		return firePos.getX() >= 0 && firePos.getX() < dimension.width
+				&& firePos.getY() >= 0 && firePos.getY() < dimension.height;
 	}
 
 	/**
@@ -83,6 +85,21 @@ public abstract class Bomb implements Tile, Destroyable {
 	 */
 	public Player getPlayer() {
 		return player;
+	}
+
+	@Override
+	public PointGiver getPointGiver() {
+		return PointGiver.Bomb;
+	}
+
+	@Override
+	public int getToughness() {
+		return toughness;
+	}
+
+	@Override
+	public boolean isWalkable() {
+		return false;
 	}
 
 	/**
@@ -95,21 +112,6 @@ public abstract class Bomb implements Tile, Destroyable {
 	public abstract Map<Position, Direction> explode(Tile[][] map);
 
 	@Override
-	public int getToughness() {
-		return toughness;
-	}
-
-	@Override
 	public abstract Tile onFire();
-
-	@Override
-	public boolean isWalkable() {
-		return false;
-	}
-
-	@Override
-	public PointGiver getPointGiver() {
-		return PointGiver.Bomb;
-	}
 
 }

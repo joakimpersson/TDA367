@@ -41,8 +41,8 @@ public class AreaBomb extends Bomb {
 
 	@Override
 	public synchronized Map<Position, Direction> explode(Tile[][] map) {
-		int xPos = pos.getX();
-		int yPos = pos.getY();
+		int xPos = position.getX();
+		int yPos = position.getY();
 
 		for (int x = xPos - areaRange; x <= xPos + areaRange; x++) {
 			for (int y = yPos - areaRange; y <= yPos + areaRange; y++) {

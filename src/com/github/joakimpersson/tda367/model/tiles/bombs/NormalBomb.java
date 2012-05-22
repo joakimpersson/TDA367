@@ -50,7 +50,7 @@ public class NormalBomb extends Bomb {
 		directedFire(WEST);
 
 		// dont forget to add itself
-		fireList.put(pos, NONE);
+		fireList.put(position, NONE);
 
 		removeFromPlayer();
 		return fireList;
@@ -63,8 +63,8 @@ public class NormalBomb extends Bomb {
 	 *            Direction of fire-column.
 	 */
 	private void directedFire(Direction dir) {
-		int x = pos.getX();
-		int y = pos.getY();
+		int x = position.getX();
+		int y = position.getY();
 
 		int firePower = power;
 
