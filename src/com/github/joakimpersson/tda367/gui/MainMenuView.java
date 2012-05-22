@@ -15,10 +15,10 @@ import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
  */
 public class MainMenuView {
 
-	private Font smlFont = null;
+	private Font smallFont = null;
 	private Font bigFont = null;
 	private final int WIDTH;
-	private ImageLoader imgs = null;
+	private ImageLoader imageLoader = null;
 
 	/**
 	 * Creates a new view representing the main menu in the game
@@ -34,23 +34,43 @@ public class MainMenuView {
 	 */
 	private void init() {
 		try {
-			smlFont = GUIUtils.getSmlFont();
+			smallFont = GUIUtils.getSmlFont();
 			bigFont = GUIUtils.getBigFont();
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		imgs  = ImageLoader.getInstance();
+		imageLoader = ImageLoader.getInstance();
 	}
 
+	/**
+	 * Render this view to the game's graphics context
+	 * 
+	 * @param container
+	 *            The container holding the game
+	 * @param g
+	 *            The graphics context to render to
+	 * @param selection
+	 *            The index that is selected
+	 * @throws SlickException
+	 *             Indicates a failure to render an gui object
+	 */
 	public void render(GameContainer container, Graphics g, int selection)
 			throws SlickException {
-		g.drawImage(imgs.getImage("bg"), 0, 0);
+		g.drawImage(imageLoader.getImage("bg"), 0, 0);
 		int posY = 140;
 		drawTitle(posY, g);
 		posY += 80;
 		drawMenu(posY, selection, g);
 	}
 
+	/**
+	 * Draw the title of the game at a given y-postion.
+	 * 
+	 * @param y
+	 *            The y-position where the title will be drawn
+	 * @param g
+	 *            The graphics context to draw with
+	 */
 	private void drawTitle(int y, Graphics g) {
 		String title = "Pyromaniacs";
 		g.setFont(bigFont);
@@ -58,9 +78,19 @@ public class MainMenuView {
 		g.drawString(title, GUIUtils.getStringCenterX(title, WIDTH, g), y);
 	}
 
+	/**
+	 * Draw the menu at a given y-position
+	 * 
+	 * @param y
+	 *            The y-position where the menu will be drawn
+	 * @param selection
+	 *            The index that is selected in the menu
+	 * @param g
+	 *            The graphics context to draw with
+	 */
 	private void drawMenu(int y, int selection, Graphics g) {
 		g.setColor(Color.white);
-		g.setFont(smlFont);
+		g.setFont(smallFont);
 
 		for (int i = 0; i < 4; i++) {
 			if (selection == i) {
@@ -68,7 +98,7 @@ public class MainMenuView {
 			} else {
 				g.setColor(Color.gray);
 			}
-			
+
 			if (i == 1) {
 				drawMenuItem("Start Game", y, g);
 				y += 40;
@@ -82,6 +112,16 @@ public class MainMenuView {
 		}
 	}
 
+	/**
+	 * Draw a singel item in the menu
+	 * 
+	 * @param str
+	 *            The String that will be drawn
+	 * @param y
+	 *            The y-position the item will be drawn at
+	 * @param g
+	 *            The graphicals context to draw with
+	 */
 	private void drawMenuItem(String str, int y, Graphics g) {
 		g.drawString(str, GUIUtils.getStringCenterX(str, WIDTH, g), y);
 
