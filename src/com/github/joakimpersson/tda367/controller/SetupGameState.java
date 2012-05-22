@@ -182,7 +182,7 @@ public class SetupGameState extends BasicGameState {
 			return true;
 		}
 		for (int i = 0; i < controllerCount; i++) {
-			if (input.isButtonPressed(X360InputHandler.PROCEED_BUTTON, i)
+			if (input.isButtonPressed(X360InputHandler.PRIMARY_ACTION, i)
 					&& !controllersBound.contains("x" + i)) {
 				controllersBound.add("x" + i);
 				return true;
