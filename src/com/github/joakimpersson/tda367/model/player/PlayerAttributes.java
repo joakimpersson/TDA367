@@ -8,7 +8,6 @@ import java.util.Map;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.GameModeType;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
-import com.github.joakimpersson.tda367.model.constants.PointGiver;
 
 /**
  * A class handling all the attributes for a player.
