@@ -12,9 +12,10 @@ import com.github.joakimpersson.tda367.model.player.Player;
  * A container for the main gameplay view
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
-public class GameplayView implements IView {
+public class GamePlayView implements IView {
 
 	private GameFieldView gameFieldView = null;
 	private PlayerInfoContainerView infoContainer = null;
@@ -24,7 +25,7 @@ public class GameplayView implements IView {
 	/**
 	 * Creates a new view holding the game view and sub panels
 	 */
-	public GameplayView() {
+	public GamePlayView() {
 		init();
 	}
 
@@ -80,6 +81,12 @@ public class GameplayView implements IView {
 
 	}
 
+	/**
+	 * Set the player List with a given player list
+	 * 
+	 * @param playerList
+	 *            The List with Players
+	 */
 	public void setPlayerList(ArrayList<Player> playerList) {
 		roundInfoView.setPlayerList(playerList);
 	}
