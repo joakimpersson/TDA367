@@ -15,13 +15,14 @@ import com.github.joakimpersson.tda367.model.PyromaniacModel;
 import com.github.joakimpersson.tda367.model.IPyromaniacModel;
 
 /**
+ * A state for the GameOverState
  * 
  * @author joakimpersson
  * 
  */
 public class GameOverState extends BasicGameState {
 
-	private enum STATE {
+	private enum State {
 		USED, NOT_USED;
 	}
 
@@ -29,8 +30,14 @@ public class GameOverState extends BasicGameState {
 	private IPyromaniacModel model = null;
 	private InputManager inputManager = null;
 	private IView view = null;
-	private STATE currentState = null;
+	private State currentState = null;
 
+	/**
+	 * Create a new instance of the GameOverState
+	 * 
+	 * @param stateID
+	 *            The states ID
+	 */
 	public GameOverState(int stateID) {
 		this.stateID = stateID;
 	}
@@ -38,7 +45,7 @@ public class GameOverState extends BasicGameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		currentState = STATE.NOT_USED;
+		currentState = State.NOT_USED;
 		model = PyromaniacModel.getInstance();
 		inputManager = InputManager.getInstance();
 		view = new GameOverView();
@@ -48,7 +55,7 @@ public class GameOverState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		super.enter(container, game);
-		currentState = STATE.USED;
+		currentState = State.USED;
 		ControllerUtils.clearInputQueue(container.getInput());
 		view.enter();
 	}
@@ -56,7 +63,7 @@ public class GameOverState extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		if (currentState != STATE.NOT_USED) {
+		if (currentState != State.NOT_USED) {
 			view.render(container, g);
 		}
 	}
@@ -82,13 +89,16 @@ public class GameOverState extends BasicGameState {
 	public void leave(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		super.leave(container, game);
-		
-		currentState = STATE.NOT_USED;
-		
+
+		currentState = State.NOT_USED;
+
 		// clean up the model before the next game
 		resetGame();
 	}
 
+	/**
+	 * A private util method for reseting the model
+	 */
 	private void resetGame() {
 
 		inputManager.removeAllInputHandlers();

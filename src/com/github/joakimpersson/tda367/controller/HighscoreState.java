@@ -20,13 +20,19 @@ import com.github.joakimpersson.tda367.model.IPyromaniacModel;
 import com.github.joakimpersson.tda367.model.constants.EventType;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 
+/**
+ * A game state for the highscore
+ * 
+ * @author joakimpersson
+ * 
+ */
 public class HighscoreState extends BasicGameState {
 
 	/**
 	 * A simple enum containing the different states in the highscorestate
 	 * 
 	 */
-	private enum STATE {
+	private enum State {
 		ACTIVE, NOT_ACTIVE, EMPTY_LIST;
 	}
 
@@ -35,7 +41,7 @@ public class HighscoreState extends BasicGameState {
 	private InputManager inputManager = null;
 	private PropertyChangeSupport pcs = null;
 	private IPyromaniacModel model = null;
-	private STATE currentState = null;
+	private State currentState = null;
 	private int currentIndex = 0;
 
 	/**
@@ -52,7 +58,7 @@ public class HighscoreState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 
-		this.currentState = STATE.NOT_ACTIVE;
+		this.currentState = State.NOT_ACTIVE;
 		this.model = PyromaniacModel.getInstance();
 		this.view = new HighscoreView();
 		this.inputManager = InputManager.getInstance();
@@ -64,15 +70,15 @@ public class HighscoreState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		super.enter(container, game);
-		
+
 		ControllerUtils.clearInputQueue(container.getInput());
-		
+
 		if (model.getHighscoreList().size() > 0) {
-			currentState = STATE.ACTIVE;
+			currentState = State.ACTIVE;
 		} else {
-			currentState = STATE.EMPTY_LIST;
+			currentState = State.EMPTY_LIST;
 		}
-		
+
 		view.enter();
 		pcs.firePropertyChange("play", null, EventType.TITLE_SCREEN);
 
@@ -82,7 +88,7 @@ public class HighscoreState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 
-		if (currentState != STATE.NOT_ACTIVE) {
+		if (currentState != State.NOT_ACTIVE) {
 			view.render(container, g, currentIndex);
 		}
 
@@ -97,7 +103,7 @@ public class HighscoreState extends BasicGameState {
 			updateGame(container.getInput());
 			break;
 		case EMPTY_LIST:
-			// we do no updates as well
+			// we do no navigation update
 		case NOT_ACTIVE:
 			// we do nothing
 			break;
