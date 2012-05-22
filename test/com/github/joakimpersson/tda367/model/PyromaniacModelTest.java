@@ -152,7 +152,6 @@ public class PyromaniacModelTest {
 				.getY() == player.getGamePosition().getY());
 		
 		// Testing to move diagonal.
-		// TODO test moving diagonal.
 		prevPos = player.getGamePosition();
 		model.updateGame(player, PlayerAction.MOVE_SOUTHEAST);
 		test3 = Math.abs(prevPos.getX() + (stepSize * 0.7)
@@ -188,8 +187,6 @@ public class PyromaniacModelTest {
 		}
 		
 		assertEquals(healthBefore, player.getHealth() + 2);
-		
-		// TODO write more on this test depending on how we want move to work...
 	}
 
 	@Test
