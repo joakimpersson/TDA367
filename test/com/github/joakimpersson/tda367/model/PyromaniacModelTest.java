@@ -3,7 +3,6 @@ package com.github.joakimpersson.tda367.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
