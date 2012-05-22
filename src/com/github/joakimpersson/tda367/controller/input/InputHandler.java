@@ -44,15 +44,22 @@ public interface InputHandler {
 	Player getPlayer();
 
 	/**
-	 * Checks if  the player has pressed their proceed button
+	 * Checks if the player has pressed their proceed button
 	 * 
 	 * @param input
 	 *            The input object used by the slick framework that contains the
 	 *            latest action
-	 * @return True if one of the player has pressed their proceed button,
-	 *         false otherwise
+	 * @return True if one of the player has pressed their proceed button, false
+	 *         otherwise
 	 */
 	boolean pressedProceed(Input input);
 
+	/**
+	 * Get the Menu Input data.
+	 * 
+	 * @param input
+	 *            The Input that is given.
+	 * @return The InputData
+	 */
 	InputData getMenuInputData(Input input);
 }
