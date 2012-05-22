@@ -32,6 +32,7 @@ public class GamePlayView implements IView {
 	/**
 	 * Responsible for fetching instances, info from the model and init fonts
 	 * etc
+	 * 
 	 */
 	private void init() {
 		infoContainer = new PlayerInfoContainerView(0, 0);
