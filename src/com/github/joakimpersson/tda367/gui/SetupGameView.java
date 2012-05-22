@@ -18,10 +18,10 @@ import org.newdawn.slick.gui.TextField;
 import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
 
 /**
- * Sets up the players
+ * Sets up the players settings such as name and actionbutton
  * 
  * @author rekoil
- * @modified joakimpersson
+ * @modified joakimpersson, adderollen
  */
 public class SetupGameView {
 
@@ -39,6 +39,12 @@ public class SetupGameView {
 	private ImageLoader imgs = null;
 	private String errorString = "";
 
+	/**
+	 * Create the SetupGameView in a given container
+	 * 
+	 * @param container
+	 *            The container that the view will be created in
+	 */
 	public SetupGameView(GameContainer container) {
 
 		init();
@@ -48,6 +54,9 @@ public class SetupGameView {
 
 	}
 
+	/**
+	 * Initiates the SetupGameView.
+	 */
 	private void init() {
 		try {
 			bigFont = GUIUtils.getBigFont();
@@ -58,11 +67,26 @@ public class SetupGameView {
 		imgs = ImageLoader.getInstance();
 	}
 
+	/**
+	 * Notification that we've entered this game state
+	 */
 	public void enter() {
 		stage = 0;
 		names = new ArrayList<String>();
 	}
 
+	/**
+	 * Render this view to the game's graphics context
+	 * 
+	 * @param container
+	 *            The container holding the game
+	 * @param g
+	 *            The graphics context to render to
+	 * @param selection
+	 *            The index of the selected item
+	 * @throws SlickException
+	 *             Indicates a failure to render an gui object
+	 */
 	public void render(GameContainer container, Graphics g, int selection)
 			throws SlickException {
 		g.drawImage(imgs.getImage("bg"), 0, 0);
@@ -73,15 +97,15 @@ public class SetupGameView {
 			drawCenteredString("Select number of players:", posY, g);
 
 			posY += yDelta;
-			int i = 1;
-			while (i < 4) {
-				i++;
-				if (selection == i) {
+			int index = 1;
+			while (index < 4) {
+				index++;
+				if (selection == index) {
 					g.setColor(cyan);
-				} else if (i > possiblePlayers) {
+				} else if (index > possiblePlayers) {
 					g.setColor(gray);
 				}
-				drawCenteredString(i + " players", posY, g);
+				drawCenteredString(index + " players", posY, g);
 				g.setColor(white);
 				posY += yDelta;
 			}
@@ -101,12 +125,32 @@ public class SetupGameView {
 		}
 	}
 
+	/**
+	 * Draw the controller info images
+	 * 
+	 * @param width
+	 *            The width of the container
+	 * @param g
+	 *            The graphicals context to draw the images with
+	 */
 	private void drawControllerInfo(int width, Graphics g) {
 		g.drawImage(imgs.getImage("info/keyboard"), width / 2 - 404, 300);
 		g.drawImage(imgs.getImage("info/xbox"), width / 2 + 20, 300);
 		g.drawImage(imgs.getImage("info/controls-legend"), 50, 180);
 	}
 
+	/**
+	 * Draw the state where the players enter their action button.
+	 * 
+	 * @param playerName
+	 *            The player that will be asked to enter action button.
+	 * @param color
+	 *            The players color
+	 * @param y
+	 *            The y-postion where to draw the text
+	 * @param g
+	 *            The graphicals context to draw with
+	 */
 	private void drawCenteredAssignPlayerString(String playerName, Color color,
 			int y, Graphics g) {
 		int startX = GUIUtils.getStringCenterX(playerName
@@ -120,12 +164,28 @@ public class SetupGameView {
 		drawCenteredString("on your preferred controller!", y, g);
 	}
 
+	/**
+	 * Draws a centered String.
+	 * 
+	 * @param string
+	 *            The string that will be drawn
+	 * @param posY
+	 *            The y-position the string will be drawn at
+	 * @param g
+	 *            The graphical context to draw with
+	 */
 	private void drawCenteredString(String string, int posY, Graphics g) {
 		g.drawString(string,
 				GUIUtils.getStringCenterX(string, GUIUtils.getGameWidth(), g),
 				posY);
 	}
 
+	/**
+	 * Start a creation of a player.
+	 * 
+	 * @param players
+	 *            The player that will be created, given by index
+	 */
 	public void startPlayerCreation(int players) {
 		playersSelected = players;
 		index = 1;
@@ -133,10 +193,19 @@ public class SetupGameView {
 		resetField();
 	}
 
+	/**
+	 * Sets the possible player amount.
+	 * 
+	 * @param numberOfPlayers
+	 *            The possible player amount
+	 */
 	public void setPossiblePlayers(int numberOfPlayers) {
 		this.possiblePlayers = numberOfPlayers;
 	}
 
+	/**
+	 * TODO rekoil, javadoc the rest of the methods
+	 */
 	public void assignControllers() {
 		index = 1;
 		stage++;
