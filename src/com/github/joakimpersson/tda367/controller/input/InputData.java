@@ -49,7 +49,6 @@ public class InputData {
 	@Override
 	public String toString() {
 		StringBuilder str = new StringBuilder();
-		System.out.println(action);
 		str.append(player.getName());
 		str.append(" ");
 		str.append(action.name());
