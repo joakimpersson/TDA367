@@ -71,8 +71,6 @@ public class GameplayState extends BasicGameState {
 		playlist.add(EventType.ROUND_ENDED);
 		playlist.add(EventType.UPGRADE_SCREEN);
 
-		// TODO natan maybe models listener should be added in the class where get
-		// instance is first called?
 		model.addPropertyChangeListener(audioEL);
 		view = new GameplayView();
 		inputManager = InputManager.getInstance();
