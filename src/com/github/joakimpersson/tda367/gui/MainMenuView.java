@@ -15,7 +15,7 @@ import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
  */
 public class MainMenuView {
 
-	private Font smallFont = null;
+	private Font smlFont = null;
 	private Font bigFont = null;
 	private final int WIDTH;
 	private ImageLoader imageLoader = null;
@@ -34,7 +34,7 @@ public class MainMenuView {
 	 */
 	private void init() {
 		try {
-			smallFont = GUIUtils.getSmlFont();
+			smlFont = GUIUtils.getSmlFont();
 			bigFont = GUIUtils.getBigFont();
 		} catch (SlickException e) {
 			e.printStackTrace();
@@ -90,7 +90,7 @@ public class MainMenuView {
 	 */
 	private void drawMenu(int y, int selection, Graphics g) {
 		g.setColor(Color.white);
-		g.setFont(smallFont);
+		g.setFont(smlFont);
 
 		for (int i = 0; i < 4; i++) {
 			if (selection == i) {
