@@ -228,15 +228,19 @@ public class SoundHandler {
 		}
 	}
 	
-	// TODO fix input for setVolume.
-	
 	/**
 	 * This method sets the volume for all the background music.
 	 * 
 	 * @param volume A float number between 0 and 1.
 	 */
 	public void setBGMVolume(float volume) {
-		this.bgmVolume = volume;
+		if(volume >= 1) {
+			this.bgmVolume = 1;
+		} else if(volume <= 0) {
+			this.bgmVolume = 0;
+		} else {
+			this.bgmVolume = volume;
+		}
 	}
 	
 	/**
@@ -245,7 +249,13 @@ public class SoundHandler {
 	 * @param volume A float number between 0 and 1.
 	 */
 	public void setSFXVolume(float volume) {
-		this.sfxVolume = volume;
+		if(volume >= 1) {
+			this.sfxVolume = 1;
+		} else if(volume <= 0) {
+			this.sfxVolume = 0;
+		} else {
+			this.sfxVolume = volume;
+		}
 	}
 	
 	
