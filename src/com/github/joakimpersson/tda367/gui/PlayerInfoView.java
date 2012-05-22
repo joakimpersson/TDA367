@@ -4,7 +4,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
@@ -12,8 +11,10 @@ import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.player.Player;
 
 /**
+ * A view for displaying the PlayerInfoView
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class PlayerInfoView implements IView {
@@ -24,8 +25,21 @@ public class PlayerInfoView implements IView {
 	private int width;
 	private int height;
 	private Font smlFont = null;
-	private ImageLoader imgs;
 
+	/**
+	 * Creating a PlayerInfoView for a given player.
+	 * 
+	 * @param player
+	 *            The Players info that will be drawn
+	 * @param startX
+	 *            The x-position where to draw the info
+	 * @param startY
+	 *            The y-position where to draw the info
+	 * @param width
+	 *            The width of the info panel
+	 * @param height
+	 *            The height of the info panel
+	 */
 	public PlayerInfoView(Player player, int startX, int startY, int width,
 			int height) {
 		this.player = player;
@@ -37,8 +51,10 @@ public class PlayerInfoView implements IView {
 		init();
 	}
 
+	/**
+	 * Initiate the view.
+	 */
 	private void init() {
-		this.imgs = ImageLoader.getInstance();
 		try {
 			smlFont = GUIUtils.getSmlFont();
 		} catch (SlickException e) {
@@ -53,23 +69,32 @@ public class PlayerInfoView implements IView {
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
+		// draw black frame
+		g.setColor(Color.black);
+		g.drawRect(startX, startY, width, height);
+		drawPlayerInfo(g);
+		drawScore(g);
+		drawPowerUps(g);
+
+	}
+
+	/**
+	 * Draw the Player part of the info.
+	 * 
+	 * @param g
+	 *            The graphical context to draw to.
+	 */
+	private void drawPlayerInfo(Graphics g) {
 		int xPos = startX;
 		int yPos = startY;
 		int x = 0;
 		int y = 0;
-
-		// draw black frame
-		g.setColor(Color.black);
-		g.drawRect(xPos, yPos, width, height);
-
-		// draw image of player
-		// drawImage(x+7, y+13, "player/"+player.getIndex()+"/still-east", g);
-		drawImage(xPos + 7, yPos + 13, player.getImage(), g);
+		GUIUtils.drawImage(xPos + 7, yPos + 13, player.getImage(), g);
 
 		// draw number of wins
 		y = 15;
 		for (int i = 0; i < player.getRoundsWon(); i++) {
-			drawImage(xPos + 40, yPos + y, "info/chevron", g);
+			GUIUtils.drawImage(xPos + 40, yPos + y, "info/chevron", g);
 			y += 4;
 		}
 
@@ -84,16 +109,26 @@ public class PlayerInfoView implements IView {
 		if (player.isAlive()) {
 			drawHearts(xPos + 59, yPos + 32, g);
 		} else {
-			drawImage(xPos + 59, yPos + 32, "info/skull", g);
+			GUIUtils.drawImage(xPos + 59, yPos + 32, "info/skull", g);
 		}
 
 		// draw number of wins
 		x = 59;
 		for (int i = 0; i < player.getMatchesWon(); i++) {
-			drawImage(xPos + x, yPos + 55, "info/star", g);
+			GUIUtils.drawImage(xPos + x, yPos + 55, "info/star", g);
 			x += 13;
 		}
+	}
 
+	/**
+	 * Draw the score part of the info.
+	 * 
+	 * @param g
+	 *            The graphical context to draw to.
+	 */
+	private void drawScore(Graphics g) {
+		int xPos = startX;
+		int yPos = startY;
 		int areaBombsAvailable = player.getAreaBombsAvailable();
 		// draw score
 		int score = player.getScore();
@@ -107,80 +142,117 @@ public class PlayerInfoView implements IView {
 		g.drawString(zeros, xPos + 15, yPos + 70);
 		g.setColor(Color.white);
 		g.drawString("" + score, xPos + scoreDisp + 17, yPos + 70);
+	}
 
-		// draw powerups
-		x = 145;
+	/**
+	 * Draw the powerup part of the info.
+	 * 
+	 * @param g
+	 *            The graphical context to draw to.
+	 */
+	private void drawPowerUps(Graphics g) {
+		int xPos = startX;
+		int yPos = startY;
+		int x = 145;
 		int textDisp = x + 40;
 		g.setColor(Color.lightGray);
 
 		// --speed--
-		y = 0;
+		int y = 0;
 		int pSpeed = player.getAttribute(Attribute.Speed);
-		drawImage(xPos + x, yPos + y, "info/speed", g);
+		GUIUtils.drawImage(xPos + x, yPos + y, "info/speed", g);
 		drawAttributeValue(pSpeed, xPos + textDisp, yPos + y + 10, g);
 
 		// --range and power--
 		y += 30;
 		int pRange = player.getAttribute(Attribute.BombRange);
 		int pPower = player.getAttribute(Attribute.BombPower);
-		drawImage(xPos + x, yPos + y, "info/fire", g);
+		GUIUtils.drawImage(xPos + x, yPos + y, "info/fire", g);
 		drawAttributeValue(pRange, xPos + textDisp, yPos + y + 10, g);
 		if (pPower > 1) {
 			if (pPower < 3) {
-				drawImage(xPos + x + 16, yPos + y, "info/power2", g);
+				GUIUtils.drawImage(xPos + x + 16, yPos + y, "info/power2", g);
 			} else {
-				drawImage(xPos + x + 16, yPos + y, "info/power3", g);
+				GUIUtils.drawImage(xPos + x + 16, yPos + y, "info/power3", g);
 			}
 		}
 
 		// --bombs--
 		y += 30;
 		int pBombs = player.getAttribute(Attribute.BombStack);
-		drawImage(xPos + x, yPos + y, "info/bomb", g);
+		GUIUtils.drawImage(xPos + x, yPos + y, "info/bomb", g);
 		drawAttributeValue(pBombs, xPos + textDisp, yPos + y + 10, g);
 
 		// --area bombs, if available--
+		int areaBombsAvailable = player.getAreaBombsAvailable();
 		if (areaBombsAvailable > 0) {
-			drawImage(xPos + x - 35, yPos + y, "info/bomb-area", g);
+			GUIUtils.drawImage(xPos + x - 35, yPos + y, "info/bomb-area", g);
 			g.setColor(Color.white);
-			drawAttributeValue(areaBombsAvailable, xPos + x - 25, yPos
-					+ y + 10, g);
+			drawAttributeValue(areaBombsAvailable, xPos + x - 25,
+					yPos + y + 10, g);
 		}
 	}
 
+	/**
+	 * Draw an amount of grey zeros at the score row depending on how long the
+	 * score text is.
+	 * 
+	 * @param score
+	 *            The score to check length of.
+	 * @param zeros
+	 *            How many zeros to draw at maximum.
+	 * @return A String containing the zeros and the score.
+	 */
 	private String leadingZeroes(int score, int zeros) {
-		String out = "";
+		StringBuilder strBuilder = new StringBuilder();
 		for (int i = 0; i < zeros - String.valueOf(score).length(); i++) {
-			out = out + 0;
+			strBuilder.append(0);
 		}
-		return out;
+		return strBuilder.toString();
 	}
 
-	private void drawAttributeValue(int i, float x, float y, Graphics g) {
-		if (i >= 10) {
-			g.drawString("" + i, x - 5F, y);
+	/**
+	 * Draw the attribute value at a given position.
+	 * 
+	 * @param value
+	 *            The value of the attribute to draw
+	 * @param x
+	 *            The x-position to draw at
+	 * @param y
+	 *            The y-position to draw at
+	 * @param g
+	 *            The graphical context to draw to.
+	 */
+	private void drawAttributeValue(int value, float x, float y, Graphics g) {
+		if (value >= 10) {
+			g.drawString("" + value, x - 5F, y);
 		} else {
-			g.drawString("" + i, x, y);
+			g.drawString("" + value, x, y);
 		}
 	}
 
+	/**
+	 * Draw the heart that represent the players health.
+	 * 
+	 * @param x
+	 *            The x-position to draw at
+	 * @param y
+	 *            The y-position to draw at
+	 * @param g
+	 *            The graphical context to draw to.
+	 */
 	private void drawHearts(float x, float y, Graphics g) {
 		int xDelta;
 		int health = player.getHealth();
 		if (health < 4) {
 			xDelta = 27;
 		} else {
-			xDelta = (int) Math.floor(63 / health);
+			xDelta = 63 / health;
 		}
 		for (int i = 0; i < health; i++) {
-			drawImage(x, y, "info/heart", g);
+			GUIUtils.drawImage(x, y, "info/heart", g);
 			x += xDelta;
 		}
 	}
 
-	private void drawImage(float x, float y, String s, Graphics g) {
-		// the players position is related to matrix so compensated is needed
-		Image i = imgs.getImage(s);
-		g.drawImage(i, x, y);
-	}
 }

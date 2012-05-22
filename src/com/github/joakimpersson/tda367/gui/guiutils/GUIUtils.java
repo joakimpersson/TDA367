@@ -3,7 +3,10 @@ package com.github.joakimpersson.tda367.gui.guiutils;
 import org.newdawn.slick.AngelCodeFont;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+
+import com.github.joakimpersson.tda367.gui.ImageLoader;
 
 /**
  * Utils methods used in the GUI package.
@@ -13,7 +16,10 @@ import org.newdawn.slick.SlickException;
  * 
  */
 public class GUIUtils {
+	private static ImageLoader imageLoader;
+
 	private GUIUtils() {
+		imageLoader = ImageLoader.getInstance();
 	}
 
 	/**
@@ -86,5 +92,22 @@ public class GUIUtils {
 	public static int getStringCenterY(String str, int height, Graphics g) {
 		int strHeight = g.getFont().getHeight(str);
 		return height / 2 - strHeight / 2;
+	}
+
+	/**
+	 * Draw an image out of a given image name.
+	 * 
+	 * @param x
+	 *            The x-position to draw at
+	 * @param y
+	 *            The y-position to draw at
+	 * @param imageName
+	 *            The name of the image to draw
+	 * @param g
+	 *            The graphics context to render to
+	 */
+	public static void drawImage(float x, float y, String imageName, Graphics g) {
+		Image image = imageLoader.getImage(imageName);
+		g.drawImage(image, x, y);
 	}
 }
