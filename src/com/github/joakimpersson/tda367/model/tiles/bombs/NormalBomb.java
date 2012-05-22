@@ -20,7 +20,7 @@ import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
  * Definition of a regular bomb.
  * 
  * @author rekoil
- * @modified Viktor Anderling
+ * @modified Viktor Anderling, Andreas Rolén
  * 
  */
 public class NormalBomb extends Bomb {
@@ -41,8 +41,8 @@ public class NormalBomb extends Bomb {
 	}
 
 	@Override
-	public synchronized Map<Position, Direction> explode(Tile[][] m) {
-		map = m;
+	public synchronized Map<Position, Direction> explode(Tile[][] map) {
+		this.map = map;
 
 		directedFire(NORTH);
 		directedFire(SOUTH);
@@ -59,10 +59,10 @@ public class NormalBomb extends Bomb {
 	/**
 	 * Creates a column of fire.
 	 * 
-	 * @param dir
+	 * @param direction
 	 *            Direction of fire-column.
 	 */
-	private void directedFire(Direction dir) {
+	private void directedFire(Direction direction) {
 		int x = position.getX();
 		int y = position.getY();
 
@@ -70,14 +70,14 @@ public class NormalBomb extends Bomb {
 
 		for (int i = 1; i <= range; i++) {
 			if (firePower > 0) {
-				Position firePos = new Position(x + (dir.getX() * i), y + (dir.getY() * i));
+				Position firePos = new Position(x + (direction.getX() * i), y
+						+ (direction.getY() * i));
 				if (validPos(firePos)) {
-					Tile tile = map[firePos.getY()][firePos.getX()]; // inverted
-																		// >.<
+					Tile tile = map[firePos.getY()][firePos.getX()];
 					if (canBreak(tile, firePower)) {
 						Destroyable destroyableTile = (Destroyable) tile;
 						firePower -= destroyableTile.getToughness();
-						fireList.put(firePos, dir);
+						fireList.put(firePos, direction);
 					} else {
 						break; // fire stops directly
 					}
@@ -90,17 +90,17 @@ public class NormalBomb extends Bomb {
 	public String getTileType() {
 		return "bomb";
 	}
-	
+
 	@Override
 	public Tile onFire() {
 		removeFromPlayer();
-		this.timer.cancel();
+		timer.cancel();
 		return new Floor();
 	}
 
 	protected synchronized void removeFromPlayer() {
 		if (!removedFromPlayer) {
-			this.player.decreaseBombsPlaced();
+			player.decreaseBombsPlaced();
 			removedFromPlayer = true;
 		}
 	}

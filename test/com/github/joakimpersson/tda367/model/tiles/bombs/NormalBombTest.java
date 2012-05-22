@@ -30,13 +30,12 @@ import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
 /**
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class NormalBombTest {
 
-	private Timer timer;
 	private Bomb bomb;
-	private Player player;
 	private static Tile[][] map = {
 			{ new Wall(), new Wall(), new Wall(), new Wall(), new Wall() },
 			{ new Wall(), new Floor(), new Box(), new Floor(), new Wall() },
@@ -46,16 +45,11 @@ public class NormalBombTest {
 			{ new Wall(), new Floor(), new Floor(), new Floor(), new Wall() },
 			{ new Wall(), new Wall(), new Wall(), new Wall(), new Wall() } };
 
-	@BeforeClass
-	public static void setUpMap() {
-		// TODO jocke perhaps the map should be initialized here
-	}
-
 	@Before
 	public void setUp() throws Exception {
-		Position pos = new Position(2, 3);
-		timer = new Timer();
-		player = new Player(1,"Kalle", pos);
+		Position position = new Position(2, 3);
+		Timer timer = new Timer();
+		Player player = new Player(1, "Kalle", position);
 		bomb = new NormalBomb(player, timer);
 	}
 
@@ -84,8 +78,9 @@ public class NormalBombTest {
 		expectedPositions.add(new Position(2, 3));
 		Map<Position, Direction> actualPositions = bomb.explode(map);
 
-		// TODO Fix the test for the new returntype: Map<Position, Direction>.
-		
+		// TODO adrian Fix the test for the new returntype: Map<Position,
+		// Direction>.
+
 		assertEquals(expectedPositions.size(), actualPositions.size());
 		for (Position pos : expectedPositions) {
 			assertTrue(actualPositions.containsKey(pos));
@@ -94,8 +89,6 @@ public class NormalBombTest {
 
 	@After
 	public void tearDown() throws Exception {
-		timer = null;
-		player = null;
 		bomb = null;
 	}
 
