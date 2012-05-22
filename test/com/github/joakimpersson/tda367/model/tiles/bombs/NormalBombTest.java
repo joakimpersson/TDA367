@@ -69,17 +69,17 @@ public class NormalBombTest {
 
 	@Test
 	public void testExplode() {
-		Map<Position, Direction> expectedPositions = new HashMap<Position, Direction>();
-		expectedPositions.put(new Position(3, 3), Direction.EAST);
-		expectedPositions.put(new Position(1, 3), Direction.WEST);
-		expectedPositions.put(new Position(2, 4), Direction.SOUTH);
-		expectedPositions.put(new Position(2, 3), Direction.NONE);
+		Map<Position, Direction> expected = new HashMap<Position, Direction>();
+		expected.put(new Position(3, 3), Direction.EAST);
+		expected.put(new Position(1, 3), Direction.WEST);
+		expected.put(new Position(2, 4), Direction.SOUTH);
+		expected.put(new Position(2, 3), Direction.NONE);
 		Map<Position, Direction> actualPositions = bomb.explode(map);
 
-		assertEquals(expectedPositions.size(), actualPositions.size());
-		for (Position pos : expectedPositions.keySet()) {
+		assertEquals(expected.size(), actualPositions.size());
+		for (Position pos : expected.keySet()) {
 			assertTrue(actualPositions.containsKey(pos));
-			assertTrue(actualPositions.get(pos).equals(expectedPositions.get(pos)));
+			assertTrue(actualPositions.get(pos).equals(expected.get(pos)));
 		}
 	}
 

@@ -7,8 +7,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 
 import org.junit.After;
@@ -16,6 +16,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.github.joakimpersson.tda367.model.constants.Direction;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
@@ -75,20 +76,23 @@ public class AreaBombTest {
 		assertEquals(expected, actual);
 	}
 
-	@Test
 	public void testExplode() {
 
-		List<Position> expectedPositions = new ArrayList<Position>();
-		expectedPositions.add(new Position(1, 2));
-		expectedPositions.add(new Position(3, 2));
-		expectedPositions.add(new Position(1, 3));
-		expectedPositions.add(new Position(2, 3));
-		expectedPositions.add(new Position(3, 3));
-		expectedPositions.add(new Position(2, 4));
-		expectedPositions.add(new Position(1, 4));
-		expectedPositions.add(new Position(3, 4));
-		List<Position> actualPositions = new ArrayList<Position>(areaBomb
-				.explode(map).keySet());
+		Map<Position, Direction> expected = new HashMap<Position, Direction>();
+		expected.put(new Position(1, 2), null);
+		expected.put(new Position(3, 2), null);
+		expected.put(new Position(1, 3), null);
+		expected.put(new Position(2, 3), null);
+		expected.put(new Position(3, 3), null);
+		expected.put(new Position(2, 4), null);
+		expected.put(new Position(1, 4), null);
+		expected.put(new Position(3, 4), null);
+		HashMap<Position, Direction> actual = new HashMap<Position, Direction>(areaBomb
+				.explode(map));
+				
+		for (Position pos : actual.keySet()) {
+			System.out.println(pos+" "+actual.get(pos));
+		}
 
 		// TODO Adrian, Fix the test for the new returntype: Map<Position,
 		// Direction>.
@@ -96,10 +100,11 @@ public class AreaBombTest {
 		// can not use the lists equal method since it does not take into
 		// consideration that the two lists might have the positions at
 		// different index
-		assertEquals(expectedPositions.size(), actualPositions.size());
+		assertEquals(expected.size(), actual.size());
 
-		for (Position pos : expectedPositions) {
-			assertTrue(actualPositions.contains(pos));
+		for (Position pos : expected.keySet()) {
+			assertTrue(actual.keySet().contains(pos));
+			assertTrue(actual.get(pos) == expected.get(pos));
 		}
 	}
 
