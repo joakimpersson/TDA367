@@ -8,8 +8,10 @@ import org.newdawn.slick.Input;
 import com.github.joakimpersson.tda367.model.player.Player;
 
 /**
+ * An InputManager.
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class InputManager {
@@ -17,6 +19,9 @@ public class InputManager {
 	private List<InputHandler> inputHandlers = null;
 	private boolean defaultEnabled = false;
 
+	/**
+	 * Creates the InputManager
+	 */
 	private InputManager() {
 		init();
 	}
@@ -29,6 +34,9 @@ public class InputManager {
 		createDeafaultInputs();
 	}
 
+	/**
+	 * Creates the default inputs for all controllers.
+	 */
 	private void createDeafaultInputs() {
 		defaultEnabled = true;
 		inputHandlers = new ArrayList<InputHandler>();
@@ -138,6 +146,13 @@ public class InputManager {
 		return dataList;
 	}
 
+	/**
+	 * Get the input data in the menu in a list.
+	 * 
+	 * @param input
+	 *            The input that will be returned as input data
+	 * @return A list containing the input data from the input
+	 */
 	public List<InputData> getMenuInputData(Input input) {
 		List<InputData> dataList = new ArrayList<InputData>();
 		for (InputHandler handler : inputHandlers) {
@@ -166,11 +181,19 @@ public class InputManager {
 		return false;
 	}
 
+	/**
+	 * Removes all the Input handlers.
+	 */
 	public void removeAllInputHandlers() {
 		inputHandlers.clear();
 		createDeafaultInputs();
 	}
 
+	/**
+	 * Get how many controller that is assigned
+	 * 
+	 * @return The number of controller assigned
+	 */
 	public int getAssignedControllers() {
 		if (defaultEnabled) {
 			return inputHandlers.size() - 6;
