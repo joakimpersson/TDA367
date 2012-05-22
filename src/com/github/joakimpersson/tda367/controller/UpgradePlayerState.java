@@ -44,7 +44,7 @@ public class UpgradePlayerState extends BasicGameState {
 	private IPyromaniacModel model = null;
 	private List<Attribute> attributes = null;
 	/**
-	 * TODO tmp solution Indexing on the players index, since the player object
+	 * TODO Adrian tmp solution Indexing on the players index, since the player object
 	 * is mutable but not his index its non-mutable
 	 */
 	private Map<Integer, Integer> playersIndex = null;
@@ -92,7 +92,7 @@ public class UpgradePlayerState extends BasicGameState {
 		upgradeMap = new HashMap<Integer, Map<Attribute, Integer>>();
 
 		for (Player p : model.getPlayers()) {
-			// TODO bad code
+			// adrian TODO bad code
 			Map<Attribute, Integer> attributeMap = new HashMap<Attribute, Integer>();
 			for (Attribute a : attributes) {
 				attributeMap.put(a, p.getAttribute(a));

@@ -78,11 +78,6 @@ public class MainMenuState extends BasicGameState {
 		List<PlayerAction> actions = defaultInput(input);
 
 		int newState = -1;
-		// TODO only used during development
-		if (input.isKeyPressed(Input.KEY_ESCAPE)
-				|| input.isKeyPressed(Input.KEY_Q)) {
-			container.exit();
-		}
 
 		if (actions.contains(PlayerAction.MOVE_NORTH)) {
 			moveIndex(-1);

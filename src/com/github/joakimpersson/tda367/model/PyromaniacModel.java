@@ -146,7 +146,7 @@ public class PyromaniacModel implements IPyromaniacModel {
 	 * @param direction
 	 *            The direction for the player to move
 	 * @param stepSize
-	 *            TODO
+	 *            TODO adrian
 	 */
 	private void move(Player player, Direction direction, double stepSize) {
 		Position prevPos = player.getTilePosition();
@@ -471,7 +471,7 @@ public class PyromaniacModel implements IPyromaniacModel {
 
 	@Override
 	public List<Score> getHighscoreList() {
-		//the highscore object returns a copy of the list
+		// the highscore object returns a copy of the list
 		return highscore.getList();
 	}
 

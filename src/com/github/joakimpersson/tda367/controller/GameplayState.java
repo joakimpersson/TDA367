@@ -71,7 +71,7 @@ public class GameplayState extends BasicGameState {
 		playlist.add(EventType.ROUND_ENDED);
 		playlist.add(EventType.UPGRADE_SCREEN);
 
-		// TODO maybe models listener should be added in the class where get
+		// TODO natan maybe models listener should be added in the class where get
 		// instance is first called?
 		model.addPropertyChangeListener(audioEL);
 		view = new GameplayView();
@@ -132,11 +132,6 @@ public class GameplayState extends BasicGameState {
 			break;
 		default:
 			break;
-		}
-
-		// TODO perhaps map to some input object
-		if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
-			game.enterState(BombermanGame.MAIN_MENU_STATE);
 		}
 	}
 

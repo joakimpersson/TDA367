@@ -86,7 +86,7 @@ public class GameFieldView implements IView {
 						counter = 0;
 					}
 				}
-				// TODO this will only work if we have a wall, else there will be null pointer exception
+				// natan TODO this will only work if we have a wall, else there will be null pointer exception
 				for (int i = -1; i <= 1; i++) {
 					Position tilePos = new Position(p.getTilePosition().getX()+i,
 							p.getTilePosition().getY() + 1);
