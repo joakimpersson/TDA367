@@ -95,11 +95,19 @@ public class SetupGameView {
 				drawCenteredString(errorString, 280, g);
 			}
 		} else if (stage == 2 && index <= names.size()) {
-			drawCenteredPlayerString(names.get(index - 1), Color.green, posY, g);
+			drawCenteredAssignPlayerString(names.get(index - 1), Color.green,
+					posY, g);
+			drawControllerInfo(container.getWidth(), g);
 		}
 	}
 
-	private void drawCenteredPlayerString(String playerName, Color color,
+	private void drawControllerInfo(int width, Graphics g) {
+		g.drawImage(imgs.getImage("info/keyboard"), width / 2 - 404, 300);
+		g.drawImage(imgs.getImage("info/xbox"), width / 2 + 20, 300);
+		g.drawImage(imgs.getImage("info/controls-legend"), 50, 180);
+	}
+
+	private void drawCenteredAssignPlayerString(String playerName, Color color,
 			int y, Graphics g) {
 		int startX = GUIUtils.getStringCenterX(playerName
 				+ " please press action", GUIUtils.getGameWidth(), g);
