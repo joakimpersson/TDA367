@@ -89,7 +89,7 @@ public class SetupGameView {
 	 */
 	public void render(GameContainer container, Graphics g, int selection)
 			throws SlickException {
-		g.drawImage(imgs.getImage("bg"), 0, 0);
+		GUIUtils.drawImage(0, 0, "bg", g);
 		int posY = 200;
 		g.setColor(white);
 		g.setFont(smlFont);

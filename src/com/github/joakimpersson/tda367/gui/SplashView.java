@@ -6,6 +6,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
+
 public class SplashView implements IView {
 	private ImageLoader imageLoader = null;
 	private Animation textAnimation = null;
@@ -33,7 +35,7 @@ public class SplashView implements IView {
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
-		g.drawImage(imageLoader.getImage("splash/bg"), 0, 0);
+		GUIUtils.drawImage(0, 0, "splash/bg", g);
 		textAnimation.draw(330, 580);
 	}
 
