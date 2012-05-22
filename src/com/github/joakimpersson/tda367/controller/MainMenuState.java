@@ -20,8 +20,10 @@ import com.github.joakimpersson.tda367.model.constants.EventType;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 
 /**
+ * A class representing the MainMenuState
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class MainMenuState extends BasicGameState {
@@ -117,8 +119,6 @@ public class MainMenuState extends BasicGameState {
 		currentIndex = newIndex;
 
 	}
-
-
 
 	@Override
 	public int getID() {
