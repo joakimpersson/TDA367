@@ -40,11 +40,11 @@ public class GameLogic implements IGameLogic {
 	@Override
 	public boolean isRoundOver() {
 
-		int alivePlayers = 0;
+		int alivePlayers = players.size();
 		for (Player player : players) {
 
-			if (player.isAlive()) {
-				alivePlayers++;
+			if (!player.isAlive()) {
+				alivePlayers--;
 			}
 		}
 
@@ -53,7 +53,11 @@ public class GameLogic implements IGameLogic {
 			return true;
 		}
 
-		return alivePlayers == 1;
+		if (alivePlayers == 1) {
+			noWinner = false;
+			return true;
+		}
+		return false;
 	}
 
 	@Override

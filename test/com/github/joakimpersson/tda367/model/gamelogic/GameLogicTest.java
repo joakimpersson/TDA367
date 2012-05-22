@@ -2,6 +2,7 @@ package com.github.joakimpersson.tda367.model.gamelogic;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -56,7 +57,6 @@ public class GameLogicTest {
 	 *            A Player that will be killed if alive.
 	 */
 	private void killPlayer(Player player) {
-
 		while (player.isAlive()) {
 			player.playerHit();
 		}
@@ -137,7 +137,18 @@ public class GameLogicTest {
 		gameLogic.roundOver();
 
 		// the winning player should be null
-		assertTrue(gameLogic.getLastRoundWinner() == null);
+		assertNull(gameLogic.getLastRoundWinner());
+
+		losingPlayerOne.reset(GameModeType.Round);
+		losingPlayerTwo.reset(GameModeType.Round);
+
+		killPlayer(losingPlayerTwo);
+
+		// the round should be over
+		assertTrue(gameLogic.isRoundOver());
+		gameLogic.roundOver();
+
+		assertTrue(gameLogic.getLastRoundWinner().equals(losingPlayerOne));
 	}
 
 	@Test

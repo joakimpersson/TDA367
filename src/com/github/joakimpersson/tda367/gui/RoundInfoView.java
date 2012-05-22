@@ -138,8 +138,17 @@ public class RoundInfoView implements IView {
 	 *            The games graphics object
 	 */
 	private void drawPlayerInfo(Player player, int x, int y, Graphics g) {
-		boolean isWinner = (model.getLastRoundWinner().getIndex() == player
-				.getIndex());
+
+		 boolean isWinner = false;
+		
+		 if (model.getLastRoundWinner() != null) {
+		 isWinner = (model.getLastRoundWinner().getIndex() == player
+		 .getIndex());
+		 }
+		System.out.println(model.getLastRoundWinner());
+//		boolean isWinner = (model.getLastRoundWinner().getIndex() == player
+//				.getIndex());
+
 		Image img = imageLoader.getImage("round-info/overlay");
 		g.drawImage(img, x, y);
 
@@ -165,18 +174,21 @@ public class RoundInfoView implements IView {
 		// draw number of round wins
 		xDiff = g.getFont().getWidth(player.getName()) + textDiff + 5;
 		yDiff = 10;
-		int roundWins = Math.max(player.getRoundsWon(), playerSnapshot.get(player.getIndex()-1).getRoundsWon());
+		int roundWins = Math.max(player.getRoundsWon(),
+				playerSnapshot.get(player.getIndex() - 1).getRoundsWon());
 		for (int i = 0; i < roundWins; i++) {
-			g.drawImage(imageLoader.getImage("info/chevron"), x + xD + xDiff, y + yD + yDiff);
+			g.drawImage(imageLoader.getImage("info/chevron"), x + xD + xDiff, y
+					+ yD + yDiff);
 			yDiff += 4;
 		}
-		
+
 		// draw number of match wins
 		xDiff = 110;
 		yDiff = 90;
 		int matchWins = player.getMatchesWon();
-		for (int i = 0; i < matchWins+3 ; i++) {
-			g.drawImage(imageLoader.getImage("info/star"), x + xD + xDiff, y + yD + yDiff);
+		for (int i = 0; i < matchWins + 3; i++) {
+			g.drawImage(imageLoader.getImage("info/star"), x + xD + xDiff, y
+					+ yD + yDiff);
 			xDiff += 15;
 		}
 
@@ -187,7 +199,7 @@ public class RoundInfoView implements IView {
 
 		int winnerOffsetX = 117;
 		int winnerOffsetY = 54;
-		
+
 		if (isWinner) {
 			g.setFont(bigFont);
 			g.setColor(Color.yellow);
