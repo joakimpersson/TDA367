@@ -9,8 +9,10 @@ import org.newdawn.slick.SlickException;
 import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
 
 /**
+ * A class representing the GameOverView
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class GameOverView implements IView {
@@ -42,12 +44,11 @@ public class GameOverView implements IView {
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
-			drawHeader(g);
-			gameOverWinnerView.render(container, g);
-			gameOverLosersView.render(container, g);
+		drawHeader(g);
+		gameOverWinnerView.render(container, g);
+		gameOverLosersView.render(container, g);
 	}
-	
-	
+
 	private void drawHeader(Graphics g) {
 		g.setColor(Color.white);
 		g.setFont(bigFont);

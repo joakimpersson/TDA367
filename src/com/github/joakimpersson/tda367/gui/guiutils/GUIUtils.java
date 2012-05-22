@@ -6,8 +6,10 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 /**
+ * Utils methods used in the GUI package.
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class GUIUtils {
