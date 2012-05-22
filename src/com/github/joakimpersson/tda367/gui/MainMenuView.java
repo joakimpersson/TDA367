@@ -9,8 +9,10 @@ import org.newdawn.slick.SlickException;
 import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
 
 /**
+ * A class representing the MainMenuView.
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class MainMenuView {
