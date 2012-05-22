@@ -134,7 +134,12 @@ public interface IPyromaniacModel {
 	 */
 	public List<Score> getGameOverSummary();
 
-	// TODO Natan, add javadoc.
+	/**
+	 * Adds a PropertyChangeListener that listens to this instance.
+	 * 
+	 * @param pcl
+	 * 			The listener that will be added.
+	 */
 	public void addPropertyChangeListener(PropertyChangeListener pcl);
 
 	/**
