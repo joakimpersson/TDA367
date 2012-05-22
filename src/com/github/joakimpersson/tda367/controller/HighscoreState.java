@@ -111,11 +111,6 @@ public class HighscoreState extends BasicGameState {
 			break;
 		}
 
-		Input input = container.getInput();
-
-		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-			game.enterState(PyromaniacsGame.MAIN_MENU_STATE);
-		}
 	}
 
 	/**
