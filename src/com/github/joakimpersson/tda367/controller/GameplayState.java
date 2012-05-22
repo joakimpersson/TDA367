@@ -17,7 +17,7 @@ import com.github.joakimpersson.tda367.audio.AudioEventListener;
 import com.github.joakimpersson.tda367.controller.input.InputData;
 import com.github.joakimpersson.tda367.controller.input.InputManager;
 import com.github.joakimpersson.tda367.controller.utils.ControllerUtils;
-import com.github.joakimpersson.tda367.gui.GamePlayView;
+import com.github.joakimpersson.tda367.gui.GameplayView;
 import com.github.joakimpersson.tda367.model.PyromaniacModel;
 import com.github.joakimpersson.tda367.model.IPyromaniacModel;
 import com.github.joakimpersson.tda367.model.constants.EventType;
@@ -40,7 +40,7 @@ public class GameplayState extends BasicGameState {
 
 	private int stateID = -1;
 	private IPyromaniacModel model = null;
-	private GamePlayView view = null;
+	private GameplayView view = null;
 	private STATE currentState = null;
 	private InputManager inputManager = null;
 	private PropertyChangeSupport pcs;
@@ -74,7 +74,7 @@ public class GameplayState extends BasicGameState {
 		// TODO natan maybe models listener should be added in the class where get
 		// instance is first called?
 		model.addPropertyChangeListener(audioEL);
-		view = new GamePlayView();
+		view = new GameplayView();
 		inputManager = InputManager.getInstance();
 
 		currentState = STATE.NOT_STARTED;

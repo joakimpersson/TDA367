@@ -15,7 +15,7 @@ import com.github.joakimpersson.tda367.model.player.Player;
  * @modified adderollen
  * 
  */
-public class GamePlayView implements IView {
+public class GameplayView implements IView {
 
 	private GameFieldView gameFieldView = null;
 	private PlayerInfoContainerView infoContainer = null;
@@ -25,7 +25,7 @@ public class GamePlayView implements IView {
 	/**
 	 * Creates a new view holding the game view and sub panels
 	 */
-	public GamePlayView() {
+	public GameplayView() {
 		init();
 	}
 
