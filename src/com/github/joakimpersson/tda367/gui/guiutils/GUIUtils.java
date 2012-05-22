@@ -16,10 +16,8 @@ import com.github.joakimpersson.tda367.gui.ImageLoader;
  * 
  */
 public class GUIUtils {
-	private static ImageLoader imageLoader;
-
+	
 	private GUIUtils() {
-		imageLoader = ImageLoader.getInstance();
 	}
 
 	/**
@@ -107,6 +105,7 @@ public class GUIUtils {
 	 *            The graphics context to render to
 	 */
 	public static void drawImage(float x, float y, String imageName, Graphics g) {
+		ImageLoader imageLoader = ImageLoader.getInstance();
 		Image image = imageLoader.getImage(imageName);
 		g.drawImage(image, x, y);
 	}
