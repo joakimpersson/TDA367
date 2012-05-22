@@ -12,7 +12,7 @@ import com.github.joakimpersson.tda367.gui.ImageLoader;
  * Utils methods used in the GUI package.
  * 
  * @author joakimpersson
- * @modified adderollen
+ * @modified adderollen, rekoil
  * 
  */
 public class GUIUtils {

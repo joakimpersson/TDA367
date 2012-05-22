@@ -1,5 +1,6 @@
 package com.github.joakimpersson.tda367.gui;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.newdawn.slick.Animation;
@@ -32,6 +33,7 @@ public class RoundInfoView implements IView {
 	private Player roundWinner = null;
 	private Animation textAnimation = null;
 	private Animation winningPlayerAnimation = null;
+	private ArrayList<Player> playerSnapshot;
 
 	/**
 	 * Creates a new view containing info about the players stats from the
@@ -100,7 +102,6 @@ public class RoundInfoView implements IView {
 	 *            The player who won the last round
 	 */
 	public void setWinningPlayer(Player winningPlayer) {
-
 		if (winningPlayer != null
 				&& (this.roundWinner == null || !(this.roundWinner
 						.equals(winningPlayer)))) {
@@ -137,39 +138,69 @@ public class RoundInfoView implements IView {
 	 *            The games graphics object
 	 */
 	private void drawPlayerInfo(Player player, int x, int y, Graphics g) {
-		boolean isWinner = (model.getLastRoundWinner() == player);
+		boolean isWinner = (model.getLastRoundWinner().getIndex() == player
+				.getIndex());
 		Image img = imageLoader.getImage("round-info/overlay");
 		g.drawImage(img, x, y);
 
+		int xD = 30;
+		int yD = 55;
+
 		// draws scaled player image
 		if (isWinner) {
-			winningPlayerAnimation.draw(x, y + 7);
+			winningPlayerAnimation.draw(x + xD, y + yD + 7);
 		} else {
 			img = imageLoader.getImage(player.getImage()).getScaledCopy(2);
-			g.drawImage(img, x, y + 7);
+			g.drawImage(img, x + xD, y + yD + 7);
 		}
 
 		// draw name
 		g.setFont(bigFont);
 		g.setColor(Color.white);
-		g.drawString(player.getName(), x + 100, y + 10);
+		int textDiff = 94 + GUIUtils.getStringCenterX(player.getName(), 122, g);
+		g.drawString(player.getName(), x + xD + textDiff, y + yD + 10);
+
+		int xDiff;
+		int yDiff;
+		// draw number of round wins
+		xDiff = g.getFont().getWidth(player.getName()) + textDiff + 5;
+		yDiff = 10;
+		int roundWins = Math.max(player.getRoundsWon(), playerSnapshot.get(player.getIndex()-1).getRoundsWon());
+		for (int i = 0; i < roundWins; i++) {
+			g.drawImage(imageLoader.getImage("info/chevron"), x + xD + xDiff, y + yD + yDiff);
+			yDiff += 4;
+		}
+		
+		// draw number of match wins
+		xDiff = 110;
+		yDiff = 90;
+		int matchWins = player.getMatchesWon();
+		for (int i = 0; i < matchWins+3 ; i++) {
+			g.drawImage(imageLoader.getImage("info/star"), x + xD + xDiff, y + yD + yDiff);
+			xDiff += 15;
+		}
 
 		// draw winner string
 		g.setFont(smlFont);
 		g.setColor(Color.darkGray);
 		String gameStatusString = "LOSER";
-		int yDiff = 54;
-		int xDiff = 130;
+
+		int winnerOffsetX = 117;
+		int winnerOffsetY = 54;
+		
 		if (isWinner) {
 			g.setFont(bigFont);
 			g.setColor(Color.yellow);
 			gameStatusString = "WINNER";
-			yDiff = 48;
-			xDiff = 105;
-
-			textAnimation.draw(x + 94, y + 36);
-
+			winnerOffsetX -= 10;
+			winnerOffsetY -= 6;
+			textAnimation.draw(x + xD + 96, y + yD + 36);
 		}
-		g.drawString(gameStatusString, x + xDiff, y + yDiff);
+		g.drawString(gameStatusString, x + xD + winnerOffsetX, y + yD
+				+ winnerOffsetY);
+	}
+
+	public void setPlayerList(ArrayList<Player> playerList) {
+		this.playerSnapshot = playerList;
 	}
 }

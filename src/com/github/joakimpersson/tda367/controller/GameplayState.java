@@ -193,7 +193,13 @@ public class GameplayState extends BasicGameState {
 		}
 	}
 
-	private void roundOver() {
+	private void roundOver(Input input) {
+		List<Player> players = model.getPlayers();
+		ArrayList<Player> playerList = new ArrayList<Player>();
+		for (Player p : players) {
+			playerList.add(new Player(p));
+		}
+		
 		model.roundOver();
 		if (model.isMatchOver()) {
 			model.matchOver();
@@ -201,7 +207,8 @@ public class GameplayState extends BasicGameState {
 		
 		Player winningPlayer = model.getLastRoundWinner();
 		view.setRoundWinner(winningPlayer);
-		
+		view.setPlayerList(playerList);
+
 		ControllerUtils.clearInputQueue(input);
 		currentState = STATE.ROUND_INFO_STATE;
 	}

@@ -89,18 +89,25 @@ public class PlayerInfoView implements IView {
 		int yPos = startY;
 		int x = 0;
 		int y = 0;
-		GUIUtils.drawImage(xPos + 7, yPos + 13, player.getImage(), g);
 
-		// draw number of wins
-		y = 15;
-		for (int i = 0; i < player.getRoundsWon(); i++) {
-			GUIUtils.drawImage(xPos + 40, yPos + y, "info/chevron", g);
-			y += 4;
-		}
+		// draw black frame
+		g.setColor(Color.black);
+		g.drawRect(xPos, yPos, width, height);
 
 		// set up text
 		g.setFont(smlFont);
 		g.setColor(Color.white);
+
+		// draw image of player
+		// drawImage(x+7, y+13, "player/"+player.getIndex()+"/still-east", g);
+		GUIUtils.drawImage(xPos + 7, yPos + 13, player.getImage(), g);
+
+		// draw number of round wins
+		y = 12;
+		for (int i = 0; i < player.getRoundsWon(); i++) {
+			GUIUtils.drawImage(xPos + 65 + g.getFont().getWidth(player.getName()), yPos + y, "info/chevron", g);
+			y += 4;
+		}
 
 		// draw player name
 		g.drawString(player.getName(), xPos + 60, yPos + 15);
@@ -112,7 +119,7 @@ public class PlayerInfoView implements IView {
 			GUIUtils.drawImage(xPos + 59, yPos + 32, "info/skull", g);
 		}
 
-		// draw number of wins
+		// draw number of match wins
 		x = 59;
 		for (int i = 0; i < player.getMatchesWon(); i++) {
 			GUIUtils.drawImage(xPos + x, yPos + 55, "info/star", g);
