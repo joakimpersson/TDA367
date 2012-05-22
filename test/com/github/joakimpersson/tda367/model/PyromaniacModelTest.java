@@ -113,7 +113,12 @@ public class PyromaniacModelTest {
 
 	@Test
 	public void testStartGame() {
-		fail("Not yet implemented");
+		assertEquals(players, model.getPlayers());
+		
+		// Checks so that getMap() doesn't creates an exception.
+		model.getMap();
+		assertTrue(model.getHighscoreList() != null);
+		assertTrue(model.getLastRoundWinner() == null);
 	}
 
 	@Test
