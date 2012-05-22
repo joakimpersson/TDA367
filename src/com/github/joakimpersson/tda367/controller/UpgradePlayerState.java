@@ -23,7 +23,7 @@ import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.EventType;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.player.Player;
-
+//TODO adrian add javadoc
 /**
  * 
  * @author joakimpersson
@@ -35,7 +35,7 @@ public class UpgradePlayerState extends BasicGameState {
 	 * A simple enum containing the different states in the upgradeplayerstate
 	 * 
 	 */
-	private enum STATE {
+	private enum State {
 		USED, UPGRADE_DONE, NOT_USED;
 	}
 
@@ -53,7 +53,7 @@ public class UpgradePlayerState extends BasicGameState {
 	private Map<Integer, Map<Attribute, Integer>> upgradeMap = null;
 	private InputManager inputManager = null;
 	private PropertyChangeSupport pcs;
-	private STATE currentState;
+	private State currentState;
 
 	/**
 	 * Create a new slick BasicGameState controller for the UpgradePlayerState
@@ -75,7 +75,7 @@ public class UpgradePlayerState extends BasicGameState {
 		this.pcs = new PropertyChangeSupport(this);
 		this.pcs.addPropertyChangeListener(AudioEventListener.getInstance());
 
-		currentState = STATE.NOT_USED;
+		currentState = State.NOT_USED;
 	}
 
 	@Override
@@ -91,25 +91,25 @@ public class UpgradePlayerState extends BasicGameState {
 		playerCredits = new HashMap<Integer, Integer>();
 		upgradeMap = new HashMap<Integer, Map<Attribute, Integer>>();
 
-		for (Player p : model.getPlayers()) {
-			// adrian TODO bad code
+		for (Player player : model.getPlayers()) {
+			//TODO adrian bad code
 			Map<Attribute, Integer> attributeMap = new HashMap<Attribute, Integer>();
 			for (Attribute a : attributes) {
-				attributeMap.put(a, p.getAttribute(a));
+				attributeMap.put(a, player.getAttribute(a));
 			}
-			playersIndex.put(p.getIndex(), 0);
-			playerReadyness.put(p.getIndex(), false);
-			playerCredits.put(p.getIndex(), p.getCredits());
-			upgradeMap.put(p.getIndex(), attributeMap);
+			playersIndex.put(player.getIndex(), 0);
+			playerReadyness.put(player.getIndex(), false);
+			playerCredits.put(player.getIndex(), player.getCredits());
+			upgradeMap.put(player.getIndex(), attributeMap);
 		}
 		view.enter();
-		currentState = STATE.USED;
+		currentState = State.USED;
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		if (currentState != STATE.NOT_USED) {
+		if (currentState != State.NOT_USED) {
 			view.render(container, g, playersIndex, playerReadyness,
 					playerCredits, upgradeMap);
 		}
@@ -150,7 +150,7 @@ public class UpgradePlayerState extends BasicGameState {
 	private void upgradeDone(StateBasedGame game) {
 		int newState = PyromaniacsGame.GAMEPLAY_STATE;
 		ControllerUtils.changeState(game, newState);
-		currentState = STATE.NOT_USED;
+		currentState = State.NOT_USED;
 	}
 
 	/**
@@ -176,6 +176,7 @@ public class UpgradePlayerState extends BasicGameState {
 			if (action == PlayerAction.PRIMARY_ACTION) {
 				playerReadyness.put(p.getIndex(), !playerReady);
 			} else if (!playerReady) {
+				
 				switch (action) {
 				case MOVE_NORTH:
 					moveIndex(p, -1);
@@ -215,7 +216,7 @@ public class UpgradePlayerState extends BasicGameState {
 
 		if (!playerReadyness.containsValue(false)) {
 			performUpgrades();
-			currentState = STATE.UPGRADE_DONE;
+			currentState = State.UPGRADE_DONE;
 		}
 	}
 
