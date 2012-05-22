@@ -5,11 +5,13 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 /**
+ * A interface representing the views in the game
  * 
  * @author joakimpersson
  * 
  */
 public interface IView {
+
 	/**
 	 * Render this view to the game's graphics context
 	 * 
