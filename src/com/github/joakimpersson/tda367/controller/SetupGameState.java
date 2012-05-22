@@ -29,7 +29,7 @@ import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.positions.Position;
-
+//TODO adrian fix javadoc!
 /**
  * Sets up the players
  * 
@@ -198,12 +198,12 @@ public class SetupGameState extends BasicGameState {
 	}
 
 	private Position getInitialPosition(int playerIndex) {
-		Dimension mapD = Parameters.INSTANCE.getMapSize();
+		Dimension mapDimension = Parameters.INSTANCE.getMapSize();
 
 		int left = 1;
-		int right = mapD.width - 2;
+		int right = mapDimension.width - 2;
 		int top = 1;
-		int bottom = mapD.height - 2;
+		int bottom = mapDimension.height - 2;
 
 		switch (playerIndex) {
 		default:
