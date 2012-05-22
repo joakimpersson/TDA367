@@ -50,22 +50,7 @@ public class KeyBoardInputHandler implements InputHandler {
 		this.keyMap = keyMap;
 	}
 
-	/**
-	 * 
-	 * Some stupid documentation
-	 * 
-	 * @precondition keyCodes.length == 6
-	 * @precondition keyCodes[0] is Move North
-	 * @precondition keyCodes[1] is Move South
-	 * @precondition keyCodes[2] is Move West
-	 * @precondition keyCodes[3] is Move East
-	 * @precondition keyCodes[4] is Primary Action
-	 * @precondition keyCodes[5] is Secondary Action
-	 * 
-	 * @param keyCodes
-	 *            An array of keyboardscodes
-	 * @return A map with the input key as key and the action as value
-	 */
+
 	@Override
 	public boolean hasKey(Input input) {
 		if (input.isKeyDown(keyMap[4])) {
@@ -108,7 +93,7 @@ public class KeyBoardInputHandler implements InputHandler {
 		}
 		return new InputData(player, PlayerAction.DO_NOTHING);
 	}
-
+//TODO Adrian, fix some curly braces or some other shit... Regards Joakimpersson
 	@Override
 	public InputData getMenuInputData(Input input) {
 		PlayerAction menuAction = PlayerAction.DO_NOTHING;
