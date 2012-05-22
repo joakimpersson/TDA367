@@ -15,7 +15,6 @@ import java.util.Timer;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.github.joakimpersson.tda367.model.constants.Direction;
@@ -85,6 +84,13 @@ public class NormalBombTest {
 		for (Position pos : expectedPositions) {
 			assertTrue(actualPositions.containsKey(pos));
 		}
+	}
+
+	@Test
+	public void testGetTileType() {
+		String expected = "bomb";
+		String actual = bomb.getTileType();
+		assertEquals(expected, actual);
 	}
 
 	@After
