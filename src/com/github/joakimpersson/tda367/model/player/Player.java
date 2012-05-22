@@ -53,6 +53,29 @@ public class Player {
 		this.matchesWon = 0;
 		initPlayer();
 	}
+	
+	/**
+	 * Creates a clone of a player.
+	 * 
+	 * @param player
+	 * 				The player that is to be cloned.
+	 */
+	public Player(Player player) {
+		this.name = player.name;
+		this.initialPosition = player.initialPosition;
+		this.tilePos = player.tilePos;
+		this.gamePos = player.gamePos;
+		this.playerAttribute = player.playerAttribute;
+		this.playerPoints = player.playerPoints;
+		this.facingDirection = player.facingDirection;
+		this.bombsPlaced = player.bombsPlaced;
+		this.health = player.health;
+		this.playerIndex = player.playerIndex;
+		this.justHit = player.justHit;
+		this.rounsdWon = player.rounsdWon;
+		this.matchesWon = player.matchesWon;
+		this.areaBombsPlaced = player.areaBombsPlaced;
+	}
 
 	/**
 	 * Method for initializing a player.
