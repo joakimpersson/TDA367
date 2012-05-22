@@ -8,7 +8,7 @@ import org.newdawn.slick.Graphics;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 
 public interface IUpgradePlayerView {
-	// TODO jocke redo/rethink
+	// TODO adrian add javadoc
 	void render(GameContainer container, Graphics g,
 			Map<Integer, Integer> playerAttrIndex,
 			Map<Integer, Boolean> playerReadyness,
