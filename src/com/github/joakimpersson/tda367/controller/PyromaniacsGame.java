@@ -5,11 +5,13 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
+ * A statemanager for the game.
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
-public class BombermanGame extends StateBasedGame {
+public class PyromaniacsGame extends StateBasedGame {
 
 	public static final int SPLASH_STATE = 0;
 	public static final int MAIN_MENU_STATE = 1;
@@ -19,7 +21,13 @@ public class BombermanGame extends StateBasedGame {
 	public static final int HIGHSCORE_STATE = 5;
 	public static final int GAMEOVER_STATE = 6;
 
-	public BombermanGame(String name) {
+	/**
+	 * Creating a new instance of the game with a given name.
+	 * 
+	 * @param name
+	 *            The name that the game will get.
+	 */
+	public PyromaniacsGame(String name) {
 		super(name);
 
 		this.addState(new SplashState(SPLASH_STATE));

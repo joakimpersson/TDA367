@@ -113,7 +113,7 @@ public class SetupGameState extends BasicGameState {
 		List<PlayerAction> actions = defaultInput(input);
 
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-			game.enterState(BombermanGame.MAIN_MENU_STATE);
+			game.enterState(PyromaniacsGame.MAIN_MENU_STATE);
 		}
 
 		for (PlayerAction action : actions) {
@@ -155,7 +155,7 @@ public class SetupGameState extends BasicGameState {
 		} else if (stage == 2 && validProceed(input)) {
 			assignPlayer(controllersBound.getLast(), view.getIndex());
 			if (allPlayersAssigned()) {
-				int newState = BombermanGame.GAMEPLAY_STATE;
+				int newState = PyromaniacsGame.GAMEPLAY_STATE;
 				ControllerUtils.changeState(game, newState);
 			}
 			view.incIndex();

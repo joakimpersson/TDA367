@@ -91,9 +91,9 @@ public class MainMenuState extends BasicGameState {
 
 		if (inputManager.pressedProceed(input)) {
 			if (currentIndex == 1) {
-				newState = BombermanGame.SETUP_GAME_STATE;
+				newState = PyromaniacsGame.SETUP_GAME_STATE;
 			} else if (currentIndex == 2) {
-				newState = BombermanGame.HIGHSCORE_STATE;
+				newState = PyromaniacsGame.HIGHSCORE_STATE;
 			} else if (currentIndex == 3) {
 				container.exit();
 			}

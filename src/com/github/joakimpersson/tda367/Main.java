@@ -6,7 +6,7 @@ import org.lwjgl.LWJGLUtil;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 
-import com.github.joakimpersson.tda367.controller.BombermanGame;
+import com.github.joakimpersson.tda367.controller.PyromaniacsGame;
 import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
 
 /**
@@ -32,7 +32,7 @@ public class Main {
 				System.getProperty("org.lwjgl.librarypath"));
 		try {
 			AppGameContainer application = new AppGameContainer(
-					new BombermanGame("Pyromaniacs"));
+					new PyromaniacsGame("Pyromaniacs"));
 
 			application.setDisplayMode(gameWidth, gameHeight, false);
 			// make sure that we are using the players screen

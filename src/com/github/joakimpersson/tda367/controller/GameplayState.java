@@ -239,7 +239,7 @@ public class GameplayState extends BasicGameState {
 			model.gameOver();
 			currentState = STATE.GAME_OVER;
 		} else {
-			int newState = BombermanGame.UPGRADE_PLAYER_STATE;
+			int newState = PyromaniacsGame.UPGRADE_PLAYER_STATE;
 			ControllerUtils.changeState(game, newState);
 		}
 		model.resetRoundStats();
@@ -247,7 +247,7 @@ public class GameplayState extends BasicGameState {
 
 	private void gameOver(StateBasedGame game) {
 
-		int newState = BombermanGame.GAMEOVER_STATE;
+		int newState = PyromaniacsGame.GAMEOVER_STATE;
 		ControllerUtils.changeState(game, newState);
 
 	}

@@ -69,7 +69,7 @@ public class GameOverState extends BasicGameState {
 		boolean pressedProcced = inputManager.pressedProceed(input);
 
 		if (pressedProcced) {
-			int newState = BombermanGame.MAIN_MENU_STATE;
+			int newState = PyromaniacsGame.MAIN_MENU_STATE;
 			ControllerUtils.changeState(game, newState);
 		}
 

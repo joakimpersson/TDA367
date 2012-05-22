@@ -148,7 +148,7 @@ public class UpgradePlayerState extends BasicGameState {
 	 *            The game holding this state
 	 */
 	private void upgradeDone(StateBasedGame game) {
-		int newState = BombermanGame.GAMEPLAY_STATE;
+		int newState = PyromaniacsGame.GAMEPLAY_STATE;
 		ControllerUtils.changeState(game, newState);
 		currentState = STATE.NOT_USED;
 	}

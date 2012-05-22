@@ -53,7 +53,7 @@ public class SplashState extends BasicGameState {
 			throws SlickException {
 		Input input = container.getInput();
 		if (inputManager.pressedProceed(input)) {
-			int newState = BombermanGame.MAIN_MENU_STATE;
+			int newState = PyromaniacsGame.MAIN_MENU_STATE;
 			ControllerUtils.changeState(game, newState);
 		}
 

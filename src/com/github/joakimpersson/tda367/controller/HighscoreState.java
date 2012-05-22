@@ -108,7 +108,7 @@ public class HighscoreState extends BasicGameState {
 		Input input = container.getInput();
 
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-			game.enterState(BombermanGame.MAIN_MENU_STATE);
+			game.enterState(PyromaniacsGame.MAIN_MENU_STATE);
 		}
 	}
 
