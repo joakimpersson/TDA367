@@ -99,13 +99,14 @@ public class PlayerInfoView implements IView {
 		g.setColor(Color.white);
 
 		// draw image of player
-		// drawImage(x+7, y+13, "player/"+player.getIndex()+"/still-east", g);
 		GUIUtils.drawImage(xPos + 7, yPos + 13, player.getImage(), g);
 
 		// draw number of round wins
 		y = 12;
 		for (int i = 0; i < player.getRoundsWon(); i++) {
-			GUIUtils.drawImage(xPos + 65 + g.getFont().getWidth(player.getName()), yPos + y, "info/chevron", g);
+			GUIUtils.drawImage(
+					xPos + 65 + g.getFont().getWidth(player.getName()), yPos
+							+ y, "info/chevron", g);
 			y += 4;
 		}
 
