@@ -302,8 +302,6 @@ public class Player {
 	 * @return Current health of the player.
 	 */
 	public int getHealth() {
-		// TODO Adrian, fix so there's not only 1 heart showed when u got like
-		// 20HP
 		return health;
 	}
 
