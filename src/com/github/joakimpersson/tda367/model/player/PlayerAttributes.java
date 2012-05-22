@@ -8,6 +8,7 @@ import java.util.Map;
 import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.GameModeType;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
+import com.github.joakimpersson.tda367.model.constants.PointGiver;
 
 /**
  * A class handling all the attributes for a player.
@@ -33,6 +34,17 @@ public class PlayerAttributes {
 
 		this.initDefaultMatchValues();
 		this.initDefaultRoundValues();
+	}
+	
+	/**
+	 * Creates a clone of a PlayerAttributes object.
+	 * 
+	 * @param player
+	 * 				The PlayerAttributes object that is to be cloned.
+	 */
+	public PlayerAttributes(PlayerAttributes playerAttributes) {
+		this.matchAttr = new EnumMap<Attribute, Integer>(playerAttributes.matchAttr);
+		this.roundAttr = new EnumMap<Attribute, Integer>(playerAttributes.roundAttr);
 	}
 
 	/**

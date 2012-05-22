@@ -65,8 +65,8 @@ public class Player {
 		this.initialPosition = player.initialPosition;
 		this.tilePos = player.tilePos;
 		this.gamePos = player.gamePos;
-		this.playerAttribute = player.playerAttribute;
-		this.playerPoints = player.playerPoints;
+		this.playerAttribute = new PlayerAttributes(player.playerAttribute);
+		this.playerPoints = new PlayerPoints(player.playerPoints);
 		this.facingDirection = player.facingDirection;
 		this.bombsPlaced = player.bombsPlaced;
 		this.health = player.health;
