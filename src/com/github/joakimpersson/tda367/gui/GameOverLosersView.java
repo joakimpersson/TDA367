@@ -13,6 +13,13 @@ import com.github.joakimpersson.tda367.model.IPyromaniacModel;
 import com.github.joakimpersson.tda367.model.highscore.Score;
 import com.github.joakimpersson.tda367.model.player.PlayerPoints;
 
+/**
+ * A view demonstrating the players who lost the game. It displays the players
+ * who lost by their name and final score
+ * 
+ * @author joakimpersson
+ * 
+ */
 public class GameOverLosersView implements IView {
 
 	private final int X;
@@ -23,12 +30,23 @@ public class GameOverLosersView implements IView {
 	private IPyromaniacModel model = null;
 	private List<Score> playerScores = null;
 
+	/**
+	 * Create a new instance of the view
+	 * 
+	 * @param x
+	 *            The starting coordinate in the x-axis
+	 * @param y
+	 *            The starting coordinate in the y-axis
+	 */
 	public GameOverLosersView(int x, int y) {
 		this.X = x;
 		this.Y = y;
 		init();
 	}
 
+	/**
+	 * Initiate the view
+	 */
 	private void init() {
 		model = PyromaniacModel.getInstance();
 		try {
@@ -45,6 +63,9 @@ public class GameOverLosersView implements IView {
 		removeWinnerFromScoreList();
 	}
 
+	/**
+	 * Remove the winner from this list.
+	 */
 	private void removeWinnerFromScoreList() {
 		// the winner should be first in the list
 		playerScores.remove(0);
@@ -61,30 +82,63 @@ public class GameOverLosersView implements IView {
 
 		y += yDelta;
 
-		drawPlayerInfo(x, y, g);
+		drawScoreInfo(x, y, g);
 	}
 
+	/**
+	 * Draw the containers header
+	 * 
+	 * @param x
+	 *            The starting coordinate in the x-axis
+	 * @param y
+	 *            The starting coordinate in the y-axis
+	 * 
+	 * @param g
+	 *            The games graphics object
+	 */
 	private void drawContainerHeader(int x, int y, Graphics g) {
 		g.setFont(bigFont);
 		String str = "Losers:";
 		g.drawString(str, x, y);
 	}
 
-	private void drawPlayerInfo(int x, int y, Graphics g) {
+	/**
+	 * 
+	 * Draw all the score objects onto the screen
+	 * 
+	 * @param x
+	 *            The starting coordinate in the x-axis
+	 * @param y
+	 *            The starting coordinate in the y-axis
+	 * 
+	 * @param g
+	 *            The games graphics object
+	 */
+	private void drawScoreInfo(int x, int y, Graphics g) {
 		g.setFont(bigFont);
 		int i = 2;
-		for(Score score : playerScores) {
-			String playerSummaryStr = getPlayerSummaryStr(score, i);
+		for (Score score : playerScores) {
+			String playerSummaryStr = getScoreSummaryStr(score, i);
 			g.drawString(playerSummaryStr, x, y);
 		}
 	}
 
-	private String getPlayerSummaryStr(Score score, int i) {
+	/**
+	 * Get a summary from a score object, including its player name and total
+	 * score
+	 * 
+	 * @param score
+	 *            The score object
+	 * @param index
+	 *            Its final position in the game
+	 * @return A summarized string with the info
+	 */
+	private String getScoreSummaryStr(Score score, int index) {
 		StringBuilder strBuilder = new StringBuilder();
 		String playerName = score.getPlayerName();
 		PlayerPoints playerPoints = score.getPlayerPoints();
-		
-		strBuilder.append(i);
+
+		strBuilder.append(index);
 		strBuilder.append(". ");
 		strBuilder.append(playerName);
 		strBuilder.append(" ");
