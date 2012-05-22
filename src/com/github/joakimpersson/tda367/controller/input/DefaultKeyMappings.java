@@ -6,6 +6,7 @@ import java.util.List;
 import org.newdawn.slick.Input;
 
 /**
+ * A class containing Default key mappings
  * 
  * @author joakimpersson
  * 
@@ -14,6 +15,11 @@ public class DefaultKeyMappings {
 	private static DefaultKeyMappings instance = null;
 	private List<int[]> mappings = null;
 
+	/**
+	 * Get the DefaultKeyMappings instace
+	 * 
+	 * @return The instance
+	 */
 	public static DefaultKeyMappings getInstance() {
 		if (instance == null) {
 			instance = new DefaultKeyMappings();
@@ -25,10 +31,9 @@ public class DefaultKeyMappings {
 		init();
 	}
 
-
 	/**
 	 * 
-	 * Some stupid documentation
+	 * Init the class
 	 * 
 	 * @precondition keyCodes.length == 6
 	 * @precondition keyCodes[0] is Move Up
@@ -37,7 +42,7 @@ public class DefaultKeyMappings {
 	 * @precondition keyCodes[3] is Move Right
 	 * @precondition keyCodes[4] is Primary Action
 	 * @precondition keyCodes[5] is Secondary Action
-	 * 
+	 * @postcondition The mapping will we correct
 	 * @param keyCodes
 	 *            An array of keyboardscodes
 	 */
@@ -54,15 +59,28 @@ public class DefaultKeyMappings {
 		}
 	}
 
+	// TODO adrian update method name and javadoc
 	public int[] getKeyMap(int index) {
 		int i = index % mappings.size();
 		return mappings.get(i);
 	}
 
+	/**
+	 * Get the proceed key code for a certain index
+	 * 
+	 * @param The
+	 *            keymappings index
+	 */
 	public Integer getProceedButton() {
 		return Input.KEY_ENTER;
 	}
-	
+
+	/**
+	 * Get the action key code for a certain index
+	 * 
+	 * @param The
+	 *            keymappings index
+	 */
 	public Integer getActionButton(int index) {
 		return mappings.get(index)[4];
 	}
