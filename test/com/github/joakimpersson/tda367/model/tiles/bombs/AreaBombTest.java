@@ -14,7 +14,6 @@ import java.util.Timer;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.github.joakimpersson.tda367.model.player.Player;
@@ -28,13 +27,13 @@ import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
 /**
  * 
  * @author joakimpersson
- * @modified Viktor Anderling
+ * @modified Viktor Anderling, Andreas Rolén
  * 
  */
 public class AreaBombTest {
 
 	private Timer timer;
-	private Bomb bomb;
+	private Bomb areaBomb;
 	private Player player;
 	private static Tile[][] map = {
 			{ new Wall(), new Wall(), new Wall(), new Wall(), new Wall() },
@@ -45,33 +44,35 @@ public class AreaBombTest {
 			{ new Wall(), new Floor(), new Floor(), new Floor(), new Wall() },
 			{ new Wall(), new Wall(), new Wall(), new Wall(), new Wall() } };
 
-	@BeforeClass
-	public static void setUpMap() {
-		// TODO jocke perhaps the map should be initialized here
-	}
-
 	@Before
 	public void setUp() throws Exception {
 		Position pos = new Position(2, 3);
 		timer = new Timer();
 		player = new Player(1, "Kalle", pos);
-		bomb = new AreaBomb(player, timer);
+		areaBomb = new AreaBomb(player, timer);
 	}
 
 	@Test
 	public void testGetToughness() {
-		assertEquals(1, bomb.getToughness());
+		assertEquals(1, areaBomb.getToughness());
 	}
 
 	@Test
 	public void testOnFire() {
-		Tile tile = bomb.onFire();
+		Tile tile = areaBomb.onFire();
 		assertThat(tile, is(instanceOf(Floor.class)));
 	}
 
 	@Test
 	public void testIsWalkable() {
-		assertFalse(bomb.isWalkable());
+		assertFalse(areaBomb.isWalkable());
+	}
+
+	@Test
+	public void testGetTileType() {
+		String expected = "bomb-area";
+		String actual = areaBomb.getTileType();
+		assertEquals(expected, actual);
 	}
 
 	@Test
@@ -86,10 +87,11 @@ public class AreaBombTest {
 		expectedPositions.add(new Position(2, 4));
 		expectedPositions.add(new Position(1, 4));
 		expectedPositions.add(new Position(3, 4));
-		List<Position> actualPositions = new ArrayList<Position>(bomb.explode(
-				map).keySet());
+		List<Position> actualPositions = new ArrayList<Position>(areaBomb
+				.explode(map).keySet());
 
-		// TODO Fix the test for the new returntype: Map<Position, Direction>.
+		// TODO Adrian, Fix the test for the new returntype: Map<Position,
+		// Direction>.
 
 		// can not use the lists equal method since it does not take into
 		// consideration that the two lists might have the positions at
@@ -105,7 +107,7 @@ public class AreaBombTest {
 	public void tearDown() throws Exception {
 		timer = null;
 		player = null;
-		bomb = null;
+		areaBomb = null;
 	}
 
 	@AfterClass

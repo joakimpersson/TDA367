@@ -13,6 +13,8 @@ import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
  * Definition of an area-bomb.
  * 
  * @author rekoil
+ * @modified adderollen
+ * 
  */
 public class AreaBomb extends Bomb {
 
@@ -29,14 +31,7 @@ public class AreaBomb extends Bomb {
 	public AreaBomb(Player player, Timer timer) {
 		super(player, timer);
 		player.increaseAreaBombsPlaced();
-		
-		if (range > 5) {
-			this.areaRange = 3;
-		} else if (range > 3) {
-			this.areaRange = 2;
-		} else {
-			this.areaRange = 1;
-		}
+		setRange();
 	}
 
 	@Override
@@ -59,10 +54,20 @@ public class AreaBomb extends Bomb {
 	public String getTileType() {
 		return "bomb-area";
 	}
-	
+
+	private void setRange() {
+		if (super.range > 5) {
+			this.areaRange = 3;
+		} else if (super.range > 3) {
+			this.areaRange = 2;
+		} else {
+			this.areaRange = 1;
+		}
+	}
+
 	@Override
 	public Tile onFire() {
-		this.timer.cancel();
+		timer.cancel();
 		return new Floor();
 	}
 
