@@ -1,7 +1,6 @@
 package com.github.joakimpersson.tda367.controller;
 
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.newdawn.slick.GameContainer;
@@ -29,11 +28,16 @@ import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 public class MainMenuState extends BasicGameState {
 
 	private MainMenuView view = null;
-	private int stateID = -1;
-	private PropertyChangeSupport pcs;
+	private PropertyChangeSupport pcs = null;
 	private InputManager inputManager = null;
 	private int currentIndex;
+	private int stateID = -1;
 
+	/**
+	 * Create a new instance of the MainMenuState
+	 * 
+	 * @param stateID
+	 */
 	public MainMenuState(int stateID) {
 		this.stateID = stateID;
 	}
@@ -44,7 +48,7 @@ public class MainMenuState extends BasicGameState {
 		super.enter(container, game);
 		ControllerUtils.clearInputQueue(container.getInput());
 		pcs.firePropertyChange("play", null, EventType.TITLE_SCREEN);
-
+		this.currentIndex = 1;
 	}
 
 	@Override
@@ -54,8 +58,6 @@ public class MainMenuState extends BasicGameState {
 		this.pcs.addPropertyChangeListener(AudioEventListener.getInstance());
 		view = new MainMenuView();
 		inputManager = InputManager.getInstance();
-		this.currentIndex = 1;
-
 	}
 
 	@Override
@@ -64,49 +66,79 @@ public class MainMenuState extends BasicGameState {
 		view.render(container, g, currentIndex);
 	}
 
-	private List<PlayerAction> defaultInput(Input input) {
-		List<InputData> dataList = inputManager.getMenuInputData(input);
-		List<PlayerAction> actions = new ArrayList<PlayerAction>();
-		for (InputData data : dataList) {
-			actions.add(data.getAction());
-		}
-		return actions;
-	}
-
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
 		Input input = container.getInput();
-		List<PlayerAction> actions = defaultInput(input);
 
-		int newState = -1;
-
-		if (actions.contains(PlayerAction.MOVE_NORTH)) {
-			moveIndex(-1);
-			pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
-		}
-
-		if (actions.contains(PlayerAction.MOVE_SOUTH)) {
-			moveIndex(1);
-			pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
-		}
+		updateSelection(input);
 
 		if (inputManager.pressedProceed(input)) {
-			if (currentIndex == 1) {
-				newState = PyromaniacsGame.SETUP_GAME_STATE;
-			} else if (currentIndex == 2) {
-				newState = PyromaniacsGame.HIGHSCORE_STATE;
-			} else if (currentIndex == 3) {
-				container.exit();
-			}
-			pcs.firePropertyChange("play", null, EventType.MENU_ACTION);
+			menuAction(container, game);
 		}
 
+	}
+
+	/**
+	 * Perform an menu action corresponding to the selected index
+	 * 
+	 * @param container
+	 *            The container holding the game
+	 * @param game
+	 *            The game holding this state
+	 */
+	private void menuAction(GameContainer container, StateBasedGame game) {
+		int newState = -1;
+
+		if (currentIndex == 1) {
+			newState = PyromaniacsGame.SETUP_GAME_STATE;
+		} else if (currentIndex == 2) {
+			newState = PyromaniacsGame.HIGHSCORE_STATE;
+		} else if (currentIndex == 3) {
+			container.exit();
+		}
+		pcs.firePropertyChange("play", null, EventType.MENU_ACTION);
 		if (newState != -1) {
 			ControllerUtils.changeState(game, newState);
 		}
+
 	}
 
+	/**
+	 * Manages all the states input by the player and maps it into an certain
+	 * action that the player has requested to perform
+	 * 
+	 * @param input
+	 *            The input method used by the slick framework that contains the
+	 *            latest action
+	 */
+	private void updateSelection(Input input) {
+		List<InputData> data = inputManager.getMenuInputData(input);
+
+		for (InputData d : data) {
+			PlayerAction action = d.getAction();
+			switch (action) {
+			case MOVE_NORTH:
+				moveIndex(-1);
+				pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
+				break;
+			case MOVE_SOUTH:
+				moveIndex(1);
+				pcs.firePropertyChange("play", null, EventType.MENU_NAVIGATE);
+				break;
+			default:
+				break;
+			}
+		}
+
+	}
+
+	/**
+	 * Moves the currentIndex for the players navigation
+	 * 
+	 * @param delta
+	 *            The number of steps to be moved
+	 */
 	private void moveIndex(int delta) {
 		int newIndex = (currentIndex + delta);
 
