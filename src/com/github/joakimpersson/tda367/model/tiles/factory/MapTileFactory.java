@@ -8,12 +8,21 @@ import com.github.joakimpersson.tda367.model.tiles.nonwalkable.Wall;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
 
 /**
+ * A factory class for creating different tiles that the map is built of.
  * 
  * @author joakimpersson
- *
+ * @modified adderollen
+ * 
  */
 public class MapTileFactory {
 
+	/**
+	 * Creating a MapTile of a given type.
+	 * 
+	 * @param tileType
+	 *            The tile type that will be created.
+	 * @return The created tile.
+	 */
 	public Tile createObject(MapTileType tileType) {
 
 		switch (tileType) {
