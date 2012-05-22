@@ -33,9 +33,8 @@ import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.Destroyable;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
-import com.github.joakimpersson.tda367.model.tiles.bombs.AreaBomb;
 import com.github.joakimpersson.tda367.model.tiles.bombs.Bomb;
-import com.github.joakimpersson.tda367.model.tiles.bombs.NormalBomb;
+import com.github.joakimpersson.tda367.model.tiles.factory.BombFactory;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Fire;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
 import com.github.joakimpersson.tda367.model.utils.MapLoader;
@@ -58,10 +57,12 @@ public class PyromaniacModel implements IPyromaniacModel {
 	private PropertyChangeSupport pcs;
 	private Highscore highscore = null;
 	private IGameLogic gameLogic = null;
+	private BombFactory bombFactory = null;
 
 	private PyromaniacModel() {
 		this.pcs = new PropertyChangeSupport(this);
 		highscore = new Highscore();
+		bombFactory = new BombFactory();
 	}
 
 	/**
@@ -121,7 +122,7 @@ public class PyromaniacModel implements IPyromaniacModel {
 		}
 		if (player.isAlive()) {
 			if (action.equals(PlayerAction.PRIMARY_ACTION)) {
-				this.placeBomb(player);
+				this.placeNormalBomb(player);
 			} else if (action.equals(PlayerAction.SECONDARY_ACTION)) {
 				this.placeAreaBomb(player);
 			} else {
@@ -153,7 +154,7 @@ public class PyromaniacModel implements IPyromaniacModel {
 				+ direction.getX(), prevPos.getY() + direction.getY()));
 		// The tile that the player may walk into.
 
-		// TODO fix bug where player walks into blocks.
+		// TODO adrian fix bug where player walks into blocks.
 		if (tileAtDirection.isWalkable()) {
 			player.move(direction, stepSize);
 		} else {
@@ -171,7 +172,7 @@ public class PyromaniacModel implements IPyromaniacModel {
 					(float) (decimalPos.getY() + yStep));
 
 			// Can't move closer than 0.2 to a non-walkable tile.
-			// TODO move/refactor this parameter?
+			// TODO adrian move/refactor this parameter?
 			float pD = 0.2F;
 			if ((direction == Direction.NORTH && decimalPos.getY() >= pD)
 					|| (direction == Direction.SOUTH && decimalPos.getY() <= 1 - pD)
@@ -197,11 +198,11 @@ public class PyromaniacModel implements IPyromaniacModel {
 	 * @param player
 	 *            The player that places the bomb.
 	 */
-	private void placeBomb(Player player) {
+	private void placeNormalBomb(Player player) {
 		if (player.canPlaceBomb()
 				&& map.getTile(player.getTilePosition()) instanceof Floor) {
 			Timer bombTimer = new Timer();
-			Bomb bomb = createBomb(player, bombTimer, "NormalBomb");
+			Bomb bomb = bombFactory.createBomb(player, bombTimer, "NormalBomb");
 
 			bombTimer.schedule(new BombTask(bomb),
 					Parameters.INSTANCE.getBombDetonationTime());
@@ -223,7 +224,7 @@ public class PyromaniacModel implements IPyromaniacModel {
 		if (player.canPlaceAreaBomb()
 				&& map.getTile(player.getTilePosition()) instanceof Floor) {
 			Timer bombTimer = new Timer();
-			Bomb bomb = createBomb(player, bombTimer, "AreaBomb");
+			Bomb bomb = bombFactory.createBomb(player, bombTimer, "AreaBomb");
 
 			bombTimer.schedule(new BombTask(bomb),
 					Parameters.INSTANCE.getBombDetonationTime());
@@ -231,25 +232,6 @@ public class PyromaniacModel implements IPyromaniacModel {
 			map.setTile(bomb, player.getTilePosition());
 
 			pcs.firePropertyChange("play", null, EventType.BOMB_PLACED);
-		}
-	}
-
-	// TODO refactor
-	/**
-	 * Creates and returns a bomb corresponding to the player's bomb type.
-	 * 
-	 * @param player
-	 *            The player that creates a bomb.
-	 * @param bombTimer
-	 *            The timer that detonates the bomb.
-	 * @return A new bomb.
-	 */
-	private Bomb createBomb(Player player, Timer bombTimer, String type) {
-
-		if (type.equals("NormalBomb")) {
-			return new NormalBomb(player, bombTimer);
-		} else {
-			return new AreaBomb(player, bombTimer);
 		}
 	}
 
@@ -341,9 +323,9 @@ public class PyromaniacModel implements IPyromaniacModel {
 		List<PointGiver> earnedPointGivers = new ArrayList<PointGiver>();
 		Tile tile = null;
 
-		for (Position pos : positions) {
+		for (Position position : positions) {
 
-			tile = map.getTile(pos);
+			tile = map.getTile(position);
 
 			if (tile instanceof Bomb) {
 				Bomb bomb = (Bomb) tile;
@@ -426,6 +408,7 @@ public class PyromaniacModel implements IPyromaniacModel {
 
 	@Override
 	public Tile[][] getMap() {
+		// the map object returns a copy
 		return map.getMap();
 	}
 
@@ -488,6 +471,7 @@ public class PyromaniacModel implements IPyromaniacModel {
 
 	@Override
 	public List<Score> getHighscoreList() {
+		//the highscore object returns a copy of the list
 		return highscore.getList();
 	}
 
@@ -544,8 +528,8 @@ public class PyromaniacModel implements IPyromaniacModel {
 	 *            What kind of reset
 	 */
 	private void resetPlayers(GameModeType type) {
-		for (Player p : players) {
-			p.reset(type);
+		for (Player player : players) {
+			player.reset(type);
 		}
 	}
 
@@ -587,8 +571,8 @@ public class PyromaniacModel implements IPyromaniacModel {
 	private class BombTask extends TimerTask {
 		private Bomb bomb;
 
-		public BombTask(Bomb b) {
-			this.bomb = b;
+		public BombTask(Bomb bomb) {
+			this.bomb = bomb;
 		}
 
 		@Override
