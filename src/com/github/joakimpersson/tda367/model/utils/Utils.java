@@ -4,6 +4,7 @@ import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 
 /**
+ * A utils class for the model
  * 
  * @author joakimpersson
  * 
@@ -22,14 +23,14 @@ public class Utils {
 	public static Tile[][] copyGameMap(Tile[][] originalMap) {
 		int height = Parameters.INSTANCE.getMapSize().height;
 		int width = Parameters.INSTANCE.getMapSize().width;
-		Tile[][] tmpMap = new Tile[height][width];
+		Tile[][] copyOfMap = new Tile[height][width];
 
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
-				tmpMap[i][j] = originalMap[i][j];
+				copyOfMap[i][j] = originalMap[i][j];
 			}
 		}
-		return tmpMap;
+		return copyOfMap;
 	}
 
 	/**
@@ -64,5 +65,36 @@ public class Utils {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * A util method for displaying error messages
+	 * 
+	 * @param msg
+	 *            The error message describing the problem
+	 * @throws IllegalArgumentException
+	 *             with the corresponding error message
+	 */
+	public static void errorMsg(String msg) throws IllegalArgumentException {
+		throw new IllegalArgumentException(msg);
+	}
+
+	/**
+	 * A util method for displaying error messages, which also shows a what the
+	 * method expected and actually got
+	 * 
+	 * @param msg
+	 *            The error message describing the problem
+	 * @param expected
+	 *            The expected value
+	 * @param actual
+	 *            The actual value
+	 * @throws IllegalArgumentException
+	 *             with the corresponding error message
+	 */
+	public static <E> void errorMsg(String msg, E expected, E actual)
+			throws IllegalArgumentException {
+		throw new IllegalArgumentException(msg + " expected: " + expected
+				+ " and got: " + actual);
 	}
 }
