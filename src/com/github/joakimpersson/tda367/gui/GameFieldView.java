@@ -1,5 +1,6 @@
 package com.github.joakimpersson.tda367.gui;
 
+import java.awt.Dimension;
 import java.util.List;
 
 import org.newdawn.slick.GameContainer;
@@ -9,6 +10,7 @@ import org.newdawn.slick.SlickException;
 import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
 import com.github.joakimpersson.tda367.model.IPyromaniacModel;
 import com.github.joakimpersson.tda367.model.PyromaniacModel;
+import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.positions.FPosition;
 import com.github.joakimpersson.tda367.model.positions.Position;
@@ -72,29 +74,33 @@ public class GameFieldView implements IView {
 	 *            The graphics context to render to
 	 */
 	private void drawPlayers(Graphics g) {
-
-		for (Player player : players) {
-			if (player.isAlive()) {
-				FPosition pos = player.getGamePosition();
-				drawImage(pos.getX() - 0.5F, pos.getY() - 0.6F,
-						player.getImage(), g);
-				if (player.isImmortal() && counter >= 10) {
-
+		for (Player p : players) {
+			if (p.isAlive()) {
+				FPosition pos = p.getGamePosition();
+				drawImage(pos.getX() - 0.5F, pos.getY() - 0.6F, p.getImage(), g);
+				if (p.isImmortal() && counter >= 10) {
 					drawImage(pos.getX() - 0.5F, pos.getY() - 0.6F,
-							"player/overlay/still-" + player.getDirection(), g);
+							"player/overlay/still-" + p.getDirection(), g);
 					if (counter >= 20) {
 						counter = 0;
 					}
 				}
-				// TODO Adrian this will only work if we have a wall, else there
-				// will be null pointer exception
-				for (int i = -1; i <= 1; i++) {
-					Position tilePos = new Position(player.getTilePosition()
-							.getX() + i, player.getTilePosition().getY() + 1);
-					Tile tile = model.getMap()[tilePos.getY()][tilePos.getX()];
-					if (!tile.isWalkable()) {
-						drawImage(tilePos.getX(), tilePos.getY(),
-								tile.getTileType(), g);
+				int playerX = p.getTilePosition().getX();
+				int playerY = p.getTilePosition().getY();
+				Dimension mapSize = Parameters.INSTANCE.getMapSize();
+				
+				if (Math.min(playerX, playerY) > 0
+						&& playerX < mapSize.getWidth()
+						&& playerY < mapSize.getHeight()) {
+					for (int i = -1; i <= 1; i++) {
+						Position tilePos = new Position(playerX + i,
+								playerY + 1);
+						Tile tile = model.getMap()[tilePos.getY()][tilePos
+								.getX()];
+						if (!tile.isWalkable()) {
+							drawImage(tilePos.getX(), tilePos.getY(),
+									tile.getTileType(), g);
+						}
 					}
 				}
 				counter++;
