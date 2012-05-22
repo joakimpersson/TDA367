@@ -4,17 +4,18 @@ import java.util.List;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import com.github.joakimpersson.tda367.model.PyromaniacModel;
+import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
 import com.github.joakimpersson.tda367.model.IPyromaniacModel;
+import com.github.joakimpersson.tda367.model.PyromaniacModel;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.positions.FPosition;
 import com.github.joakimpersson.tda367.model.positions.Position;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 
 /**
+ * A view for the gameplayfield
  * 
  * @author joakimpersson
  * 
@@ -28,8 +29,6 @@ public class GameFieldView implements IView {
 	private int startX;
 	private List<Player> players = null;
 	private int counter = 0;
-
-	private ImageLoader imgs;
 
 	/**
 	 * Creats a new view displaying the game map and the players
@@ -57,14 +56,13 @@ public class GameFieldView implements IView {
 	@Override
 	public void enter() {
 		this.players = model.getPlayers();
-		this.imgs = ImageLoader.getInstance();
 	}
 
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
 		drawMap(g);
-		drawPlayer(g);
+		drawPlayers(g);
 	}
 
 	/**
@@ -73,23 +71,26 @@ public class GameFieldView implements IView {
 	 * @param g
 	 *            The graphics context to render to
 	 */
-	private void drawPlayer(Graphics g) {
+	private void drawPlayers(Graphics g) {
 
-		for (Player p : players) {
-			if (p.isAlive()) {
-				FPosition pos = p.getGamePosition();
+		for (Player player : players) {
+			if (player.isAlive()) {
+				FPosition pos = player.getGamePosition();
 				drawImage(pos.getX() - 0.5F, pos.getY() - 0.6F,
-						p.getImage(), g);
-				if (p.isImmortal() && counter >= 10) {
-					drawImage(pos.getX() - 0.5F, pos.getY() - 0.6F, "player/overlay/still-"+p.getDirection(), g);
+						player.getImage(), g);
+				if (player.isImmortal() && counter >= 10) {
+
+					drawImage(pos.getX() - 0.5F, pos.getY() - 0.6F,
+							"player/overlay/still-" + player.getDirection(), g);
 					if (counter >= 20) {
 						counter = 0;
 					}
 				}
-				// natan TODO this will only work if we have a wall, else there will be null pointer exception
+				// TODO natan this will only work if we have a wall, else there
+				// will be null pointer exception
 				for (int i = -1; i <= 1; i++) {
-					Position tilePos = new Position(p.getTilePosition().getX()+i,
-							p.getTilePosition().getY() + 1);
+					Position tilePos = new Position(player.getTilePosition()
+							.getX() + i, player.getTilePosition().getY() + 1);
 					Tile tile = model.getMap()[tilePos.getY()][tilePos.getX()];
 					if (!tile.isWalkable()) {
 						drawImage(tilePos.getX(), tilePos.getY(),
@@ -129,17 +130,16 @@ public class GameFieldView implements IView {
 	 *            The starting coordinate in the x-axis
 	 * @param y
 	 *            The starting coordinate in the y-axis
-	 * @param s
+	 * @param imageName
 	 *            The path to the image as a string
 	 * @param g
 	 *            The graphics context to render to
 	 */
-	private void drawImage(float x, float y, String s, Graphics g) {
+	private void drawImage(float x, float y, String imageName, Graphics g) {
 		// the players position is related to matrix so compensated is needed
 		x *= blockSide;
 		y *= blockSide;
-		Image i = imgs.getImage(s);
-		g.drawImage(i, x + startX, y + startY);
+		GUIUtils.drawImage(x + startX, y + startY, imageName, g);
 	}
 
 }
