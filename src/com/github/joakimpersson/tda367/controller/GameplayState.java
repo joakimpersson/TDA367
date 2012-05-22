@@ -122,7 +122,7 @@ public class GameplayState extends BasicGameState {
 			matchOver(game);
 			break;
 		case ROUND_OVER:
-			roundOver();
+			roundOver(container.getInput());
 			break;
 		case ROUND_INFO_STATE:
 			roundInfo(container.getInput());
@@ -202,6 +202,7 @@ public class GameplayState extends BasicGameState {
 		Player winningPlayer = model.getLastRoundWinner();
 		view.setRoundWinner(winningPlayer);
 		
+		ControllerUtils.clearInputQueue(input);
 		currentState = STATE.ROUND_INFO_STATE;
 	}
 
