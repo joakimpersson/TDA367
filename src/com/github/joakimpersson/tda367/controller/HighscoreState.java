@@ -127,10 +127,10 @@ public class HighscoreState extends BasicGameState {
 	 *            latest action
 	 */
 	private void updateGame(Input input) {
-		List<InputData> data = inputManager.getMenuInputData(input);
+		List<InputData> inputData = inputManager.getMenuInputData(input);
 
-		for (InputData d : data) {
-			PlayerAction action = d.getAction();
+		for (InputData data : inputData) {
+			PlayerAction action = data.getAction();
 			switch (action) {
 			case MOVE_NORTH:
 				moveIndex(-1);
@@ -152,12 +152,12 @@ public class HighscoreState extends BasicGameState {
 	 *            The number of steps to be moved
 	 */
 	private void moveIndex(int delta) {
-		int n = model.getHighscoreList().size();
+		int listSize = model.getHighscoreList().size();
 		int newIndex = (currentIndex + delta);
 
-		int r = newIndex % n;
+		int r = newIndex % listSize;
 		if (r < 0) {
-			r += n;
+			r += listSize;
 
 		}
 		currentIndex = r;
