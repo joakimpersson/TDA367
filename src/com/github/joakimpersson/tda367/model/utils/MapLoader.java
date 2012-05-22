@@ -188,7 +188,7 @@ public class MapLoader {
 	private Tile[] convertToTileArray(String string) {
 		Tile[] tiles = new Tile[string.length()];
 		for (int i = 0; i < tiles.length; i++) {
-			tiles[i] = converSymbolToTile(string.charAt(i));
+			tiles[i] = convertSymbolToTile(string.charAt(i));
 		}
 		return tiles;
 	}
@@ -200,7 +200,7 @@ public class MapLoader {
 	 *            The character that will be converted.
 	 * @return A Tile.
 	 */
-	private Tile converSymbolToTile(Character charAt) {
+	private Tile convertSymbolToTile(Character charAt) {
 		MapTileType type = chars.get(charAt);
 		return mapTileFactory.createObject(type);
 	}
