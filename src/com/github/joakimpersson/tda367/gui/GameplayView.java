@@ -9,7 +9,7 @@ import org.newdawn.slick.SlickException;
 import com.github.joakimpersson.tda367.model.player.Player;
 
 /**
- * A container for the main gameplay view
+ * A container for the main gameplay viewg
  * 
  * @author joakimpersson
  * @modified adderollen
