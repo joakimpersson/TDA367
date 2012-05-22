@@ -7,6 +7,7 @@ import org.newdawn.slick.SlickException;
 import com.github.joakimpersson.tda367.model.player.Player;
 
 /**
+ * A container for the main gameplay view
  * 
  * @author joakimpersson
  * 
@@ -90,11 +91,12 @@ public class GameplayView implements IView {
 			throws SlickException {
 		roundWaitingView.render(container, g);
 	}
-	
+
 	/**
 	 * Sets the number that will be displayed for count-down.
 	 * 
-	 * @param countDown The number that will be displayed for count-down.
+	 * @param countDown
+	 *            The number that will be displayed for count-down.
 	 */
 	public void setCountDown(int countDown) {
 		roundWaitingView.setCountDown(countDown);
