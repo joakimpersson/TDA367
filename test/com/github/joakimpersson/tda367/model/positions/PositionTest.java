@@ -2,6 +2,7 @@ package com.github.joakimpersson.tda367.model.positions;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
@@ -65,33 +66,34 @@ public class PositionTest {
 	public void testEquals() {
 
 		// testing for self refrence and null
-		assertThat(positionOne, equalTo(positionOne));
-		assertThat(positionOne, not(equalTo(null)));
 
-		assertThat(positionTwo, equalTo(positionTwo));
-		assertThat(positionTwo, not(equalTo(null)));
-		
-		assertThat(positionThree, equalTo(positionThree));
-		assertThat(positionThree, not(equalTo(null)));
-		
+		assertTrue(positionOne.equals(positionOne));
+		assertFalse(positionOne.equals(null));
+
+		assertTrue(positionTwo.equals(positionTwo));
+		assertFalse(positionTwo.equals(null));
+
+		assertTrue(positionThree.equals(positionThree));
+		assertFalse(positionThree.equals(null));
+
 		// positionOne and positionTwo should not be equal
-		assertThat(positionOne, not(equalTo(positionTwo)));
+		assertFalse(positionOne.equals(positionTwo));
 
 		// positionOne and positionThree should not be equal
-		assertThat(positionTwo, not(equalTo(positionThree)));
+		assertFalse(positionOne.equals(positionThree));
 
 		// positionTwo and positionThree should not be equal
-		assertThat(positionTwo, not(equalTo(positionThree)));
+		assertFalse(positionTwo.equals(positionThree));
 
 		// Testing when equal should be true
 		Position expected = new Position(10, 10);
-		assertThat(positionOne, equalTo(expected));
+		assertTrue(positionOne.equals(expected));
 
 		expected = new Position(2, 3);
-		assertThat(positionTwo, equalTo(expected));
+		assertTrue(positionTwo.equals(expected));
 
 		expected = new Position(5, -1);
-		assertThat(positionThree, equalTo(expected));
+		assertTrue(positionThree.equals(expected));
 	}
 
 	@Test
@@ -99,13 +101,13 @@ public class PositionTest {
 
 		// Testing when equal should be true
 		Position expected = new Position(10, 10);
-		assertThat(positionOne.hashCode(), equalTo(expected.hashCode()));
+		assertTrue(positionOne.hashCode() == expected.hashCode());
 
 		expected = new Position(2, 3);
-		assertThat(positionTwo.hashCode(), equalTo(expected.hashCode()));
+		assertTrue(positionTwo.hashCode() == expected.hashCode());
 
 		expected = new Position(5, -1);
-		assertThat(positionThree.hashCode(), equalTo(expected.hashCode()));
+		assertTrue(positionThree.hashCode() == expected.hashCode());
 	}
 
 	@After
