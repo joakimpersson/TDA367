@@ -1,4 +1,4 @@
-package com.github.joakimpersson.tda367.gui;
+package com.github.joakimpersson.tda367.gui.guiutils;
 
 import java.io.File;
 import java.util.HashMap;

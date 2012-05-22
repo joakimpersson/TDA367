@@ -16,6 +16,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.TextField;
 
 import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
+import com.github.joakimpersson.tda367.gui.guiutils.ImageLoader;
 
 /**
  * Sets up the players settings such as name and actionbutton

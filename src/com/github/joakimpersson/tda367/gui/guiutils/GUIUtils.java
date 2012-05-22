@@ -6,8 +6,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import com.github.joakimpersson.tda367.gui.ImageLoader;
-
 /**
  * Utils methods used in the GUI package.
  * 
@@ -16,7 +14,7 @@ import com.github.joakimpersson.tda367.gui.ImageLoader;
  * 
  */
 public class GUIUtils {
-	
+
 	private GUIUtils() {
 	}
 
@@ -105,8 +103,30 @@ public class GUIUtils {
 	 *            The graphics context to render to
 	 */
 	public static void drawImage(float x, float y, String imageName, Graphics g) {
+		drawImage(x, y, imageName, 1, g);
+	}
+
+	/**
+	 * Draw an image out of a given image name.
+	 * 
+	 * @param x
+	 *            The x-position to draw at
+	 * @param y
+	 *            The y-position to draw at
+	 * @param imageName
+	 *            The name of the image to draw
+	 * @param scaleFactor
+	 *            How many times the image should be scaled
+	 * @param g
+	 *            The graphics context to render to
+	 */
+	public static void drawImage(float x, float y, String imageName,
+			int scaleFactor, Graphics g) {
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		Image image = imageLoader.getImage(imageName);
+		if (scaleFactor > 1) {
+			image = image.getScaledCopy(scaleFactor);
+		}
 		g.drawImage(image, x, y);
 	}
 }

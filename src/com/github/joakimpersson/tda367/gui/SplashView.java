@@ -7,6 +7,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
+import com.github.joakimpersson.tda367.gui.guiutils.ImageLoader;
 
 public class SplashView implements IView {
 	private ImageLoader imageLoader = null;

@@ -1,6 +1,5 @@
 package com.github.joakimpersson.tda367.gui;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.newdawn.slick.Animation;
@@ -12,11 +11,13 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
-import com.github.joakimpersson.tda367.model.PyromaniacModel;
+import com.github.joakimpersson.tda367.gui.guiutils.ImageLoader;
 import com.github.joakimpersson.tda367.model.IPyromaniacModel;
+import com.github.joakimpersson.tda367.model.PyromaniacModel;
 import com.github.joakimpersson.tda367.model.player.Player;
 
 /**
+ * A view showing about every ended round
  * 
  * @author joakimpersson
  * 
@@ -33,7 +34,7 @@ public class RoundInfoView implements IView {
 	private Player roundWinner = null;
 	private Animation textAnimation = null;
 	private Animation winningPlayerAnimation = null;
-	private ArrayList<Player> playerSnapshot;
+	private List<Player> playerSnapshot;
 
 	/**
 	 * Creates a new view containing info about the players stats from the
@@ -73,26 +74,225 @@ public class RoundInfoView implements IView {
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
-		g.setFont(smlFont);
-		g.drawImage(imageLoader.getImage("round-info/bg"), startX, startY);
+		String imageName = "round-info/bg";
+		GUIUtils.drawImage(startX, startY, imageName, g);
 		int x = startX + 20;
 		int y = startY + 20;
+		drawPlayers(x, y, g);
+	}
+
+	/**
+	 * Draw info about all the players in the game onto the screen
+	 * 
+	 * @param x
+	 *            The starting coordinate in the x-axis
+	 * @param y
+	 *            The starting coordinate in the y-axis
+	 * @param g
+	 *            The games graphics object
+	 */
+	private void drawPlayers(int x, int y, Graphics g) {
 		int deltaX = 285 + 10;
 		int deltaY = 225 + 10;
 		int index = 0;
-		for (Player p : players) {
+		for (Player player : players) {
 			if (players.size() < 3) {
-				drawPlayerInfo(p, x, y + 92, g);
+				drawPlayer(player, x, y + 92, g);
 				x += deltaX;
 			} else {
 				if (index < 2) {
-					drawPlayerInfo(p, x + (deltaX * index), y, g);
+					drawPlayer(player, x + (deltaX * index), y, g);
 				} else {
-					drawPlayerInfo(p, x + (deltaX * (index - 2)), y + deltaY, g);
+					drawPlayer(player, x + (deltaX * (index - 2)), y + deltaY,
+							g);
 				}
 				index++;
 			}
 		}
+
+	}
+
+	/**
+	 * Create an simple player winning animation based on two images
+	 */
+	private void createPlayerAnimation() {
+		Image imgOne = imageLoader.getImage(
+				"player/" + roundWinner.getIndex() + "/win1").getScaledCopy(2);
+		Image imgTwo = imageLoader.getImage(
+				"player/" + roundWinner.getIndex() + "/win2").getScaledCopy(2);
+		Image[] winningPlayerAnimationImgs = { imgOne, imgTwo };
+		winningPlayerAnimation = new Animation(winningPlayerAnimationImgs, 400);
+	}
+
+	/**
+	 * 
+	 * Draw a player onto the screen including his name, image and if he won the
+	 * last round or not. It also displays how many rounds and matches he won.
+	 * 
+	 * @param player
+	 *            The player to be drawn onto the screen
+	 * @param x
+	 *            The starting coordinate in the x-axis
+	 * @param y
+	 *            The starting coordinate in the y-axis
+	 * @param g
+	 *            The games graphics object
+	 */
+	private void drawPlayer(Player player, int x, int y, Graphics g) {
+
+		boolean isWinner = false;
+
+		if (model.getLastRoundWinner() != null) {
+			isWinner = (model.getLastRoundWinner().getIndex() == player
+					.getIndex());
+		}
+
+		String imgageName = "round-info/overlay";
+		GUIUtils.drawImage(x, y, imgageName, g);
+		drawPlayerInfo(player, isWinner, x, y, g);
+
+		// draw number of round wins
+		drawNumberOfRoundsWon(player, x, y, g);
+		// draw number of match wins
+		drawNumbeMatchesWon(player, x, y, g);
+
+		// draw winner string
+		drawRoundOverStatus(isWinner, x, y, g);
+	}
+
+	/**
+	 * Draw general info about the player onto the screen
+	 * 
+	 * @param player
+	 *            The player who's info we are drawing
+	 * @param isWinner
+	 *            If the player won the round or not
+	 * @param x
+	 *            The starting coordinate in the x-axis
+	 * @param y
+	 *            The starting coordinate in the y-axis
+	 * @param g
+	 *            The games graphics object
+	 */
+	private void drawPlayerInfo(Player player, boolean isWinner, int x, int y,
+			Graphics g) {
+
+		int xD = 30;
+		int yD = 55;
+		int textDiff = 94 + GUIUtils.getStringCenterX(player.getName(), 122, g);
+
+		// draws scaled player image
+		if (isWinner) {
+			winningPlayerAnimation.draw(x + xD, y + yD + 7);
+		} else {
+			String imageName = player.getImage();
+			GUIUtils.drawImage(x + xD, y + yD + 7, imageName, 2, g);
+		}
+
+		// draw name
+		g.setFont(bigFont);
+		g.setColor(Color.white);
+		g.drawString(player.getName(), x + xD + textDiff, y + yD + 10);
+
+	}
+
+	/**
+	 * Draw how many rounds a player has won
+	 * 
+	 * @param player
+	 *            The player who's info we are drawing
+	 * @param x
+	 *            The starting coordinate in the x-axis
+	 * @param y
+	 *            The starting coordinate in the y-axis
+	 * @param g
+	 *            The games graphics object
+	 */
+	private void drawNumberOfRoundsWon(Player player, int x, int y, Graphics g) {
+		int xDelta = 30;
+		int yDelta = 55;
+		int textDiff = 94 + GUIUtils.getStringCenterX(player.getName(), 122, g);
+		int xDiff = g.getFont().getWidth(player.getName()) + textDiff + 5;
+		int yDiff = 10;
+		int roundWins = Math.max(player.getRoundsWon(),
+				playerSnapshot.get(player.getIndex() - 1).getRoundsWon());
+		for (int i = 0; i < roundWins; i++) {
+			GUIUtils.drawImage(x + xDelta + xDiff, y + yDelta + yDiff,
+					"info/chevron", g);
+			yDiff += 4;
+		}
+
+	}
+
+	/**
+	 * Draw how many matches a player has won
+	 * 
+	 * @param player
+	 *            The player who's info we are drawing
+	 * @param x
+	 *            The starting coordinate in the x-axis
+	 * @param y
+	 *            The starting coordinate in the y-axis
+	 * @param g
+	 *            The games graphics object
+	 */
+	private void drawNumbeMatchesWon(Player player, int x, int y, Graphics g) {
+		int xDelta = 30;
+		int yDelta = 55;
+		int xDiff = 110;
+		int yDiff = 90;
+		int matchWins = player.getMatchesWon();
+		String imageName = "info/star";
+		for (int i = 0; i < matchWins; i++) {
+
+			GUIUtils.drawImage(x + xDelta + xDiff, y + yDelta + yDiff,
+					imageName, g);
+			xDiff += 15;
+		}
+	}
+
+	/**
+	 * Draw onto the screen if a player has won the last round or not
+	 * 
+	 * @param isWinner
+	 *            Is he the winner or not
+	 * @param x
+	 *            The starting coordinate in the x-axis
+	 * @param y
+	 *            The starting coordinate in the y-axis
+	 * @param g
+	 *            The games graphics object
+	 */
+	private void drawRoundOverStatus(boolean isWinner, int x, int y, Graphics g) {
+		int winnerOffsetX = 117;
+		int winnerOffsetY = 54;
+		int xDelta = 30;
+		int yDelta = 55;
+
+		g.setFont(smlFont);
+		g.setColor(Color.darkGray);
+		String gameStatusString = "LOSER";
+
+		if (isWinner) {
+			g.setFont(bigFont);
+			g.setColor(Color.yellow);
+			gameStatusString = "WINNER";
+			winnerOffsetX -= 10;
+			winnerOffsetY -= 6;
+			textAnimation.draw(x + xDelta + 96, y + yDelta + 36);
+		}
+		g.drawString(gameStatusString, x + xDelta + winnerOffsetX, y + yDelta
+				+ winnerOffsetY);
+	}
+
+	/**
+	 * Set the list of players
+	 * 
+	 * @param playerList
+	 *            A list of players
+	 */
+	public void setPlayerList(List<Player> playerList) {
+		this.playerSnapshot = playerList;
 	}
 
 	/**
@@ -108,111 +308,5 @@ public class RoundInfoView implements IView {
 			this.roundWinner = winningPlayer;
 			createPlayerAnimation();
 		}
-	}
-
-	/**
-	 * Create an simple animation based on two images
-	 */
-	private void createPlayerAnimation() {
-		Image imgOne = imageLoader.getImage(
-				"player/" + roundWinner.getIndex() + "/win1").getScaledCopy(2);
-		Image imgTwo = imageLoader.getImage(
-				"player/" + roundWinner.getIndex() + "/win2").getScaledCopy(2);
-		Image[] winningPlayerAnimationImgs = { imgOne, imgTwo };
-		winningPlayerAnimation = new Animation(winningPlayerAnimationImgs, 400);
-	}
-
-	/**
-	 * 
-	 * Draw a player onto the screen including his name, image and if he won the
-	 * last round or not
-	 * 
-	 * @param player
-	 *            The player to be drawn onto the screen
-	 * @param x
-	 *            The starting coordinate in the x-axis
-	 * @param y
-	 *            The starting coordinate in the y-axis
-	 * 
-	 * @param g
-	 *            The games graphics object
-	 */
-	private void drawPlayerInfo(Player player, int x, int y, Graphics g) {
-
-		 boolean isWinner = false;
-		
-		 if (model.getLastRoundWinner() != null) {
-		 isWinner = (model.getLastRoundWinner().getIndex() == player
-		 .getIndex());
-		 }
-		System.out.println(model.getLastRoundWinner());
-//		boolean isWinner = (model.getLastRoundWinner().getIndex() == player
-//				.getIndex());
-
-		Image img = imageLoader.getImage("round-info/overlay");
-		g.drawImage(img, x, y);
-
-		int xD = 30;
-		int yD = 55;
-
-		// draws scaled player image
-		if (isWinner) {
-			winningPlayerAnimation.draw(x + xD, y + yD + 7);
-		} else {
-			img = imageLoader.getImage(player.getImage()).getScaledCopy(2);
-			g.drawImage(img, x + xD, y + yD + 7);
-		}
-
-		// draw name
-		g.setFont(bigFont);
-		g.setColor(Color.white);
-		int textDiff = 94 + GUIUtils.getStringCenterX(player.getName(), 122, g);
-		g.drawString(player.getName(), x + xD + textDiff, y + yD + 10);
-
-		int xDiff;
-		int yDiff;
-		// draw number of round wins
-		xDiff = g.getFont().getWidth(player.getName()) + textDiff + 5;
-		yDiff = 10;
-		int roundWins = Math.max(player.getRoundsWon(),
-				playerSnapshot.get(player.getIndex() - 1).getRoundsWon());
-		for (int i = 0; i < roundWins; i++) {
-			g.drawImage(imageLoader.getImage("info/chevron"), x + xD + xDiff, y
-					+ yD + yDiff);
-			yDiff += 4;
-		}
-
-		// draw number of match wins
-		xDiff = 110;
-		yDiff = 90;
-		int matchWins = player.getMatchesWon();
-		for (int i = 0; i < matchWins + 3; i++) {
-			g.drawImage(imageLoader.getImage("info/star"), x + xD + xDiff, y
-					+ yD + yDiff);
-			xDiff += 15;
-		}
-
-		// draw winner string
-		g.setFont(smlFont);
-		g.setColor(Color.darkGray);
-		String gameStatusString = "LOSER";
-
-		int winnerOffsetX = 117;
-		int winnerOffsetY = 54;
-
-		if (isWinner) {
-			g.setFont(bigFont);
-			g.setColor(Color.yellow);
-			gameStatusString = "WINNER";
-			winnerOffsetX -= 10;
-			winnerOffsetY -= 6;
-			textAnimation.draw(x + xD + 96, y + yD + 36);
-		}
-		g.drawString(gameStatusString, x + xD + winnerOffsetX, y + yD
-				+ winnerOffsetY);
-	}
-
-	public void setPlayerList(ArrayList<Player> playerList) {
-		this.playerSnapshot = playerList;
 	}
 }
