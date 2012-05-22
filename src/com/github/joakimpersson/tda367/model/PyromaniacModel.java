@@ -144,17 +144,15 @@ public class PyromaniacModel implements IPyromaniacModel {
 	 * @param player
 	 *            The player to move.
 	 * @param direction
-	 *            The direction for the player to move
+	 *            The direction for the player to move.
 	 * @param stepSize
-	 *            TODO adrian
+	 *            The size of the players step.
 	 */
 	private void move(Player player, Direction direction, double stepSize) {
 		Position prevPos = player.getTilePosition();
 		Tile tileAtDirection = map.getTile(new Position(prevPos.getX()
 				+ direction.getX(), prevPos.getY() + direction.getY()));
 		// The tile that the player may walk into.
-
-		// TODO adrian fix bug where player walks into blocks.
 		if (tileAtDirection.isWalkable()) {
 			player.move(direction, stepSize);
 		} else {
@@ -172,8 +170,7 @@ public class PyromaniacModel implements IPyromaniacModel {
 					(float) (decimalPos.getY() + yStep));
 
 			// Can't move closer than 0.2 to a non-walkable tile.
-			// TODO adrian move/refactor this parameter?
-			float pD = 0.2F;
+			float pD = Parameters.INSTANCE.getPermittedDistance();
 			if ((direction == Direction.NORTH && decimalPos.getY() >= pD)
 					|| (direction == Direction.SOUTH && decimalPos.getY() <= 1 - pD)
 					|| (direction == Direction.WEST && decimalPos.getX() >= pD)

@@ -23,8 +23,9 @@ import com.github.joakimpersson.tda367.model.constants.Attribute;
 import com.github.joakimpersson.tda367.model.constants.EventType;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.player.Player;
-//TODO adrian add javadoc
+
 /**
+ * Controller for the upgrade player state
  * 
  * @author joakimpersson
  * 
@@ -43,10 +44,6 @@ public class UpgradePlayerState extends BasicGameState {
 	private UpgradePlayerView view = null;
 	private IPyromaniacModel model = null;
 	private List<Attribute> attributes = null;
-	/**
-	 * TODO Adrian tmp solution Indexing on the players index, since the player object
-	 * is mutable but not his index its non-mutable
-	 */
 	private Map<Integer, Integer> playersIndex = null;
 	private Map<Integer, Boolean> playerReadyness = null;
 	private Map<Integer, Integer> playerCredits = null;
@@ -82,7 +79,7 @@ public class UpgradePlayerState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		super.enter(container, game);
-		
+
 		ControllerUtils.clearInputQueue(container.getInput());
 		attributes = model.getPlayers().get(0).getPermanentAttributes();
 
@@ -92,7 +89,6 @@ public class UpgradePlayerState extends BasicGameState {
 		upgradeMap = new HashMap<Integer, Map<Attribute, Integer>>();
 
 		for (Player player : model.getPlayers()) {
-			//TODO adrian bad code
 			Map<Attribute, Integer> attributeMap = new HashMap<Attribute, Integer>();
 			for (Attribute a : attributes) {
 				attributeMap.put(a, player.getAttribute(a));
@@ -176,7 +172,7 @@ public class UpgradePlayerState extends BasicGameState {
 			if (action == PlayerAction.PRIMARY_ACTION) {
 				playerReadyness.put(p.getIndex(), !playerReady);
 			} else if (!playerReady) {
-				
+
 				switch (action) {
 				case MOVE_NORTH:
 					moveIndex(p, -1);
@@ -220,6 +216,10 @@ public class UpgradePlayerState extends BasicGameState {
 		}
 	}
 
+	/**
+	 * Performs the upgrades purchased by the players
+	 * 
+	 */
 	private void performUpgrades() {
 		for (Player p : model.getPlayers()) {
 			for (Attribute a : attributes) {

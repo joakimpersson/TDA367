@@ -29,7 +29,7 @@ import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.positions.Position;
-//TODO adrian fix javadoc!
+
 /**
  * Sets up the players
  * 
@@ -51,6 +51,11 @@ public class SetupGameState extends BasicGameState {
 	private InputManager inputManager = null;
 	private PropertyChangeSupport pcs;
 
+	/**
+	 * Create a new slick BasicGameState controller for the SetupGameState
+	 * 
+	 * @param stateID
+	 */
 	public SetupGameState(int stateID) {
 		this.stateID = stateID;
 	}
@@ -97,6 +102,13 @@ public class SetupGameState extends BasicGameState {
 		view.render(container, g, selection);
 	}
 
+	/**
+	 * Gets actions from the default inputs, before any controllers are setup.
+	 * 
+	 * @param input
+	 *            The input object
+	 * @return A list of actions to perform
+	 */
 	private List<PlayerAction> defaultInput(Input input) {
 		List<InputData> dataList = inputManager.getMenuInputData(input);
 		List<PlayerAction> actions = new ArrayList<PlayerAction>();
@@ -152,7 +164,7 @@ public class SetupGameState extends BasicGameState {
 					pcs.firePropertyChange("play", null, EventType.ERROR);
 				}
 			}
-		} else if (stage == 2 && validProceed(input)) {
+		} else if (stage == 2 && validControllerBindingProceed(input)) {
 			assignPlayer(controllersBound.getLast(), view.getIndex());
 			if (allPlayersAssigned()) {
 				int newState = PyromaniacsGame.GAMEPLAY_STATE;
@@ -162,22 +174,43 @@ public class SetupGameState extends BasicGameState {
 		}
 	}
 
+	/**
+	 * Method which determines if all players have been assigned to controllers.
+	 * 
+	 * @return Whether all players have been assigned
+	 */
 	private boolean allPlayersAssigned() {
 		return inputManager.getAssignedControllers() == players;
 	}
 
-	private void assignPlayer(String controllerUsed, int i) {
-		inputManager.addInputObject(controllerFactory(playerList.get(i - 1),
-				controllersBound.getLast()));
+	/**
+	 * Assigns a player to a controller determined by an input string
+	 * 
+	 * @param controllerUsed
+	 *            Which controller will be assigned to the player
+	 * @param playerIndex
+	 *            Which player the controller will be assigned to
+	 */
+	private void assignPlayer(String controllerUsed, int playerIndex) {
+		inputManager.addInputObject(controllerFactory(
+				playerList.get(playerIndex - 1), controllersBound.getLast()));
 	}
 
-	private boolean validProceed(Input input) {
-		if (input.isKeyDown(DefaultKeyMappings.getInstance().getActionButton(0))
+	/**
+	 * Determines whether we can continue binding the chosen controller
+	 * 
+	 * @param input
+	 *            The game input object
+	 * @return Whether we are allowed to continue binding the controller
+	 */
+	private boolean validControllerBindingProceed(Input input) {
+		if (input
+				.isKeyDown(DefaultKeyMappings.getInstance().getActionButton(0))
 				&& !controllersBound.contains("k0")) {
 			controllersBound.add("k0");
 			return true;
-		} else if (input.isKeyDown(DefaultKeyMappings.getInstance().getActionButton(1))
-				&& !controllersBound.contains("k1")) {
+		} else if (input.isKeyDown(DefaultKeyMappings.getInstance()
+				.getActionButton(1)) && !controllersBound.contains("k1")) {
 			controllersBound.add("k1");
 			return true;
 		}
@@ -191,12 +224,27 @@ public class SetupGameState extends BasicGameState {
 		return false;
 	}
 
+	/**
+	 * Create a player
+	 * 
+	 * @param name
+	 *            The name of the player
+	 * @param playerIndex
+	 *            The players index
+	 */
 	private void createPlayer(String name, int playerIndex) {
 		Player player = new Player(playerIndex, name,
 				getInitialPosition(playerIndex));
 		playerList.add(player);
 	}
 
+	/**
+	 * Get the initial position of the player to be created.
+	 * 
+	 * @param playerIndex
+	 *            The index of the player
+	 * @return The players initial position
+	 */
 	private Position getInitialPosition(int playerIndex) {
 		Dimension mapDimension = Parameters.INSTANCE.getMapSize();
 
@@ -221,6 +269,15 @@ public class SetupGameState extends BasicGameState {
 		}
 	}
 
+	/**
+	 * Creates a controller to be assigned to the player
+	 * 
+	 * @param player
+	 *            Player to assign the controller to
+	 * @param controllerUsed
+	 *            Which type of controller (and index of it) was used
+	 * @return an InputHandler
+	 */
 	private InputHandler controllerFactory(Player player, String controllerUsed) {
 		char controllerType = controllerUsed.charAt(0);
 		int controllerIndex = Integer.decode(Character.toString(controllerUsed
@@ -232,10 +289,21 @@ public class SetupGameState extends BasicGameState {
 		}
 	}
 
+	/**
+	 * Checks if all players have been created
+	 * 
+	 * @return whether all players have been created
+	 */
 	private boolean allPlayersCreated() {
 		return playerList.size() == players;
 	}
 
+	/**
+	 * Moves the selector
+	 * 
+	 * @param delta
+	 *            How the selector will be moved
+	 */
 	private void moveIndex(int delta) {
 		int currentIndex = selection;
 		int newIndex = (currentIndex + delta);

@@ -145,4 +145,8 @@ public enum Parameters {
 		return 20;
 	}
 
+	public float getPermittedDistance() {
+		return 0.2F;
+	}
+
 }

@@ -7,8 +7,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 
@@ -70,19 +69,17 @@ public class NormalBombTest {
 
 	@Test
 	public void testExplode() {
-		List<Position> expectedPositions = new ArrayList<Position>();
-		expectedPositions.add(new Position(3, 3));
-		expectedPositions.add(new Position(1, 3));
-		expectedPositions.add(new Position(2, 4));
-		expectedPositions.add(new Position(2, 3));
+		Map<Position, Direction> expectedPositions = new HashMap<Position, Direction>();
+		expectedPositions.put(new Position(3, 3), Direction.EAST);
+		expectedPositions.put(new Position(1, 3), Direction.WEST);
+		expectedPositions.put(new Position(2, 4), Direction.SOUTH);
+		expectedPositions.put(new Position(2, 3), Direction.NONE);
 		Map<Position, Direction> actualPositions = bomb.explode(map);
 
-		// TODO adrian Fix the test for the new returntype: Map<Position,
-		// Direction>.
-
 		assertEquals(expectedPositions.size(), actualPositions.size());
-		for (Position pos : expectedPositions) {
+		for (Position pos : expectedPositions.keySet()) {
 			assertTrue(actualPositions.containsKey(pos));
+			assertTrue(actualPositions.get(pos).equals(expectedPositions.get(pos)));
 		}
 	}
 
