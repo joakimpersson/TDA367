@@ -15,8 +15,10 @@ import com.github.joakimpersson.tda367.model.highscore.Score;
 import com.github.joakimpersson.tda367.model.player.PlayerPoints;
 
 /**
+ * A class representing a view that shows info about a specified highscore.
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class HighscoreInfoView {
@@ -50,12 +52,25 @@ public class HighscoreInfoView {
 		model = PyromaniacModel.getInstance();
 	}
 
+	/**
+	 * Notification that we've entered this game state
+	 */
 	public void enter() {
 		if (model.getHighscoreList().size() > 0) {
 			highscore = model.getHighscoreList();
 		}
 	}
 
+	/**
+	 * Render this view to the game's graphics context
+	 * 
+	 * @param container
+	 *            The container holding the game
+	 * @param g
+	 *            The graphics context to render to
+	 * @throws SlickException
+	 *             Indicates a failure to render an gui object
+	 */
 	public void render(GameContainer container, Graphics g, int currentIndex)
 			throws SlickException {
 		int x = X;
@@ -111,9 +126,9 @@ public class HighscoreInfoView {
 	 *            The graphics context to render to
 	 */
 	private void drawPlayerScore(int x, int y, int currentIndex, Graphics g) {
-		Score s = highscore.get(currentIndex);
-		PlayerPoints pp = s.getPlayerPoints();
-		String str = "Score: " + pp.getScore() + "p";
+		Score score = highscore.get(currentIndex);
+		PlayerPoints playerPoints = score.getPlayerPoints();
+		String str = "Score: " + playerPoints.getScore() + "p";
 		g.drawString(str, x, y);
 	}
 
@@ -139,12 +154,12 @@ public class HighscoreInfoView {
 		y += yDelta;
 
 		g.drawString("Destroyed/Killed", x, y);
-		Score s = highscore.get(currentIndex);
-		PlayerPoints pp = s.getPlayerPoints();
-		for (PointGiver pg : pointGivers) {
+		Score score = highscore.get(currentIndex);
+		PlayerPoints playerPoints = score.getPlayerPoints();
+		for (PointGiver pointGiver : pointGivers) {
 			y += yDelta;
 
-			String str = getPointGiverString(pg, pp);
+			String str = getPointGiverString(pointGiver, playerPoints);
 
 			g.drawString(str, x, y);
 		}
@@ -155,17 +170,18 @@ public class HighscoreInfoView {
 	 * Formats a string including the pointgivers name and its corresponging
 	 * value in the PlayerPoint object
 	 * 
-	 * @param pg
+	 * @param pointGiver
 	 *            The current PointGiver
-	 * @param pp
+	 * @param playerPoints
 	 *            The PointGiveres value in the PlayerPoints object
 	 * @return A string containing the name of the PointGiver and its value
 	 */
-	private String getPointGiverString(PointGiver pg, PlayerPoints pp) {
+	private String getPointGiverString(PointGiver pointGiver,
+			PlayerPoints playerPoints) {
 		StringBuilder strBuilder = new StringBuilder();
-		strBuilder.append(pg.name());
+		strBuilder.append(pointGiver.name());
 		strBuilder.append(": ");
-		strBuilder.append(pp.getEarnedPointGiver(pg));
+		strBuilder.append(playerPoints.getEarnedPointGiver(pointGiver));
 		strBuilder.append(" st");
 		return strBuilder.toString();
 	}

@@ -13,8 +13,10 @@ import com.github.joakimpersson.tda367.model.IPyromaniacModel;
 import com.github.joakimpersson.tda367.model.highscore.Score;
 
 /**
+ * A class representing a view that shows a bunch of highscores.
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class HighscoreListView {
@@ -48,12 +50,25 @@ public class HighscoreListView {
 		model = PyromaniacModel.getInstance();
 	}
 
+	/**
+	 * Notification that we've entered this game state
+	 */
 	public void enter() {
 		if (model.getHighscoreList().size() > 0) {
 			highscore = model.getHighscoreList();
 		}
 	}
 
+	/**
+	 * Render this view to the game's graphics context
+	 * 
+	 * @param container
+	 *            The container holding the game
+	 * @param g
+	 *            The graphics context to render to
+	 * @throws SlickException
+	 *             Indicates a failure to render an gui object
+	 */
 	public void render(GameContainer container, Graphics g, int currentIndex)
 			throws SlickException {
 		int x = X;
@@ -81,8 +96,8 @@ public class HighscoreListView {
 	private void drawPlayerInfo(int x, int y, Graphics g, int currentIndex) {
 		g.setColor(Color.white);
 		int i = 0;
-		for (Score s : highscore) {
-			String str = formatScoreString(s, i + 1);
+		for (Score score : highscore) {
+			String str = formatScoreString(score, i + 1);
 
 			if (i == currentIndex) {
 				g.setColor(Color.cyan);
@@ -100,20 +115,19 @@ public class HighscoreListView {
 	 * Formats the score objects string containing the players name and total
 	 * score in the game
 	 * 
-	 * @param s
+	 * @param score
 	 *            The score object
-	 * @param i
+	 * @param index
 	 *            The score objects placement in the highscore list
 	 * @return
 	 */
-	// TODO jocke perhaps write a toString method in the score object
-	private String formatScoreString(Score s, int i) {
+	private String formatScoreString(Score score, int index) {
 		StringBuffer str = new StringBuffer();
-		str.append(i);
+		str.append(index);
 		str.append(". ");
-		str.append(s.getPlayerName());
+		str.append(score.getPlayerName());
 		str.append(" : ");
-		str.append(s.getPlayerPoints().getScore());
+		str.append(score.getPlayerPoints().getScore());
 		str.append("p");
 		return str.toString();
 	}
