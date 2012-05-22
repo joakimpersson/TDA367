@@ -94,9 +94,6 @@ public class AreaBombTest {
 			System.out.println(pos+" "+actual.get(pos));
 		}
 
-		// TODO Adrian, Fix the test for the new returntype: Map<Position,
-		// Direction>.
-
 		// can not use the lists equal method since it does not take into
 		// consideration that the two lists might have the positions at
 		// different index
