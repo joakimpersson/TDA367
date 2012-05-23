@@ -24,7 +24,7 @@ import com.github.joakimpersson.tda367.gui.guiutils.ImageLoader;
  * @author rekoil
  * @modified joakimpersson, adderollen
  */
-public class SetupGameView {
+public class SetupGameView implements INavigateableView {
 
 	private int yDelta = 30;
 	private int stage = -1;
@@ -68,26 +68,13 @@ public class SetupGameView {
 		imgs = ImageLoader.getInstance();
 	}
 
-	/**
-	 * Notification that we've entered this game state
-	 */
+	@Override
 	public void enter() {
 		stage = 0;
 		names = new ArrayList<String>();
 	}
 
-	/**
-	 * Render this view to the game's graphics context
-	 * 
-	 * @param container
-	 *            The container holding the game
-	 * @param g
-	 *            The graphics context to render to
-	 * @param selection
-	 *            The index of the selected item
-	 * @throws SlickException
-	 *             Indicates a failure to render an gui object
-	 */
+	@Override
 	public void render(GameContainer container, Graphics g, int selection)
 			throws SlickException {
 		GUIUtils.drawImage(0, 0, "bg", g);
