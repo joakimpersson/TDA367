@@ -6,28 +6,34 @@ import java.util.List;
 import org.newdawn.slick.Input;
 
 /**
- * A class containing Default key mappings
+ * A class containing default keyboard controls
  * 
  * @author joakimpersson
  * 
+ * @modified rekoil
+ * 
  */
-public class DefaultKeyMappings {
-	private static DefaultKeyMappings instance = null;
-	private List<int[]> mappings = null;
+public class KeyboardControls {
+	private static KeyboardControls instance = null;
+	private List<int[]> kayArrayList = null;
 
 	/**
-	 * Get the DefaultKeyMappings instace
+	 * Get the KeyboardControls instace
 	 * 
 	 * @return The instance
 	 */
-	public static DefaultKeyMappings getInstance() {
+	public static KeyboardControls getInstance() {
 		if (instance == null) {
-			instance = new DefaultKeyMappings();
+			instance = new KeyboardControls();
 		}
 		return instance;
 	}
 
-	private DefaultKeyMappings() {
+	/**
+	 * Constructor for the KeyboardControls class
+	 * 
+	 */
+	private KeyboardControls() {
 		init();
 	}
 
@@ -47,7 +53,7 @@ public class DefaultKeyMappings {
 	 *            An array of keyboardscodes
 	 */
 	private void init() {
-		mappings = new ArrayList<int[]>();
+		kayArrayList = new ArrayList<int[]>();
 
 		int[][] keyCodes = {
 				{ Input.KEY_UP, Input.KEY_DOWN, Input.KEY_LEFT,
@@ -55,21 +61,18 @@ public class DefaultKeyMappings {
 				{ Input.KEY_W, Input.KEY_S, Input.KEY_A, Input.KEY_D,
 						Input.KEY_Q, Input.KEY_1 } };
 		for (int i = 0; i < 2; i++) {
-			mappings.add(keyCodes[i]);
+			kayArrayList.add(keyCodes[i]);
 		}
 	}
 
-	// TODO adrian update method name and javadoc
-	public int[] getKeyMap(int index) {
-		int i = index % mappings.size();
-		return mappings.get(i);
+	public int[] getKeyArray(int index) {
+		int i = index % kayArrayList.size();
+		return kayArrayList.get(i);
 	}
 
 	/**
 	 * Get the proceed key code for a certain index
 	 * 
-	 * @param The
-	 *            keymappings index
 	 */
 	public Integer getProceedButton() {
 		return Input.KEY_ENTER;
@@ -78,10 +81,10 @@ public class DefaultKeyMappings {
 	/**
 	 * Get the action key code for a certain index
 	 * 
-	 * @param The
-	 *            keymappings index
+	 * @param index
+	 *            The keyarray index
 	 */
 	public Integer getActionButton(int index) {
-		return mappings.get(index)[4];
+		return kayArrayList.get(index)[4];
 	}
 }

@@ -16,7 +16,7 @@ public class KeyBoardInputHandler implements InputHandler {
 
 	private PlayerAction currentAction;
 	private Player player = null;
-	private int[] keyMap;
+	private int[] keyArray;
 
 	/**
 	 * Creates a new keyboard inputhandler using one of the default keymappings
@@ -29,11 +29,11 @@ public class KeyBoardInputHandler implements InputHandler {
 	 */
 	public KeyBoardInputHandler(Player player, int id) {
 		this.player = player;
-		this.keyMap = DefaultKeyMappings.getInstance().getKeyMap(id);
+		this.keyArray = KeyboardControls.getInstance().getKeyArray(id);
 	}
 
 	public KeyBoardInputHandler(int id) {
-		this.keyMap = DefaultKeyMappings.getInstance().getKeyMap(id);
+		this.keyArray = KeyboardControls.getInstance().getKeyArray(id);
 	}
 
 	/**
@@ -47,42 +47,43 @@ public class KeyBoardInputHandler implements InputHandler {
 	 */
 	public KeyBoardInputHandler(Player player, int[] keyMap) {
 		this.player = player;
-		this.keyMap = keyMap;
+		this.keyArray = keyMap;
 	}
-
 
 	@Override
 	public boolean hasKey(Input input) {
-		if (input.isKeyDown(keyMap[4])) {
+		if (input.isKeyDown(keyArray[4])) {
 			currentAction = PlayerAction.PRIMARY_ACTION;
 			return true;
 		}
-		if (input.isKeyDown(keyMap[5])) {
+		if (input.isKeyDown(keyArray[5])) {
 			currentAction = PlayerAction.SECONDARY_ACTION;
 			return true;
 		}
-		
-		if (input.isKeyDown(keyMap[0])) {
+
+		if (input.isKeyDown(keyArray[0])) {
 			currentAction = PlayerAction.MOVE_NORTH;
-			if (input.isKeyDown(keyMap[2]))
+			if (input.isKeyDown(keyArray[2])) {
 				currentAction = PlayerAction.MOVE_NORTHWEST;
-			else if (input.isKeyDown(keyMap[3]))
+			} else if (input.isKeyDown(keyArray[3])) {
 				currentAction = PlayerAction.MOVE_NORTHEAST;
+			}
 			return true;
-		} else if (input.isKeyDown(keyMap[1])) {
+		} else if (input.isKeyDown(keyArray[1])) {
 			currentAction = PlayerAction.MOVE_SOUTH;
-			if (input.isKeyDown(keyMap[2]))
+			if (input.isKeyDown(keyArray[2])) {
 				currentAction = PlayerAction.MOVE_SOUTHWEST;
-			else if (input.isKeyDown(keyMap[3]))
+			} else if (input.isKeyDown(keyArray[3])) {
 				currentAction = PlayerAction.MOVE_SOUTHEAST;
+			}
 			return true;
-		} else if (input.isKeyDown(keyMap[2])) {
+		} else if (input.isKeyDown(keyArray[2])) {
 			currentAction = PlayerAction.MOVE_WEST;
 			return true;
-		} else if (input.isKeyDown(keyMap[3])) {
+		} else if (input.isKeyDown(keyArray[3])) {
 			currentAction = PlayerAction.MOVE_EAST;
 			return true;
-		} 
+		}
 		return false;
 	}
 
@@ -93,19 +94,19 @@ public class KeyBoardInputHandler implements InputHandler {
 		}
 		return new InputData(player, PlayerAction.DO_NOTHING);
 	}
-//TODO Adrian, fix some curly braces or some other shit... Regards Joakimpersson
+
 	@Override
 	public InputData getMenuInputData(Input input) {
 		PlayerAction menuAction = PlayerAction.DO_NOTHING;
-		if (input.isKeyPressed(keyMap[0])) {
+		if (input.isKeyPressed(keyArray[0])) {
 			menuAction = PlayerAction.MOVE_NORTH;
-		} else if (input.isKeyPressed(keyMap[1])) {
+		} else if (input.isKeyPressed(keyArray[1])) {
 			menuAction = PlayerAction.MOVE_SOUTH;
-		} else if (input.isKeyPressed(keyMap[2])) {
+		} else if (input.isKeyPressed(keyArray[2])) {
 			menuAction = PlayerAction.MOVE_WEST;
-		} else if (input.isKeyPressed(keyMap[3])) {
+		} else if (input.isKeyPressed(keyArray[3])) {
 			menuAction = PlayerAction.MOVE_EAST;
-		} else if (input.isKeyPressed(keyMap[4])) {
+		} else if (input.isKeyPressed(keyArray[4])) {
 			menuAction = PlayerAction.PRIMARY_ACTION;
 		}
 		if (!menuAction.equals(PlayerAction.DO_NOTHING)) {
@@ -121,7 +122,7 @@ public class KeyBoardInputHandler implements InputHandler {
 
 	@Override
 	public boolean pressedProceed(Input input) {
-		int proceedButton = DefaultKeyMappings.getInstance().getProceedButton();
+		int proceedButton = KeyboardControls.getInstance().getProceedButton();
 
 		return input.isKeyPressed(proceedButton);
 	}
@@ -137,14 +138,14 @@ public class KeyBoardInputHandler implements InputHandler {
 
 		KeyBoardInputHandler other = (KeyBoardInputHandler) obj;
 		return this.player.equals(other.player)
-				&& Arrays.equals(this.keyMap, other.keyMap);
+				&& Arrays.equals(this.keyArray, other.keyArray);
 	}
 
 	@Override
 	public int hashCode() {
 		int sum = 0;
 
-		for (Integer i : keyMap) {
+		for (Integer i : keyArray) {
 			sum += i * 13;
 		}
 
