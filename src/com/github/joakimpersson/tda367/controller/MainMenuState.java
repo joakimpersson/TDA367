@@ -113,10 +113,10 @@ public class MainMenuState extends BasicGameState {
 	 *            latest action
 	 */
 	private void updateSelection(Input input) {
-		List<InputData> data = inputManager.getMenuInputData(input);
+		List<InputData> inputData = inputManager.getMenuInputData(input);
 
-		for (InputData d : data) {
-			PlayerAction action = d.getAction();
+		for (InputData data : inputData) {
+			PlayerAction action = data.getAction();
 			switch (action) {
 			case MOVE_NORTH:
 				moveIndex(-1);

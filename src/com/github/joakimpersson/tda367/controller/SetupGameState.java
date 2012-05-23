@@ -34,7 +34,7 @@ import com.github.joakimpersson.tda367.model.positions.Position;
  * Sets up the players
  * 
  * @author rekoil
- * @modified joakimpersson
+ * @modified joakimpersson, adderollen
  */
 public class SetupGameState extends BasicGameState {
 
@@ -110,9 +110,9 @@ public class SetupGameState extends BasicGameState {
 	 * @return A list of actions to perform
 	 */
 	private List<PlayerAction> defaultInput(Input input) {
-		List<InputData> dataList = inputManager.getMenuInputData(input);
+		List<InputData> inputData = inputManager.getMenuInputData(input);
 		List<PlayerAction> actions = new ArrayList<PlayerAction>();
-		for (InputData data : dataList) {
+		for (InputData data : inputData) {
 			actions.add(data.getAction());
 		}
 		return actions;
@@ -123,10 +123,6 @@ public class SetupGameState extends BasicGameState {
 			throws SlickException {
 		Input input = container.getInput();
 		List<PlayerAction> actions = defaultInput(input);
-
-		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-			game.enterState(PyromaniacsGame.MAIN_MENU_STATE);
-		}
 
 		for (PlayerAction action : actions) {
 			switch (action) {
