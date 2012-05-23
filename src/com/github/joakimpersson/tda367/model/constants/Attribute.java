@@ -8,7 +8,7 @@ package com.github.joakimpersson.tda367.model.constants;
  * 
  */
 public enum Attribute {
-	Speed("Speed", 400, 15), Health("Health", 500, 15), BombRange("Bomb range",
+	Speed("Speed", 400, 15), Health("Health", 600, 15), BombRange("Bomb range",
 			200, 15), BombStack("Bomb stack", 300, 5), BombPower("Bomb power",
 			1500, 3), AreaBombs("Area bombs", 1000, 3);
 
