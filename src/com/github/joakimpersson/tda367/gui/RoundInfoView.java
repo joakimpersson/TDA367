@@ -220,7 +220,7 @@ public class RoundInfoView implements IView {
 
 		int roundWins = Math.max(player.getRoundsWon(),
 				playerSnapshot.get(player.getIndex() - 1).getRoundsWon());
-		for (int i = 0; i < roundWins + 2; i++) {
+		for (int i = 0; i < roundWins; i++) {
 			GUIUtils.drawImage(x + xD, y + yD, "info/chevron", g);
 			yD += 4;
 		}
