@@ -3,6 +3,7 @@ package com.github.joakimpersson.tda367.model.constants;
 import java.awt.Dimension;
 
 /**
+ * A class with all the parameters for the game.
  * 
  * @author joakimpersson
  * @modified adderollen

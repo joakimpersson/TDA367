@@ -1,17 +1,16 @@
 package com.github.joakimpersson.tda367.model.constants;
 
 /**
+ * A class with the constants for a players Attribute.
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public enum Attribute {
-	Speed("Speed", 100, 15), 
-	Health("Health", 100, 15), 
-	BombRange("Bomb range", 100, 15),
-	BombStack("Bomb stack", 100, 5),
-	BombPower("Bomb power", 100, 3), 
-	AreaBombs("Area bombs", 100, 3);
+	Speed("Speed", 100, 15), Health("Health", 100, 15), BombRange("Bomb range",
+			100, 15), BombStack("Bomb stack", 100, 5), BombPower("Bomb power",
+			100, 3), AreaBombs("Area bombs", 100, 3);
 
 	private int cost;
 	private String name;
