@@ -3,7 +3,6 @@ package com.github.joakimpersson.tda367.model.player;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +33,11 @@ public class PlayerTest {
 	public void setUp() throws Exception {
 		Position pos = new Position(0, 0);
 		player = new Player(0, "Hobbe", pos);
+	}
+
+	@Test
+	public void testClonePlayer() {
+		assertEquals(player, new Player(player));
 	}
 
 	@Test
@@ -166,7 +170,9 @@ public class PlayerTest {
 
 	@Test
 	public void testIsImmortal() {
-		fail("Not implemented");
+		assertFalse(player.isImmortal());
+		player.playerHit();
+		assertTrue(player.isImmortal());
 	}
 
 	@Test
@@ -224,7 +230,7 @@ public class PlayerTest {
 		expected -= cost;
 		player.useCredits(cost);
 		actual = player.getCredits();
-		
+
 		assertEquals(expected, actual);
 
 	}
@@ -392,6 +398,48 @@ public class PlayerTest {
 		assertEquals(expected, actual);
 	}
 
+	@Test
+	public void testIncDecBombsPlaced() {
+		int bombsAvailable = Parameters.INSTANCE.getStartingBombs();
+		
+		for (int i = 1; i<bombsAvailable; i++) {
+			player.increaseBombsPlaced();
+		}
+		
+		player.increaseBombsPlaced();
+		assertFalse(player.canPlaceBomb());
+		player.decreaseBombsPlaced();
+		assertTrue(player.canPlaceBomb());
+	}
+
+	@Test
+	public void testAreaBombMethods() {
+		while (player.getCredits() < Attribute.AreaBombs.getCost()) {
+			player.getPoints().update(PointGiver.MatchWon);
+		}
+		player.upgradeAttr(Attribute.AreaBombs, GameModeType.Match);
+		assertTrue(player.canPlaceAreaBomb());
+		player.increaseAreaBombsPlaced();
+		assertEquals(player.getAreaBombsAvailable(), 0);
+		assertFalse(player.canPlaceAreaBomb());
+	}
+
+	@Test
+	public void testGetPermanentAttributes() {
+		List<Attribute> attr = player.getPermanentAttributes();
+		assertEquals(player.getPermanentAttributes(), attr);
+	}
+
+	@Test
+	public void testGetSpeededStepSize() {
+		double stepSize = player.getSpeededStepSize();
+		while (player.getCredits() < Attribute.Speed.getCost()) {
+			player.getPoints().update(PointGiver.MatchWon);
+		}
+		player.upgradeAttr(Attribute.Speed, GameModeType.Match);
+		assertFalse(stepSize == player.getSpeededStepSize());
+	}
+	
 	@After
 	public void tearDown() throws Exception {
 		player = null;
