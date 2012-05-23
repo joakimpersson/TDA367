@@ -28,6 +28,7 @@ import com.github.joakimpersson.tda367.model.player.Player;
  * Controller for the upgrade player state
  * 
  * @author joakimpersson
+ * @modified adderollen
  * 
  */
 public class UpgradePlayerState extends BasicGameState {
@@ -114,8 +115,6 @@ public class UpgradePlayerState extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-		Input input = container.getInput();
-
 		switch (currentState) {
 		case USED:
 			updateGame(container.getInput());
@@ -129,10 +128,6 @@ public class UpgradePlayerState extends BasicGameState {
 		default:
 			// should not happen
 			break;
-		}
-
-		if (input.isKeyDown(Input.KEY_ESCAPE)) {
-			container.exit();
 		}
 	}
 
@@ -158,48 +153,49 @@ public class UpgradePlayerState extends BasicGameState {
 	 *            latest action
 	 */
 	private void updateGame(Input input) {
-		List<InputData> data = inputManager.getMenuInputData(input);
+		List<InputData> dataList = inputManager.getMenuInputData(input);
 
-		for (InputData d : data) {
-			PlayerAction action = d.getAction();
+		for (InputData data : dataList) {
+			PlayerAction action = data.getAction();
 
-			Player p = d.getPlayer();
-			Attribute attr = attributes.get(playersIndex.get(p.getIndex()));
-			int value = upgradeMap.get(p.getIndex()).get(attr);
-			int credits = playerCredits.get(p.getIndex());
-			boolean playerReady = playerReadyness.get(p.getIndex());
+			Player player = data.getPlayer();
+			Attribute attribute = attributes.get(playersIndex.get(player
+					.getIndex()));
+			int value = upgradeMap.get(player.getIndex()).get(attribute);
+			int credits = playerCredits.get(player.getIndex());
+			boolean playerReady = playerReadyness.get(player.getIndex());
 
 			if (action == PlayerAction.PRIMARY_ACTION) {
-				playerReadyness.put(p.getIndex(), !playerReady);
+				playerReadyness.put(player.getIndex(), !playerReady);
 			} else if (!playerReady) {
 
 				switch (action) {
 				case MOVE_NORTH:
-					moveIndex(p, -1);
+					moveIndex(player, -1);
 					pcs.firePropertyChange("play", null,
 							EventType.MENU_NAVIGATE);
 					break;
 				case MOVE_SOUTH:
-					moveIndex(p, 1);
+					moveIndex(player, 1);
 					pcs.firePropertyChange("play", null,
 							EventType.MENU_NAVIGATE);
 					break;
 				case MOVE_EAST:
-					if (credits >= attr.getCost()) {
+					if (credits >= attribute.getCost()) {
 						value++;
-						credits -= attr.getCost();
-						upgradeMap.get(p.getIndex()).put(attr, value);
-						playerCredits.put(p.getIndex(), credits);
+						credits -= attribute.getCost();
+						upgradeMap.get(player.getIndex()).put(attribute, value);
+						playerCredits.put(player.getIndex(), credits);
 						pcs.firePropertyChange("play", null,
 								EventType.MENU_NAVIGATE);
 					}
 					break;
 				case MOVE_WEST:
-					if (value > p.getAttribute(attr)) {
+					if (value > player.getAttribute(attribute)) {
 						value--;
-						credits += attr.getCost();
-						upgradeMap.get(p.getIndex()).put(attr, value);
-						playerCredits.put(p.getIndex(), credits);
+						credits += attribute.getCost();
+						upgradeMap.get(player.getIndex()).put(attribute, value);
+						playerCredits.put(player.getIndex(), credits);
 					}
 					pcs.firePropertyChange("play", null,
 							EventType.MENU_NAVIGATE);
@@ -221,12 +217,13 @@ public class UpgradePlayerState extends BasicGameState {
 	 * 
 	 */
 	private void performUpgrades() {
-		for (Player p : model.getPlayers()) {
-			for (Attribute a : attributes) {
-				int oldValue = p.getAttribute(a);
-				for (int i = 0; i < upgradeMap.get(p.getIndex()).get(a)
+		for (Player player : model.getPlayers()) {
+			for (Attribute attribute : attributes) {
+				int oldValue = player.getAttribute(attribute);
+				for (int i = 0; i < upgradeMap.get(player.getIndex()).get(
+						attribute)
 						- oldValue; i++) {
-					model.upgradePlayer(p, a);
+					model.upgradePlayer(player, attribute);
 				}
 			}
 		}
@@ -235,22 +232,22 @@ public class UpgradePlayerState extends BasicGameState {
 	/**
 	 * Moves the currentIndex for the players navigation
 	 * 
-	 * @param p
+	 * @param player
 	 *            The player that wants his navigation index to be moved
 	 * @param delta
 	 *            The number of steps to be moved
 	 */
-	private void moveIndex(Player p, int delta) {
-		int currentIndex = playersIndex.get(p.getIndex());
-		int n = attributes.size();
+	private void moveIndex(Player player, int delta) {
+		int currentIndex = playersIndex.get(player.getIndex());
+		int size = attributes.size();
 		int newIndex = (currentIndex + delta);
 
-		int r = newIndex % n;
+		int r = newIndex % size;
 		if (r < 0) {
-			r += n;
+			r += size;
 
 		}
-		playersIndex.put(p.getIndex(), r);
+		playersIndex.put(player.getIndex(), r);
 	}
 
 	@Override
