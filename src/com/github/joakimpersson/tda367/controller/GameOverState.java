@@ -79,10 +79,6 @@ public class GameOverState extends BasicGameState {
 			int newState = PyromaniacsGame.MAIN_MENU_STATE;
 			ControllerUtils.changeState(game, newState);
 		}
-
-		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-			container.exit();
-		}
 	}
 
 	@Override
