@@ -74,6 +74,8 @@ public class ImageLoader {
 			imageMap.put(imageName.substring(0, imageName.length() - 4), image);
 		} catch (SlickException e) {
 			System.out.println("File not found: " + imageName);
+		} catch (NullPointerException e) {
+			System.out.println("Unable to load file: " + imageName);
 		}
 	}
 
