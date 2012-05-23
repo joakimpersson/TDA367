@@ -110,7 +110,12 @@ public class HighscoreState extends BasicGameState {
 		default:
 			break;
 		}
-
+		
+		if (inputManager.pressedProceed(container.getInput())) {
+			int newState = PyromaniacsGame.MAIN_MENU_STATE;
+			ControllerUtils.changeState(game, newState);
+		}
+		
 	}
 
 	/**
