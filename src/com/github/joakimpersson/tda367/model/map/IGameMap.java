@@ -16,7 +16,7 @@ public interface IGameMap {
 	 * 
 	 * @return A matrix representation of the gamemap
 	 */
-	Tile[][] getMap();
+	public Tile[][] getMap();
 
 	/**
 	 * Replace a tile at the supplied position with a new tile
@@ -26,7 +26,7 @@ public interface IGameMap {
 	 * @param pos
 	 *            The position to change tile on
 	 */
-	void setTile(Tile tile, Position pos);
+	public void setTile(Tile tile, Position pos);
 
 	/**
 	 * Get the tile located at the supplied position
@@ -35,11 +35,11 @@ public interface IGameMap {
 	 *            The position of the tile
 	 * @return The tile at the supplied position
 	 */
-	Tile getTile(Position pos);
+	public Tile getTile(Position pos);
 
 	/**
 	 * Reset the map to its original state
 	 */
-	void reset();
+	public void reset();
 
 }

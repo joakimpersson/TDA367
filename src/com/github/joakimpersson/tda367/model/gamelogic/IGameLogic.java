@@ -15,13 +15,13 @@ public interface IGameLogic {
 	 * 
 	 * @return if the round is over
 	 */
-	boolean isRoundOver();
+	public boolean isRoundOver();
 
 	/**
 	 * Increment the winning players number of rounds win and update his
 	 * PlayerPoints object
 	 */
-	void roundOver();
+	public void roundOver();
 
 	/**
 	 * Get how many rounds a player has win in the current match
@@ -30,7 +30,7 @@ public interface IGameLogic {
 	 *            The player who round wins you want
 	 * @return How many rounds the player has win
 	 */
-	int getRoundsWon(Player player);
+	public int getRoundsWon(Player player);
 
 	/**
 	 * Gets the current match status if it is over or not. The match is over
@@ -38,18 +38,18 @@ public interface IGameLogic {
 	 * 
 	 * @return If the Match is over or not
 	 */
-	boolean isMatchOver();
+	public boolean isMatchOver();
 
 	/**
 	 * Handling the actions for when the match is over and makes sure that the
 	 * game is properly updated
 	 */
-	void matchOver();
+	public void matchOver();
 
 	/**
 	 * Reset all the players amount of rounds won to zero
 	 */
-	void resetRoundStats();
+	public void resetRoundStats();
 
 	/**
 	 * Get how many matches a player has win in the current game
@@ -58,19 +58,19 @@ public interface IGameLogic {
 	 *            The player whose matches win you want
 	 * @return How many matches a player has won
 	 */
-	int getMatchsWon(Player player);
+	public int getMatchsWon(Player player);
 
 	/**
 	 * Get the status of the game
 	 * 
 	 * @return If the game if over or not
 	 */
-	boolean isGameOver();
+	public boolean isGameOver();
 
 	/**
 	 * Perform actions corresponding to that the game is over
 	 */
-	void gameOver();
+	public void gameOver();
 
 	/**
 	 * A method that gets the current round winner by looking at the one who is
@@ -79,6 +79,6 @@ public interface IGameLogic {
 	 * @return The player who wins the current round or null of there is no
 	 *         winner
 	 */
-	Player getLastRoundWinner();
+	public Player getLastRoundWinner();
 
 }

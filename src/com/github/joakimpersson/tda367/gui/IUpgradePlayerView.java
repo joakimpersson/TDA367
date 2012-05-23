@@ -31,7 +31,7 @@ public interface IUpgradePlayerView {
 	 * @param upgradeMap
 	 *            The current status for an attribute upgrade
 	 */
-	void render(GameContainer container, Graphics g,
+	public void render(GameContainer container, Graphics g,
 			Map<Integer, Integer> playerAttrIndex,
 			Map<Integer, Boolean> playerReadyness,
 			Map<Integer, Integer> playerCredits,
