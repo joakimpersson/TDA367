@@ -26,6 +26,7 @@ public class GameOverWinnerView implements IView {
 	private final int Y;
 
 	private Font bigFont = null;
+	private Font smlFont = null;
 
 	private IPyromaniacModel model = null;
 	private List<Score> playerScores = null;
@@ -52,6 +53,7 @@ public class GameOverWinnerView implements IView {
 		model = PyromaniacModel.getInstance();
 		try {
 			bigFont = GUIUtils.getBigFont();
+			smlFont = GUIUtils.getSmlFont();
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -125,10 +127,11 @@ public class GameOverWinnerView implements IView {
 	 */
 	private void drawGameSummary(int posX, int posY, Graphics g) {
 		PlayerPoints playerPoints = winningScore.getPlayerPoints();
+		g.setFont(smlFont);
 		int x = posX;
 		int y = posY;
-		int xDelta = 400;
-		int yDelta = 70;
+		int xDelta = 200;
+		int yDelta = 30;
 		String str = "Players Killed: "
 				+ playerPoints.getEarnedPointGiver(PointGiver.KillPlayer);
 		g.drawString(str, x, y);
