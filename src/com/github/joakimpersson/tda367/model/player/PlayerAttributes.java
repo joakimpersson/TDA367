@@ -156,12 +156,12 @@ public class PlayerAttributes {
 	 * Set the match map values to the standard values from the Parameter class
 	 */
 	private void initDefaultMatchValues() {
-		Parameters p = Parameters.INSTANCE;
-		matchAttr.put(Attribute.Speed, p.getInitSpeed());
-		matchAttr.put(Attribute.BombStack, p.getStartingBombs());
-		matchAttr.put(Attribute.Health, p.getInitHealth());
-		matchAttr.put(Attribute.BombRange, p.getInitBombRange());
-		matchAttr.put(Attribute.BombPower, p.getInitBombPower());
+		Parameters parameters = Parameters.INSTANCE;
+		matchAttr.put(Attribute.Speed, parameters.getInitSpeed());
+		matchAttr.put(Attribute.BombStack, parameters.getStartingBombs());
+		matchAttr.put(Attribute.Health, parameters.getInitHealth());
+		matchAttr.put(Attribute.BombRange, parameters.getInitBombRange());
+		matchAttr.put(Attribute.BombPower, parameters.getInitBombPower());
 		matchAttr.put(Attribute.AreaBombs, 0);
 	}
 
