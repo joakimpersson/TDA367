@@ -76,7 +76,7 @@ public class UpgradePlayerView implements IUpgradePlayerView {
 		String str = "Use left and right to purchase upgrades.";
 		g.drawString(str, GUIUtils.getStringCenterX(str, GUIUtils.getGameWidth(), g), GUIUtils.getGameHeight()-100);
 		str = "Press action when ready!";
-		g.drawString(str, GUIUtils.getStringCenterX(str, GUIUtils.getGameWidth(), g), GUIUtils.getGameHeight()-75);
+		g.drawString(str, GUIUtils.getStringCenterX(str, GUIUtils.getGameWidth(), g), GUIUtils.getGameHeight()-65);
 		
 		for (UpgradePlayerPanelView view : playerViews) {
 			view.render(container, g, playerAttrIndex, playerReadyness, playerCredits, upgradeMap);
