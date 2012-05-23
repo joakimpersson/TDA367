@@ -181,7 +181,8 @@ public class UpgradePlayerState extends BasicGameState {
 							EventType.MENU_NAVIGATE);
 					break;
 				case MOVE_EAST:
-					if (credits >= attribute.getCost()) {
+					if (credits >= attribute.getCost()
+							&& value < attribute.getMaxPurchasableAmount()) {
 						value++;
 						credits -= attribute.getCost();
 						upgradeMap.get(player.getIndex()).put(attribute, value);

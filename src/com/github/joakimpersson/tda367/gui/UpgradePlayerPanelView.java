@@ -69,10 +69,10 @@ public class UpgradePlayerPanelView implements IUpgradePlayerView {
 		boolean playerReady = playerReadyness.get(player.getIndex());
 		
 		Color color;
-		if (!playerReady) {
-			color = Color.white;
-		} else {
+		if (playerReady) {
 			color = Color.lightGray;
+		} else {
+			color = Color.white;
 		}
 			
 		g.setColor(color);
@@ -86,25 +86,44 @@ public class UpgradePlayerPanelView implements IUpgradePlayerView {
 
 		int index = 0;
 		for (Attribute a : player.getPermanentAttributes()) {
+			int value = upgradeMap.get(player.getIndex()).get(a);
+			int minimumValue = player.getAttribute(a);
+			int maximumValue = a.getMaxPurchasableAmount();
 			posY += yDelta;
+			
+			str = formatAttrString(a, value);
 
 			if (index == playerAttrIndex.get(player.getIndex()) && !playerReady) {
+				g.setColor(Color.pink);
+				if (value > minimumValue) {
+					g.drawString("<", posX-15, posY);
+				}
+				if (value < maximumValue) {
+					int strLength = g.getFont().getWidth(str);
+					g.drawString(">", posX + strLength+7, posY);
+				}
 				g.setColor(Color.cyan);
 			} else {
 				g.setColor(color);
 			}
-			str = formatAttrString(a, upgradeMap.get(player.getIndex()).get(a));
 			g.drawString(str, posX, posY);
 			// make sure that is is always white
 			g.setColor(color);
 			index++;
+		}
+		
+		if (playerReady) {
+			posY += yDelta;
+			g.setColor(Color.green);
+			g.drawString("PLAYER READY!", posX, posY);
 		}
 	}
 
 	/**
 	 * Formats a header string for a player containing its name and its credits
 	 * to spend
-	 * @param credits 
+	 * 
+	 * @param credits
 	 * 
 	 * @return A string containing the players name and credits
 	 */
@@ -123,7 +142,7 @@ public class UpgradePlayerPanelView implements IUpgradePlayerView {
 	 * 
 	 * @param a
 	 *            The Attribute to draw info about
-	 * @param value 
+	 * @param value
 	 * @return A string containing the attributes name and cost
 	 */
 	private String formatAttrString(Attribute a, Integer value) {

@@ -67,13 +67,16 @@ public class UpgradePlayerView implements IUpgradePlayerView {
 			Map<Integer, Integer> playerCredits,
 			Map<Integer, Map<Attribute, Integer>> upgradeMap) {
 		try {
-			g.setFont(GUIUtils.getSmlFont());
+			g.setFont(GUIUtils.getBigFont());
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
 		
-		g.setColor(Color.cyan);
-		g.drawString("Do your stuff and then press action!", 20, 20);
+		g.setColor(Color.yellow);
+		String str = "Use left and right to purchase upgrades.";
+		g.drawString(str, GUIUtils.getStringCenterX(str, GUIUtils.getGameWidth(), g), GUIUtils.getGameHeight()-100);
+		str = "Press action when ready!";
+		g.drawString(str, GUIUtils.getStringCenterX(str, GUIUtils.getGameWidth(), g), GUIUtils.getGameHeight()-75);
 		
 		for (UpgradePlayerPanelView view : playerViews) {
 			view.render(container, g, playerAttrIndex, playerReadyness, playerCredits, upgradeMap);
