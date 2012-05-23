@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -89,19 +90,12 @@ public class AreaBombTest {
 		expected.put(new Position(3, 4), null);
 		HashMap<Position, Direction> actual = new HashMap<Position, Direction>(areaBomb
 				.explode(map));
-				
-		for (Position pos : actual.keySet()) {
-			System.out.println(pos+" "+actual.get(pos));
-		}
-
-		// can not use the lists equal method since it does not take into
-		// consideration that the two lists might have the positions at
-		// different index
+		
 		assertEquals(expected.size(), actual.size());
 
 		for (Position pos : expected.keySet()) {
 			assertTrue(actual.keySet().contains(pos));
-			assertTrue(actual.get(pos) == expected.get(pos));
+			assertNull(actual.get(pos));
 		}
 	}
 

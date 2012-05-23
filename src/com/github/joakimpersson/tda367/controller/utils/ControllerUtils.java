@@ -21,7 +21,7 @@ public class ControllerUtils {
 	 * Responsible for changing into an new state
 	 * 
 	 * @param game
-	 *            The Bomberman game container
+	 *            The Pyromaniacs game container
 	 * @param newState
 	 */
 	public static void changeState(StateBasedGame game, int newState) {

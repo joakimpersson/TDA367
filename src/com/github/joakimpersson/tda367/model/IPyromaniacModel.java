@@ -10,7 +10,7 @@ import com.github.joakimpersson.tda367.model.player.Player;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 
 /**
- * An interface modeling the bomberman model that the main controller will use
+ * An interface modeling the pyromaniac model that the main controller will use
  * to communicate with the rest of the model
  * 
  * @author joakimpersson
@@ -20,7 +20,7 @@ import com.github.joakimpersson.tda367.model.tiles.Tile;
 public interface IPyromaniacModel {
 
 	/**
-	 * Starts a new game of BombermanModel with the supplied players
+	 * Starts a new game of PyromaniacModel with the supplied players
 	 * 
 	 * @param players
 	 *            The players to participate in the game

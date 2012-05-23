@@ -66,7 +66,7 @@ public class PyromaniacModel implements IPyromaniacModel {
 	}
 
 	/**
-	 * @return The instance of this bombermanModel.
+	 * @return The instance of this PyromaniacModel.
 	 */
 	public synchronized static PyromaniacModel getInstance() {
 		if (instance == null) {

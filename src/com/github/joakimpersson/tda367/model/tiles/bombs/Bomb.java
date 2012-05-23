@@ -15,7 +15,7 @@ import com.github.joakimpersson.tda367.model.tiles.Destroyable;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 
 /**
- * This class defines a Bomb in the bomberman-like game.
+ * This class defines a Bomb in the Pyromaniacs game.
  * 
  * @author rekoil
  * @modified Viktor Anderling, Joakim Persson, Andreas Rolén

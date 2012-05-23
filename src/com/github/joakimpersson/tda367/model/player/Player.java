@@ -14,7 +14,7 @@ import com.github.joakimpersson.tda367.model.positions.FPosition;
 import com.github.joakimpersson.tda367.model.positions.Position;
 
 /**
- * This class defines a Player in the bomberman-like game.
+ * This class defines a Player in the Pyromaniacs game.
  * 
  * @author Adrian Bjugård
  * @modified Viktor Anderling, Joakim Persson
