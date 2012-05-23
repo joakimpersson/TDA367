@@ -36,7 +36,7 @@ public class Main {
 
 			application.setDisplayMode(gameWidth, gameHeight, false);
 			// make sure that we are using the players screen
-			application.setVSync(true);
+			application.setTargetFrameRate(60);
 
 			// remove the fps meter
 			application.setShowFPS(false);
