@@ -34,16 +34,18 @@ public class PlayerAttributes {
 		this.initDefaultMatchValues();
 		this.initDefaultRoundValues();
 	}
-	
+
 	/**
 	 * Creates a clone of a PlayerAttributes object.
 	 * 
 	 * @param player
-	 * 				The PlayerAttributes object that is to be cloned.
+	 *            The PlayerAttributes object that is to be cloned.
 	 */
 	public PlayerAttributes(PlayerAttributes playerAttributes) {
-		this.matchAttr = new EnumMap<Attribute, Integer>(playerAttributes.matchAttr);
-		this.roundAttr = new EnumMap<Attribute, Integer>(playerAttributes.roundAttr);
+		this.matchAttr = new EnumMap<Attribute, Integer>(
+				playerAttributes.matchAttr);
+		this.roundAttr = new EnumMap<Attribute, Integer>(
+				playerAttributes.roundAttr);
 	}
 
 	/**
@@ -154,17 +156,13 @@ public class PlayerAttributes {
 	 * Set the match map values to the standard values from the Parameter class
 	 */
 	private void initDefaultMatchValues() {
-
-		matchAttr.put(Attribute.Speed, Parameters.INSTANCE.getInitSpeed());
-		matchAttr.put(Attribute.BombStack,
-				Parameters.INSTANCE.getStartingBombs());
-		matchAttr.put(Attribute.Health, Parameters.INSTANCE.getInitHealth());
-		matchAttr.put(Attribute.BombRange,
-				Parameters.INSTANCE.getInitBombRange());
-		matchAttr.put(Attribute.BombPower,
-				Parameters.INSTANCE.getInitBombPower());
-		matchAttr
-				.put(Attribute.AreaBombs, Parameters.INSTANCE.getInitBombType());
+		Parameters p = Parameters.INSTANCE;
+		matchAttr.put(Attribute.Speed, p.getInitSpeed());
+		matchAttr.put(Attribute.BombStack, p.getStartingBombs());
+		matchAttr.put(Attribute.Health, p.getInitHealth());
+		matchAttr.put(Attribute.BombRange, p.getInitBombRange());
+		matchAttr.put(Attribute.BombPower, p.getInitBombPower());
+		matchAttr.put(Attribute.AreaBombs, 0);
 	}
 
 	/**

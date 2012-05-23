@@ -66,10 +66,6 @@ public enum Parameters {
 		return 1;
 	}
 
-	public int getInitBombType() {
-		return 0;
-	}
-
 	/**
 	 * Get the probability for when a box is destroyed by fire that a
 	 * powerupitem will appear
