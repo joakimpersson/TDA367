@@ -2,6 +2,11 @@
 
 ## An improved version of the classic Bomberman game
 
+    **Key Features**
+    - Round based system
+    - Able to purchase attribute upgrades
+    - Support for Xbox360 controllers
+
 ## Building and running
 
 First clone the project:
@@ -16,6 +21,7 @@ First clone the project:
     - Resources are located in the `res` directory.
     - Libraries used are located in the `libs` directory.
     - Application generated files are located in gen directory
+    - The application uses the slick2d framework
 
 
 Made on a Mac.
