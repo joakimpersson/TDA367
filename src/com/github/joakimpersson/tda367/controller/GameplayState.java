@@ -143,21 +143,29 @@ public class GameplayState extends BasicGameState {
 	 *            latest action
 	 */
 	private void gameWaiting(Input input) {
-		
-		if(countDownTimer == null) {
+
+		if (countDownTimer == null) {
 			pcs.firePropertyChange("play", null, EventType.BATTLE_SCREEN);
 			readyToStart = false;
 			countDownTimer = new Timer();
 			view.setCountDown(3);
 			pcs.firePropertyChange("play", null, EventType.COUNT_DOWN);
 			countDownTimer.schedule(new CountDownTask(2), 700);
-		} else if(readyToStart) {
-				currentState = STATE.GAME_RUNNING;
-				readyToStart = false;
-				countDownTimer = null;
+		} else if (readyToStart) {
+			currentState = STATE.GAME_RUNNING;
+			readyToStart = false;
+			countDownTimer = null;
 		}
 	}
 
+	/**
+	 * 
+	 * @param input
+	 *            The input method used by the slick framework that contains the
+	 *            latest action
+	 * @param game
+	 *            The game holding this state
+	 */
 	private void gameRunning(Input input, StateBasedGame game) {
 		// simple check to see whether the turn is over or not
 		if (model.isRoundOver()) {
@@ -191,18 +199,25 @@ public class GameplayState extends BasicGameState {
 		}
 	}
 
+	/**
+	 * Do the logic for round over
+	 * 
+	 * @param input
+	 *            The input method used by the slick framework that contains the
+	 *            latest action
+	 */
 	private void roundOver(Input input) {
 		List<Player> players = model.getPlayers();
 		ArrayList<Player> playerList = new ArrayList<Player>();
 		for (Player p : players) {
 			playerList.add(new Player(p));
 		}
-		
+
 		model.roundOver();
 		if (model.isMatchOver()) {
 			model.matchOver();
 		}
-		
+
 		Player winningPlayer = model.getLastRoundWinner();
 		view.setRoundWinner(winningPlayer);
 		view.setPlayerList(playerList);
@@ -240,6 +255,12 @@ public class GameplayState extends BasicGameState {
 
 	}
 
+	/**
+	 * Do the logic for matchover
+	 * 
+	 * @param game
+	 *            The game holding this state
+	 */
 	private void matchOver(StateBasedGame game) {
 		if (model.isGameOver()) {
 			model.gameOver();
@@ -251,6 +272,12 @@ public class GameplayState extends BasicGameState {
 		model.resetRoundStats();
 	}
 
+	/**
+	 * Do the logic for matchover
+	 * 
+	 * @param game
+	 *            The game holding this state
+	 */
 	private void gameOver(StateBasedGame game) {
 
 		int newState = PyromaniacsGame.GAMEOVER_STATE;
@@ -262,32 +289,33 @@ public class GameplayState extends BasicGameState {
 	public int getID() {
 		return stateID;
 	}
-	
+
 	/**
 	 * Keeps track of the count-down by lowering the index until it is complete.
 	 */
 	private class CountDownTask extends TimerTask {
 		private int countDown;
-		
+
 		public CountDownTask(int countDown) {
 			this.countDown = countDown;
 		}
-		
+
 		@Override
 		public void run() {
-			if(countDown == 0) {
+			if (countDown == 0) {
 				readyToStart = true;
 			} else {
 				view.setCountDown(countDown);
-				if(countDown == 1) {
-					pcs.firePropertyChange("play", null, EventType.BOMB_EXPLODED);
+				if (countDown == 1) {
+					pcs.firePropertyChange("play", null,
+							EventType.BOMB_EXPLODED);
 				} else {
 					pcs.firePropertyChange("play", null, EventType.COUNT_DOWN);
 				}
 				countDownTimer.schedule(new CountDownTask(countDown - 1), 700);
 			}
 		}
-		
+
 	}
-	
+
 }
