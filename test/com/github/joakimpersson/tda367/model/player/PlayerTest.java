@@ -206,11 +206,6 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void adjustPosition() {
-		fail("Not yet implemented!");
-	}
-
-	@Test
 	public void useCredits() {
 		// add credits to the player
 		player.updatePlayerPoints(PointGiver.GameWon);

@@ -53,12 +53,12 @@ public class Player {
 		this.matchesWon = 0;
 		initPlayer();
 	}
-	
+
 	/**
 	 * Creates a clone of a player.
 	 * 
 	 * @param player
-	 * 				The player that is to be cloned.
+	 *            The player that is to be cloned.
 	 */
 	public Player(Player player) {
 		this.name = player.name;
@@ -388,21 +388,6 @@ public class Player {
 	}
 
 	/**
-	 * Moves the player in the current direction.
-	 * 
-	 * @param direction
-	 *            What direction to move the player.
-	 */
-	public void adjustPosition(Direction direction) {
-		if (direction.equals(Direction.NORTH)
-				|| direction.equals(Direction.SOUTH)) {
-			gamePos = new FPosition(tilePos.getX() + 0.5F, gamePos.getY());
-		} else {
-			gamePos = new FPosition(gamePos.getX(), tilePos.getY() + 0.5F);
-		}
-	}
-
-	/**
 	 * Increase the number of rounds a player has win in the current match
 	 */
 	public void roundWon() {
@@ -440,7 +425,7 @@ public class Player {
 	public int getMatchesWon() {
 		return matchesWon;
 	}
-	
+
 	public void increaseAreaBombsPlaced() {
 		this.areaBombsPlaced++;
 	}
