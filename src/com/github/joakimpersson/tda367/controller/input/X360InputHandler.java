@@ -6,6 +6,12 @@ import com.github.joakimpersson.tda367.controller.input.osdependant.X360OsDep;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.player.Player;
 
+/**
+ * InputHandler for Xbox 360 controllers
+ * 
+ * @author rekoil
+ * 
+ */
 public class X360InputHandler implements InputHandler {
 	public final static int PROCEED_BUTTON = X360OsDep.getProceed();
 	public final static int PRIMARY_ACTION = X360OsDep.getPrimaryAction();
@@ -14,12 +20,26 @@ public class X360InputHandler implements InputHandler {
 	private PlayerAction currentAction = null;
 	private Player player = null;
 	private int controllerId;
-	
+
+	/**
+	 * Constructor for the X360InputHandler class
+	 * 
+	 * @param player
+	 *            The player the controller who owns this InputHandler
+	 * @param controllerId
+	 *            Which index Xbox 360 controller it pertains
+	 */
 	public X360InputHandler(Player player, int controllerId) {
 		this.player = player;
 		this.controllerId = controllerId;
 	}
-	
+
+	/**
+	 * Constructor for the X360InputHandler class
+	 * 
+	 * @param controllerId
+	 *            Which index Xbox 360 controller it pertainsì
+	 */
 	public X360InputHandler(int controllerId) {
 		this.controllerId = controllerId;
 	}
@@ -81,10 +101,15 @@ public class X360InputHandler implements InputHandler {
 
 	@Override
 	public InputData getMenuInputData(Input input) {
-		if (input.isButtonPressed(PRIMARY_ACTION, controllerId)) {
+		/**
+		 * The +4 is because "isControlPressed" and "isButtonPressed" 
+		 * have different indexes. (all platforms)
+		 **/
+		if (input.isControlPressed(PRIMARY_ACTION + 4, controllerId)) {
 			return new InputData(player, PlayerAction.PRIMARY_ACTION);
 		}
-		String buttonPressed = X360OsDep.getDPadButtonPressed(input, controllerId);
+		String buttonPressed = X360OsDep.getDPadButtonPressed(input,
+				controllerId);
 		if (!buttonPressed.equals("none")) {
 			if (buttonPressed.equals("up"))
 				return new InputData(player, PlayerAction.MOVE_NORTH);
