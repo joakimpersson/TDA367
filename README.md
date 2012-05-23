@@ -1,6 +1,6 @@
 # Pyromaniacs - The most resolutionary Bomberman yet!
 
-## An improved version of the classic Bomberman game with round and upgrading system
+## An improved version of the classic Bomberman game
 
 ## Building and running
 
