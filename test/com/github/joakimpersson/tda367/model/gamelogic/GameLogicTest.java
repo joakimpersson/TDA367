@@ -12,7 +12,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.joakimpersson.tda367.model.constants.PyromaniacRules;
+import com.github.joakimpersson.tda367.model.constants.PyromaniacSettings;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.constants.GameModeType;
 import com.github.joakimpersson.tda367.model.gamelogic.GameLogic;
@@ -189,7 +189,7 @@ public class GameLogicTest {
 	 *            The Player that loses the match.
 	 */
 	private void simulateMatchOver(Player losingPlayer) {
-		int maxRounds = PyromaniacRules.INSTANCE.getNumberOfRounds();
+		int maxRounds = PyromaniacSettings.INSTANCE.getNumberOfRounds();
 
 		for (int i = 0; i < maxRounds; i++) {
 			killPlayer(losingPlayer);
@@ -244,7 +244,7 @@ public class GameLogicTest {
 	 *            The Player that loses the game.
 	 */
 	private void simulateGameOver(Player losingPlayer) {
-		int maxMatchesWon = PyromaniacRules.INSTANCE.getNumberOfMatches();
+		int maxMatchesWon = PyromaniacSettings.INSTANCE.getNumberOfMatches();
 		for (int i = 0; i < maxMatchesWon; i++) {
 			simulateMatchOver(losingPlayer);
 			gameLogic.matchOver();

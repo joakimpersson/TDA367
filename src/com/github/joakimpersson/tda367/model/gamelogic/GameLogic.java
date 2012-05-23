@@ -2,7 +2,7 @@ package com.github.joakimpersson.tda367.model.gamelogic;
 
 import java.util.List;
 
-import com.github.joakimpersson.tda367.model.constants.PyromaniacRules;
+import com.github.joakimpersson.tda367.model.constants.PyromaniacSettings;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
 import com.github.joakimpersson.tda367.model.player.Player;
 
@@ -30,8 +30,8 @@ public class GameLogic implements IGameLogic {
 	 */
 	public GameLogic(List<Player> playersList) {
 		this.players = playersList;
-		this.maxMatchesWon = PyromaniacRules.INSTANCE.getNumberOfMatches();
-		this.maxRoundsWon = PyromaniacRules.INSTANCE.getNumberOfRounds();
+		this.maxMatchesWon = PyromaniacSettings.INSTANCE.getNumberOfMatches();
+		this.maxRoundsWon = PyromaniacSettings.INSTANCE.getNumberOfRounds();
 	}
 
 	/**
