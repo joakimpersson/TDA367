@@ -100,7 +100,6 @@ public class HighscoreListView implements INavigateableView {
 			}
 			g.drawString(str[0], x, y);
 			g.drawString(str[1], scoreX, y);
-			//g.drawString(str, x, y);
 			y += 25;
 			i++;
 			// Make sure that the color always is white
@@ -117,7 +116,7 @@ public class HighscoreListView implements INavigateableView {
 	 * @param index
 	 *            The score objects placement in the highscore list
 	 *            
-	 * @return An array containing the player's string at index 0 and the score's at index 1.
+	 * @return An array containing the player's string at array index 0 and the score's at index 1.
 	 */
 	private String[] formatScoreString(Score score, int index) {
 		StringBuffer playerStr = new StringBuffer();
