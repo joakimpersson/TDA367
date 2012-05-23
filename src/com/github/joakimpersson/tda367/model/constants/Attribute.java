@@ -6,12 +6,16 @@ package com.github.joakimpersson.tda367.model.constants;
  * 
  */
 public enum Attribute {
-	Speed("Speed", 100), Health("Health", 100), BombRange("Bomb range", 100), BombStack(
-			"Bomb stack", 100), BombPower("Bomb power", 100), AreaBombs(
-			"Area bombs", 100);
+	Speed("Speed", 100, 15), 
+	Health("Health", 100, 15), 
+	BombRange("Bomb range", 100, 15),
+	BombStack("Bomb stack", 100, 5),
+	BombPower("Bomb power", 100, 3), 
+	AreaBombs("Area bombs", 100, 3);
 
 	private int cost;
 	private String name;
+	private int maxPurchasableAmount;
 
 	/**
 	 * Create a new Attribute enum
@@ -20,10 +24,13 @@ public enum Attribute {
 	 *            The name of the attribute
 	 * @param cost
 	 *            The cost of the attribute
+	 * @param maxPurchasableAmount
+	 *            The maximum purchasable amount
 	 */
-	Attribute(String name, int cost) {
-		this.cost = cost;
+	Attribute(String name, int cost, int maxPurchasableAmount) {
 		this.name = name;
+		this.cost = cost;
+		this.maxPurchasableAmount = maxPurchasableAmount;
 	}
 
 	/**
@@ -42,5 +49,14 @@ public enum Attribute {
 	 */
 	public String getName() {
 		return name;
+	}
+
+	/**
+	 * Get the max purchasable amount of the attribute
+	 * 
+	 * @return The max purchasable amount of the attribute
+	 */
+	public int getMaxPurchasableAmount() {
+		return maxPurchasableAmount;
 	}
 }
