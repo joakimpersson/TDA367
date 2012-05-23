@@ -1,6 +1,8 @@
 package com.github.joakimpersson.tda367.model.constants;
 
 /**
+ * A enum representing different kinds of pointgivers or achievements that you
+ * can receive during the game
  * 
  * @author joakimpersson
  * 

@@ -145,6 +145,11 @@ public enum Parameters {
 		return 20;
 	}
 
+	/**
+	 * Get the permitted moving distance
+	 * 
+	 * @return the moving distance
+	 */
 	public float getPermittedDistance() {
 		return 0.2F;
 	}
