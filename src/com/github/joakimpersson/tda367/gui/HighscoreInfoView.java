@@ -64,14 +64,15 @@ public class HighscoreInfoView implements INavigateableView {
 			throws SlickException {
 		int x = X;
 		int y = Y;
+		int listTabX = 90;
 		if (highscore != null) {
 			g.setColor(Color.cyan);
 			drawSelectedPlayerName(x, y, currentIndex, g);
-			y += 60;
+			y += 45;
 			g.setColor(Color.white);
-			drawPlayerScore(x, y, currentIndex, g);
+			drawPlayerScore(x + listTabX, y, currentIndex, g);
 			y += 5;
-			drawPlayerStats(x, y, currentIndex, g);
+			drawPlayerStats(x + listTabX, y, currentIndex, g);
 		} else {
 			drawEmptyListString(x, y, g);
 		}
@@ -142,7 +143,7 @@ public class HighscoreInfoView implements INavigateableView {
 
 		y += yDelta;
 
-		g.drawString("Destroyed/Killed", x, y);
+		g.drawString("Destroyed/Killed;", x, y);
 		Score score = highscore.get(currentIndex);
 		PlayerPoints playerPoints = score.getPlayerPoints();
 		for (PointGiver pointGiver : pointGivers) {
@@ -168,10 +169,10 @@ public class HighscoreInfoView implements INavigateableView {
 	private String getPointGiverString(PointGiver pointGiver,
 			PlayerPoints playerPoints) {
 		StringBuilder strBuilder = new StringBuilder();
+		strBuilder.append("  - ");
 		strBuilder.append(pointGiver.name());
 		strBuilder.append(": ");
 		strBuilder.append(playerPoints.getEarnedPointGiver(pointGiver));
-		strBuilder.append(" st");
 		return strBuilder.toString();
 	}
 

@@ -31,7 +31,7 @@ public class HighscoreView implements INavigateableView {
 	 */
 	private void init() {
 		highscoreListView = new HighscoreListView(50, 100);
-		highscoreInfoView = new HighscoreInfoView(475, 100);
+		highscoreInfoView = new HighscoreInfoView(475, 70);
 		try {
 			bigFont = GUIUtils.getBigFont();
 		} catch (SlickException e) {

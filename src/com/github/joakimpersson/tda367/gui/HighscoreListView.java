@@ -85,14 +85,22 @@ public class HighscoreListView implements INavigateableView {
 	private void drawPlayerInfo(int x, int y, Graphics g, int currentIndex) {
 		g.setColor(Color.white);
 		int i = 0;
+		int maxScoreLength = 0;
+		int currentScoreLength;
 		for (Score score : highscore) {
-			String str = formatScoreString(score, i + 1);
+			String[] str = formatScoreString(score, i + 1);
+			if(i == 0) {
+				maxScoreLength = g.getFont().getWidth(str[1]);
+			}
+			currentScoreLength = g.getFont().getWidth(str[1]);
+			int scoreX = 310 + maxScoreLength - currentScoreLength;
 
 			if (i == currentIndex) {
 				g.setColor(Color.cyan);
 			}
-
-			g.drawString(str, x, y);
+			g.drawString(str[0], x, y);
+			g.drawString(str[1], scoreX, y);
+			//g.drawString(str, x, y);
 			y += 25;
 			i++;
 			// Make sure that the color always is white
@@ -108,17 +116,18 @@ public class HighscoreListView implements INavigateableView {
 	 *            The score object
 	 * @param index
 	 *            The score objects placement in the highscore list
-	 * @return
+	 *            
+	 * @return An array containing the player's string at index 0 and the score's at index 1.
 	 */
-	private String formatScoreString(Score score, int index) {
-		StringBuffer str = new StringBuffer();
-		str.append(index);
-		str.append(". ");
-		str.append(score.getPlayerName());
-		str.append(" : ");
-		str.append(score.getPlayerPoints().getScore());
-		str.append("p");
-		return str.toString();
+	private String[] formatScoreString(Score score, int index) {
+		StringBuffer playerStr = new StringBuffer();
+		StringBuffer scoreStr = new StringBuffer();
+		playerStr.append(index);
+		playerStr.append(". ");
+		playerStr.append(score.getPlayerName());
+		scoreStr.append(score.getPlayerPoints().getScore());
+		scoreStr.append("p");
+		return new String[] {playerStr.toString(), scoreStr.toString()};
 	}
 
 	/**
