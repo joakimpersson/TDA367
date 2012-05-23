@@ -16,7 +16,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.TextField;
 
 import com.github.joakimpersson.tda367.gui.guiutils.GUIUtils;
-import com.github.joakimpersson.tda367.gui.guiutils.ImageLoader;
 
 /**
  * Sets up the players settings such as name and actionbutton
@@ -37,7 +36,6 @@ public class SetupGameView implements INavigateableView {
 	private Font smlFont = null;
 	private TextField field;
 	private List<String> names = null;
-	private ImageLoader imgs = null;
 	private String errorString = "";
 
 	/**
@@ -65,7 +63,6 @@ public class SetupGameView implements INavigateableView {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		imgs = ImageLoader.getInstance();
 	}
 
 	@Override
@@ -122,9 +119,9 @@ public class SetupGameView implements INavigateableView {
 	 *            The graphicals context to draw the images with
 	 */
 	private void drawControllerInfo(int width, Graphics g) {
-		g.drawImage(imgs.getImage("info/keyboard"), width / 2 - 404, 300);
-		g.drawImage(imgs.getImage("info/xbox"), width / 2 + 20, 300);
-		g.drawImage(imgs.getImage("info/controls-legend"), 50, 180);
+		GUIUtils.drawImage(width / 2 - 404, 300, "info/keyboard", g);
+		GUIUtils.drawImage(width / 2 + 20, 300, "info/xbox", g);
+		GUIUtils.drawImage(50, 180, "info/controls-legend", g);
 	}
 
 	/**
