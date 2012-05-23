@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.joakimpersson.tda367.model.constants.Attribute;
-import com.github.joakimpersson.tda367.model.constants.BombermanRules;
+import com.github.joakimpersson.tda367.model.constants.PyromaniacRules;
 import com.github.joakimpersson.tda367.model.constants.GameModeType;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
@@ -74,7 +74,7 @@ public class PyromaniacModelTest {
 
 	@Test
 	public void testIsMatchOver() {
-		int maxRounds = BombermanRules.INSTANCE.getNumberOfRounds();
+		int maxRounds = PyromaniacRules.INSTANCE.getNumberOfRounds();
 		boolean test1;
 		boolean test2;
 		boolean test3;
@@ -401,7 +401,7 @@ public class PyromaniacModelTest {
 	}
 	
 	private void simulateGameOver(Player losingPlayer) {
-		int maxMatchesWon = BombermanRules.INSTANCE.getNumberOfMatches();
+		int maxMatchesWon = PyromaniacRules.INSTANCE.getNumberOfMatches();
 		for (int i = 0; i < maxMatchesWon; i++) {
 			simulateMatchOver(losingPlayer);
 			model.matchOver();
@@ -410,7 +410,7 @@ public class PyromaniacModelTest {
 	}
 	
 	private void simulateMatchOver(Player losingPlayer) {
-		int maxRounds = BombermanRules.INSTANCE.getNumberOfRounds();
+		int maxRounds = PyromaniacRules.INSTANCE.getNumberOfRounds();
 
 		for (int i = 0; i < maxRounds; i++) {
 			killPlayer(losingPlayer);
