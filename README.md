@@ -12,10 +12,10 @@ First clone the project:
 
     **Things to note**
 
-    - `Main.java` is containing the `main()` method. Run this.
+    - Main.java is containing the `main()` method. Run this.
     - Resources are located in the `res` directory.
     - Libraries used are located in the `libs` directory.
-
+    - Application generated files are located in gen directory
 
 
 Made on a Mac.
