@@ -205,36 +205,63 @@ public class SetupGameView {
 	}
 
 	/**
-	 * TODO rekoil, javadoc the rest of the methods
+	 * Method called by the controller when it is time to assign controllers.
 	 */
 	public void assignControllers() {
 		index = 1;
 		stage++;
 	}
 
+	/**
+	 * Method called by the controller when a player has been created, its
+	 * purpose is to store the name for easy access by the controller when the
+	 * controls get assigned.
+	 */
 	public void playerCreated() {
 		names.add(field.getText());
 		resetField();
 		incIndex();
 	}
 
+	/**
+	 * Resets the text field
+	 */
 	private void resetField() {
 		field.setText("");
 		field.setFocus(true);
 	}
 
+	/**
+	 * Method called by the controller to get the name from the text field.
+	 * 
+	 * @return The players name
+	 */
 	public String getName() {
 		return field.getText();
 	}
 
+	/**
+	 * Method called by the controller to get the index of the player during
+	 * player creation.
+	 * 
+	 * @return the player index
+	 */
 	public int getIndex() {
 		return index;
 	}
 
+	/**
+	 * Increases the index after player creation
+	 */
 	public void incIndex() {
 		index++;
 	}
 
+	/**
+	 * Verifies if a name is valid by it's pixel length in the smlFont font
+	 * 
+	 * @return whether the name is too long or not
+	 */
 	public boolean verifyNameValidity() {
 		String name = getName();
 		if ("".equals(name)) {
