@@ -20,6 +20,7 @@ import com.github.joakimpersson.tda367.model.constants.GameModeType;
 import com.github.joakimpersson.tda367.model.constants.Parameters;
 import com.github.joakimpersson.tda367.model.constants.PlayerAction;
 import com.github.joakimpersson.tda367.model.constants.PointGiver;
+import com.github.joakimpersson.tda367.model.constants.PyromaniacSettings;
 import com.github.joakimpersson.tda367.model.gamelogic.GameLogic;
 import com.github.joakimpersson.tda367.model.gamelogic.IGameLogic;
 import com.github.joakimpersson.tda367.model.highscore.Highscore;
@@ -34,6 +35,7 @@ import com.github.joakimpersson.tda367.model.tiles.Destroyable;
 import com.github.joakimpersson.tda367.model.tiles.Tile;
 import com.github.joakimpersson.tda367.model.tiles.WalkableTile;
 import com.github.joakimpersson.tda367.model.tiles.bombs.Bomb;
+import com.github.joakimpersson.tda367.model.tiles.bombs.NormalBomb;
 import com.github.joakimpersson.tda367.model.tiles.factory.BombFactory;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Fire;
 import com.github.joakimpersson.tda367.model.tiles.walkable.Floor;
@@ -236,14 +238,14 @@ public class PyromaniacModel implements IPyromaniacModel {
 	 * This method takes care of what happens to the the positions that the fire
 	 * strikes, including giving points and place the fire.
 	 * 
-	 * @param positions
-	 *            The list that contains the positions of where the fire is to
-	 *            be placed.
-	 * @param bombOwner
-	 *            The player that placed the bomb.
+	 * @param bomb
+	 *            The bomb that will explode.
 	 */
 	private synchronized void handleFire(Bomb bomb) {
-		Player bombOwner = bomb.getPlayer();
+		handleFire(bomb, bomb.getPlayer());
+	}
+	
+	private synchronized void handleFire(Bomb bomb, Player bombOwner) {
 		Map<Position, Direction> directedFirePositions = bomb.explode(map
 				.getMap());
 		List<Position> list = new ArrayList<Position>(
@@ -352,6 +354,7 @@ public class PyromaniacModel implements IPyromaniacModel {
 	 */
 	private void setFire(Player fireOwner, Map<Position, Direction> directedFire) {
 		Map<Position, Tile> waitingTiles = new HashMap<Position, Tile>();
+		List<Bomb> waitingBombs = new ArrayList<Bomb>();
 
 		Set<Map.Entry<Position, Direction>> entries = directedFire.entrySet();
 		Iterator<Map.Entry<Position, Direction>> iter = entries.iterator();
@@ -363,7 +366,11 @@ public class PyromaniacModel implements IPyromaniacModel {
 
 			Tile currentTile = map.getTile(pos);
 			if (currentTile instanceof Destroyable) {
-
+				if(currentTile instanceof NormalBomb && 
+						PyromaniacSettings.INSTANCE.chainBombs()) {
+					waitingBombs.add((Bomb)currentTile);
+					direction = Direction.NONE;
+				}
 				Destroyable destroyableTile = (Destroyable) currentTile;
 				Tile newTile = destroyableTile.onFire();
 				waitingTiles.put(pos, newTile);
@@ -375,6 +382,11 @@ public class PyromaniacModel implements IPyromaniacModel {
 		Timer timer = new Timer();
 		int fireDuration = Parameters.INSTANCE.getFireDuration();
 		timer.schedule(new FireTimerTask(), fireDuration);
+		if(!waitingBombs.isEmpty()) {
+			for(Bomb bomb : waitingBombs) {
+				handleFire(bomb, fireOwner);
+			}
+		}
 	}
 
 	/**

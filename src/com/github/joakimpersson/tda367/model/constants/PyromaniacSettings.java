@@ -27,4 +27,13 @@ public enum PyromaniacSettings {
 	public int getNumberOfRounds() {
 		return 3;
 	}
+	
+	/**
+	 * If bombs on fire will explode or not.
+	 * 
+	 * @return
+	 */
+	public boolean chainBombs() {
+		return true;
+	}
 }
